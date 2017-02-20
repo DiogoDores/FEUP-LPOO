@@ -22,13 +22,13 @@ public class dungeonEscape {
 				{'X','X','X','X','X','X','X','X','X','X'}};
 
 		char[][] ogreMap = {{'X','X','X','X','X','X','X','X','X'},
-				{'I',' ',' ',' ','0',' ',' ','k','X'},
+				{'I',' ',' ',' ',' ',' ','0','k','X'},
 				{'X',' ',' ',' ',' ',' ',' ',' ','X'},
 				{'X',' ',' ',' ',' ',' ',' ',' ','X'},
 				{'X',' ',' ',' ',' ',' ',' ',' ','X'},
 				{'X',' ',' ',' ',' ',' ',' ',' ','X'},
 				{'X',' ',' ',' ',' ',' ',' ',' ','X'},
-				{'X','H',' ',' ',' ',' ',' ',' ','X'},
+				{'X',' ',' ',' ','H',' ',' ',' ','X'},
 				{'X','X','X','X','X','X','X','X','X'}};
 
 		//boolean finish = levelOne(a);
@@ -62,7 +62,7 @@ public class dungeonEscape {
 
 			if (a[5][0] == 'H' || a[6][0] == 'H')
 				won = true;
-			if (checkPresence(a)) {
+			if (checkPresence(a)) {  
 				lost = true;
 				won = false;
 			}
@@ -79,7 +79,7 @@ public class dungeonEscape {
 		do {
 			ogreMap = move(ogreMap, scan.next().charAt(0));
 
-			if (ogreMap[1][0] == 'K')
+			if (ogreMap[1][0] == 'H')   // ESTAVA AQUI O PROBLEMA. Nunca havia nenhuma circunstância em que o K estava naquela posição.
 				won = true;
 			if (checkPresence(ogreMap)) {
 				lost = true;
@@ -91,7 +91,7 @@ public class dungeonEscape {
 	}
 
 	public static boolean checkPresence(char[][] a) {
-		int row = 0, col = 0, rowg = 0,colg = 0;
+		int row = -1, col = -1, rowg = 0,colg = 0;
 		for (int i = 0 ; i < a.length; i++) {
 			for (int j = 0; j < a[i].length; j++) {
 				if (a[i][j] == 'H' || a[i][j] == 'K') {
@@ -103,7 +103,10 @@ public class dungeonEscape {
 				}
 			}
 		}
-
+		if (row == -1 && col == -1) {    // Adicionei aqui esta verificação para quando o H é comido pelo 0 e nem sequer está no array.
+			return true;
+			
+		}
 		if (colg == col && (rowg == row-1 || rowg == row+1 ))
 			return true;
 		if (rowg == row && (colg == col-1 || colg == col+1 ))
@@ -176,11 +179,11 @@ public class dungeonEscape {
 		}
 
 		if (result == 'E') {
-
 			if(isLevelTwo){
 				if(c == 'w'){
 					a[row][col] = ' ';
-					a[row-1][col] = 'K';
+					a[row-1][col] = 'H';
+					System.out.println("\n\nYou got the Key! Make your escape!\n\n"); // Adicionei isto e troquei o K porque nao atualizava corretamente.
 				} else if(c == 'd'){
 					a[row][col] = ' ';
 					a[row][col+1] = 'K';
@@ -228,16 +231,16 @@ public class dungeonEscape {
 
 		System.out.println("Ogre: " + c);
 
-		if (c == 'w'){
+		if (c == 'w' ){
 			result = next(a[row-1][col]);
 			System.out.println(result);
-		} else if (c == 'a'){
+		} else if (c == 'a' ){
 			result = next(a[row][col-1]);
 			System.out.println(result);
 		} else if (c == 's') {
 			result = next(a[row+1][col]);
 			System.out.println(result);
-		} else if (c == 'd'){
+		} else if (c == 'd' ){
 			result = next(a[row][col+1]);
 			System.out.println(result);
 		} else {
@@ -245,24 +248,22 @@ public class dungeonEscape {
 		}
 
 		if (result == 'H') {
-			if (c == 'w') {
+			if (c == 'w' && a[row-1][col] != 'X' && a[row-1][col] != 'S' && a[row-1][col] != 'I') {
 				a[row][col] = ' ';
 				a[row-1][col] = '0';
 			}
 
-			else if (c == 'a') {
+			else if (c == 'a' && a[row][col-1] != 'X' && a[row][col-1] != 'S' && a[row][col-1] != 'I') { 
+				
+				// ELIMINEI O RESTORE KEY, porque como isto acontece antes do movimento do ogre, se o ogre se puser em cima, vai ser 
+				// colocado outra vez o 'k', mas o ogre sobrepõe-se logo a isso, por isso, simplesmente impedi-o de se pôr na chave.
 
-				if(restoreKey){
-					a[1][7] = 'k';
-					restoreKey = false;
-				} else {
-					a[row][col] = ' ';
-				}
+				a[row][col] = ' ';
 				a[row][col-1] = '0';
 			}
 
 
-			else if (c == 's') {
+			else if (c == 's'  && a[row+1][col] != 'X' && a[row+1][col] != 'S' && a[row+1][col] != 'I') {
 
 				if(restoreKey){
 					a[1][7] = 'k';
@@ -272,22 +273,16 @@ public class dungeonEscape {
 				}
 				a[row+1][col] = '0';
 			}
-			else if (c == 'd') {
+			else if (c == 'd' && a[row][col+1] != 'X' && a[row][col+1] != 'S' && a[row][col+1] != 'I') {
 				a[row][col] = ' ';
 				a[row][col+1] = '0';
 			}
 
 		}
 
-		if(result == 'E'){
-			if(c == 'w'){
-				a[row][col] = ' ';
-				a[row-1][col] = '$';
-			} else if(c == 'd'){
-				a[row][col] = ' ';
-				a[row][col+1] = '$';
-			}
-			restoreKey = true;
+		else if(result == 'E'){
+			a[row][col] = ' ';
+			a[row+1][col] = '0';
 		}
 
 		return a;
