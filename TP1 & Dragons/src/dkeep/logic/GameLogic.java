@@ -1,15 +1,42 @@
 package dkeep.logic;
-import dkeep.cli;
+import dkeep.cli.UserInterface;
+
 
 import java.util.Random;
 import java.util.Scanner;
 
 public class GameLogic {
-	public static boolean levelOne(char[][] a) {
+	
+	char[][] a = {{'X','X','X','X','X','X','X','X','X','X'},
+			{'X','H',' ',' ','I',' ','X',' ','G','X'},
+			{'X','X','X',' ','X','X','X',' ',' ','X'},
+			{'X',' ','I',' ','I',' ','X',' ',' ','X'},
+			{'X','X','X',' ','X','X','X',' ',' ','X'},
+			{'I',' ',' ',' ',' ',' ',' ',' ',' ','X'},
+			{'I',' ',' ',' ',' ',' ',' ',' ',' ','X'},
+			{'X','X','X',' ','X','X','X','X',' ','X'},
+			{'X',' ','I',' ','I',' ','X','k',' ','X'},
+			{'X','X','X','X','X','X','X','X','X','X'}};
+
+	char[][] ogreMap = {{'X','X','X','X','X','X','X','X','X'},
+			{'I',' ',' ',' ','0',' ',' ','k','X'},
+			{'X',' ',' ',' ',' ',' ',' ',' ','X'},
+			{'X',' ',' ',' ',' ',' ',' ',' ','X'},
+			{'X',' ',' ',' ',' ',' ',' ',' ','X'},
+			{'X',' ',' ',' ',' ',' ',' ',' ','X'},
+			{'X',' ',' ',' ',' ',' ',' ',' ','X'},
+			{'X','H',' ',' ',' ',' ',' ',' ','X'},
+			{'X','X','X','X','X','X','X','X','X'}};
+	
+	
+	
+	public static boolean isLevelTwo = false;
+
+	public boolean levelOne(char[][] a) {
 		boolean won = false, lost = false;
 		Scanner scan = new Scanner(System.in);
 
-		showMap(a);
+		UserInterface.showMap(a);
 		do {
 			a = move(a, scan.next().charAt(0));
 
@@ -24,11 +51,11 @@ public class GameLogic {
 		return won;
 	}
 	
-	public static boolean levelTwo(char[][] ogreMap) {
+	public boolean levelTwo(char[][] ogreMap) {
 		boolean won = false, lost = false;
 		Scanner scan = new Scanner(System.in);
 
-		showMap(ogreMap);
+		UserInterface.showMap(ogreMap);
 		do {
 			ogreMap = move(ogreMap, scan.next().charAt(0));
 
@@ -45,7 +72,7 @@ public class GameLogic {
 	
 	
 
-	public static boolean checkPresence(char[][] a) {
+	public boolean checkPresence(char[][] a) {
 		int row = -1, col = -1, rowg = 0,colg = 0;
 		for (int i = 0 ; i < a.length; i++) {
 			for (int j = 0; j < a[i].length; j++) {
@@ -71,7 +98,7 @@ public class GameLogic {
 	
 
 
-	public static char[][] move(char[][] a, char c) {
+	public char[][] move(char[][] a, char c) {
 		char s;
 		boolean won = false;
 		int row = 0, col = 0;
@@ -162,13 +189,14 @@ public class GameLogic {
 		} else {
 			a = moveGuard(a);
 		}
-		showMap(a);
+		UserInterface.showMap(a);
+
 		return a;
 
 	}
 	
 
-	public static char [][] moveGuard(char[][] a) {
+	public char [][] moveGuard(char[][] a) {
 		int rowg = 0, colg = 0;
 		for (int i = 0 ; i < a.length; i++) {
 			for (int j = 0; j < a[i].length; j++) {
@@ -210,7 +238,7 @@ public class GameLogic {
 	}
 	
 
-	public static char next(char c) {
+	public char next(char c) {
 		if (c == 'X')
 			return 'X';
 		else if (c == 'k')
@@ -227,7 +255,7 @@ public class GameLogic {
 	
 
 
-	public static char[][] moveOgre(char[][] a) {
+	public  char[][] moveOgre(char[][] a) {
 
 		String s = "wasd";
 		boolean restoreKey = false;

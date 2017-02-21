@@ -3,7 +3,6 @@ import java.util.Scanner;
 
 public class dungeonEscape {
 
-	public static boolean isLevelTwo = false;
 
 	public static void main(String[] args ){
 		boolean won = false, lost = false;
@@ -51,10 +50,6 @@ public class dungeonEscape {
 		}
 
 	}
-
-	
-
-	
 
 
 
