@@ -14,7 +14,7 @@ public class GameLogic {
 
 	public static boolean levelOne(char[][] a) {
 		
-		Hero hero = new Hero(1,1);
+		Hero hero = new Hero(1,1);     
 		boolean won = false, lost = false;
 		Scanner scan = new Scanner(System.in);
 
