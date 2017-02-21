@@ -22,13 +22,13 @@ public class dungeonEscape {
 				{'X','X','X','X','X','X','X','X','X','X'}};
 
 		char[][] ogreMap = {{'X','X','X','X','X','X','X','X','X'},
-				{'I',' ',' ',' ',' ',' ','0','k','X'},
+				{'I',' ',' ',' ','0',' ',' ','k','X'},
 				{'X',' ',' ',' ',' ',' ',' ',' ','X'},
 				{'X',' ',' ',' ',' ',' ',' ',' ','X'},
 				{'X',' ',' ',' ',' ',' ',' ',' ','X'},
 				{'X',' ',' ',' ',' ',' ',' ',' ','X'},
 				{'X',' ',' ',' ',' ',' ',' ',' ','X'},
-				{'X',' ',' ',' ','H',' ',' ',' ','X'},
+				{'X','H',' ',' ',' ',' ',' ',' ','X'},
 				{'X','X','X','X','X','X','X','X','X'}};
 
 		//boolean finish = levelOne(a);
@@ -52,24 +52,7 @@ public class dungeonEscape {
 
 	}
 
-	public static boolean levelOne(char[][] a) {
-		boolean won = false, lost = false;
-		Scanner scan = new Scanner(System.in);
-
-		showMap(a);
-		do {
-			a = move(a, scan.next().charAt(0));
-
-			if (a[5][0] == 'H' || a[6][0] == 'H')
-				won = true;
-			if (checkPresence(a)) {  
-				lost = true;
-				won = false;
-			}
-
-		} while (!won && !lost);
-		return won;
-	}
+	
 
 	public static boolean levelTwo(char[][] ogreMap) {
 		boolean won = false, lost = false;
