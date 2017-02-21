@@ -1,5 +1,6 @@
 package dkeep.cli;
 import  dkeep.logic.GameLogic;
+
 public class UserInterface {
 	public static boolean finish = false;
 	public static boolean isLevelTwo = false;
@@ -10,7 +11,6 @@ public class UserInterface {
 		while (!finish) {
 			if (!isLevelTwo) {
 				UserInterface.showMap(Maps.ogreMap);
-				Game 
 			} else
 				UserInterface.showMap(Maps.a);
 		}
