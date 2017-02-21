@@ -9,26 +9,7 @@ public class dungeonEscape {
 		System.out.println("Welcome to Dungeon Escape!\nTo make your hero move, use the WASD keys.\n\nGood luck!\n");
 		Scanner scan = new Scanner(System.in);
 
-		char[][] a = {{'X','X','X','X','X','X','X','X','X','X'},
-				{'X','H',' ',' ','I',' ','X',' ','G','X'},
-				{'X','X','X',' ','X','X','X',' ',' ','X'},
-				{'X',' ','I',' ','I',' ','X',' ',' ','X'},
-				{'X','X','X',' ','X','X','X',' ',' ','X'},
-				{'I',' ',' ',' ',' ',' ',' ',' ',' ','X'},
-				{'I',' ',' ',' ',' ',' ',' ',' ',' ','X'},
-				{'X','X','X',' ','X','X','X','X',' ','X'},
-				{'X',' ','I',' ','I',' ','X','k',' ','X'},
-				{'X','X','X','X','X','X','X','X','X','X'}};
-
-		char[][] ogreMap = {{'X','X','X','X','X','X','X','X','X'},
-				{'I',' ',' ',' ','0',' ',' ','k','X'},
-				{'X',' ',' ',' ',' ',' ',' ',' ','X'},
-				{'X',' ',' ',' ',' ',' ',' ',' ','X'},
-				{'X',' ',' ',' ',' ',' ',' ',' ','X'},
-				{'X',' ',' ',' ',' ',' ',' ',' ','X'},
-				{'X',' ',' ',' ',' ',' ',' ',' ','X'},
-				{'X','H',' ',' ',' ',' ',' ',' ','X'},
-				{'X','X','X','X','X','X','X','X','X'}};
+		
 
 		//boolean finish = levelOne(a);
 		boolean finish = true;
