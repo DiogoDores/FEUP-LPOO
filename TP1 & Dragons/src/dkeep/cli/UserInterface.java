@@ -2,20 +2,24 @@ package dkeep.cli;
 import dkeep.logic.*;
 
 public class UserInterface {
-	
+
 	public static boolean finish = false;
 	public static boolean isLevelTwo = false;
 	public static boolean won = false;
 	
 	public static void main(String[] args) {
+		
 		System.out.println("Welcome to Dungeon Escape!\nTo make your hero move, use the WASD keys.\n\nGood luck!\n");
+		
+		Maps map = new Maps();
+		
 		while (!finish) {
 			if (!isLevelTwo) {
-				GameLogic.levelOne(Maps.a);
+				GameLogic.levelOne(map.getLevelOneMap());
 			} 
 
 			else {
-				finish = GameLogic.levelTwo(Maps.ogreMap);
+				finish = GameLogic.levelTwo(map.getLevelTwoMap());
 			}
 		}
 		if (won) {

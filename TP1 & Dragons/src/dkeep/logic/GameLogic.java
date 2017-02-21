@@ -1,23 +1,26 @@
 package dkeep.logic;
 import dkeep.cli.*;
 
-
 import java.util.Random;
 import java.util.Scanner;
 
 public class GameLogic {
 	
-	static char[][] a = Maps.a;
-	static char[][] ogreMap = Maps.ogreMap;
-	static boolean isLevelTwo = UserInterface.isLevelTwo;
+	Maps map = new Maps();
 	
+	char[][] a = map.getLevelOneMap();
+	char[][] ogreMap = map.getLevelTwoMap();
+	static boolean isLevelTwo = UserInterface.isLevelTwo;
 
 	public static boolean levelOne(char[][] a) {
+		
+		Hero hero = new Hero(1,1);
 		boolean won = false, lost = false;
 		Scanner scan = new Scanner(System.in);
 
 		UserInterface.showMap(a);
 		do {
+			
 			a = move(a, scan.next().charAt(0));
 
 			if (a[5][0] == 'H' || a[6][0] == 'H')
@@ -69,12 +72,12 @@ public class GameLogic {
 				}
 			}
 		}
-		/*if (row == -1 && col == -1) { // Adicionei aqui esta verificação para
+		if (row == -1 && col == -1) { // Adicionei aqui esta verificação para
 										// quando o H é comido pelo 0 e nem
 										// sequer está no array.
 			return true;
 
-		}*/
+		}
 		if (colg == col && (rowg == row - 1 || rowg == row + 1))
 			return true;
 		if (rowg == row && (colg == col - 1 || colg == col + 1))
