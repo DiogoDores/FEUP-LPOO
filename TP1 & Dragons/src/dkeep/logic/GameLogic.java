@@ -1,17 +1,18 @@
 package dkeep.logic;
 import dkeep.cli.*;
 
+
 import java.util.Random;
 import java.util.Scanner;
 
 public class GameLogic {
 	
-	char[][] a = Maps.a;
-	char[][] ogreMap = Maps.ogreMap;
-	boolean isLevelTwo = UserInterface.isLevelTwo;
+	static char[][] a = Maps.a;
+	static char[][] ogreMap = Maps.ogreMap;
+	static boolean isLevelTwo = UserInterface.isLevelTwo;
 	
 
-	public boolean levelOne(char[][] a) {
+	public static boolean levelOne(char[][] a) {
 		boolean won = false, lost = false;
 		Scanner scan = new Scanner(System.in);
 
@@ -27,10 +28,13 @@ public class GameLogic {
 			}
 
 		} while (!won && !lost);
+		if (won) {
+			UserInterface.isLevelTwo = true;
+		}
 		return won;
 	}
 
-	public boolean levelTwo(char[][] ogreMap) {
+	public static boolean levelTwo(char[][] ogreMap) {
 		boolean won = false, lost = false;
 		Scanner scan = new Scanner(System.in);
 
@@ -51,7 +55,7 @@ public class GameLogic {
 		return won;
 	}
 
-	public boolean checkPresence(char[][] a) {
+	public static boolean checkPresence(char[][] a) {
 		int row = -1, col = -1, rowg = 0, colg = 0;
 		for (int i = 0; i < a.length; i++) {
 			for (int j = 0; j < a[i].length; j++) {
@@ -65,12 +69,12 @@ public class GameLogic {
 				}
 			}
 		}
-		if (row == -1 && col == -1) { // Adicionei aqui esta verificação para
+		/*if (row == -1 && col == -1) { // Adicionei aqui esta verificação para
 										// quando o H é comido pelo 0 e nem
 										// sequer está no array.
 			return true;
 
-		}
+		}*/
 		if (colg == col && (rowg == row - 1 || rowg == row + 1))
 			return true;
 		if (rowg == row && (colg == col - 1 || colg == col + 1))
@@ -78,7 +82,7 @@ public class GameLogic {
 		return false;
 	}
 
-	public char[][] move(char[][] a, char c) {
+	public static char[][] move(char[][] a, char c) {
 		char s;
 		boolean won = false;
 		int row = 0, col = 0;
@@ -180,7 +184,7 @@ public class GameLogic {
 
 	}
 
-	public char[][] moveGuard(char[][] a) {
+	public static char[][] moveGuard(char[][] a) {
 		int rowg = 0, colg = 0;
 		for (int i = 0; i < a.length; i++) {
 			for (int j = 0; j < a[i].length; j++) {
@@ -215,7 +219,7 @@ public class GameLogic {
 
 	}
 
-	public char next(char c) {
+	public static char next(char c) {
 		if (c == 'X')
 			return 'X';
 		else if (c == 'k')
@@ -230,7 +234,7 @@ public class GameLogic {
 		return c;
 	}
 
-	public char[][] moveOgre(char[][] a) {
+	public static char[][] moveOgre(char[][] a) {
 
 		String s = "wasd";
 		boolean restoreKey = false;
