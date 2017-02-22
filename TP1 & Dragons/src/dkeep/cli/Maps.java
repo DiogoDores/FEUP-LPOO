@@ -6,7 +6,8 @@ public class Maps {
 	int row = 10;
 	private static final char WALL = 'X';
 	private static final char HERO = 'H';
-	private static final char GUARD = 'G';
+	private static final char DRUNKEN_GUARD = 'D';
+	private static final char ROOKIE_GUARD = 'R';
 	private static final char OGRE = '0';
 	private static final char KEY = 'k';
 	private static final char DOOR = 'I';
@@ -25,7 +26,7 @@ public class Maps {
 		
 	 static char[][] levelOneMap = { 
 			{ WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL },
-			{ WALL, HERO, EMPTY, EMPTY, DOOR, EMPTY, WALL, EMPTY, GUARD, WALL },
+			{ WALL, HERO, EMPTY, EMPTY, DOOR, EMPTY, WALL, EMPTY, EMPTY, WALL },
 			{ WALL, WALL, WALL, EMPTY , WALL, WALL, WALL, EMPTY , EMPTY , WALL },
 			{ WALL,EMPTY, DOOR,EMPTY, DOOR,EMPTY, WALL,EMPTY,EMPTY, WALL },
 			{ WALL, WALL, WALL, EMPTY, WALL, WALL, WALL, EMPTY, EMPTY, WALL },

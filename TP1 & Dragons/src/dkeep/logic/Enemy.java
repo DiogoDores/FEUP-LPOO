@@ -35,6 +35,7 @@ public class Enemy {
 				}
 			}
 		}
+		System.out.println(z + " ROW " + row + " COL " + col);
 		if (z == 'G') {
 			int rowg = 0, colg = 0;
 			
@@ -196,7 +197,7 @@ public class Enemy {
 	}
 	
 	public static char[][] placeEnemy(char[][] a, char c) {
-		a[8][1] = c;
+		a[1][8] = c;
 		return a;
 	}
 
