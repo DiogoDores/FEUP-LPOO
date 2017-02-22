@@ -4,14 +4,14 @@ public class Maps {
 	
 	int column = 10;
 	int row = 10;
-	private final char WALL = 'X';
-	private final char HERO = 'H';
-	private final char GUARD = 'G';
-	private final char OGRE = '0';
-	private final char KEY = 'k';
-	private final char DOOR = 'I';
-	private final char STAIRS = 'S';
-	private final char EMPTY = ' ';
+	private static final char WALL = 'X';
+	private static final char HERO = 'H';
+	private static final char GUARD = 'G';
+	private static final char OGRE = '0';
+	private static final char KEY = 'k';
+	private static final char DOOR = 'I';
+	private static final char STAIRS = 'S';
+	private static final char EMPTY = ' ';
 	
 	public static char[][] activateLever(char[][] a) {
 		for (int i = 0; i < a.length; i++) {
@@ -23,7 +23,7 @@ public class Maps {
 		return a;
 	}
 		
-	char[][] levelOneMap = { 
+	 static char[][] levelOneMap = { 
 			{ WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL },
 			{ WALL, HERO, EMPTY, EMPTY, DOOR, EMPTY, WALL, EMPTY, GUARD, WALL },
 			{ WALL, WALL, WALL, EMPTY , WALL, WALL, WALL, EMPTY , EMPTY , WALL },
@@ -35,7 +35,7 @@ public class Maps {
 			{ WALL, EMPTY , 'I', EMPTY , 'I', EMPTY , WALL, KEY, EMPTY , WALL },
 			{ WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL } };
 
-	char[][] levelTwoMap = { 
+	 static char[][] levelTwoMap = { 
 			{ WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL },
 			{ DOOR,EMPTY,EMPTY,EMPTY, OGRE,EMPTY,EMPTY, KEY, WALL },
 			{ WALL,EMPTY,EMPTY,EMPTY,EMPTY,EMPTY,EMPTY,EMPTY, WALL },
@@ -46,11 +46,11 @@ public class Maps {
 			{ WALL, HERO ,EMPTY,EMPTY,EMPTY,EMPTY,EMPTY,EMPTY, WALL },
 			{ WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL } };
 	
-	public char[][] getLevelOneMap(){
+	public static char[][] getLevelOneMap(){
 		return levelOneMap;
 	}
 	
-	public char[][] getLevelTwoMap(){
+	public static char[][] getLevelTwoMap(){
 		return levelTwoMap;
 	}
 

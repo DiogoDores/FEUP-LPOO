@@ -11,15 +11,14 @@ public class UserInterface {
 		
 		System.out.println("Welcome to Dungeon Escape!\nTo make your hero move, use the WASD keys.\n\nGood luck!\n");
 		
-		Maps map = new Maps();
 		
 		while (!finish) {
 			if (!isLevelTwo) {
-				GameLogic.levelOne(map.getLevelOneMap());
+				GameLogic.levelOne(Maps.getLevelOneMap());
 			} 
 
 			else {
-				finish = GameLogic.levelTwo(map.getLevelTwoMap());
+				finish = GameLogic.levelTwo(Maps.getLevelTwoMap());
 			}
 		}
 		if (won) {
