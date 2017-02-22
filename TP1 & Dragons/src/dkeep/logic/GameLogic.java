@@ -5,22 +5,22 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class GameLogic {
-	
+
 	Maps map = new Maps();
-	
+
 	char[][] a = map.getLevelOneMap();
 	char[][] ogreMap = map.getLevelTwoMap();
 	static boolean isLevelTwo = UserInterface.isLevelTwo;
 
 	public static boolean levelOne(char[][] a) {
-		
+
 		Hero hero = new Hero(1,1);     
 		boolean won = false, lost = false;
 		Scanner scan = new Scanner(System.in);
 
 		UserInterface.showMap(a);
 		do {
-			
+
 			a = move(a, scan.next().charAt(0));
 
 			if (a[5][0] == 'H' || a[6][0] == 'H')
@@ -46,8 +46,8 @@ public class GameLogic {
 			ogreMap = move(ogreMap, scan.next().charAt(0));
 
 			if (ogreMap[1][0] == 'H') // ESTAVA AQUI O PROBLEMA. Nunca havia
-										// nenhuma circunstância em que o K
-										// estava naquela posição.
+				// nenhuma circunstância em que o K
+				// estava naquela posição.
 				won = true;
 			if (checkPresence(ogreMap)) {
 				lost = true;
@@ -73,8 +73,8 @@ public class GameLogic {
 			}
 		}
 		if (row == -1 && col == -1) { // Adicionei aqui esta verificação para
-										// quando o H é comido pelo 0 e nem
-										// sequer está no array.
+			// quando o H é comido pelo 0 e nem
+			// sequer está no array.
 			return true;
 
 		}
@@ -100,17 +100,26 @@ public class GameLogic {
 			}
 		}
 		char result;
-		if (c == 'w')
+		if (c == 'w') {
 			result = next(a[row - 1][col]);
-		else if (c == 'a')
+			System.out.println(a[row-1][col]);
+		}
+		else if (c == 'a'){
 			result = next(a[row][col - 1]);
-		else if (c == 's')
+			System.out.println(a[row][col - 1]);
+		}
+		else if (c == 's') {
 			result = next(a[row + 1][col]);
-		else if (c == 'd')
+			System.out.println(a[row+1][col]);
+		}
+		else if (c == 'd') {
 			result = next(a[row][col + 1]);
+			System.out.println(a[row][col + 1]);
+
+		}
 		else
 			result = 'N';
-
+		System.out.println(result);
 		if (result == 'H') {
 			if (c == 'w') {
 				a[row][col] = ' ';
@@ -132,7 +141,7 @@ public class GameLogic {
 
 		}
 
-		if (result == 'S') {
+		else if (result == 'S') {
 			if (c == 'a' && col > 1) {
 				a[row][col] = ' ';
 				a[row][col - 2] = 'H';
@@ -146,26 +155,21 @@ public class GameLogic {
 
 		}
 
-		if (result == 'E') {
+		else if (result == 'E') {
+
 			if (isLevelTwo) {
 				if (c == 'w') {
 					a[row][col] = ' ';
 					a[row - 1][col] = 'H';
-					System.out.println("\n\nYou got the Key! Make your escape!\n\n"); // Adicionei
-																						// isto
-																						// e
-																						// troquei
-																						// o
-																						// K
-																						// porque
-																						// nao
-																						// atualizava
-																						// corretamente.
+					
 				} else if (c == 'd') {
 					a[row][col] = ' ';
 					a[row][col + 1] = 'K';
 				}
-
+				
+			}
+			else {
+				a = Maps.activateLever(a);
 			}
 
 			for (int i = 0; i < a.length; i++) {
@@ -225,8 +229,9 @@ public class GameLogic {
 	public static char next(char c) {
 		if (c == 'X')
 			return 'X';
-		else if (c == 'k')
+		else if (c == 'k') {
 			return 'E';
+		}
 		else if (c == ' ')
 			return 'H';
 		else if (c == 'I')

@@ -27,7 +27,7 @@ public class UserInterface {
 		}
 		return ;
 	}
-	
+	 
 	public static void showMap(char[][] a) {
 		for (int i = 0; i < a.length; i++) {
 			System.out.println(a[i]);

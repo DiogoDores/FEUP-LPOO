@@ -8,12 +8,21 @@ public class Maps {
 	private final char HERO = 'H';
 	private final char GUARD = 'G';
 	private final char OGRE = '0';
-	private final char LEVER = 'K';
 	private final char KEY = 'k';
 	private final char DOOR = 'I';
 	private final char STAIRS = 'S';
 	private final char EMPTY = ' ';
-
+	
+	public static char[][] activateLever(char[][] a) {
+		for (int i = 0; i < a.length; i++) {
+			for (int j = 0; j < a[i].length; j++) {
+				if (a[i][j] == 'I')
+					a[i][j] = 'S';
+			}
+		}
+		return a;
+	}
+		
 	char[][] levelOneMap = { 
 			{ WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL },
 			{ WALL, HERO, EMPTY, EMPTY, DOOR, EMPTY, WALL, EMPTY, GUARD, WALL },
@@ -23,7 +32,7 @@ public class Maps {
 			{ DOOR, EMPTY , EMPTY , EMPTY , EMPTY , EMPTY , EMPTY , EMPTY , EMPTY , WALL },
 			{ DOOR, EMPTY , EMPTY , EMPTY , EMPTY , EMPTY , EMPTY , EMPTY , EMPTY , WALL },
 			{ WALL, WALL, WALL,EMPTY, WALL, WALL, WALL, WALL, EMPTY , WALL },
-			{ WALL, EMPTY , 'I', EMPTY , 'I', EMPTY , WALL, LEVER, EMPTY , WALL },
+			{ WALL, EMPTY , 'I', EMPTY , 'I', EMPTY , WALL, KEY, EMPTY , WALL },
 			{ WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL } };
 
 	char[][] levelTwoMap = { 
