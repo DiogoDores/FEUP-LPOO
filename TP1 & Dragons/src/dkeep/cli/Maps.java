@@ -2,13 +2,10 @@ package dkeep.cli;
 
 public class Maps {
 	
-	int column = 10;
+	int column = 10;	
 	int row = 10;
 	private static final char WALL = 'X';
 	private static final char HERO = 'H';
-	private static final char DRUNKEN_GUARD = 'D';
-	private static final char ROOKIE_GUARD = 'R';
-	private static final char OGRE = '0';
 	private static final char KEY = 'k';
 	private static final char DOOR = 'I';
 	private static final char STAIRS = 'S';
@@ -38,7 +35,7 @@ public class Maps {
 
 	 static char[][] levelTwoMap = { 
 			{ WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL },
-			{ DOOR,EMPTY,EMPTY,EMPTY, OGRE,EMPTY,EMPTY, KEY, WALL },
+			{ DOOR,EMPTY,EMPTY,EMPTY, EMPTY,EMPTY,EMPTY, KEY, WALL },
 			{ WALL,EMPTY,EMPTY,EMPTY,EMPTY,EMPTY,EMPTY,EMPTY, WALL },
 			{ WALL,EMPTY,EMPTY,EMPTY,EMPTY,EMPTY,EMPTY,EMPTY, WALL },
 			{ WALL,EMPTY,EMPTY,EMPTY,EMPTY,EMPTY,EMPTY,EMPTY, WALL },

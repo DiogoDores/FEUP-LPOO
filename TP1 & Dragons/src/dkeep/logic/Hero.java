@@ -23,24 +23,18 @@ public class Hero {
 		char result;
 		if (c == 'w') {
 			result = GameLogic.next(a[row - 1][col]);
-			System.out.println(a[row-1][col]);
-		}
+			}
 		else if (c == 'a'){
 			result = GameLogic.next(a[row][col - 1]);
-			System.out.println(a[row][col - 1]);
-		}
+			}
 		else if (c == 's') {
 			result = GameLogic.next(a[row + 1][col]);
-			System.out.println(a[row+1][col]);
-		}
+			}
 		else if (c == 'd') {
 			result = GameLogic.next(a[row][col + 1]);
-			System.out.println(a[row][col + 1]);
-
 		}
 		else
 			result = 'N';
-		System.out.println(result);
 		if (result == 'H') {
 			if (c == 'w') {
 				a[row][col] = ' ';
@@ -115,7 +109,7 @@ public class Hero {
 	}
 	
 	public int getX(){
-		return x;
+		return x;	
 	}
 	
 	public int getY(){

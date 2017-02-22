@@ -13,7 +13,7 @@ public class GameLogic {
 	static char[][] ogreMap = Maps.getLevelTwoMap();
 	static boolean isLevelTwo = UserInterface.isLevelTwo;
 
-	public static boolean levelOne(char[][] a) {
+	public static boolean levelOne() {
 
 		Hero hero = new Hero(1,1);     
 		boolean won = false, lost = false;
@@ -23,22 +23,21 @@ public class GameLogic {
 		Random rand = new Random();
 		int index = rand.nextInt(s.length());
 		char ch = s.charAt(index);
-		
-		a = Enemy.placeEnemy(a, 'D');
-	
+
+		a = Enemy.placeEnemy(a, ch);
+
 		UserInterface.showMap(a);
 		do {
 
 			a = Hero.move(a, scan.next().charAt(0));
 			if (isLevelTwo) {
-				ogreMap = Enemy.moveOgre(ogreMap);
-				UserInterface.showMap(ogreMap);
-			}
-			else {
-				a = Enemy.moveGuard(a,'D');
+				a = Enemy.moveOgre(a);
 				UserInterface.showMap(a);
 			}
-
+			else {
+				a = Enemy.moveGuard(a,ch);
+				UserInterface.showMap(a);
+			}
 
 			if (a[5][0] == 'H' || a[6][0] == 'H')
 				won = true;
@@ -48,20 +47,22 @@ public class GameLogic {
 			}
 
 		} while (!won && !lost);
-		if (won) {
-			UserInterface.isLevelTwo = true;
-		}
-		return won;
+		
+		if (won)
+			return true;	
+		else 
+			return false;
 	}
 
-	public static boolean levelTwo(char[][] ogreMap) {
+	public static boolean levelTwo() {
 		boolean won = false, lost = false;
 		Scanner scan = new Scanner(System.in);
-
-		UserInterface.showMap(ogreMap);
+		ogreMap = Enemy.placeEnemy(ogreMap, '0');
+		
 		do {
+			UserInterface.showMap(ogreMap);
 			ogreMap = Hero.move(ogreMap, scan.next().charAt(0));
-
+			ogreMap = Enemy.moveOgre(ogreMap);
 			if (ogreMap[1][0] == 'H') // ESTAVA AQUI O PROBLEMA. Nunca havia
 				// nenhuma circunstância em que o K
 				// estava naquela posição.
@@ -72,18 +73,24 @@ public class GameLogic {
 			}
 
 		} while (!won && !lost);
-		return won;
+		if (won)
+			return true;
+		else return false;
 	}
 
-	public static boolean checkPresence(char[][] a) {
+	public static boolean checkPresence(char map[][]) {
+		if (isLevelTwo)
+			map = ogreMap;
+		else 
+			map = a;
 		int row = -1, col = -1, rowg = 0, colg = 0;
-		for (int i = 0; i < a.length; i++) {
-			for (int j = 0; j < a[i].length; j++) {
-				if (a[i][j] == 'H' || a[i][j] == 'K') {
+		for (int i = 0; i < map.length; i++) {
+			for (int j = 0; j < map[i].length; j++) {
+				if (map[i][j] == 'H' || map[i][j] == 'K') {
 					row = i;
 					col = j;
 				}
-				if (a[i][j] == 'G' || a[i][j] == '0') {
+				if (map[i][j] == 'G' || map[i][j] == '0' || map[i][j] == 'D') {
 					rowg = i;
 					colg = j;
 				}
@@ -95,14 +102,18 @@ public class GameLogic {
 			return true;
 
 		}
-		if (colg == col && (rowg == row - 1 || rowg == row + 1))
+		if (colg == col && (rowg == row - 1 || rowg == row + 1)) {
 			return true;
-		if (rowg == row && (colg == col - 1 || colg == col + 1))
+
+		}
+		else if (rowg == row && (colg == col - 1 || colg == col + 1)){
 			return true;
+
+		}
 		return false;
 	}
 
-	
+
 	public static char next(char c) {
 		if (c == 'X')
 			return 'X';
@@ -116,8 +127,6 @@ public class GameLogic {
 		else if (c == 'S') {
 			return 'S';
 		}
-		else if (c == '0' || c == 'D' || c == 'G') // ESPECIFICO PARA INIMIGOS
-			return 'M';
 		return c;
 	}
 

@@ -1,4 +1,5 @@
 package dkeep.logic;
+import dkeep.cli.*;
 
 import java.util.Random;
 
@@ -10,7 +11,7 @@ public class Enemy {
 	public static char[][] moveEnemy(char[][] a) { // Retorna o mapa modificado após carater.
 		for (int i = 0; i < a.length; i++) {
 			for (int j = 0; j < a[i].length; j++) {
-				if (a[i][j] == OGRE) {
+				if (a[i][j] == OGRE) {	
 					a = moveOgre(a);
 				}
 				else if (a[i][j] == ROOKIE_GUARD) {
@@ -103,7 +104,7 @@ public class Enemy {
 
 					else if (c == 's' && a[row + 1][col] != 'X' && a[row + 1][col] != 'S' && a[row + 1][col] != 'I' && a[row + 1][col] != 'K') {
 						a[row][col] = ' ';
-						a[row + 1][col] = 'D';
+						a[row + 1][col] = 'D';	
 						isValid = true;
 
 					} else if (c == 'd' && a[row][col + 1] != 'X' && a[row][col + 1] != 'S' && a[row][col + 1] != 'I' && a[row][col+1] != 'K') {
@@ -145,20 +146,19 @@ public class Enemy {
 			}
 		}
 
-		System.out.println("Ogre: " + c);
-
+		
 		if (c == 'w') {
 			result = GameLogic.next(a[row - 1][col]);
-			System.out.println(result);
+		//	System.out.println(result);
 		} else if (c == 'a') {
 			result = GameLogic.next(a[row][col - 1]);
-			System.out.println(result);
+		//	System.out.println(result);
 		} else if (c == 's') {
 			result = GameLogic.next(a[row + 1][col]);
-			System.out.println(result);
+		//	System.out.println(result);
 		} else if (c == 'd') {
 			result = GameLogic.next(a[row][col + 1]);
-			System.out.println(result);
+		//	System.out.println(result);
 		} else {
 			result = 'N';
 		}
@@ -206,7 +206,10 @@ public class Enemy {
 	}
 
 	public static char[][] placeEnemy(char[][] a, char c) {
-		a[1][8] = c;
+		if (!UserInterface.isLevelTwo)
+			a[1][8] = c;
+		else 
+			a[1][4] = c;
 		return a;
 	}
 
