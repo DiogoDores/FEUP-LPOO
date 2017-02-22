@@ -64,12 +64,12 @@ public class Enemy {
 		else if (z == 'D') {
 			boolean isValid = false;
 			String s = "wasd";
-			Random rand = new Random();
-			int index = rand.nextInt(s.length());
-			char c = s.charAt(index);
-			char result;
-
 			while (!isValid) {
+				Random rand = new Random();
+				int index = rand.nextInt(s.length());
+				char c = s.charAt(index);
+				char result;
+				
 				if (c == 'w') {
 					result = GameLogic.next(a[row - 1][col]);
 					System.out.println(result);
@@ -85,8 +85,10 @@ public class Enemy {
 				} else {
 					result = 'N';
 				}
-				
-				if (result == 'H') {
+				if (result == 'X') {
+					continue;
+				}
+				else if (result == 'H') {
 					if (c == 'w' && a[row - 1][col] != 'X' && a[row - 1][col] != 'S' && a[row - 1][col] != 'I' && a[row - 1][col] != 'K') {
 						a[row][col] = ' ';
 						a[row - 1][col] = 'D';
@@ -111,6 +113,7 @@ public class Enemy {
 					}
 
 				}
+				
 
 			}
 

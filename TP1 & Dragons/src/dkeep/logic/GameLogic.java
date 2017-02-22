@@ -24,7 +24,7 @@ public class GameLogic {
 		int index = rand.nextInt(s.length());
 		char ch = s.charAt(index);
 		
-		a = Enemy.placeEnemy(a, ch);
+		a = Enemy.placeEnemy(a, 'D');
 	
 		UserInterface.showMap(a);
 		do {
@@ -35,7 +35,7 @@ public class GameLogic {
 				UserInterface.showMap(ogreMap);
 			}
 			else {
-				a = Enemy.moveGuard(a,ch);
+				a = Enemy.moveGuard(a,'D');
 				UserInterface.showMap(a);
 			}
 
