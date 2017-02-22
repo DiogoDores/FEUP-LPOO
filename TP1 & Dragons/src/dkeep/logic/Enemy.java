@@ -37,8 +37,8 @@ public class Enemy {
 		}
 		System.out.println(z + " ROW " + row + " COL " + col);
 		if (z == 'G') {
-			int rowg = 0, colg = 0;
-			
+			int rowg = row, colg = col;
+
 
 			if (rowg == 1 && colg == 8) {
 				a[rowg][colg] = ' ';
@@ -60,62 +60,68 @@ public class Enemy {
 				a[rowg - 1][colg] = 'G';
 			}
 		}
-		
+
 		else if (z == 'D') {
-		
+			boolean isValid = false;
 			String s = "wasd";
 			Random rand = new Random();
 			int index = rand.nextInt(s.length());
 			char c = s.charAt(index);
 			char result;
 
-			if (c == 'w') {
-				result = GameLogic.next(a[row - 1][col]);
-				System.out.println(result);
-			} else if (c == 'a') {
-				result = GameLogic.next(a[row][col - 1]);
-				System.out.println(result);
-			} else if (c == 's') {
-				result = GameLogic.next(a[row + 1][col]);
-				System.out.println(result);
-			} else if (c == 'd') {
-				result = GameLogic.next(a[row][col + 1]);
-				System.out.println(result);
-			} else {
-				result = 'N';
-			}
+			while (!isValid) {
+				if (c == 'w') {
+					result = GameLogic.next(a[row - 1][col]);
+					System.out.println(result);
+				} else if (c == 'a') {
+					result = GameLogic.next(a[row][col - 1]);
+					System.out.println(result);
+				} else if (c == 's') {
+					result = GameLogic.next(a[row + 1][col]);
+					System.out.println(result);
+				} else if (c == 'd') {
+					result = GameLogic.next(a[row][col + 1]);
+					System.out.println(result);
+				} else {
+					result = 'N';
+				}
+				
+				if (result == 'H') {
+					if (c == 'w' && a[row - 1][col] != 'X' && a[row - 1][col] != 'S' && a[row - 1][col] != 'I' && a[row - 1][col] != 'K') {
+						a[row][col] = ' ';
+						a[row - 1][col] = 'D';
+						isValid = true;
+					}
 
-			if (result == 'H') {
-				if (c == 'w' && a[row - 1][col] != 'X' && a[row - 1][col] != 'S' && a[row - 1][col] != 'I') {
-					a[row][col] = ' ';
-					a[row - 1][col] = '0';
+					else if (c == 'a' && a[row][col - 1] != 'X' && a[row][col - 1] != 'S' && a[row][col - 1] != 'I'&& a[row][col -1] != 'K') {
+						a[row][col] = ' ';
+						a[row][col - 1] = 'D';
+						isValid = true;
+					}
+
+					else if (c == 's' && a[row + 1][col] != 'X' && a[row + 1][col] != 'S' && a[row + 1][col] != 'I' && a[row + 1][col] != 'K') {
+						a[row][col] = ' ';
+						a[row + 1][col] = 'D';
+						isValid = true;
+
+					} else if (c == 'd' && a[row][col + 1] != 'X' && a[row][col + 1] != 'S' && a[row][col + 1] != 'I' && a[row][col+1] != 'K') {
+						a[row][col] = ' ';
+						a[row][col + 1] = 'D';
+						isValid = true;
+					}
+
 				}
 
-				else if (c == 'a' && a[row][col - 1] != 'X' && a[row][col - 1] != 'S' && a[row][col - 1] != 'I') {
-					a[row][col] = ' ';
-					a[row][col - 1] = '0';
-				}
-
-				else if (c == 's' && a[row + 1][col] != 'X' && a[row + 1][col] != 'S' && a[row + 1][col] != 'I') {
-					a[row][col] = ' ';
-					a[row + 1][col] = '0';
-				} else if (c == 'd' && a[row][col + 1] != 'X' && a[row][col + 1] != 'S' && a[row][col + 1] != 'I') {
-					a[row][col] = ' ';
-					a[row][col + 1] = '0';
-				}
-
-			}
-
-			else if (result == 'E') {
-				a[row][col] = ' ';
-				a[row + 1][col] = '0';
 			}
 
 		}
-		
+
 		return a;
 
 	}
+
+	
+
 
 	public static char[][] moveOgre(char[][] a) {
 
@@ -195,7 +201,7 @@ public class Enemy {
 		return a;
 
 	}
-	
+
 	public static char[][] placeEnemy(char[][] a, char c) {
 		a[1][8] = c;
 		return a;
