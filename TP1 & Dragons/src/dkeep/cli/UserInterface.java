@@ -10,7 +10,7 @@ public class UserInterface {
 		boolean won = false;	
 		System.out.println("Welcome to Dungeon Escape!\nTo make your hero move, use the WASD keys.\n\nGood luck!\n");
 		
-		
+		 
 		while (!finish) {
 			if (!isLevelTwo) {
 				won = GameLogic.levelOne();

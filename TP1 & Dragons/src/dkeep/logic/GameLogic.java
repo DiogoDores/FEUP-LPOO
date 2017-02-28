@@ -79,10 +79,7 @@ public class GameLogic {
 	}
 
 	public static boolean checkPresence(char map[][]) {
-		if (isLevelTwo)
-			map = ogreMap;
-		else 
-			map = a;
+		
 		int row = -1, col = -1, rowg = 0, colg = 0;
 		for (int i = 0; i < map.length; i++) {
 			for (int j = 0; j < map[i].length; j++) {
@@ -94,8 +91,9 @@ public class GameLogic {
 					rowg = i;
 					colg = j;
 				}
-			}
+			} 
 		}
+		
 		if (row == -1 && col == -1) { // Adicionei aqui esta verificação para
 			// quando o H é comido pelo 0 e nem
 			// sequer está no array.
@@ -127,6 +125,8 @@ public class GameLogic {
 		else if (c == 'S') {
 			return 'S';
 		}
+		else if (c == 'H') // AC
+			return 'D';
 		return c;
 	}
 
