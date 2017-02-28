@@ -57,7 +57,7 @@ public class Hero {
 			}
 
 		}
-
+ 
 		else if (result == 'S') {
 			if (c == 'a' && col > 1) {
 				a[row][col] = ' ';
