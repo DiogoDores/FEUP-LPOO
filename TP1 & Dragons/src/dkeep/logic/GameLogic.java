@@ -91,7 +91,7 @@ public class GameLogic {
 					rowg = i;
 					colg = j;
 				}
-			}
+			} 
 		}
 		
 		if (row == -1 && col == -1) { // Adicionei aqui esta verificação para
