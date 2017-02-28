@@ -221,7 +221,6 @@ public class Enemy {
 			}
 		}
 
-
 		if (c == 'w') {
 			result = GameLogic.next(map[row - 1][col]);
 			//	System.out.println(result);
@@ -242,8 +241,6 @@ public class Enemy {
 			if (c == 'w' && map[row - 1][col] != 'X' && map[row - 1][col] != 'S' && map[row - 1][col] != 'I') {
 				map[row][col] = ' ';
 				map[row - 1][col] = '0';
-
-
 			}
 
 			else if (c == 'a' && map[row][col - 1] != 'X' && map[row][col - 1] != 'S' && map[row][col - 1] != 'I') {
@@ -274,13 +271,10 @@ public class Enemy {
 		}
 
 		else if (result == 'D') {
-
 		}
-
 
 		map = armOgre(map);
 		return map;
-
 	}
 
 	public static char[][] placeEnemy(char[][] map, char c) {

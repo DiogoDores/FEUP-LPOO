@@ -55,6 +55,7 @@ public class GameLogic {
 	}
 
 	public static boolean levelTwo() {
+		isLevelTwo = true;
 		boolean won = false, lost = false;
 		Scanner scan = new Scanner(System.in);
 		ogreMap = Enemy.placeEnemy(ogreMap, '0');
@@ -63,9 +64,7 @@ public class GameLogic {
 			UserInterface.showMap(ogreMap);
 			ogreMap = Hero.move(ogreMap, scan.next().charAt(0));
 			ogreMap = Enemy.moveOgre(ogreMap);
-			if (ogreMap[1][0] == 'H') // ESTAVA AQUI O PROBLEMA. Nunca havia
-				// nenhuma circunstância em que o K
-				// estava naquela posição.
+			if (ogreMap[1][0] == 'K') 
 				won = true;
 			if (checkPresence(ogreMap)) {
 				lost = true;

@@ -74,7 +74,7 @@ public class Hero {
 
 		else if (result == 'E') {
 			System.out.println("You got the key, make your escape!");
-
+			System.out.println(GameLogic.isLevelTwo);
 			if (GameLogic.isLevelTwo) {
 				if (c == 'w') {
 					a[row][col] = ' ';

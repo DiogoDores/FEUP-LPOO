@@ -4,7 +4,7 @@ import dkeep.logic.*;
 public class UserInterface {
 
 	public static boolean finish = false;
-	public static boolean isLevelTwo = false;
+	public  static boolean isLevelTwo = false;
 	
 	public static void main(String[] args) {
 		boolean won = false;	
