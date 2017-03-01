@@ -8,7 +8,7 @@ public class Enemy {
 	private static final char ROOKIE_GUARD = 'G';
 	private static final char DRUNKEN_GUARD = 'D';
 
-	/*public static char[][] moveEnemy(char[][] map) { // Retorna o mapa modificado após carater.
+	public static char[][] moveEnemy(char[][] map) { // Retorna o mapa modificado após carater.
 		for (int i = 0; i < map.length; i++) {
 			for (int j = 0; j < map[i].length; j++) {
 				if (map[i][j] == OGRE) {	

@@ -7,7 +7,8 @@ public class Hero {
 	private int x, y;
 
 	public static char[][] move(char[][] a, char c) {
-		char s;
+		char s = 'H'; // SIMBOLO DO HEROI, PODE SER H OU K
+		
 		boolean won = false;
 		int row = 0, col = 0;
 		for (int i = 0; i < a.length; i++) {
@@ -15,6 +16,7 @@ public class Hero {
 				if (a[i][j] == 'H' || a[i][j] == 'K') {
 					row = i;
 					col = j;
+					s = a[i][j];
 					j = a[i].length - 1;
 					i = a.length - 1;
 				}
@@ -38,44 +40,46 @@ public class Hero {
 		if (result == 'H') {
 			if (c == 'w') {
 				a[row][col] = ' ';
-				a[row - 1][col] = 'H';
+				a[row - 1][col] = s;
 			}
 
 			else if (c == 'a') {
 				a[row][col] = ' ';
-				a[row][col - 1] = 'H';
+				a[row][col - 1] = s;
 			}
 
 			else if (c == 's') {
 				a[row][col] = ' ';
-				a[row + 1][col] = 'H';
+				a[row + 1][col] = s;
 			} else if (c == 'd') {
 				a[row][col] = ' ';
-				a[row][col + 1] = 'H';
+				a[row][col + 1] = s;
 			}
 
 		}
-
+ 
 		else if (result == 'S') {
 			if (c == 'a' && col > 1) {
 				a[row][col] = ' ';
-				a[row][col - 2] = 'H';
+				a[row][col - 2] = s;
 			} else if (c == 'a' && col == 1) {
 				a[row][col] = ' ';
-				a[row][col - 1] = 'H';
+				a[row][col - 1] = s;
 			} else if (c == 'd') {
 				a[row][col] = ' ';
-				a[row][col + 2] = 'H';
+				a[row][col + 2] = s;
 			}
 
 		}
 
 		else if (result == 'E') {
-
+			System.out.println("You got the key, make your escape!");
+			System.out.println(GameLogic.isLevelTwo);
 			if (GameLogic.isLevelTwo) {
 				if (c == 'w') {
 					a[row][col] = ' ';
-					a[row - 1][col] = 'H';
+					a[row - 1][col] = 'K';
+					
 					
 				} else if (c == 'd') {
 					a[row][col] = ' ';
