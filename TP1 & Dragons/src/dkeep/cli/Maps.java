@@ -3,7 +3,7 @@ package dkeep.cli;
 public class Maps {
 	
 	int column = 10;	
-	int row = 10; 
+	int row = 10;  
 	private static final char WALL = 'X';
 	private static final char HERO = 'H';
 	private static final char KEY = 'k';

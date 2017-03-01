@@ -1,5 +1,5 @@
 package dkeep.logic;
- 
+  
 public class Guard {
 	
 	protected int x, y;

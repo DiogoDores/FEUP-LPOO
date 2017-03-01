@@ -19,7 +19,7 @@ public class GameLogic {
 		
 		boolean won = false, lost = false;
 		Scanner scan = new Scanner(System.in);
- 
+  
 		String s = "G";
 		Random rand = new Random();
 		int index = rand.nextInt(s.length());
