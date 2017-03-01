@@ -9,45 +9,43 @@ import dkeep.logic.*;
 public class GameLogic {
 
 
-	static char[][] a = Maps.getLevelOneMap();
+	static char[][] guardMap = Maps.getLevelOneMap();
 	static char[][] ogreMap = Maps.getLevelTwoMap();
 	static boolean isLevelTwo = UserInterface.isLevelTwo;
 
 	public static boolean levelOne() {
 
-		Hero hero = new Hero(1,1);     
+		//Hero hero = new Hero(1,1);
+		
 		boolean won = false, lost = false;
 		Scanner scan = new Scanner(System.in);
 
-		String s = "DG";
+		String s = "G";
 		Random rand = new Random();
 		int index = rand.nextInt(s.length());
 		char ch = s.charAt(index);
 
-		a = Enemy.placeEnemy(a, ch);
+		guardMap = Enemy.drawEnemy(guardMap, 'G');
+		UserInterface.showMap(guardMap);
 
-		UserInterface.showMap(a);
 		do {
 
-			a = Hero.move(a, scan.next().charAt(0));
-			if (isLevelTwo) {
-				a = Enemy.moveOgre(a);
-				UserInterface.showMap(a);
-			}
-			else {
-				a = Enemy.moveGuard(a,ch);
-				UserInterface.showMap(a);
-			}
+			guardMap = Hero.move(guardMap, scan.next().charAt(0));
 
-			if (a[5][0] == 'H' || a[6][0] == 'H')
+
+			guardMap = Enemy.moveGuard(guardMap, ch);
+			UserInterface.showMap(guardMap);
+
+
+			if (guardMap[5][0] == 'H' || guardMap[6][0] == 'H')
 				won = true;
-			if (checkPresence(a)) {
+			if (checkPresence(guardMap)) {
 				lost = true;
 				won = false;
 			}
 
 		} while (!won && !lost);
-		
+
 		if (won)
 			return true;	
 		else 
@@ -57,8 +55,8 @@ public class GameLogic {
 	public static boolean levelTwo() {
 		boolean won = false, lost = false;
 		Scanner scan = new Scanner(System.in);
-		ogreMap = Enemy.placeEnemy(ogreMap, '0');
-		
+		ogreMap = Enemy.drawEnemy(ogreMap, '0');
+
 		do {
 			UserInterface.showMap(ogreMap);
 			ogreMap = Hero.move(ogreMap, scan.next().charAt(0));
@@ -79,7 +77,7 @@ public class GameLogic {
 	}
 
 	public static boolean checkPresence(char map[][]) {
-		
+
 		int row = -1, col = -1, rowg = 0, colg = 0;
 		for (int i = 0; i < map.length; i++) {
 			for (int j = 0; j < map[i].length; j++) {
@@ -93,7 +91,7 @@ public class GameLogic {
 				}
 			} 
 		}
-		
+
 		if (row == -1 && col == -1) { // Adicionei aqui esta verificação para
 			// quando o H é comido pelo 0 e nem
 			// sequer está no array.

@@ -8,23 +8,20 @@ public class Enemy {
 	private static final char ROOKIE_GUARD = 'G';
 	private static final char DRUNKEN_GUARD = 'D';
 
-	public static char[][] moveEnemy(char[][] map) { // Retorna o mapa modificado após carater.
+	/*public static char[][] moveEnemy(char[][] map) { // Retorna o mapa modificado após carater.
 		for (int i = 0; i < map.length; i++) {
 			for (int j = 0; j < map[i].length; j++) {
 				if (map[i][j] == OGRE) {	
 					map = moveOgre(map);
 				}
-				else if (map[i][j] == ROOKIE_GUARD) {
-					map = moveGuard(map,'G');
-				}
-				else if (map[i][j] == DRUNKEN_GUARD) {
-					map = moveGuard(map,'D');
+				else if (map[i][j] == ROOKIE_GUARD || map[i][j] == DRUNKEN_GUARD) {
+					map = moveGuard(map);
 				}
 			}
 		}
 
 		return map;
-	}
+	}*/
 
 	public static char[][] armOgre(char[][] map) {
 		boolean isValid = false;
@@ -85,10 +82,6 @@ public class Enemy {
 				isValid = true;
 			}
 		}
-
-
-
-
 		return map;
 	}
 
@@ -104,43 +97,14 @@ public class Enemy {
 		return map;
 	}
 
-	public static char[][] moveGuard(char[][] map, char z) { // Verifica se é rookie ou drunken
-		int row = 0, col = 0;
-		for (int i = 0; i < map.length; i++) {
-			for (int j = 0; j < map[i].length; j++) {
-				if(map[i][j] == z) {
-					row = i;
-					col = j;
-				}
-			}
+	public static char[][] moveGuard(char[][] map, char typeOfGuard) { // Verifica se é rookie ou drunken
+
+		if(typeOfGuard == 'G'){
+			//Guard.followPath(map, 'G');
 		}
-		System.out.println(z + " ROW " + row + " COL " + col);
-		if (z == 'G') {
-			int rowg = row, colg = col;
-
-
-			if (rowg == 1 && colg == 8) {
-				map[rowg][colg] = ' ';
-				map[rowg][colg - 1] = 'G';
-			} else if (rowg >= 1 && colg == 7 && rowg < 5) {
-				map[rowg][colg] = ' ';
-				map[rowg + 1][colg] = 'G';
-			} else if (rowg == 5 && colg <= 7 && colg > 1) {
-				map[rowg][colg] = ' ';
-				map[rowg][colg - 1] = 'G';
-			} else if (rowg == 5 && colg == 1) {
-				map[rowg][colg] = ' ';
-				map[rowg + 1][colg] = 'G';
-			} else if (rowg == 6 && colg >= 1 && colg < 8) {
-				map[rowg][colg] = ' ';
-				map[rowg][colg + 1] = 'G';
-			} else if (rowg > 1 && rowg <= 6 && colg == 8) {
-				map[rowg][colg] = ' ';
-				map[rowg - 1][colg] = 'G';
-			}
-		}
-
-		else if (z == 'D') {
+		
+		drawEnemy(map, typeOfGuard);
+		/*if (typeOfGuard == 'D') {
 			boolean isValid = false;
 			String s = "wasd";
 			while (!isValid) {
@@ -196,7 +160,7 @@ public class Enemy {
 
 			}
 
-		}
+		}*/
 
 		return map;
 
@@ -283,12 +247,89 @@ public class Enemy {
 
 	}
 
-	public static char[][] placeEnemy(char[][] map, char c) {
+	public static char[][] drawEnemy(char[][] map, char c) {
 		if (!UserInterface.isLevelTwo)
-			map[1][8] = c;
+			//map[Guard.getX()][Guard.getY()] = 'G';
+			System.out.println("Olá Pedro :)");
 		else 
 			map[1][4] = c;
 		return map;
 	}
+	
+	/*public static char[][] followPath(char[][] map, char z){
+		
+		/*Guard[] coordinates = new Guard[24];
+		
+		coordinates[0] = new Guard(1, 8);
+		coordinates[1] = new Guard(1, 7);
+		coordinates[2] = new Guard(2, 7);
+		coordinates[3] = new Guard(3, 7);
+		coordinates[4] = new Guard(4, 7);
+		coordinates[5] = new Guard(5, 7);
+		coordinates[6] = new Guard(5, 6);
+		coordinates[7] = new Guard(5, 5);
+		coordinates[8] = new Guard(5, 4);
+		coordinates[9] = new Guard(5, 3);
+		coordinates[10] = new Guard(5, 2);
+		coordinates[11] = new Guard(5, 1);
+		coordinates[12] = new Guard(6, 1);
+		coordinates[13] = new Guard(6, 2);
+		coordinates[14] = new Guard(6, 3);
+		coordinates[15] = new Guard(6, 4);
+		coordinates[16] = new Guard(6, 5);
+		coordinates[17] = new Guard(6, 6);
+		coordinates[18] = new Guard(6, 7);
+		coordinates[19] = new Guard(6, 8);
+		coordinates[20] = new Guard(5, 8);
+		coordinates[21] = new Guard(4, 8);
+		coordinates[22] = new Guard(3, 8);
+		coordinates[23] = new Guard(2, 8);
+		
+		
+		for(int i = 0; i < coordinates.length; i++){
+			if(Guard.getX() == coordinates[i].getX() && Guard.getY() == coordinates[i].getY()){
+				
+			}
+		}
+		
+		
+		
+		
+		int row = 0, col = 0;
+			for (int j = 0; j < map[i].length; j++) {
+				if(map[i][j] == z) {
+					row = i;
+					col = j;
+				}
+			}
+		}
+		System.out.println(z + " ROW " + row + " COL " + col);
+		if (z == 'G') {
+			int rowg = row, colg = col;
 
+
+			if (rowg == 1 && colg == 8) {
+				map[rowg][colg] = ' ';
+				map[rowg][colg - 1] = 'G';
+			} else if (rowg >= 1 && colg == 7 && rowg < 5) {
+				map[rowg][colg] = ' ';
+				map[rowg + 1][colg] = 'G';
+			} else if (rowg == 5 && colg <= 7 && colg > 1) {
+				map[rowg][colg] = ' ';
+				map[rowg][colg - 1] = 'G';
+			} else if (rowg == 5 && colg == 1) {
+				map[rowg][colg] = ' ';
+				map[rowg + 1][colg] = 'G';
+			} else if (rowg == 6 && colg >= 1 && colg < 8) {
+				map[rowg][colg] = ' ';
+				map[rowg][colg + 1] = 'G';
+			} else if (rowg > 1 && rowg <= 6 && colg == 8) {
+				map[rowg][colg] = ' ';
+				map[rowg - 1][colg] = 'G';
+			}
+		}
+		
+		return map;
+	}*/
+	
 }
