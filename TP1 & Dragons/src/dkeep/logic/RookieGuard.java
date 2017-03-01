@@ -1,8 +1,8 @@
 package dkeep.logic;
 
-public class RookieGuard extends Guard{
+/*public class RookieGuard extends Guard{
 	
 	RookieGuard(){
 		
-	}
-}
+	} 
+}*/

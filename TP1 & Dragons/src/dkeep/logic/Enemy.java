@@ -244,7 +244,7 @@ public class Enemy {
 
 		map = armOgre(map);
 		return map;
-
+ 
 	}
 
 	public static char[][] drawEnemy(char[][] map, char c) {
