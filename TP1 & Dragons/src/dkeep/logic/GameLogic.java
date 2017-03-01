@@ -8,25 +8,55 @@ import dkeep.logic.*;
 
 public class GameLogic {
 
-
 	static char[][] guardMap = Maps.getLevelOneMap();
 	static char[][] ogreMap = Maps.getLevelTwoMap();
 	static boolean isLevelTwo = UserInterface.isLevelTwo;
-
-	public static boolean levelOne() {
-
-		//Hero hero = new Hero(1,1);
-		
-		boolean won = false, lost = false;
-		Scanner scan = new Scanner(System.in);
-  
+	
+	public Guard guard = new Guard();
+	
+	public GameLogic(){}
+	
+	public void createGuard(int x, int y){
 		String s = "G";
 		Random rand = new Random();
 		int index = rand.nextInt(s.length());
 		char ch = s.charAt(index);
+		
+		if(ch == 'G'){
+			RookieGuard rookieGuard = new RookieGuard(x, y);
+			guard = rookieGuard;
+		}
+	}
+	
+	public void drawMap(){
+		
+		char[][] map;
+		
+		if(!isLevelTwo){
+			map = guardMap;
+		} else {
+			map = ogreMap;
+		}
+		
+		for (int i = 0; i < map.length; i++) {
+			for(int j = 0; j < map[i].length; j++){
+				if(guard.getX() == i && guard.getY() == j){
+					System.out.print(guard.getSymbol() + " ");
+				} else {
+					System.out.print(map[i][j]+" ");
+				}
+			}
+		}
+		System.out.println("\n");
+	}
+
+	public static boolean levelOne() {
+
+		boolean won = false, lost = false;
+		Scanner scan = new Scanner(System.in);
 
 		guardMap = Enemy.drawEnemy(guardMap, 'G');
-		UserInterface.showMap(guardMap);
+		UserInterface.drawMap();
 
 		do {
 
@@ -34,7 +64,7 @@ public class GameLogic {
 
 
 			guardMap = Enemy.moveGuard(guardMap, ch);
-			UserInterface.showMap(guardMap);
+			UserInterface.drawMap();
 
 
 			if (guardMap[5][0] == 'H' || guardMap[6][0] == 'H')
@@ -59,7 +89,7 @@ public class GameLogic {
 		ogreMap = Enemy.drawEnemy(ogreMap, '0');
 
 		do {
-			UserInterface.showMap(ogreMap);
+			UserInterface.drawMap();
 			ogreMap = Hero.move(ogreMap, scan.next().charAt(0));
 			ogreMap = Enemy.moveOgre(ogreMap);
 			if (ogreMap[1][0] == 'K') 
