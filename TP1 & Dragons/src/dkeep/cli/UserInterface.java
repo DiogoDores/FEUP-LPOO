@@ -6,9 +6,9 @@ import dkeep.logic.*;
 public class UserInterface {
 
 	public static void main(String[] args){
-		System.out.println("------------------------------");
+		System.out.println(" ---------------------------- ");
 		System.out.println("| WELCOME TO DUNGEON ESCAPE! |");
-		System.out.println("------------------------------\n");
+		System.out.println(" ---------------------------- \n");
 
 		Scanner read = new Scanner(System.in);
 		GameLogic game = new GameLogic();
@@ -29,30 +29,32 @@ public class UserInterface {
 			game.createGuard();			
 		} else if (level == 2){
 			OgreMap ogreMap = new OgreMap();
-			game.createHero(8, 1);
+			game.createHero(7, 1);
+			game.createOgre(1, 5);
 			game.changeCurrentMap(ogreMap);
 		}
 
 		int playing = 0;
-		game.drawMap();
+		game.currentMap.drawMap(game);
 
 		while(playing == 0){
 
 			char key = read.next().charAt(0);
 
 			playing = game.startGame(key);
-			game.drawMap();
+			
+			game.currentMap.drawMap(game);
 
 		}
 		
-		if(playing == -1){
-			System.out.println("--------------");
+		if(playing == 2){
+			System.out.println(" ------------ ");
 			System.out.println("| GAME OVER! |");
-			System.out.println("--------------\n");
+			System.out.println(" ------------ \n");
 		} else {
-			System.out.println("------------");
+			System.out.println(" ---------- ");
 			System.out.println("| YOU WON! |");
-			System.out.println("------------\n");
+			System.out.println(" ---------- \n");
 		}
 	}
 }

@@ -1,12 +1,12 @@
 package dkeep.logic;
 
 import java.util.Random;
-import dkeep.cli.*;
 
 public class GameLogic {
 
 	public Guard guard = new Guard();
 	public Hero hero = new Hero();
+	public Ogre ogre = new Ogre();
 	public GameMap Map1 = new GuardMap();
 	public GameMap Map2 = new OgreMap();
 	public GameMap currentMap;
@@ -16,20 +16,27 @@ public class GameLogic {
 		boolean lost = false;
 		
 		hero.move(currentMap, key);
-		guard.followPath(); //Ainda não está a funcionar como eu quero
-							//Faltam as personalidades diferentes,
-							//Mas penso que já sei como implementar
+		
+		if(currentMap == Map1){
+			guard.followPath(); //Ainda não está a funcionar como eu quero
+								//Faltam as personalidades diferentes,
+								//Mas penso que já sei como implementar
+		} else {
+			ogre.moveOgre(currentMap);
+		}
 		
 		lost = checkPresence();
 		
 		if(lost){
-			return -1;
+			return 2;
 		}
 		
 		if(hero.getY() == 0 && (hero.getX() == 5 || hero.getX() == 6)){
-			currentMap = Map2;
-			hero = new Hero(7, 1);
-			//Falta inicializar o ogre e apagar o guarda
+			setLevelTwo();
+		}
+		
+		if(hero.getX() == 1 && hero.getY() == 0){
+			return 1;
 		}
 
 		return 0;
@@ -54,24 +61,6 @@ public class GameLogic {
 		}
 	}
 
-	public void drawMap() {
-
-		char[][] mapToDraw = currentMap.getMap();
-
-		for (int i = 0; i < mapToDraw.length; i++) {
-			for(int j = 0; j < mapToDraw[i].length; j++){
-				if(guard.getX() == i && guard.getY() == j){
-					System.out.print(guard.getSymbol());
-				}else if(hero.getX() == i && hero.getY() == j){
-					System.out.print(hero.getSymbol());
-				} else {
-					System.out.print(mapToDraw[i][j]);
-				}
-			}
-			System.out.print("\n");
-		}
-	}
-
 	public boolean checkPresence() {
 
 		if (guard.getY() == hero.getY() && (guard.getX() == hero.getX() - 1 || guard.getX() == hero.getX() + 1)) {
@@ -82,11 +71,25 @@ public class GameLogic {
 			return true;
 
 		}
+		
+		if (ogre.getY() == hero.getY() && (ogre.getX() == hero.getX() - 1 || ogre.getX() == hero.getX() + 1)) {
+			return true;
+
+		}
+		else if (ogre.getX() == hero.getX() && (ogre.getY() == hero.getY() - 1 || ogre.getY() == hero.getY() + 1)){
+			return true;
+
+		}
 		return false;
 	}
 	
 	public void setLevelTwo(){
 		currentMap = Map2;
 		hero = new Hero(7, 1);
+		ogre = new Ogre(1, 5);
+	}
+
+	public void createOgre(int x, int y) {
+		ogre = new Ogre(x, y);
 	}
 }

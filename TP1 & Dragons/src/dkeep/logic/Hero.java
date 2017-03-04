@@ -73,25 +73,26 @@ public class Hero {
 		}
 
 		else if (result == 'E') {
-			
-			//Ainda tenho que pensar na condição
-			
-			/*if (map == ) {
+			if (map.getName() == "OgreMap") {
 				if (c == 'w') {
-					a[row][col] = ' ';
-					a[row - 1][col] = 'K';
-
-
+					x--;
 				} else if (c == 'd') {
-					a[row][col] = ' ';
-					a[row][col + 1] = 'K';
+					y++;
 				}
+				this.symbol = 'K';
+				map.getMap()[1][7] = ' '; 
 
 			}
-			else {*/
+			else {
 				map.activateLever(new Hero(x, y));
-			//}
+			}
 
+		} else if(result == 'I'){
+			if(map.getName() == "OgreMap"){
+				if(this.symbol == 'K'){
+					map.getMap()[1][0] = 'S';
+				}
+			}
 		}
 
 	}

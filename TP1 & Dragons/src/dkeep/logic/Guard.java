@@ -26,6 +26,10 @@ public class Guard {
 		return symbol;
 	}
 	
+	public void move(){
+		return;
+	}
+	
 	public void followPath(){
 		if(path[position] == 'w'){
 			x--;
