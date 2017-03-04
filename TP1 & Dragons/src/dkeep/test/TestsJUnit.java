@@ -21,6 +21,7 @@ public class TestsJUnit {
 		game.createHero(1, 2);
 		testMap.drawMap(game);
 		char[][] map = testMap.getMap();
+		//System.out.println(map[1][2]);
 		//assertEquals('H', map[1][2]);
 		game.createGuard(3,1);		
 	
