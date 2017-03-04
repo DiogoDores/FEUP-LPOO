@@ -1,6 +1,7 @@
 package dkeep.logic;
 
 import java.util.Random;
+import dkeep.test.*;
 
 public class GameLogic {
 
@@ -50,16 +51,16 @@ public class GameLogic {
 		hero = new Hero(x, y);
 	}
 
-	public char createGuard(){
-		String type = "D";
+	public char createGuard(int x, int y){ // Modifiquei isto para podermos criar um guarda onde quisermos
+		String type = "G";
 		Random random = new Random();
 		int r = random.nextInt(type.length());
 		char typeOfGuard = type.charAt(r);
 
 		if(typeOfGuard == 'G'){
-			guard = new RookieGuard(1, 8);
-		} else if(typeOfGuard == 'D'){
-			guard = new DrunkenGuard(1, 8);
+			guard = new RookieGuard(x, y);
+		} if(typeOfGuard == 'D'){
+			guard = new DrunkenGuard(x, y);
 		}
 		
 		return typeOfGuard;

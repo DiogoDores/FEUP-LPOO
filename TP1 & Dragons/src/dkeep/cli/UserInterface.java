@@ -2,6 +2,7 @@ package dkeep.cli;
 import java.util.Scanner;
 
 import dkeep.logic.*;
+import dkeep.test.*;
 
 public class UserInterface {
 
@@ -19,15 +20,20 @@ public class UserInterface {
 		do{
 			System.out.print("Select level: ");
 			level = read.nextInt();
-		} while(level < 1 || level > 2);
+			
+		} while(level < -2 || level > 2 || level != -1);
 
 		System.out.println("\n\nType W/A/S/D to move. Activate the lever and escape!\n\n");
+		
+		if (level == -1) {
+			TestsJUnit.moveIntoFreeCell();
+		}
 		
 		if(level == 1){
 			GuardMap guardMap = new GuardMap();
 			game.changeCurrentMap(guardMap);
-			game.createHero(1, 1);
-			typeOfGuard = game.createGuard();			
+			game.createHero(1, 1);			
+			typeOfGuard = game.createGuard(1,8);			
 		} else if (level == 2){
 			OgreMap ogreMap = new OgreMap();
 			game.createHero(7, 1);
