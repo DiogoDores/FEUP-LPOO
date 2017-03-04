@@ -17,7 +17,7 @@ public class GameLogic {
 		
 		hero.move(currentMap, key);
 		
-		if(currentMap == Map1){
+		if(currentMap.getName() == "GuardMap"){
 			guard.followPath(); //Ainda não está a funcionar como eu quero
 								//Faltam as personalidades diferentes,
 								//Mas penso que já sei como implementar
@@ -70,9 +70,7 @@ public class GameLogic {
 		else if (guard.getX() == hero.getX() && (guard.getY() == hero.getY() - 1 || guard.getY() == hero.getY() + 1)){
 			return true;
 
-		}
-		
-		if (ogre.getY() == hero.getY() && (ogre.getX() == hero.getX() - 1 || ogre.getX() == hero.getX() + 1)) {
+		} else if (ogre.getY() == hero.getY() && (ogre.getX() == hero.getX() - 1 || ogre.getX() == hero.getX() + 1)) {
 			return true;
 
 		}
