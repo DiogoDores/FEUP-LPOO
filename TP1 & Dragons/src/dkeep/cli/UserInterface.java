@@ -13,6 +13,7 @@ public class UserInterface {
 
 		Scanner read = new Scanner(System.in);
 		GameLogic game = new GameLogic();
+		TestsJUnit test = new TestsJUnit();
 
 		int level;
 		char typeOfGuard = 0;
@@ -26,7 +27,10 @@ public class UserInterface {
 		System.out.println("\n\nType W/A/S/D to move. Activate the lever and escape!\n\n");
 		
 		if (level == -1) {
-			TestsJUnit.moveIntoFreeCell();
+			TestMap testMap = new TestMap();
+			game.changeCurrentMap(testMap);
+			game.createHero(1, 1);
+			test.moveIntoFreeCell();
 		}
 		
 		if(level == 1){
