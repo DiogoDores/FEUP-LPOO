@@ -30,7 +30,7 @@ public class UserInterface {
 			TestMap testMap = new TestMap();
 			game.changeCurrentMap(testMap);
 			game.createHero(1, 1);
-			game.currentMap.drawMap(game);
+			//game.currentMap.drawMap(game);
 			test.moveIntoFreeCell();
 		}
 		
