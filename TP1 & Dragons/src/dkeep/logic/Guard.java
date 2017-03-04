@@ -2,9 +2,10 @@ package dkeep.logic;
 
 public class Guard {
 	
-	protected int x, y, position;
 	protected char symbol;
 	protected char[] path = {'a', 's', 's', 's', 's', 'a', 'a', 'a', 'a', 'a', 'a', 's', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'w', 'w', 'w', 'w', 'w'};
+	protected char[] inversePath = {'s', 's', 's', 's', 's', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'w', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'w', 'w', 'w', 'w', 'd'};
+	protected int x, y, position = 0, inversePosition = 0;
 	
 	public Guard(){}
 	
@@ -41,9 +42,28 @@ public class Guard {
 			y++;
 		}
 		position++;
+		inversePosition++;
 		
 		if(position == path.length){
 			position = 0;
+		}
+	}
+	
+	public void followInversePath(){
+		if(inversePath[inversePosition] == 'w'){
+			x--;
+		} else if(inversePath[inversePosition] == 'a'){
+			y--;
+		} else if(inversePath[inversePosition] == 's'){
+			x++;
+		} else if(inversePath[inversePosition] == 'd'){
+			y++;
+		}
+		position++;
+		inversePosition++;
+		
+		if(inversePosition == inversePath.length){
+			inversePosition = 0;
 		}
 	}
 }

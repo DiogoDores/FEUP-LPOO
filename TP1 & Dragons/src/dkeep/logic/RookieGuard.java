@@ -8,7 +8,7 @@ public class RookieGuard extends Guard{
 		this.symbol = 'G';
 	}
 	
-	public void moveRookie(){
+	public void move(){
 		followPath();
 	}
 

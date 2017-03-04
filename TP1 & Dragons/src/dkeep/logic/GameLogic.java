@@ -18,7 +18,7 @@ public class GameLogic {
 		hero.move(currentMap, key);
 		
 		if(currentMap.getName() == "GuardMap"){
-			guard.followPath(); //Ainda não está a funcionar como eu quero
+			guard.move(); //Ainda não está a funcionar como eu quero
 								//Faltam as personalidades diferentes,
 								//Mas penso que já sei como implementar
 		} else {
@@ -50,15 +50,19 @@ public class GameLogic {
 		hero = new Hero(x, y);
 	}
 
-	public void createGuard(){
-		String type = "G";
+	public char createGuard(){
+		String type = "D";
 		Random random = new Random();
 		int r = random.nextInt(type.length());
 		char typeOfGuard = type.charAt(r);
 
 		if(typeOfGuard == 'G'){
 			guard = new RookieGuard(1, 8);
+		} else if(typeOfGuard == 'D'){
+			guard = new DrunkenGuard(1, 8);
 		}
+		
+		return typeOfGuard;
 	}
 
 	public boolean checkPresence() {

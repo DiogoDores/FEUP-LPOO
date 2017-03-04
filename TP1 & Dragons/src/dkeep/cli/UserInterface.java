@@ -14,24 +14,29 @@ public class UserInterface {
 		GameLogic game = new GameLogic();
 
 		int level;
+		char typeOfGuard = 0;
 
 		do{
 			System.out.print("Select level: ");
 			level = read.nextInt();
 		} while(level < 1 || level > 2);
 
-		System.out.println("\n\nType W/A/S/D to move. Activate the lever and escape!");
+		System.out.println("\n\nType W/A/S/D to move. Activate the lever and escape!\n\n");
 		
 		if(level == 1){
 			GuardMap guardMap = new GuardMap();
 			game.changeCurrentMap(guardMap);
 			game.createHero(1, 1);
-			game.createGuard();			
+			typeOfGuard = game.createGuard();			
 		} else if (level == 2){
 			OgreMap ogreMap = new OgreMap();
 			game.createHero(7, 1);
 			game.createOgre(1, 5);
 			game.changeCurrentMap(ogreMap);
+		}
+		
+		if(typeOfGuard == 'D'){
+			System.out.println("The stench of wine fills the air...\n\n");
 		}
 
 		int playing = 0;
