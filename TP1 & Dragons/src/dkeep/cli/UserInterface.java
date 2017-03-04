@@ -1,48 +1,58 @@
 package dkeep.cli;
+import java.util.Scanner;
+
 import dkeep.logic.*;
 
 public class UserInterface {
 
-	public static boolean finish = false;
-	public  static boolean isLevelTwo = false;
+	public static void main(String[] args){
+		System.out.println("------------------------------");
+		System.out.println("| WELCOME TO DUNGEON ESCAPE! |");
+		System.out.println("------------------------------\n");
 
-	public static void main(String[] args) {
-		boolean won = false;	
-		System.out.println("Welcome to Dungeon Escape!\nTo make your hero move, use the WASD keys.\n\nGood luck!\n");
+		Scanner read = new Scanner(System.in);
+		GameLogic game = new GameLogic();
 
-		GameLogic gameLogic = new GameLogic();
+		int level;
 
-		//Character and map initialization
-		gameLogic.createGuard(1,8);
-		gameLogic.drawMap();
+		do{
+			System.out.print("Select level: ");
+			level = read.nextInt();
+		} while(level < 1 || level > 2);
 
-
-		while (!finish) {
-			if (!isLevelTwo) {
-				won = GameLogic.levelOne();
-				if (won) {
-					System.out.println("Congratulations! You escaped!... To another level. \nTo finally reach the exit, you need to grab the key\nand head for the door! \n\nBetter watch out!\n");
-					isLevelTwo = true;
-				}
-
-				else {
-					System.out.println("You've been caught! Better luck next time!\n");
-					finish = true;
-				}
-			} 
-
-			else {
-				won = false;
-				won = GameLogic.levelTwo();
-				if (won)
-					System.out.println("WOW! That's moderately impressive!\n");
-				else
-					System.out.println("Darn it. So close!\n");
-				finish = true;
-			}
+		System.out.println("\n\nType W/A/S/D to move. Activate the lever and escape!");
+		
+		if(level == 1){
+			GuardMap guardMap = new GuardMap();
+			game.changeCurrentMap(guardMap);
+			game.createHero(1, 1);
+			game.createGuard();			
+		} else if (level == 2){
+			OgreMap ogreMap = new OgreMap();
+			game.createHero(8, 1);
+			game.changeCurrentMap(ogreMap);
 		}
-		System.out.println("\nThank you for playing Dungeon Escape!\n");
-		return;
-	}
 
+		int playing = 0;
+		game.drawMap();
+
+		while(playing == 0){
+
+			char key = read.next().charAt(0);
+
+			playing = game.startGame(key);
+			game.drawMap();
+
+		}
+		
+		if(playing == -1){
+			System.out.println("--------------");
+			System.out.println("| GAME OVER! |");
+			System.out.println("--------------\n");
+		} else {
+			System.out.println("------------");
+			System.out.println("| YOU WON! |");
+			System.out.println("------------\n");
+		}
+	}
 }

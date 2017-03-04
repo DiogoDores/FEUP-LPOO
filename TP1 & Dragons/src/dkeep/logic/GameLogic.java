@@ -1,160 +1,92 @@
 package dkeep.logic;
-import dkeep.cli.*;
 
 import java.util.Random;
-import java.util.Scanner;
-import dkeep.logic.*;
-
+import dkeep.cli.*;
 
 public class GameLogic {
 
-	static char[][] guardMap = Maps.getLevelOneMap();
-	static char[][] ogreMap = Maps.getLevelTwoMap();
-	static boolean isLevelTwo = UserInterface.isLevelTwo;
-	
 	public Guard guard = new Guard();
-	
-	public GameLogic(){}
-	
-	public void createGuard(int x, int y){
-		String s = "G";
-		Random rand = new Random();
-		int index = rand.nextInt(s.length());
-		char ch = s.charAt(index);
+	public Hero hero = new Hero();
+	public GameMap Map1 = new GuardMap();
+	public GameMap Map2 = new OgreMap();
+	public GameMap currentMap;
+
+	public int startGame(char key){
+
+		boolean lost = false;
 		
-		if(ch == 'G'){
-			RookieGuard rookieGuard = new RookieGuard(x, y);
-			guard = rookieGuard;
+		hero.move(currentMap, key);
+		guard.followPath(); //Ainda não está a funcionar como eu quero
+							//Faltam as personalidades diferentes,
+							//Mas penso que já sei como implementar
+		
+		lost = checkPresence();
+		
+		if(lost){
+			return -1;
+		}
+		
+		if(hero.getY() == 0 && (hero.getX() == 5 || hero.getX() == 6)){
+			currentMap = Map2;
+			hero = new Hero(7, 1);
+			//Falta inicializar o ogre e apagar o guarda
+		}
+
+		return 0;
+	}
+
+	public void changeCurrentMap(GameMap gameMap){
+		currentMap = gameMap;
+	}
+
+	public void createHero(int x, int y){
+		hero = new Hero(x, y);
+	}
+
+	public void createGuard(){
+		String type = "G";
+		Random random = new Random();
+		int r = random.nextInt(type.length());
+		char typeOfGuard = type.charAt(r);
+
+		if(typeOfGuard == 'G'){
+			guard = new RookieGuard(1, 8);
 		}
 	}
-	
-	public void drawMap(){
-		
-		char[][] map;
-		
-		if(!isLevelTwo){
-			map = guardMap;
-		} else {
-			map = ogreMap;
-		}
-		
-		for (int i = 0; i < map.length; i++) {
-			for(int j = 0; j < map[i].length; j++){
+
+	public void drawMap() {
+
+		char[][] mapToDraw = currentMap.getMap();
+
+		for (int i = 0; i < mapToDraw.length; i++) {
+			for(int j = 0; j < mapToDraw[i].length; j++){
 				if(guard.getX() == i && guard.getY() == j){
-					System.out.print(guard.getSymbol() + " ");
+					System.out.print(guard.getSymbol());
+				}else if(hero.getX() == i && hero.getY() == j){
+					System.out.print(hero.getSymbol());
 				} else {
-					System.out.print(map[i][j]+" ");
+					System.out.print(mapToDraw[i][j]);
 				}
 			}
+			System.out.print("\n");
 		}
-		System.out.println("\n");
 	}
 
-	public static boolean levelOne() {
+	public boolean checkPresence() {
 
-		boolean won = false, lost = false;
-		Scanner scan = new Scanner(System.in);
-
-		guardMap = Enemy.drawEnemy(guardMap, 'G');
-		UserInterface.drawMap();
-
-		do {
-
-			guardMap = Hero.move(guardMap, scan.next().charAt(0));
-
-
-			guardMap = Enemy.moveGuard(guardMap, ch);
-			UserInterface.drawMap();
-
-
-			if (guardMap[5][0] == 'H' || guardMap[6][0] == 'H')
-				won = true;
-			if (checkPresence(guardMap)) {
-				lost = true;
-				won = false;
-			}
-
-		} while (!won && !lost);
-
-		if (won)
-			return true;	
-		else 
-			return false;
-	}
-
-	public static boolean levelTwo() {
-		isLevelTwo = true;
-		boolean won = false, lost = false;
-		Scanner scan = new Scanner(System.in);
-		ogreMap = Enemy.drawEnemy(ogreMap, '0');
-
-		do {
-			UserInterface.drawMap();
-			ogreMap = Hero.move(ogreMap, scan.next().charAt(0));
-			ogreMap = Enemy.moveOgre(ogreMap);
-			if (ogreMap[1][0] == 'K') 
-				won = true;
-			if (checkPresence(ogreMap)) {
-				lost = true;
-				won = false;
-			}
-
-		} while (!won && !lost);
-		if (won)
-			return true;
-		else return false;
-	}
-
-	public static boolean checkPresence(char map[][]) {
-
-		int row = -1, col = -1, rowg = 0, colg = 0;
-		for (int i = 0; i < map.length; i++) {
-			for (int j = 0; j < map[i].length; j++) {
-				if (map[i][j] == 'H' || map[i][j] == 'K') {
-					row = i;
-					col = j;
-				}
-				if (map[i][j] == 'G' || map[i][j] == '0' || map[i][j] == 'D') {
-					rowg = i;
-					colg = j;
-				}
-			} 
-		}
-
-		if (row == -1 && col == -1) { // Adicionei aqui esta verificação para
-			// quando o H é comido pelo 0 e nem
-			// sequer está no array.
+		if (guard.getY() == hero.getY() && (guard.getX() == hero.getX() - 1 || guard.getX() == hero.getX() + 1)) {
 			return true;
 
 		}
-		if (colg == col && (rowg == row - 1 || rowg == row + 1)) {
-			return true;
-
-		}
-		else if (rowg == row && (colg == col - 1 || colg == col + 1)){
+		else if (guard.getX() == hero.getX() && (guard.getY() == hero.getY() - 1 || guard.getY() == hero.getY() + 1)){
 			return true;
 
 		}
 		return false;
 	}
-
-
-	public static char next(char c) {
-		if (c == 'X')
-			return 'X';
-		else if (c == 'k') {
-			return 'E';
-		}
-		else if (c == ' ')
-			return 'H';
-		else if (c == 'I')
-			return 'X';
-		else if (c == 'S') {
-			return 'S';
-		}
-		else if (c == 'H') // AC
-			return 'D';
-		return c;
+	
+	public void setLevelTwo(){
+		currentMap = Map2;
+		hero = new Hero(7, 1);
 	}
-
 }
