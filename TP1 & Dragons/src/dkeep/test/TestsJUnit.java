@@ -13,7 +13,6 @@ public class TestsJUnit {
 	public void moveIntoFreeCell() {
 	
 		GameLogic game = new GameLogic();
-		game.currentMap.drawMap(game);
 		char[][] map = game.currentMap.getMap();
 		assertEquals(map[1][1], map[game.hero.getX()][game.hero.getY()]);
 		//System.out.println(map[1][2]);
