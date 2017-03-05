@@ -6,13 +6,14 @@ import dkeep.test.*;
 
 public class UserInterface {
 
+	public static GameLogic game = new GameLogic();
+
 	public static void main(String[] args){
 		System.out.println(" ---------------------------- ");
 		System.out.println("| WELCOME TO DUNGEON ESCAPE! |");
 		System.out.println(" ---------------------------- \n");
 
 		Scanner read = new Scanner(System.in);
-		GameLogic game = new GameLogic();
 		TestsJUnit test = new TestsJUnit();
 
 		int level;
@@ -27,14 +28,10 @@ public class UserInterface {
 		System.out.println("\n\nType W/A/S/D to move. Activate the lever and escape!\n\n");
 		
 		if (level == -1) {
-			TestMap testMap = new TestMap();
-			game.changeCurrentMap(testMap);
-			game.createHero(1, 1);
-			//game.currentMap.drawMap(game);
 			test.moveIntoFreeCell();
 		}
 		
-		if(level == 1){
+		else if(level == 1){
 			GuardMap guardMap = new GuardMap();
 			game.changeCurrentMap(guardMap);
 			game.createHero(1, 1);			
@@ -51,7 +48,8 @@ public class UserInterface {
 		}
 
 		int playing = 0;
-		game.currentMap.drawMap(game);
+		if (level != -1)
+			game.currentMap.drawMap(game);
 
 		while(playing == 0){
 

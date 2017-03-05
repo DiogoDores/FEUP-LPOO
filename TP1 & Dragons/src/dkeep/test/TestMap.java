@@ -8,11 +8,11 @@ public class TestMap implements GameMap{
 
 	private String mapName = "TestMap";
 
-	 static char [][] TestMap = {{'X','X','X','X','X'},
-			 					 {'X',' ',' ',' ','X'},
-			 					 {'X',' ',' ',' ','X'},
-			 					 {'X',' ',' ',' ','X'},
-			 					 {'X','X','X','X','X'}};
+	static char [][] TestMap = {{'X','X','X','X','X'},
+			{'X',' ',' ',' ','X'},
+			{'X',' ',' ',' ','X'},
+			{'X',' ',' ',' ','X'},
+			{'X','X','X','X','X'}};
 	@Override
 	public char possibleMove(int x, int y) {
 		if (TestMap[x][y]  == 'X'){
@@ -40,16 +40,20 @@ public class TestMap implements GameMap{
 	@Override
 	public void drawMap(GameLogic game) {
 		char[][] mapToDraw = TestMap;
-
 		for (int i = 0; i < mapToDraw.length; i++) {
 			for(int j = 0; j < mapToDraw[i].length; j++){
-				if(game.ogre.getX() == i && game.ogre.getY() == j){
-					System.out.print(game.ogre.getSymbol());
+				if (i == 0 && j == 0)
+					System.out.print('X');
+				else if(game.guard.getX() == i && game.guard.getY() == j){
+					System.out.print(game.guard.getSymbol());
+					continue;
 				}else if(game.hero.getX() == i && game.hero.getY() == j){
 					System.out.print(game.hero.getSymbol());
-				} else {
+					continue;
+				} 
+				else 
 					System.out.print(mapToDraw[i][j]);
-				}
+				
 			}
 			System.out.print("\n");
 		}
