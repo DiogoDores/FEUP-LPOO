@@ -29,6 +29,8 @@ public class UserInterface {
 		
 		if (level == -1) {
 			test.moveIntoFreeCell();
+			System.out.println("\n");
+			test.moveIntoAWall();
 		}
 		
 		else if(level == 1){
