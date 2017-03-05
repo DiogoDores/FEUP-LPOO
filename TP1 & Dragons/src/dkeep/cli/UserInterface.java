@@ -23,7 +23,7 @@ public class UserInterface {
 			System.out.print("Select level: ");
 			level = read.nextInt();
 			
-		} while(level < -2 || level > 2 || level != -1);
+		} while(level < -1 || level > 2);
 
 		System.out.println("\n\nType W/A/S/D to move. Activate the lever and escape!\n\n");
 		
@@ -45,6 +45,8 @@ public class UserInterface {
 		
 		if(typeOfGuard == 'D'){
 			System.out.println("The stench of wine fills the air...\n\n");
+		} else if(typeOfGuard == 'S'){
+			System.out.println("'Hmm? What was that?'\n\n");
 		}
 
 		int playing = 0;
