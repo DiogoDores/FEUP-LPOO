@@ -88,7 +88,7 @@ public class GameLogic {
 			} else if(hero.getY() == guard.getY() && (hero.getX() == guard.getX() + 1 || hero.getX() == guard.getX() - 1)){
 				return true;
 			}
-		} else {
+		} else if (currentMap.getName() == "OgreMap" || currentMap.getName() == "TestMap"){
 			if(hero.getX() == ogre.getX() && (hero.getY() == ogre.getY() + 1 || hero.getY() == ogre.getY() - 1)){
 				return true;
 			} else if(hero.getY() == ogre.getY() && (hero.getX() == ogre.getX() + 1 || hero.getX() == ogre.getX() - 1)){

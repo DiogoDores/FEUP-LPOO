@@ -6,9 +6,9 @@ import dkeep.test.*;
 
 public class UserInterface {
 
-	public static GameLogic game = new GameLogic();
 
 	public static void main(String[] args){
+		GameLogic game = new GameLogic();
 		System.out.println(" ---------------------------- ");
 		System.out.println("| WELCOME TO DUNGEON ESCAPE! |");
 		System.out.println(" ---------------------------- \n");

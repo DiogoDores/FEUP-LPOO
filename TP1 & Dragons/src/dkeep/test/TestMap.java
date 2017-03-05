@@ -9,7 +9,7 @@ public class TestMap implements GameMap{
 	private String mapName = "TestMap";
 
 	static char [][] TestMap = {{'X','X','X','X','X'},
-			{'X',' ',' ',' ','X'},
+			{'I',' ',' ','k','X'},
 			{'X',' ',' ',' ','X'},
 			{'X',' ',' ',' ','X'},
 			{'X','X','X','X','X'}};
@@ -33,8 +33,7 @@ public class TestMap implements GameMap{
 
 	@Override
 	public void activateLever(Hero hero) {
-		// TODO Auto-generated method stub
-
+		hero.setSymbol('K');
 	}
 
 	@Override

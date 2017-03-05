@@ -5,6 +5,10 @@ public class Hero {
 	protected int x, y;
 	protected char symbol;
 
+	public void setSymbol(char c) {
+		symbol = c;
+	}
+	
 	public Hero(){}
 
 	public Hero(int x, int y){
@@ -73,7 +77,7 @@ public class Hero {
 		}
 
 		else if (result == 'E') {
-			if (map.getName() == "OgreMap") {
+			if (map.getName() == "OgreMap" || map.getName() == "TestMap") {
 				if (c == 'w') {
 					x--;
 				} else if (c == 'd') {
