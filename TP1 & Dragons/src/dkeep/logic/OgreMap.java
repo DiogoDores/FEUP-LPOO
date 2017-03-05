@@ -1,9 +1,9 @@
 package dkeep.logic;
 
 public class OgreMap implements GameMap{
-	
+
 	private String mapName = "OgreMap";
-	
+
 	static char[][] levelTwoMap = { 
 			{ 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' },
 			{ 'I',' ',' ',' ', ' ',' ',' ','k', 'X'},
@@ -17,7 +17,7 @@ public class OgreMap implements GameMap{
 
 	@Override
 	public char possibleMove(int x, int y) {
-		
+
 		if (levelTwoMap[x][y]  == 'X'){
 			return 'X';
 		} else if (levelTwoMap[x][y] == 'k') {
@@ -37,7 +37,7 @@ public class OgreMap implements GameMap{
 	public char[][] getMap() {
 		return levelTwoMap;
 	}
-	
+
 	public String getName(){
 		return mapName;
 	}
@@ -45,26 +45,38 @@ public class OgreMap implements GameMap{
 	@Override
 	public void activateLever(Hero hero) {
 		hero.symbol = 'K';
-		
+
 	}
-	
+
 	@Override
 	public void drawMap(GameLogic game) {
-		
+
 		char[][] mapToDraw = levelTwoMap;
+
 
 		for (int i = 0; i < mapToDraw.length; i++) {
 			for(int j = 0; j < mapToDraw[i].length; j++){
-				if(game.ogres.getX() == i && game.ogres.getY() == j){
-					System.out.print(game.ogres.getSymbol());
-				} else if(game.hero.getX() == i && game.hero.getY() == j){
+				
+				boolean foundOgre = false;
+				
+				for(int k = 0; k < game.ogres.size(); k++){
+					if(game.ogres.get(k).getX() == i && game.ogres.get(k).getY() == j){
+						System.out.print(game.ogres.get(k).getSymbol());
+						foundOgre = true;
+					} 
+				}
+				
+				if(game.hero.getX() == i && game.hero.getY() == j){
 					System.out.print(game.hero.getSymbol());
-				} else {
+					continue;
+				}
+
+				if(!foundOgre){
 					System.out.print(mapToDraw[i][j]);
 				}
 			}
 			System.out.print("\n");
 		}
 	}
-	
+
 }

@@ -97,4 +97,8 @@ public class Hero {
 
 	}
 
+	public void setSymbol(char c) {
+		this.symbol = 'A'; 		
+	}
+
 }

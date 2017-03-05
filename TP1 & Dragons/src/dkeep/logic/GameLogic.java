@@ -23,7 +23,9 @@ public class GameLogic {
 		if(currentMap.getName() == "GuardMap"){
 			guard.move(); 
 		} else {
-			ogre.moveOgre(currentMap);
+			for(int i = 0; i < ogres.size(); i++){
+				ogres.get(i).moveOgre(currentMap);
+			}
 		}
 
 		lost = checkPresence();
@@ -68,7 +70,7 @@ public class GameLogic {
 	}
 
 	public boolean checkPresence() {
-		
+
 		if(currentMap.getName() == "GuardMap"){
 			if(hero.getX() == guard.getX() && (hero.getY() == guard.getY() + 1 || hero.getY() == guard.getY() - 1)){
 				return true;
@@ -76,40 +78,35 @@ public class GameLogic {
 				return true;
 			}
 		} else {
-			if(hero.getX() == ogre.getX() && (hero.getY() == ogre.getY() + 1 || hero.getY() == ogre.getY() - 1)){
-				return true;
-			} else if(hero.getY() == ogre.getY() && (hero.getX() == ogre.getX() + 1 || hero.getX() == ogre.getX() - 1)){
-				return true;
-			} else if(currentMap.getMap()[hero.getX()][hero.getY()] == '*'){
-				return true;
+			if(currentMap.getMap()[hero.getX()][hero.getY()] == '*'){
+					return true;
+				}
 			}
-		}
-
-
 		return false;
 	}
 
 	public void setLevelTwo(){
 		System.out.println("\n\nPhew! You escaped the guard!\nBut what's that?\nOh no! An ogre!\nGrab the key and escape!\nBe careful with his club!\n\n");
 		currentMap = Map2;
-		hero = new Hero(7, 1);
+		createHero(7, 1);
+		hero.setSymbol('A');
 		createOgre();
 	}
 
 	public void createOgre() {
 
-		int numOgres = random.nextInt(5);
+		int numOgres = random.nextInt(5); 
 		int x;
 		int y;
 
 		for(int i = 0; i < numOgres; i++){
 
 			do{
-				x = random.nextInt(9) + 1;
-				y = random.nextInt(9) + 1;
+				x = random.nextInt(7) + 1;
+				y = random.nextInt(8) + 1;
 			} while((x == hero.getX() && y == hero.getY()) || (x == hero.getX() - 1 && y == hero.getY()) || (x == hero.getX() && y == hero.getY() + 1));
-			
-			ogres = new ArrayList<Ogre>();
+
+			ogres.add(new Ogre(x,y));
 		}
 	}
 }
