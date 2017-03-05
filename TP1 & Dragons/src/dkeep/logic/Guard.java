@@ -4,8 +4,7 @@ public class Guard {
 	
 	protected char symbol;
 	protected char[] path = {'a', 's', 's', 's', 's', 'a', 'a', 'a', 'a', 'a', 'a', 's', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'w', 'w', 'w', 'w', 'w'};
-	protected char[] inversePath = {'s', 's', 's', 's', 's', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'w', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'w', 'w', 'w', 'w', 'd'};
-	protected int x, y, position = 0, inversePosition = 0;
+	protected int x, y, position;
 	
 	public Guard(){}
 	
@@ -42,7 +41,6 @@ public class Guard {
 			y++;
 		}
 		position++;
-		inversePosition++;
 		
 		if(position == path.length){
 			position = 0;
@@ -50,20 +48,21 @@ public class Guard {
 	}
 	
 	public void followInversePath(){
-		if(inversePath[inversePosition] == 'w'){
-			x--;
-		} else if(inversePath[inversePosition] == 'a'){
-			y--;
-		} else if(inversePath[inversePosition] == 's'){
-			x++;
-		} else if(inversePath[inversePosition] == 'd'){
-			y++;
-		}
-		position++;
-		inversePosition++;
 		
-		if(inversePosition == inversePath.length){
-			inversePosition = 0;
+		if(position == 0){
+			position = path.length;
+		}
+		
+		position--;
+		
+		if(path[position] == 'w'){
+			x++;
+		} else if(path[position] == 'a'){
+			y++;
+		} else if(path[position] == 's'){
+			x--;
+		} else if(path[position] == 'd'){
+			y--;
 		}
 	}
 }

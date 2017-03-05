@@ -15,7 +15,7 @@ public class DrunkenGuard extends Guard {
 	public void move(){
 
 		Random random = new Random();
-		int action = random.nextInt(5);
+		int action = random.nextInt(3);
 		
 		if(sleeping){
 			
@@ -33,8 +33,6 @@ public class DrunkenGuard extends Guard {
 			followPath();
 		} else if(action == 2){
 			sleep();
-		} else if(action == 3 || action == 4){
-			followInversePath();
 		}
 	}
 

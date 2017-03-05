@@ -14,6 +14,7 @@ public class TestsJUnit {
 	
 		GameLogic game = new GameLogic();
 		char[][] map = game.currentMap.getMap();
+		System.out.println(game.currentMap.getName());
 		for (int i = 0 ; i < map.length ; i++) {
 			for (int j = 0 ; j < map[i].length; j++) {
 				System.out.println(map[i][j]);
