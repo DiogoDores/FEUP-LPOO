@@ -6,9 +6,9 @@ import dkeep.test.*;
 
 public class UserInterface {
 
-	public static GameLogic game = new GameLogic();
 
 	public static void main(String[] args){
+		GameLogic game = new GameLogic();
 		System.out.println(" ---------------------------- ");
 		System.out.println("| WELCOME TO DUNGEON ESCAPE! |");
 		System.out.println(" ---------------------------- \n");
@@ -29,6 +29,8 @@ public class UserInterface {
 		
 		if (level == -1) {
 			test.moveIntoFreeCell();
+			System.out.println("\n");
+			test.moveIntoAWall();
 		}
 		
 		else if(level == 1){
@@ -39,7 +41,7 @@ public class UserInterface {
 		} else if (level == 2){
 			OgreMap ogreMap = new OgreMap();
 			game.createHero(7, 1);
-			game.createOgre();
+			game.createOgres();
 			game.changeCurrentMap(ogreMap);
 		}
 		

@@ -9,6 +9,7 @@ public class GameLogic {
 	Random random = new Random();
 	public Guard guard = new Guard();
 	public Hero hero = new Hero();
+	public Ogre ogre = new Ogre();
 	public ArrayList<Ogre> ogres = new ArrayList<Ogre>();
 	public GameMap Map1 = new GuardMap();
 	public GameMap Map2 = new OgreMap();
@@ -71,13 +72,13 @@ public class GameLogic {
 
 	public boolean checkPresence() {
 
-		if(currentMap.getName() == "GuardMap"){
+		if(currentMap.getName() == "GuardMap" || currentMap.getName() == "TestMap"){
 			if(hero.getX() == guard.getX() && (hero.getY() == guard.getY() + 1 || hero.getY() == guard.getY() - 1)){
 				return true;
 			} else if(hero.getY() == guard.getY() && (hero.getX() == guard.getX() + 1 || hero.getX() == guard.getX() - 1)){
 				return true;
 			}
-		} else {
+		} else if (currentMap.getName() == "OgreMap" || currentMap.getName() == "TestMap"){
 			if(currentMap.getMap()[hero.getX()][hero.getY()] == '*'){
 					return true;
 				}
@@ -90,10 +91,10 @@ public class GameLogic {
 		currentMap = Map2;
 		createHero(7, 1);
 		hero.setSymbol('A');
-		createOgre();
+		createOgres();
 	}
 
-	public void createOgre() {
+	public void createOgres() {
 
 		int numOgres = random.nextInt(5); 
 		int x;
@@ -108,5 +109,9 @@ public class GameLogic {
 
 			ogres.add(new Ogre(x,y));
 		}
+	}
+
+	public void createOgre(int x, int y) {
+		ogre = new Ogre(x, y);
 	}
 }
