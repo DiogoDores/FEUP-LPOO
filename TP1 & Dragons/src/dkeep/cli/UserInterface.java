@@ -42,7 +42,7 @@ public class UserInterface {
 		} else if (level == 2){
 			OgreMap ogreMap = new OgreMap();
 			game.createHero(7, 1);
-			game.createOgre(1, 5);
+			game.createOgre();
 			game.changeCurrentMap(ogreMap);
 		}
 		

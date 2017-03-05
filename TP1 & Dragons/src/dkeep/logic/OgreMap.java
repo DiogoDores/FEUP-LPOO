@@ -55,9 +55,9 @@ public class OgreMap implements GameMap{
 
 		for (int i = 0; i < mapToDraw.length; i++) {
 			for(int j = 0; j < mapToDraw[i].length; j++){
-				if(game.ogre.getX() == i && game.ogre.getY() == j){
-					System.out.print(game.ogre.getSymbol());
-				}else if(game.hero.getX() == i && game.hero.getY() == j){
+				if(game.ogres.getX() == i && game.ogres.getY() == j){
+					System.out.print(game.ogres.getSymbol());
+				} else if(game.hero.getX() == i && game.hero.getY() == j){
 					System.out.print(game.hero.getSymbol());
 				} else {
 					System.out.print(mapToDraw[i][j]);
