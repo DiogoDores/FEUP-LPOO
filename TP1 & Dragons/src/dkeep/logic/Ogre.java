@@ -9,7 +9,7 @@ public class Ogre {
 	private boolean restoreSymbol = false;
 
 	public Ogre(){}
-
+	
 	public Ogre(int x, int y){
 		this.x = x;
 		this.y = y;
@@ -34,7 +34,7 @@ public class Ogre {
 		char c, club, clubResult;
 
 		char result;
-		
+
 		deleteLastClub(map);
 
 		do{
@@ -90,7 +90,8 @@ public class Ogre {
 			this.restoreSymbol = true;
 		}
 
-		
+		/*
+			
 		do{
 			club = createRandomMove();
 			clubResult = generateClubPos(club, map);
@@ -109,14 +110,14 @@ public class Ogre {
 			else if (club == 'd') {
 				map.getMap()[x][y+1] = '*';
 			}
-			
+
 		} else if(clubResult == 'E'){
 			if(club == 'w'){
 				map.getMap()[x-1][y] = '$';
 			} else if (club == 'd'){
 				map.getMap()[x][y+1] = '$';
 			}
-		}
+		}*/
 
 	}
 
@@ -130,7 +131,7 @@ public class Ogre {
 				}
 			}
 		}
-		
+
 	}
 
 	private char generateClubPos(char club, GameMap map) {
@@ -163,6 +164,38 @@ public class Ogre {
 		char c = move.charAt(r);
 
 		return c;
+	}
+
+	public void moveClub(GameMap map) {
+		
+		char club, clubResult;
+		
+		do{
+			club = createRandomMove();
+			clubResult = generateClubPos(club, map);
+		} while(clubResult == 'X' || clubResult == 'I' || clubResult == 'S' || clubResult == 'N');
+
+		if(clubResult == 'H'){
+			if (club == 'w') {
+				map.getMap()[x-1][y] = '*';
+			}
+			else if (club == 'a'){
+				map.getMap()[x][y-1] = '*';
+			}
+			else if (club == 's') {
+				map.getMap()[x+1][y] = '*';
+			}
+			else if (club == 'd') {
+				map.getMap()[x][y+1] = '*';
+			}
+
+		} else if(clubResult == 'E'){
+			if(club == 'w'){
+				map.getMap()[x-1][y] = '$';
+			} else if (club == 'd'){
+				map.getMap()[x][y+1] = '$';
+			}
+		}
 	}
 
 }

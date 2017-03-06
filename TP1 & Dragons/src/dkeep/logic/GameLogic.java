@@ -14,6 +14,8 @@ public class GameLogic {
 	public GameMap Map1 = new GuardMap();
 	public GameMap Map2 = new OgreMap();
 	public GameMap currentMap;
+	private boolean isStunned = false;
+	private int wait = 0;
 
 	public int startGame(char key){
 
@@ -24,8 +26,23 @@ public class GameLogic {
 		if(currentMap.getName() == "GuardMap"){
 			guard.move(); 
 		} else {
-			for(int i = 0; i < ogres.size(); i++){
-				ogres.get(i).moveOgre(currentMap);
+			if(wait == 0){
+				for(int i = 0; i < ogres.size(); i++){
+					ogres.get(i).moveOgre(currentMap);
+					ogres.get(i).moveClub(currentMap);
+				}
+			}
+		}
+
+		isStunned = stunOgre();
+
+		if(isStunned){
+			if(wait == 2){
+				ogre.symbol = 'O';
+				wait = 0;
+			}else{
+				ogre.symbol = '8';
+				wait++;
 			}
 		}
 
@@ -36,6 +53,7 @@ public class GameLogic {
 		}
 
 		if(hero.getY() == 0 && (hero.getX() == 5 || hero.getX() == 6)){
+			System.out.println("\n\nPhew! You escaped the guard!\nBut what's that?\nOh no! An ogre!\nGrab the key and escape!\nBe careful with his club!\n\n");
 			setLevelTwo();
 		}
 
@@ -44,6 +62,15 @@ public class GameLogic {
 		}
 
 		return 0;
+	}
+
+	public boolean stunOgre() {
+		if(hero.getX() == ogre.getX() && (hero.getY() == ogre.getY() + 1 || hero.getY() == ogre.getY() - 1)){
+			return true;
+		} else if(hero.getY() == ogre.getY() && (hero.getX() == ogre.getX() + 1 || hero.getX() == ogre.getX() - 1)){
+			return true;
+		}
+		return false;
 	}
 
 	public void changeCurrentMap(GameMap gameMap){
@@ -80,14 +107,13 @@ public class GameLogic {
 			}
 		} else if (currentMap.getName() == "OgreMap" || currentMap.getName() == "TestMap"){
 			if(currentMap.getMap()[hero.getX()][hero.getY()] == '*'){
-					return true;
-				}
+				return true;
 			}
+		}
 		return false;
 	}
 
 	public void setLevelTwo(){
-		System.out.println("\n\nPhew! You escaped the guard!\nBut what's that?\nOh no! An ogre!\nGrab the key and escape!\nBe careful with his club!\n\n");
 		currentMap = Map2;
 		createHero(7, 1);
 		hero.setSymbol('A');
@@ -103,7 +129,7 @@ public class GameLogic {
 		for(int i = 0; i < numOgres; i++){
 
 			do{
-				x = random.nextInt(7) + 1;
+				x = random.nextInt(8) + 1;
 				y = random.nextInt(8) + 1;
 			} while((x == hero.getX() && y == hero.getY()) || (x == hero.getX() - 1 && y == hero.getY()) || (x == hero.getX() && y == hero.getY() + 1));
 

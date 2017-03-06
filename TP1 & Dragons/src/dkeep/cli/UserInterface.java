@@ -39,10 +39,7 @@ public class UserInterface {
 			game.createHero(1, 1);			
 			typeOfGuard = game.createGuard(1,8);			
 		} else if (level == 2){
-			OgreMap ogreMap = new OgreMap();
-			game.createHero(7, 1);
-			game.createOgres();
-			game.changeCurrentMap(ogreMap);
+			game.setLevelTwo();
 		}
 		
 		if(typeOfGuard == 'D'){
