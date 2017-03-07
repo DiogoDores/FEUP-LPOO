@@ -82,7 +82,7 @@ public class GameLogic {
 	}
 
 	public char createGuard(int x, int y){
-		String type = "D";
+		String type = "DSG";
 		int r = random.nextInt(type.length());
 		char typeOfGuard = type.charAt(r);
 

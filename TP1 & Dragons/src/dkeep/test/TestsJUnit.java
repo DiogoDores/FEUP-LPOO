@@ -166,6 +166,42 @@ public class TestsJUnit {
 		assertEquals(true, gamePresence(game, 2,2));
 		testMap.drawMap(game);
 	} 
+	
+	@Test
+	public void followPath() {
+		System.out.println("\nTest Move.\n");
+		GameLogic game = new GameLogic();
+		GuardMap testMap = new GuardMap();
+		game.changeCurrentMap(testMap);
+		game.createGuard(1, 8);
+		game.guard.move();game.guard.move();game.guard.move();game.guard.move();game.guard.move();game.guard.move();game.guard.move();game.guard.move();game.guard.move();game.guard.move();game.guard.move();game.guard.move();game.guard.move();game.guard.move();game.guard.move();game.guard.move();game.guard.move();game.guard.move();game.guard.move();game.guard.move();game.guard.move();
+	} 
+	/*
+	@Test
+	public void levelTwo() {
+		System.out.println("\nTwo.\n");
+		GameLogic game = new GameLogic();
+		GuardMap testMap = new GuardMap();
+		game.changeCurrentMap(testMap);
+		game.createGuard(1, 8);
+		game.guard.move();game.guard.move();game.guard.move();game.guard.move();game.guard.move();game.guard.move();game.guard.move();game.guard.move();game.guard.move();game.guard.move();game.guard.move();game.guard.move();game.guard.move();game.guard.move();game.guard.move();game.guard.move();game.guard.move();game.guard.move();game.guard.move();game.guard.move();game.guard.move();
+	} 
+	*/
+	
+	@Test
+	public void createOgres() {
+		System.out.println("\nTest Move.\n");
+		GameLogic game = new GameLogic();
+		OgreMap testMap = new OgreMap();
+		game.changeCurrentMap(testMap);
+		game.createOgres();
+		for(int i = 0; i < game.ogres.size();i++){
+			game.ogres.get(i).moveOgre(testMap);
+		}
+	} 
+	
+	
+	
 	@Test
 	public void testMoveTwo() {
 		System.out.println("\nTest Move.\n");
@@ -179,7 +215,7 @@ public class TestsJUnit {
 		assertEquals(true, gamePresence(game, 2,2));
 		testMap.drawMap(game);
 	}
-	
+	/*
 	@Test
 	public void testMoveTrois() {
 		System.out.println("\nTest Move.\n");
@@ -192,7 +228,7 @@ public class TestsJUnit {
 		game.ogre.moveOgre(testMap);
 		assertEquals(true, gamePresence(game, 2,2));
 		testMap.drawMap(game);
-	} 
+	} */
 	
 	
 	private boolean gamePresence(GameLogic game, int x, int y){
