@@ -6,7 +6,7 @@ import dkeep.logic.GameLogic;
 import dkeep.logic.GameMap;
 import dkeep.logic.Hero;
 
-public class TestMap implements GameMap{
+public class TestMapGuard implements GameMap{
 	private static char [][] tmp = {{'X','X','X','X','X'},
 			{'I',' ',' ','k','X'},
 			{'X',' ',' ',' ','X'},
@@ -16,7 +16,7 @@ public class TestMap implements GameMap{
 	private String mapName = "TestMap";
 	private char [][] TestMap;
 	
-	public TestMap(){
+	public TestMapGuard(){
 		TestMap = new char[tmp.length][];
 
 		for (int line = 0; line < tmp.length; line++) {
@@ -86,6 +86,4 @@ public class TestMap implements GameMap{
 		return TestMap;
 	}
 	
-	
 }
-

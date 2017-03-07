@@ -14,9 +14,11 @@ public class OgreMap implements GameMap{
 			{ 'X',' ',' ',' ',' ',' ',' ', ' ',' ', 'X'},
 			{ 'X',' ',' ',' ',' ',' ',' ', ' ',' ', 'X'},
 			{ 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' } };
+	
+	
 
 	@Override
-	public char possibleMove(int x, int y) {
+	public char possibleMove(int x, int y) { 
 
 		if (levelTwoMap[x][y]  == 'X'){
 			return 'X';
@@ -78,5 +80,4 @@ public class OgreMap implements GameMap{
 			System.out.print("\n");
 		}
 	}
-
 }

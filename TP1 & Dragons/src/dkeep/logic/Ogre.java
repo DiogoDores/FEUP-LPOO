@@ -38,7 +38,7 @@ public class Ogre {
 		deleteLastClub(map);
 
 		do{
-			c = createRandomMove();
+			c = createRandomMove(); 
 
 			if (c == 'w') {
 				result = map.possibleMove(x - 1, y);
@@ -169,7 +169,7 @@ public class Ogre {
 	public void moveClub(GameMap map) {
 		
 		char club, clubResult;
-		
+		 
 		do{
 			club = createRandomMove();
 			clubResult = generateClubPos(club, map);

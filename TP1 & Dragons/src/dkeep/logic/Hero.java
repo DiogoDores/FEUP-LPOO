@@ -74,10 +74,10 @@ public class Hero {
 				y +=2;
 			}
 
-		}
+		} 
 
-		else if (result == 'E') {
-			if (map.getName() == "OgreMap" || map.getName() == "TestMap") {
+		else if (result == 'E') { 
+			if (map.getName() == "OgreMap") {
 				if (c == 'w') {
 					x--;
 				} else if (c == 'd') {
@@ -87,12 +87,20 @@ public class Hero {
 				map.getMap()[1][8] = ' '; 
 
 			}
-			else {
+			else if(map.getName() == "TestMap"){
+				if (c == 'w') {
+					x--;
+				} else if (c == 'd') {
+					y++;
+				}
+				this.symbol = 'K';
+				map.getMap()[1][3] = ' '; 
+			} else {
 				map.activateLever(new Hero(x, y));
 			}
 
 		} else if(result == 'I'){
-			if(map.getName() == "OgreMap"){
+			if(map.getName() == "OgreMap" || map.getName() == "TestMap" ){
 				if(this.symbol == 'K'){
 					map.getMap()[1][0] = 'S';
 				}

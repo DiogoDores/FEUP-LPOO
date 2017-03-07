@@ -8,5 +8,4 @@ public interface GameMap {
 	public void drawMap(GameLogic game);
 	public String getName();
 	public char[][] getMap();
-
 }

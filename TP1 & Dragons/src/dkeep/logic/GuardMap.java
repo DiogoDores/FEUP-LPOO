@@ -8,13 +8,15 @@ public class GuardMap implements GameMap {
 			{ 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' },
 			{ 'X', ' ', ' ', ' ', 'I', ' ', 'X', ' ', ' ', 'X' },
 			{ 'X', 'X', 'X', ' ' , 'X', 'X', 'X', ' ' , ' ' , 'X' },
-			{ 'X',' ', 'I',' ', 'I',' ', 'X',' ',' ', 'X' },
+			{ 'X',' ', 'I',' ', 'I',' ', 'X',' ',' ', 'X' }, 
 			{ 'X', 'X', 'X', ' ', 'X', 'X', 'X', ' ', ' ', 'X' },
 			{ 'I', ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , 'X' },
 			{ 'I', ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , 'X' },
 			{ 'X', 'X', 'X',' ', 'X', 'X', 'X', 'X', ' ' , 'X' },
 			{ 'X', ' ' , 'I', ' ' , 'I', ' ' , 'X', 'k', ' ' , 'X' },
 			{ 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' } };
+	
+	
 
 	public void activateLever(Hero hero) {
 		for (int i = 0; i < levelOneMap.length; i++) {
@@ -73,5 +75,4 @@ public class GuardMap implements GameMap {
 	public String getName() {
 		return mapName;
 	}
-
 }

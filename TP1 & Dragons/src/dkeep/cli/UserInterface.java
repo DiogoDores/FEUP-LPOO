@@ -12,36 +12,22 @@ public class UserInterface {
 		System.out.println(" ---------------------------- ");
 		System.out.println("| WELCOME TO DUNGEON ESCAPE! |");
 		System.out.println(" ---------------------------- \n");
-
-		Scanner read = new Scanner(System.in);
-		TestsJUnit test = new TestsJUnit();
-
-		int level;
+		int level = selectLevel();
 		char typeOfGuard = 0;
 
-		do{
-			System.out.print("Select level: ");
-			level = read.nextInt();
-			
-		} while(level < -1 || level > 2);
-
+ 
 		System.out.println("\n\nType W/A/S/D to move. Activate the lever and escape!\n\n");
-		
-		if (level == -1) {
-			test.moveIntoFreeCell();
-			System.out.println("\n");
-			test.moveIntoAWall();
-		}
-		
-		else if(level == 1){
+
+		if(level == 1){
 			GuardMap guardMap = new GuardMap();
 			game.changeCurrentMap(guardMap);
-			game.createHero(1, 1);			
+			game.createHero(1, 1);
+
 			typeOfGuard = game.createGuard(1,8);			
 		} else if (level == 2){
 			game.setLevelTwo();
 		}
-		
+
 		if(typeOfGuard == 'D'){
 			System.out.println("The stench of wine fills the air...\n\n");
 		} else if(typeOfGuard == 'S'){
@@ -51,17 +37,19 @@ public class UserInterface {
 		int playing = 0;
 		if (level != -1)
 			game.currentMap.drawMap(game);
+		Scanner read = new Scanner(System.in);
+		TestsJUnit test = new TestsJUnit();
 
 		while(playing == 0){
 
 			char key = read.next().charAt(0);
 
 			playing = game.startGame(key);
-			
+
 			game.currentMap.drawMap(game);
 
 		}
-		
+
 		if(playing == 2){
 			System.out.println(" ------------ ");
 			System.out.println("| GAME OVER! |");
@@ -71,5 +59,19 @@ public class UserInterface {
 			System.out.println("| YOU WON! |");
 			System.out.println(" ---------- \n");
 		}
+	}
+	
+	public static int selectLevel() {
+		Scanner read = new Scanner(System.in);
+		TestsJUnit test = new TestsJUnit();
+
+		int level;
+
+		do{
+			System.out.print("Select level: ");
+			level = read.nextInt();
+
+		} while(level < 1 || level > 2);
+		return level;
 	}
 }
