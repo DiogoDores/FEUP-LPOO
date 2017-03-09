@@ -5,15 +5,15 @@ public class OgreMap implements GameMap{
 	private String mapName = "OgreMap";
 
 	static char[][] levelTwoMap = { 
-			{ 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' },
-			{ 'I',' ',' ',' ', ' ',' ',' ', ' ','k', 'X'},
-			{ 'X',' ',' ',' ',' ',' ',' ', ' ',' ', 'X'},
-			{ 'X',' ',' ',' ',' ',' ',' ', ' ',' ', 'X'},
-			{ 'X',' ',' ',' ',' ',' ',' ', ' ',' ', 'X'},
-			{ 'X',' ',' ',' ',' ',' ',' ', ' ',' ', 'X'},
-			{ 'X',' ',' ',' ',' ',' ',' ', ' ',' ', 'X'},
-			{ 'X',' ',' ',' ',' ',' ',' ', ' ',' ', 'X'},
-			{ 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' } };
+			{ 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'},
+			{ 'I',' ',' ',' ', ' ',' ',' ', 'k', 'X'},
+			{ 'X',' ',' ',' ',' ',' ',' ', ' ', 'X'},
+			{ 'X',' ',' ',' ',' ',' ',' ', ' ', 'X'},
+			{ 'X',' ',' ',' ',' ',' ',' ', ' ', 'X'},
+			{ 'X',' ',' ',' ',' ',' ',' ', ' ', 'X'},
+			{ 'X',' ',' ',' ',' ',' ',' ', ' ', 'X'},
+			{ 'X',' ',' ',' ',' ',' ',' ', ' ', 'X'},
+			{ 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'} };
 	
 	
 
@@ -63,18 +63,18 @@ public class OgreMap implements GameMap{
 				
 				for(int k = 0; k < game.ogres.size(); k++){
 					if(game.ogres.get(k).getX() == i && game.ogres.get(k).getY() == j){
-						System.out.print(game.ogres.get(k).getSymbol());
+						System.out.print(game.ogres.get(k).getSymbol() + " ");
 						foundOgre = true;
 					} 
 				}
 				
 				if(game.hero.getX() == i && game.hero.getY() == j){
-					System.out.print(game.hero.getSymbol());
+					System.out.print(game.hero.getSymbol() + " ");
 					continue;
 				}
 
 				if(!foundOgre){
-					System.out.print(mapToDraw[i][j]);
+					System.out.print(mapToDraw[i][j] + " ");
 				}
 			}
 			System.out.print("\n");

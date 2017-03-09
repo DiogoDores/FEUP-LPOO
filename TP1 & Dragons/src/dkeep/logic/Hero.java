@@ -84,7 +84,7 @@ public class Hero {
 					y++;
 				}
 				this.symbol = 'K';
-				map.getMap()[1][8] = ' '; 
+				map.getMap()[1][7] = ' '; 
 
 			}
 			else if(map.getName() == "TestMap"){

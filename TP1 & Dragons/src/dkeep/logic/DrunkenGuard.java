@@ -19,14 +19,21 @@ public class DrunkenGuard extends Guard {
 		
 		if(sleeping){
 			
-			int wakeUp = random.nextInt(3);
+			int wakeUp = random.nextInt(5);
 			
 			if(wakeUp == 0){
 				sleep();
-			} else {
+			} else if(wakeUp == 1 || wakeUp == 2){
 				this.symbol = 'G';
-				sleeping = false;
+				this.sleeping = false;
+				followPath();
+			} else if(wakeUp == 3 || wakeUp == 4){
+				this.symbol = 'G';
+				this.sleeping = false;
+				followInversePath();
 			}
+			
+			return;
 		}
 
 		if(action == 0 || action == 1){
@@ -40,6 +47,7 @@ public class DrunkenGuard extends Guard {
 	public void sleep(){
 		
 		this.symbol = 'g';
-		sleeping = true;
+		this.sleeping = true;
+		
 	}
 }

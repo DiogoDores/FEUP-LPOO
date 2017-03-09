@@ -82,7 +82,7 @@ public class GameLogic {
 	}
 
 	public char createGuard(int x, int y){
-		String type = "DSG";
+		String type = "D";
 		int r = random.nextInt(type.length());
 		char typeOfGuard = type.charAt(r);
 
@@ -136,15 +136,15 @@ public class GameLogic {
 
 	public void createOgres() {
 
-		int numOgres = random.nextInt(5); 
+		int numOgres = random.nextInt(4) + 1; 
 		int x;
 		int y;
 
 		for(int i = 0; i < numOgres; i++){
 
 			do{
-				x = random.nextInt(8) + 1;
-				y = random.nextInt(8) + 1;
+				x = random.nextInt(7) + 1;
+				y = random.nextInt(7) + 1;
 			} while((x == hero.getX() && y == hero.getY()) || (x == hero.getX() - 1 && y == hero.getY()) || (x == hero.getX() && y == hero.getY() + 1));
 
 			ogres.add(new Ogre(x,y));
