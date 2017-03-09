@@ -82,7 +82,7 @@ public class GameLogic {
 	}
 
 	public char createGuard(int x, int y){
-		String type = "D";
+		String type = "DSG";
 		int r = random.nextInt(type.length());
 		char typeOfGuard = type.charAt(r);
 
@@ -100,7 +100,7 @@ public class GameLogic {
 	public boolean checkPresence() {
 
 		if(currentMap.getName() == "GuardMap"){
-			if(hero.getX() == guard.getX() && (hero.getY() == guard.getY() + 1 || hero.getY() == guard.getY() - 1)){
+			if(guard.symbol == 'G' && hero.getX() == guard.getX() && (hero.getY() == guard.getY() + 1 || hero.getY() == guard.getY() - 1)){
 				return true;
 			} else if(hero.getY() == guard.getY() && (hero.getX() == guard.getX() + 1 || hero.getX() == guard.getX() - 1)){
 				return true;
