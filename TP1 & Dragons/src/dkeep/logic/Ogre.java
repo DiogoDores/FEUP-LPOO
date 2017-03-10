@@ -4,9 +4,10 @@ import java.util.Random;
 
 public class Ogre {
 
-	protected int x, y;
-	protected char symbol, club;
+	protected int x, y, clubX, clubY;
+	protected char symbol, clubSymbol;
 	private boolean restoreSymbol = false;
+	private boolean restoreClubSymbol = false;
 
 	public Ogre(){}
 	
@@ -14,7 +15,7 @@ public class Ogre {
 		this.x = x;
 		this.y = y;
 		this.symbol = 'O';
-		this.club = '*';
+		this.clubSymbol = '*';
 	}
 
 	public int getX(){
@@ -28,53 +29,41 @@ public class Ogre {
 	public char getSymbol(){
 		return symbol;
 	}
+	
+	public int getClubX(){
+		return clubX;
+	}
+
+	public int getClubY(){
+		return clubY;
+	}
+	
+	public char getClubSymbol(){
+		return clubSymbol;
+	}
 
 	public void moveOgre(GameMap map) {
 
-		char c, club, clubResult;
-
+		char c;
 		char result;
-
-		deleteLastClub(map);
 
 		do{
 			c = createRandomMove(); 
-
-			if (c == 'w') {
-				result = map.possibleMove(x - 1, y);
-			}
-			else if (c == 'a'){
-				result = map.possibleMove(x, y - 1);
-			}
-			else if (c == 's') {
-				result = map.possibleMove(x + 1, y);
-			}
-			else if (c == 'd') {
-				result = map.possibleMove(x, y + 1);
-			}
-			else
-				result = 'N';
-
+			result = checkPossible(c, map);
 		} while(result == 'X' || result == 'I' || result == 'S' || result == 'N');
 
 		if (result == 'H') {
+			
+			if(restoreSymbol){
+				this.symbol = 'O';
+				restoreSymbol = false;
+			}
+			
 			if (c == 'w') {
 				x--;
 			} else if (c == 'a') {
-
-				if(restoreSymbol){
-					this.symbol = 'O';
-					restoreSymbol = false;
-				}
-
 				y--;
 			} else if (c == 's') {
-
-				if(restoreSymbol){
-					this.symbol = 'O';
-					restoreSymbol = false;
-				}
-
 				x++;
 			} else if (c == 'd') {
 				y++;
@@ -89,74 +78,51 @@ public class Ogre {
 			this.symbol = '$';
 			this.restoreSymbol = true;
 		}
+	}
 
-		/*
-			
+	public void moveClub(GameMap map, int x, int y) {
+		
+		char club, clubResult;
+		 
 		do{
 			club = createRandomMove();
-			clubResult = generateClubPos(club, map);
+			clubResult = checkPossible(club, map);
 		} while(clubResult == 'X' || clubResult == 'I' || clubResult == 'S' || clubResult == 'N');
 
 		if(clubResult == 'H'){
+			
+			if(restoreClubSymbol){
+				this.symbol = '*';
+				restoreClubSymbol = false;
+			}
+			
 			if (club == 'w') {
-				map.getMap()[x-1][y] = '*';
-			}
-			else if (club == 'a'){
-				map.getMap()[x][y-1] = '*';
-			}
-			else if (club == 's') {
-				map.getMap()[x+1][y] = '*';
-			}
-			else if (club == 'd') {
-				map.getMap()[x][y+1] = '*';
+				clubX = x - 1;
+				clubY = y;
+			} else if (club == 'a'){
+				clubY = y - 1;
+				clubX = x;
+			} else if (club == 's') {
+				clubX = x + 1;
+				clubY = y;
+			} else if (club == 'd') {
+				clubY = y + 1;
+				clubX = x;
 			}
 
 		} else if(clubResult == 'E'){
 			if(club == 'w'){
-				map.getMap()[x-1][y] = '$';
+				clubX = x - 1;
+				clubY = y;
 			} else if (club == 'd'){
-				map.getMap()[x][y+1] = '$';
+				clubY = y + 1;
+				clubX = x; 
 			}
-		}*/
-
+			clubSymbol = '$';
+			restoreClubSymbol = true;
+		}
 	}
-
-	private void deleteLastClub(GameMap map) {
-		for(int i = 0; i < map.getMap().length; i++){
-			for(int j = 0; j < map.getMap()[i].length; j++){
-				if(map.getMap()[i][j] == '*'){
-					map.getMap()[i][j] = ' ';
-				} else if(map.getMap()[i][j] == '$' && restoreSymbol == false){
-					map.getMap()[i][j] = 'k';
-				}
-			}
-		}
-
-	}
-
-	private char generateClubPos(char club, GameMap map) {
-
-		char result;
-
-		if (club == 'w') {
-			result = map.possibleMove(x - 1, y);
-		}
-		else if (club == 'a'){
-			result = map.possibleMove(x, y - 1);
-		}
-		else if (club == 's') {
-			result = map.possibleMove(x + 1, y);
-		}
-		else if (club == 'd') {
-			result = map.possibleMove(x, y + 1);
-		} else {
-			result = 'N';
-		}
-
-		return result;
-
-	}
-
+	
 	public char createRandomMove(){
 		String move = "wasd";
 		Random random = new Random();
@@ -165,37 +131,25 @@ public class Ogre {
 
 		return c;
 	}
+	
+	public char checkPossible(char key, GameMap map) {
 
-	public void moveClub(GameMap map) {
-		
-		char club, clubResult;
-		 
-		do{
-			club = createRandomMove();
-			clubResult = generateClubPos(club, map);
-		} while(clubResult == 'X' || clubResult == 'I' || clubResult == 'S' || clubResult == 'N');
+		char result;
 
-		if(clubResult == 'H'){
-			if (club == 'w') {
-				map.getMap()[x-1][y] = '*';
-			}
-			else if (club == 'a'){
-				map.getMap()[x][y-1] = '*';
-			}
-			else if (club == 's') {
-				map.getMap()[x+1][y] = '*';
-			}
-			else if (club == 'd') {
-				map.getMap()[x][y+1] = '*';
-			}
-
-		} else if(clubResult == 'E'){
-			if(club == 'w'){
-				map.getMap()[x-1][y] = '$';
-			} else if (club == 'd'){
-				map.getMap()[x][y+1] = '$';
-			}
+		if (key == 'w') {
+			result = map.possibleMove(x - 1, y);
+		} else if (key == 'a'){
+			result = map.possibleMove(x, y - 1);
+		} else if (key == 's') {
+			result = map.possibleMove(x + 1, y);
+		} else if (key == 'd') {
+			result = map.possibleMove(x, y + 1);
+		} else {
+			result = 'N';
 		}
+
+		return result;
+
 	}
 
 }

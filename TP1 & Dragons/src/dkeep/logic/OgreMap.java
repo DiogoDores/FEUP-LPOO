@@ -14,8 +14,8 @@ public class OgreMap implements GameMap{
 			{ 'X',' ',' ',' ',' ',' ',' ', ' ', 'X'},
 			{ 'X',' ',' ',' ',' ',' ',' ', ' ', 'X'},
 			{ 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'} };
-	
-	
+
+
 
 	@Override
 	public char possibleMove(int x, int y) { 
@@ -55,26 +55,31 @@ public class OgreMap implements GameMap{
 
 		char[][] mapToDraw = levelTwoMap;
 
-
 		for (int i = 0; i < mapToDraw.length; i++) {
 			for(int j = 0; j < mapToDraw[i].length; j++){
-				
+
 				boolean foundOgre = false;
-				
+
 				for(int k = 0; k < game.ogres.size(); k++){
+
 					if(game.ogres.get(k).getX() == i && game.ogres.get(k).getY() == j){
 						System.out.print(game.ogres.get(k).getSymbol() + " ");
 						foundOgre = true;
-					} 
-				}
-				
-				if(game.hero.getX() == i && game.hero.getY() == j){
-					System.out.print(game.hero.getSymbol() + " ");
-					continue;
+						continue;
+					} else if(game.ogres.get(k).getClubX() == i && game.ogres.get(k).getClubY() == j){
+						System.out.print(game.ogres.get(k).getClubSymbol() + " ");
+						foundOgre = true;
+						continue;
+					}
 				}
 
 				if(!foundOgre){
-					System.out.print(mapToDraw[i][j] + " ");
+					if(game.hero.getX() == i && game.hero.getY() == j){
+						System.out.print(game.hero.getSymbol() + " ");
+						continue;
+					} else {
+						System.out.print(mapToDraw[i][j] + " ");
+					}
 				}
 			}
 			System.out.print("\n");

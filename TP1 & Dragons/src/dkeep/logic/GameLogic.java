@@ -29,7 +29,9 @@ public class GameLogic {
 			if(wait == 0){
 				for(int i = 0; i < ogres.size(); i++){
 					ogres.get(i).moveOgre(currentMap);
-					ogres.get(i).moveClub(currentMap);
+					System.out.println("\n\n\n" + ogres.get(i).getX() + "   " + ogres.get(i).getY() + "\n\n\n");
+					ogres.get(i).moveClub(currentMap, ogres.get(i).getX(), ogres.get(i).getY());
+					System.out.println("\n\n\n" + ogres.get(i).getClubX() + "   " + ogres.get(i).getClubY() + "\n\n\n");
 				}
 			}
 		}
