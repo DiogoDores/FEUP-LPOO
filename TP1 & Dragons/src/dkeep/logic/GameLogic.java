@@ -83,20 +83,14 @@ public class GameLogic {
 		hero = new Hero(x, y);
 	}
 
-	public char createGuard(int x, int y){
-		String type = "DSG";
-		int r = random.nextInt(type.length());
-		char typeOfGuard = type.charAt(r);
-
-		if(typeOfGuard == 'G'){
+	public void createGuard(int x, int y, String typeOfGuard){		
+		if(typeOfGuard == "Rookie"){
 			guard = new RookieGuard(x, y);
-		} else if(typeOfGuard == 'D'){
+		} else if(typeOfGuard == "Drunken"){
 			guard = new DrunkenGuard(x, y);
-		} else if(typeOfGuard == 'S'){
+		} else if(typeOfGuard == "Suspicious"){
 			guard = new SuspiciousGuard(x, y);
 		}
-
-		return typeOfGuard;
 	}
 
 	public boolean checkPresence() {
@@ -155,5 +149,21 @@ public class GameLogic {
 
 	public void createOgre(int x, int y) {
 		ogre = new Ogre(x, y);
+	}
+
+	public char createGuard(int x, int y) {
+		String type = "DSG";
+		int r = random.nextInt(type.length());
+		char typeOfGuard = type.charAt(r);
+
+		if(typeOfGuard == 'G'){
+			guard = new RookieGuard(x, y);
+		} else if(typeOfGuard == 'D'){
+			guard = new DrunkenGuard(x, y);
+		} else if(typeOfGuard == 'S'){
+			guard = new SuspiciousGuard(x, y);
+		}
+
+		return typeOfGuard;
 	}
 }

@@ -12,21 +12,10 @@ public class UserInterface {
 		System.out.println(" ---------------------------- ");
 		System.out.println("| WELCOME TO DUNGEON ESCAPE! |");
 		System.out.println(" ---------------------------- \n");
-		int level = selectLevel();
 		char typeOfGuard = 0;
 
  
 		System.out.println("\n\nType W/A/S/D to move. Activate the lever and escape!\n\n");
-
-		if(level == 1){
-			GuardMap guardMap = new GuardMap();
-			game.changeCurrentMap(guardMap);
-			game.createHero(1, 1);
-
-			typeOfGuard = game.createGuard(1,8);			
-		} else if (level == 2){
-			game.setLevelTwo();
-		}
 
 		if(typeOfGuard == 'D'){
 			System.out.println("The stench of wine fills the air...\n\n");
@@ -35,8 +24,8 @@ public class UserInterface {
 		}
 
 		int playing = 0;
-		if (level != -1)
-			game.currentMap.drawMap(game);
+		/*if (level != -1)
+			game.currentMap.drawMap(game);*/
 		Scanner read = new Scanner(System.in);
 		TestsJUnit test = new TestsJUnit();
 
@@ -73,5 +62,20 @@ public class UserInterface {
 
 		} while(level < 1 || level > 2);
 		return level;
+	}
+	
+	public void createCharacters(int level, String typeOfGuard, int numberOfOgres){
+		
+		GameLogic game = new GameLogic();
+		
+		if(level == 1){
+			GuardMap guardMap = new GuardMap();
+			game.changeCurrentMap(guardMap);
+			game.createHero(1, 1);
+
+			game.createGuard(1,8, typeOfGuard);			
+		} else if (level == 2){
+			game.setLevelTwo();
+		}
 	}
 }
