@@ -20,7 +20,7 @@ public class Frame {
 	private static JTextField textField_1;
 	
 	public static void main(String[] args){
-		JFrame frame = new JFrame("Dungeon Escape");
+		JFrame frame = new JFrame("Dungeon Escape"); 
 		frame.getContentPane().setEnabled(false);
 		
 		JComboBox comboBox = new JComboBox();
