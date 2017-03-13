@@ -75,7 +75,7 @@ public class Frame {
 		
 		JButton btnNewGame = new JButton("New Game");
 		btnNewGame.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent e) {   
 				
 				UserInterface user = new UserInterface();
 				Object obj = comboBox.getSelectedItem();
