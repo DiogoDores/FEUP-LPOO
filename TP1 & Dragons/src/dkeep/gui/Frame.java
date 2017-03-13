@@ -35,7 +35,7 @@ public class Frame {
 		JButton btnExit = new JButton("Exit");
 		btnExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.exit(0);
+				System.exit(0); 
 			}
 		});
 		btnExit.setFont(new Font("Lucida Sans Unicode", Font.PLAIN, 12));
@@ -75,7 +75,7 @@ public class Frame {
 		
 		JButton btnNewGame = new JButton("New Game");
 		btnNewGame.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent e) {   
 				
 				UserInterface user = new UserInterface();
 				Object obj = comboBox.getSelectedItem();
