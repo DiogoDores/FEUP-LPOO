@@ -35,7 +35,7 @@ public class Frame {
 		JButton btnExit = new JButton("Exit");
 		btnExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.exit(0);
+				System.exit(0); 
 			}
 		});
 		btnExit.setFont(new Font("Lucida Sans Unicode", Font.PLAIN, 12));
