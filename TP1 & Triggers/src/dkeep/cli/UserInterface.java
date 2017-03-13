@@ -14,7 +14,7 @@ public class UserInterface {
 		System.out.println(" ---------------------------- \n");
 		char typeOfGuard = 0;
 
- 
+
 		System.out.println("\n\nType W/A/S/D to move. Activate the lever and escape!\n\n");
 
 		if(typeOfGuard == 'D'){
@@ -24,8 +24,7 @@ public class UserInterface {
 		}
 
 		int playing = 0;
-		/*if (level != -1)
-			game.currentMap.drawMap(game);*/
+		game.currentMap.drawMap(game);
 		Scanner read = new Scanner(System.in);
 		TestsJUnit test = new TestsJUnit();
 
@@ -49,7 +48,7 @@ public class UserInterface {
 			System.out.println(" ---------- \n");
 		}
 	}
-	
+
 	public static int selectLevel() {
 		Scanner read = new Scanner(System.in);
 		TestsJUnit test = new TestsJUnit();
@@ -63,11 +62,11 @@ public class UserInterface {
 		} while(level < 1 || level > 2);
 		return level;
 	}
-	
+
 	public void createCharacters(int level, String typeOfGuard, int numberOfOgres){
-		
+
 		GameLogic game = new GameLogic();
-		
+
 		if(level == 1){
 			GuardMap guardMap = new GuardMap();
 			game.changeCurrentMap(guardMap);
