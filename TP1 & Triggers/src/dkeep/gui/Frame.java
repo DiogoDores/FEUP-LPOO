@@ -85,7 +85,7 @@ public class Frame {
 				int level = (Integer)obj1;
 				//int numberOfOgres = (Integer)obj2;
 				
-				user.createCharacters(level, typeOfGuard, 1);
+				//user.createCharacters(level, typeOfGuard, 1);
 				UserInterface.main(args);
 			}
 		});
