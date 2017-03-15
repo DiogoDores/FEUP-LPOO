@@ -51,9 +51,10 @@ public class OgreMap implements GameMap{
 	}
 
 	@Override
-	public void drawMap(GameLogic game) {
+	public String drawMap(GameLogic game) {
 
 		char[][] mapToDraw = levelTwoMap;
+		String map = "";
 
 		for (int i = 0; i < mapToDraw.length; i++) {
 			for(int j = 0; j < mapToDraw[i].length; j++){
@@ -63,11 +64,11 @@ public class OgreMap implements GameMap{
 				for(int k = 0; k < game.ogres.size(); k++){
 
 					if(game.ogres.get(k).getX() == i && game.ogres.get(k).getY() == j){
-						System.out.print(game.ogres.get(k).getSymbol() + " ");
+						map += game.ogres.get(k).getSymbol() + " ";
 						foundOgre = true;
 						continue;
 					} else if(game.ogres.get(k).getClubX() == i && game.ogres.get(k).getClubY() == j){
-						System.out.print(game.ogres.get(k).getClubSymbol() + " ");
+						map += game.ogres.get(k).getClubSymbol() + " ";
 						foundOgre = true;
 						continue;
 					}
@@ -75,14 +76,15 @@ public class OgreMap implements GameMap{
 
 				if(!foundOgre){
 					if(game.hero.getX() == i && game.hero.getY() == j){
-						System.out.print(game.hero.getSymbol() + " ");
+						map += game.hero.getSymbol() + " ";
 						continue;
 					} else {
-						System.out.print(mapToDraw[i][j] + " ");
+						map += mapToDraw[i][j] + " ";
 					}
 				}
 			}
-			System.out.print("\n");
+			map += "\n";
 		}
+		return map;
 	}
 }
