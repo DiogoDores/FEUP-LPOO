@@ -28,11 +28,13 @@ public class GameLogic {
 		} else {
 			if(wait == 0){
 				for(int i = 0; i < ogres.size(); i++){
-					ogres.get(i).moveOgre(currentMap);
-					System.out.println("\n\n\n" + ogres.get(i).getX() + "   " + ogres.get(i).getY() + "\n\n\n");
-					ogres.get(i).moveClub(currentMap, ogres.get(i).getX(), ogres.get(i).getY());
-					System.out.println("\n\n\n" + ogres.get(i).getClubX() + "   " + ogres.get(i).getClubY() + "\n\n\n");
+					ogres.get(i).moveOgre(this);
+
 				}
+				for(int i = 0; i < ogres.size(); i++){
+					ogres.get(i).moveClub(this, ogres.get(i).getX(), ogres.get(i).getY());
+				}
+
 			}
 		}
 

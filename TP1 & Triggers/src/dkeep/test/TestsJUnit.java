@@ -164,7 +164,7 @@ public class TestsJUnit {
 		game.createOgre(2, 2);
 
 		testMap.drawMap(game);
-		game.ogre.moveOgre(testMap);
+		game.ogre.moveOgre(game);
 		assertEquals(true, gamePresence(game, 2,2));
 		testMap.drawMap(game);
 	} 
@@ -198,7 +198,7 @@ public class TestsJUnit {
 		game.changeCurrentMap(testMap);
 		game.createOgres();
 		for(int i = 0; i < game.ogres.size();i++){
-			game.ogres.get(i).moveOgre(testMap);
+			game.ogres.get(i).moveOgre(game);
 		}
 	} 
 	
@@ -213,7 +213,7 @@ public class TestsJUnit {
 		game.createOgre(2, 2);
 
 		testMap.drawMap(game);
-		game.ogre.moveOgre(testMap);
+		game.ogre.moveOgre(game);
 		assertEquals(true, gamePresence(game, 2,2));
 		testMap.drawMap(game);
 	}

@@ -10,11 +10,36 @@ public class Ogre {
 	private boolean restoreClubSymbol = false;
 
 	public Ogre(){}
-	
+
+	public void createClub() {
+		do {
+			char key = createRandomMove();
+
+
+			if(key == 'w'){
+				this.clubX = this.x - 1; 
+				this.clubY = this.y;
+			} else if(key == 'a') {
+				this.clubY = this.y - 1;
+				this.clubX = this.x;
+			}
+			else if(key == 's') {
+				this.clubX = this.x + 1;
+				this.clubY = this.y;
+			}
+			else if(key == 'd') {
+				this.clubY = this.y + 1;
+				this.clubX = this.x;
+			}
+		} while (this.clubX == 0 || this.clubX == 8 || this.clubY == 0 || this.clubY == 8 );
+	}
+
+
 	public Ogre(int x, int y){
 		this.x = x;
 		this.y = y;
 		this.symbol = 'O';
+		createClub();
 		this.clubSymbol = '*';
 	}
 
@@ -29,7 +54,7 @@ public class Ogre {
 	public char getSymbol(){
 		return symbol;
 	}
-	
+
 	public int getClubX(){
 		return clubX;
 	}
@@ -37,28 +62,31 @@ public class Ogre {
 	public int getClubY(){
 		return clubY;
 	}
-	
+
 	public char getClubSymbol(){
 		return clubSymbol;
 	}
 
-	public void moveOgre(GameMap map) {
-
+	public void moveOgre(GameLogic game) {
 		char c;
 		char result;
 
 		do{
 			c = createRandomMove(); 
-			result = checkPossible(c, map);
-		} while(result == 'X' || result == 'I' || result == 'S' || result == 'N');
+			result = checkPossible(c, game);
+		} while(result == 'X' || result == 'I' || result == 'S' || result == 'N' || result == '*');
 
+		if (game.currentMap.getMap()[x][y] == 'k')
+			restoreSymbol = true;
+		else
+			restoreSymbol = false;
 		if (result == 'H') {
-			
+
 			if(restoreSymbol){
 				this.symbol = 'O';
 				restoreSymbol = false;
 			}
-			
+
 			if (c == 'w') {
 				x--;
 			} else if (c == 'a') {
@@ -78,24 +106,33 @@ public class Ogre {
 			this.symbol = '$';
 			this.restoreSymbol = true;
 		}
+		
+		System.out.println("OgreX " + x + " OgreY " + y + " ");
+
 	}
 
-	public void moveClub(GameMap map, int x, int y) {
-		
+	public void moveClub(GameLogic game, int x, int y) {
+		clubX = this.x; clubY = this.y;
 		char club, clubResult;
-		 
+		System.out.println("ClubX " + clubX + " ClubY " + clubY + " ");
 		do{
 			club = createRandomMove();
-			clubResult = checkPossible(club, map);
-		} while(clubResult == 'X' || clubResult == 'I' || clubResult == 'S' || clubResult == 'N');
+			clubResult = checkPossibleClub(club, game);
+			System.out.println("clubResult " + clubResult + " Key " + club);	
+		} while(clubResult == 'X' || clubResult == 'I' || clubResult == 'S' || clubResult == 'N' || clubResult == 'O');
+		
+		if (game.currentMap.getMap()[x][y] == 'k')
+			restoreClubSymbol = true;
+		else
+			restoreClubSymbol = false;
 
 		if(clubResult == 'H'){
-			
+
 			if(restoreClubSymbol){
 				this.symbol = '*';
 				restoreClubSymbol = false;
 			}
-			
+
 			if (club == 'w') {
 				clubX = x - 1;
 				clubY = y;
@@ -121,8 +158,11 @@ public class Ogre {
 			clubSymbol = '$';
 			restoreClubSymbol = true;
 		}
+		System.out.println("ClubX " + clubX + " ClubY " + clubY + "\n");
+
+
 	}
-	
+
 	public char createRandomMove(){
 		String move = "wasd";
 		Random random = new Random();
@@ -131,19 +171,19 @@ public class Ogre {
 
 		return c;
 	}
-	
-	public char checkPossible(char key, GameMap map) {
+
+	public char checkPossible(char key, GameLogic game) {
 
 		char result;
 
 		if (key == 'w') {
-			result = map.possibleMove(x - 1, y);
+			result = game.currentMap.possibleMove(x - 1, y);
 		} else if (key == 'a'){
-			result = map.possibleMove(x, y - 1);
+			result = game.currentMap.possibleMove(x, y - 1);
 		} else if (key == 's') {
-			result = map.possibleMove(x + 1, y);
+			result = game.currentMap.possibleMove(x + 1, y);
 		} else if (key == 'd') {
-			result = map.possibleMove(x, y + 1);
+			result = game.currentMap.possibleMove(x, y + 1);
 		} else {
 			result = 'N';
 		}
@@ -151,5 +191,26 @@ public class Ogre {
 		return result;
 
 	}
+
+	public char checkPossibleClub(char key, GameLogic game) {
+
+		char result;
+
+		if (key == 'w') {
+			result = game.currentMap.possibleMove(clubX - 1, clubY, game );
+		} else if (key == 'a'){
+			result = game.currentMap.possibleMove(clubX, clubY - 1, game);
+		} else if (key == 's') {
+			result = game.currentMap.possibleMove(clubX + 1, clubY, game);
+		} else if (key == 'd') {
+			result = game.currentMap.possibleMove(clubX, clubY + 1, game);
+		} else {
+			result = 'N';
+		}
+
+		return result;
+
+	}
+
 
 }

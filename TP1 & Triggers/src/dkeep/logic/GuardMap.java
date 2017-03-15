@@ -75,4 +75,12 @@ public class GuardMap implements GameMap {
 	public String getName() {
 		return mapName;
 	}
+
+	@Override
+	public char possibleMove(int x, int y, GameLogic game) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	
 }
