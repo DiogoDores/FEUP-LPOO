@@ -32,7 +32,7 @@ public class Ogre {
 				this.clubY = this.y + 1;
 				this.clubX = this.x;
 			}
-		} while (this.clubX == 0 || this.clubX == 8 || this.clubY == 0 || this.clubY == 8 );
+		} while (this.clubX == 0 || this.clubX == 8 || this.clubY == 0 || this.clubY == 8);
 	}
 
 	public void stunOgre() {

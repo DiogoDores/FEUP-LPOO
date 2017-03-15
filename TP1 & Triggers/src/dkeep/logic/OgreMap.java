@@ -17,28 +17,7 @@ public class OgreMap implements GameMap{
 
 	
 
-	@Override
-	public char possibleMove(int x, int y) { 
 
-		if (levelTwoMap[x][y]  == 'X'){
-			return 'X';
-		} else if (levelTwoMap[x][y] == 'k') {
-			return 'E';
-		} else if (levelTwoMap[x][y] == ' '){
-			return 'H';
-		} else if (levelTwoMap[x][y] == 'I'){
-			return 'I';
-		} else if (levelTwoMap[x][y] == 'S') {
-			return 'S';
-		} else if (levelTwoMap[x][y] == 'H') // AC
-			return 'D';
-		else if (x == 0 || x == 8 || y == 0 || y == 8 )
-			return 'X';
-		return 'O';
-		
-	}
-	
-	
 	public char possibleMove(int x, int y, GameLogic game) { 
 		for (int i = 0; i < game.ogres.size(); i++) {
 			if (game.ogres.get(i).getX() == x && game.ogres.get(i).getY() == y )
@@ -112,5 +91,11 @@ public class OgreMap implements GameMap{
 			}
 			System.out.print("\n");
 		}
+	}
+
+	@Override
+	public char possibleMove(int x, int y) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }
