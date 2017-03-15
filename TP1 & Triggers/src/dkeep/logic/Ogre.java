@@ -4,6 +4,7 @@ import java.util.Random;
 
 public class Ogre {
 
+	private int isStunned;
 	protected int x, y, clubX, clubY;
 	protected char symbol, clubSymbol;
 	private boolean restoreSymbol = false;
@@ -34,8 +35,13 @@ public class Ogre {
 		} while (this.clubX == 0 || this.clubX == 8 || this.clubY == 0 || this.clubY == 8 );
 	}
 
+	public void stunOgre() {
+		isStunned = 2;
+		this.symbol = '8';
+	}
 
 	public Ogre(int x, int y){
+		isStunned = 0;
 		this.x = x;
 		this.y = y;
 		this.symbol = 'O';
@@ -68,59 +74,62 @@ public class Ogre {
 	}
 
 	public void moveOgre(GameLogic game) {
-		char c;
-		char result;
+		if (isStunned == 0) {
+			this.symbol = 'O';
+			char c;
+			char result;
 
-		do{
-			c = createRandomMove(); 
-			result = checkPossible(c, game);
-		} while(result == 'X' || result == 'I' || result == 'S' || result == 'N' || result == '*');
+			do{
+				c = createRandomMove(); 
+				result = checkPossible(c, game);
+			} while(result == 'X' || result == 'I' || result == 'S' || result == 'N' || result == '*');
 
-		if (game.currentMap.getMap()[x][y] == 'k')
-			restoreSymbol = true;
-		else
-			restoreSymbol = false;
-		if (result == 'H') {
-
-			if(restoreSymbol){
-				this.symbol = 'O';
+			if (game.currentMap.getMap()[x][y] == 'k')
+				restoreSymbol = true;
+			else
 				restoreSymbol = false;
+			if (result == 'H') {
+
+				if(restoreSymbol){
+					this.symbol = 'O';
+					restoreSymbol = false;
+				}
+
+				if (c == 'w') {
+					x--;
+				} else if (c == 'a') {
+					y--;
+				} else if (c == 's') {
+					x++;
+				} else if (c == 'd') {
+					y++;
+				}
+
+			} else if(result == 'E'){
+				if(c == 'w'){
+					x--;
+				} else if (c == 'd'){
+					y++;
+				}
+				this.symbol = '$';
+				this.restoreSymbol = true;
 			}
 
-			if (c == 'w') {
-				x--;
-			} else if (c == 'a') {
-				y--;
-			} else if (c == 's') {
-				x++;
-			} else if (c == 'd') {
-				y++;
-			}
-
-		} else if(result == 'E'){
-			if(c == 'w'){
-				x--;
-			} else if (c == 'd'){
-				y++;
-			}
-			this.symbol = '$';
-			this.restoreSymbol = true;
 		}
-		
-		System.out.println("OgreX " + x + " OgreY " + y + " ");
+		else {
+			isStunned--;
+		}
 
 	}
 
 	public void moveClub(GameLogic game, int x, int y) {
 		clubX = this.x; clubY = this.y;
 		char club, clubResult;
-		System.out.println("ClubX " + clubX + " ClubY " + clubY + " ");
 		do{
 			club = createRandomMove();
 			clubResult = checkPossibleClub(club, game);
-			System.out.println("clubResult " + clubResult + " Key " + club);	
 		} while(clubResult == 'X' || clubResult == 'I' || clubResult == 'S' || clubResult == 'N' || clubResult == 'O' || clubResult == '*');
-		
+
 		if (game.currentMap.getMap()[x][y] == 'k'){
 			restoreClubSymbol = true;
 			this.clubSymbol = '$';
@@ -129,7 +138,7 @@ public class Ogre {
 			restoreClubSymbol = false;
 			this.clubSymbol = '*';
 		}
-		
+
 		if(clubResult == 'H'){
 
 
@@ -159,7 +168,6 @@ public class Ogre {
 			clubSymbol = '$';
 			restoreClubSymbol = true;
 		}
-		System.out.println("ClubX " + clubX + " ClubY " + clubY + "\n");
 
 
 	}

@@ -96,7 +96,7 @@ public class GameLogic {
 	}
 
 	public boolean checkPresence() {
-
+		
 		if(currentMap.getName() == "GuardMap"){
 			if(guard.symbol == 'G' && hero.getX() == guard.getX() && (hero.getY() == guard.getY() + 1 || hero.getY() == guard.getY() - 1)){
 				return true;
@@ -108,6 +108,20 @@ public class GameLogic {
 				return true;
 			}
 		} 
+
+		if(currentMap.getName() == "OgreMap"){
+			for (int i = 0; i < ogres.size(); i++) {
+			if(ogres.get(i).symbol == 'G' && hero.getX() == ogres.get(i).getX() && (hero.getY() == ogres.get(i).getY() + 1 || hero.getY() == ogres.get(i).getY() - 1)){
+					ogres.get(i).stunOgre();
+			} else if(hero.getY() == ogres.get(i).getY() && (hero.getX() == ogres.get(i).getX() + 1 || hero.getX() == ogres.get(i).getX() - 1)){
+					ogres.get(i).stunOgre();
+			}
+				if(hero.getX() == ogres.get(i).getClubX() && hero.getY() == ogres.get(i).getClubY()){
+					return true;
+				}
+			}
+		}
+
 		else if (currentMap.getName() == "TestMap") {
 			if(hero.getX() == guard.getX() && (hero.getY() == guard.getY() + 1 || hero.getY() == guard.getY() - 1)){
 				return true;

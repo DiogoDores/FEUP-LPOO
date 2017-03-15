@@ -40,7 +40,6 @@ public class OgreMap implements GameMap{
 	
 	
 	public char possibleMove(int x, int y, GameLogic game) { 
-		System.out.println("MERDA");
 		for (int i = 0; i < game.ogres.size(); i++) {
 			if (game.ogres.get(i).getX() == x && game.ogres.get(i).getY() == y )
 				return 'O';
