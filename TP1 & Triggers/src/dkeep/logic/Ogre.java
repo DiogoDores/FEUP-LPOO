@@ -119,19 +119,20 @@ public class Ogre {
 			club = createRandomMove();
 			clubResult = checkPossibleClub(club, game);
 			System.out.println("clubResult " + clubResult + " Key " + club);	
-		} while(clubResult == 'X' || clubResult == 'I' || clubResult == 'S' || clubResult == 'N' || clubResult == 'O');
+		} while(clubResult == 'X' || clubResult == 'I' || clubResult == 'S' || clubResult == 'N' || clubResult == 'O' || clubResult == '*');
 		
-		if (game.currentMap.getMap()[x][y] == 'k')
+		if (game.currentMap.getMap()[x][y] == 'k'){
 			restoreClubSymbol = true;
-		else
+			this.clubSymbol = '$';
+		}
+		else {
 			restoreClubSymbol = false;
-
+			this.clubSymbol = '*';
+		}
+		
 		if(clubResult == 'H'){
 
-			if(restoreClubSymbol){
-				this.symbol = '*';
-				restoreClubSymbol = false;
-			}
+
 
 			if (club == 'w') {
 				clubX = x - 1;
