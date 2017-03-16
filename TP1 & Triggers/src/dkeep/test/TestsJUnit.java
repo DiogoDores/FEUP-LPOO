@@ -346,7 +346,7 @@ public class TestsJUnit {
 		game.createOgre(3,4);
 		game.createOgre(4,4);
 		game.createOgre(4,3);
-		game.createOgre(4,2);
+		game.createOgre(4,2); 
 		game.createOgre(3,3);
 		while(game.ogres.get(7).getClubX() != 3 && game.ogres.get(7).getClubY() != 2) {
 			game.ogres.get(7).moveClub(game, game.ogres.get(7).getX(), game.ogres.get(0).getY());

@@ -98,7 +98,7 @@ public class GameLogic {
 
 		else if (currentMap.getName() == "TestMap") {
 			if(hero.getX() == guard.getX() && (hero.getY() == guard.getY() + 1 || hero.getY() == guard.getY() - 1)){
-				return true;
+				return true; 
 			} else if(hero.getY() == guard.getY() && (hero.getX() == guard.getX() + 1 || hero.getX() == guard.getX() - 1)){
 				return true;
 			}
