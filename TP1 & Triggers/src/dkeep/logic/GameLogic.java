@@ -161,4 +161,16 @@ public class GameLogic {
 
 		return typeOfGuard;
 	}
+
+	public void createCharacters(int level, String typeOfGuard, int i) {
+		if(level == 1){
+			createHero(1,1);
+			createGuard(1, 8, typeOfGuard);
+			this.currentMap = this.Map1;
+		} else if (level == 2){
+			createHero(1,7);
+			createOgres();
+			this.currentMap = this.Map2;
+		}
+	}
 }

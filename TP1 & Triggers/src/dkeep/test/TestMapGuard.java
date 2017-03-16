@@ -49,30 +49,33 @@ public class TestMapGuard implements GameMap{
 	}
 
 	@Override
-	public void drawMap(GameLogic game) {
+	public String drawMap(GameLogic game) {
 		char[][] mapToDraw = TestMap;
+		String map = "";
+		
 		for (int i = 0; i < mapToDraw.length; i++) {
 			for(int j = 0; j < mapToDraw[i].length; j++){
 				if (i == 0 && j == 0)
-					System.out.print('X');
+					map += "X";
 				else if(game.guard.getX() == i && game.guard.getY() == j){
-					System.out.print(game.guard.getSymbol());
+					map += game.guard.getSymbol();
 					continue;
 				}
 				else if(game.ogre.getX() == i && game.ogre.getY() == j){
-					System.out.print(game.ogre.getSymbol());
+					map += game.ogre.getSymbol();
 					continue;
 				}
 				else if(game.hero.getX() == i && game.hero.getY() == j){
-					System.out.print(game.hero.getSymbol());
+					map += game.hero.getSymbol();
 					continue;
 				} 
 				else 
-					System.out.print(mapToDraw[i][j]);
+					map += mapToDraw[i][j];
 
 			}
-			System.out.print("\n");
+			map += "\n";
 		}
+		return map;
 	}		
 
 
