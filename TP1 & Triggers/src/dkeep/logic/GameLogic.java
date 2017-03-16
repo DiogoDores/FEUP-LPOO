@@ -25,7 +25,7 @@ public class GameLogic {
 		if(currentMap.getName() == "GuardMap"){
 			guard.move(); 
 		} 
-		else if (currentMap.getName() == "OgreMap"){
+		if (currentMap.getName() == "OgreMap"){
 			for(int i = 0; i < ogres.size(); i++){
 				ogres.get(i).moveOgre(this);
 				ogres.get(i).moveClub(this, ogres.get(i).getX(), ogres.get(i).getY());
@@ -39,28 +39,20 @@ public class GameLogic {
 		if(lost){
 			return 2;
 		}
-
-		if((hero.getY() == 0 && hero.getX() == 5) || (hero.getY() == 0 && hero.getX() == 6)){
+		int hx = hero.getX(), hy = hero.getY();
+		if((hy == 0 && (hx == 5 || hx == 6))){
 			System.out.println("\n\nPhew! You escaped the guard!\nBut what's that?\nOh no! An ogre!\nGrab the key and escape!\nBe careful with his club!\n\n");
 			setLevelTwo();
 		}
 		
 
-		if(hero.getX() == 1 && hero.getY() == 0){
+		if(hx == 1 && hy == 0){
 			return 1;
 		}
 
 		return 0;
 	}
 
-	public boolean stunOgre() {
-		if(hero.getX() == ogre.getX() && (hero.getY() == ogre.getY() + 1 || hero.getY() == ogre.getY() - 1)){
-			return true;
-		} else if(hero.getY() == ogre.getY() && (hero.getX() == ogre.getX() + 1 || hero.getX() == ogre.getX() - 1)){
-			return true;
-		}
-		return false;
-	}
 
 	public void changeCurrentMap(GameMap gameMap){
 		currentMap = gameMap;
@@ -91,7 +83,7 @@ public class GameLogic {
 		} 
 
 		else if(currentMap.getName() == "OgreMap"){
-			for (int i = 0; i < ogres.size(); i++) {
+			for (int i = 0; i <= ogres.size()-1; i++) {
 				if(hero.getX() == ogres.get(i).getClubX() && hero.getY() == ogres.get(i).getClubY()){
 					return true;
 				}
@@ -133,13 +125,17 @@ public class GameLogic {
 		int numOgres = random.nextInt(4) + 1; 
 		int x;
 		int y;
-
+		boolean condition;
+       
 		for(int i = 0; i < numOgres; i++){
-
 			do{
 				x = random.nextInt(7) + 1;
 				y = random.nextInt(7) + 1;
-			} while((x == hero.getX() && y == hero.getY()) || (x == hero.getX() - 1 && y == hero.getY()) || (x == hero.getX() && y == hero.getY() + 1));
+				condition = x == hero.getX() && y == hero.getY();
+				condition = condition || (x == hero.getX() - 1 && y == hero.getY()) ;
+				condition = condition || (x == hero.getX() && y == hero.getY() + 1); 
+
+			} while(condition);
 
 			ogres.add(new Ogre(x,y));
 		}
