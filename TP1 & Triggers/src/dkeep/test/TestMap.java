@@ -88,6 +88,12 @@ public class TestMap implements GameMap{
 	public char[][] getMap() {
 		return TestMap;
 	}
+
+	@Override
+	public char possibleMove(int x, int y, GameLogic game) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 	
 	
 }

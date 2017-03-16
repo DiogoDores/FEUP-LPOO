@@ -14,7 +14,6 @@ public class GameLogic {
 	public GameMap Map1 = new GuardMap(); 
 	public GameMap Map2 = new OgreMap();
 	public GameMap currentMap;
-	private boolean isStunned = false;
 	private int wait = 0;
 
 	public int startGame(char key){
@@ -25,28 +24,15 @@ public class GameLogic {
 
 		if(currentMap.getName() == "GuardMap"){
 			guard.move(); 
-		} else {
-			if(wait == 0){
-				for(int i = 0; i < ogres.size(); i++){
-					ogres.get(i).moveOgre(currentMap);
-					System.out.println("\n\n\n" + ogres.get(i).getX() + "   " + ogres.get(i).getY() + "\n\n\n");
-					ogres.get(i).moveClub(currentMap, ogres.get(i).getX(), ogres.get(i).getY());
-					System.out.println("\n\n\n" + ogres.get(i).getClubX() + "   " + ogres.get(i).getClubY() + "\n\n\n");
-				}
+		} 
+		else if (currentMap.getName() == "OgreMap"){
+			for(int i = 0; i < ogres.size(); i++){
+				ogres.get(i).moveOgre(this);
+				ogres.get(i).moveClub(this, ogres.get(i).getX(), ogres.get(i).getY());
+
 			}
 		}
 
-		isStunned = stunOgre();
-
-		if(isStunned){
-			if(wait == 2){
-				ogre.symbol = 'O';
-				wait = 0;
-			}else{
-				ogre.symbol = '8';
-				wait++;
-			}
-		}
 
 		lost = checkPresence();
 
@@ -54,10 +40,11 @@ public class GameLogic {
 			return 2;
 		}
 
-		if(hero.getY() == 0 && (hero.getX() == 5 || hero.getX() == 6)){
+		if((hero.getY() == 0 && hero.getX() == 5) || (hero.getY() == 0 && hero.getX() == 6)){
 			System.out.println("\n\nPhew! You escaped the guard!\nBut what's that?\nOh no! An ogre!\nGrab the key and escape!\nBe careful with his club!\n\n");
 			setLevelTwo();
 		}
+		
 
 		if(hero.getX() == 1 && hero.getY() == 0){
 			return 1;
@@ -87,7 +74,7 @@ public class GameLogic {
 		if(typeOfGuard == "Rookie"){
 			guard = new RookieGuard(x, y);
 		} else if(typeOfGuard == "Drunken"){
-			guard = new DrunkenGuard(x, y);
+			guard = new DrunkenGuard(x, y); 
 		} else if(typeOfGuard == "Suspicious"){
 			guard = new SuspiciousGuard(x, y);
 		}
@@ -101,11 +88,22 @@ public class GameLogic {
 			} else if(hero.getY() == guard.getY() && (hero.getX() == guard.getX() + 1 || hero.getX() == guard.getX() - 1)){
 				return true;
 			}
-		} else if (currentMap.getName() == "OgreMap"){
-			if(currentMap.getMap()[hero.getX()][hero.getY()] == '*'){
-				return true;
-			}
 		} 
+
+		else if(currentMap.getName() == "OgreMap"){
+			for (int i = 0; i < ogres.size(); i++) {
+				if(hero.getX() == ogres.get(i).getClubX() && hero.getY() == ogres.get(i).getClubY()){
+					return true;
+				}
+				if((hero.getX() == ogres.get(i).getX() && hero.getY() == ogres.get(i).getY() + 1) || (hero.getX() == ogres.get(i).getX() && hero.getY() == ogres.get(i).getY() - 1)){
+					ogres.get(i).stunOgre();
+				} else if((hero.getY() == ogres.get(i).getY() && hero.getX() == ogres.get(i).getX() + 1) || (hero.getY() == ogres.get(i).getY() && hero.getX() == ogres.get(i).getX() - 1)){
+					ogres.get(i).stunOgre();
+				}
+
+			}
+		}
+
 		else if (currentMap.getName() == "TestMap") {
 			if(hero.getX() == guard.getX() && (hero.getY() == guard.getY() + 1 || hero.getY() == guard.getY() - 1)){
 				return true;
@@ -148,7 +146,8 @@ public class GameLogic {
 	}
 
 	public void createOgre(int x, int y) {
-		ogre = new Ogre(x, y);
+		Ogre e = new Ogre(x,y);
+		ogres.add(e);
 	}
 
 	public char createGuard(int x, int y) {

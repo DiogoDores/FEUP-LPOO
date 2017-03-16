@@ -15,24 +15,30 @@ public class OgreMap implements GameMap{
 			{ 'X',' ',' ',' ',' ',' ',' ', ' ', 'X'},
 			{ 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'} };
 
+	
 
 
-	@Override
-	public char possibleMove(int x, int y) { 
-
-		if (levelTwoMap[x][y]  == 'X'){
+	public char possibleMove(int x, int y, GameLogic game) { 
+		for (int i = 0; i < game.ogres.size(); i++) {
+			if (game.ogres.get(i).getX() == x && game.ogres.get(i).getY() == y )
+				return 'O';
+			
+		}
+		
+		if (game.currentMap.getMap()[x][y]  == 'X'){
 			return 'X';
-		} else if (levelTwoMap[x][y] == 'k') {
+		} else if (game.currentMap.getMap()[x][y] == 'k') {
 			return 'E';
-		} else if (levelTwoMap[x][y] == ' '){
+		} else if (game.currentMap.getMap()[x][y] == ' '){
 			return 'H';
-		} else if (levelTwoMap[x][y] == 'I'){
+		} else if (game.currentMap.getMap()[x][y] == 'I'){
 			return 'I';
-		} else if (levelTwoMap[x][y] == 'S') {
+		} else if (game.currentMap.getMap()[x][y] == 'S') {
 			return 'S';
-		} else if (levelTwoMap[x][y] == 'H') // AC
+		} else if (game.currentMap.getMap()[x][y] == 'H') // AC
 			return 'D';
 		return levelTwoMap[x][y];
+		
 	}
 
 	@Override
@@ -58,23 +64,25 @@ public class OgreMap implements GameMap{
 
 		for (int i = 0; i < mapToDraw.length; i++) {
 			for(int j = 0; j < mapToDraw[i].length; j++){
-
+ 
 				boolean foundOgre = false;
-
+				boolean foundClub = false;
+				
 				for(int k = 0; k < game.ogres.size(); k++){
 
-					if(game.ogres.get(k).getX() == i && game.ogres.get(k).getY() == j){
-						map += game.ogres.get(k).getSymbol() + " ";
+					if(!foundOgre && (game.currentMap.getMap()[game.ogres.get(k).getX()][game.ogres.get(k).getY()] != 'O') && (game.ogres.get(k).getX() == i && game.ogres.get(k).getY() == j)){
+						System.out.print(game.ogres.get(k).getSymbol() + " ");
 						foundOgre = true;
 						continue;
-					} else if(game.ogres.get(k).getClubX() == i && game.ogres.get(k).getClubY() == j){
-						map += game.ogres.get(k).getClubSymbol() + " ";
-						foundOgre = true;
+					}
+					if(!foundClub && (game.ogres.get(k).getClubX() == i && game.ogres.get(k).getClubY() == j) && (game.currentMap.getMap()[game.ogres.get(k).getClubX()][game.ogres.get(k).getClubY()] != '*')){
+						System.out.print(game.ogres.get(k).getClubSymbol() + " ");
+						foundClub = true;
 						continue;
 					}
 				}
 
-				if(!foundOgre){
+				if(!foundOgre && !foundClub){
 					if(game.hero.getX() == i && game.hero.getY() == j){
 						map += game.hero.getSymbol() + " ";
 						continue;
@@ -86,5 +94,11 @@ public class OgreMap implements GameMap{
 			map += "\n";
 		}
 		return map;
+	}
+
+	@Override
+	public char possibleMove(int x, int y) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }
