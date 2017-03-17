@@ -90,7 +90,7 @@ public class OgreMap implements GameMap{
 						map += game.hero.getSymbol() + " ";
 						continue;
 					} else {
-						System.out.print(" ");
+						System.out.print(mapToDraw[i][j] + " ");
 						map += mapToDraw[i][j] + " ";
 					}
 				}
@@ -103,7 +103,18 @@ public class OgreMap implements GameMap{
 
 	@Override
 	public char possibleMove(int x, int y) {
-		// TODO Auto-generated method stub
-		return 0;
+		if (getMap()[x][y]  == 'X'){
+			return 'X';
+		} else if (getMap()[x][y] == 'k') {
+			return 'E';
+		} else if (getMap()[x][y] == ' '){
+			return 'H';
+		} else if (getMap()[x][y] == 'I'){
+			return 'I';
+		} else if (getMap()[x][y] == 'S') {
+			return 'S';
+		} else if (getMap()[x][y] == 'H') // AC
+			return 'D';
+		return levelTwoMap[x][y];
 	}
 }

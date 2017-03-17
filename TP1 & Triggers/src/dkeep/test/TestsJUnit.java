@@ -28,7 +28,6 @@ public class TestsJUnit {
 		testMap.drawMap(game);
 		assertEquals(1, game.hero.getX());
 		assertEquals(2, game.hero.getY());
-		game.hero.move(testMap, 's');
 		assertEquals(2, game.hero.getX());
 		assertEquals(2, game.hero.getY());
 		testMap.drawMap(game);

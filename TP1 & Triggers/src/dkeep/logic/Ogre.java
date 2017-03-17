@@ -80,15 +80,22 @@ public class Ogre {
 			char result;
 
 			do{
+				System.out.println("DO WHILE");
 				c = createRandomMove(); 
 				result = checkPossible(c, game);
 			} while(result == 'X' || result == 'I' || result == 'S' || result == 'N' || result == '*');
+			
+			System.out.println("RESULT ==  " + result);
 
-			if (game.currentMap.getMap()[x][y] == 'k')
+			if (game.currentMap.getMap()[x][y] == 'k'){
 				restoreSymbol = true;
-			else
+			} else {
 				restoreSymbol = false;
+			}
+			
 			if (result == 'H') {
+
+				System.out.println("RESULT = H");
 
 				if(restoreSymbol){
 					this.symbol = 'O';
@@ -106,6 +113,9 @@ public class Ogre {
 				}
 
 			} else if(result == 'E'){
+				
+				System.out.println("RESULT = E");
+				
 				if(c == 'w'){
 					x--;
 				} else if (c == 'd'){
@@ -186,13 +196,13 @@ public class Ogre {
 		char result;
 
 		if (key == 'w') {
-			result = game.currentMap.possibleMove(x - 1, y);
+			result = game.currentMap.possibleMove(x - 1, y, game);
 		} else if (key == 'a'){
-			result = game.currentMap.possibleMove(x, y - 1);
+			result = game.currentMap.possibleMove(x, y - 1, game);
 		} else if (key == 's') {
-			result = game.currentMap.possibleMove(x + 1, y);
+			result = game.currentMap.possibleMove(x + 1, y, game);
 		} else if (key == 'd') {
-			result = game.currentMap.possibleMove(x, y + 1);
+			result = game.currentMap.possibleMove(x, y + 1, game);
 		} else {
 			result = 'N';
 		}

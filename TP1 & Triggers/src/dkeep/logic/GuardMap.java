@@ -87,6 +87,5 @@ public class GuardMap implements GameMap {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
 	
 }

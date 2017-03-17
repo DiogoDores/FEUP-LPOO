@@ -135,14 +135,19 @@ public class Launcher {
 		btnNewGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
-				game.createCharacters(1, (String)comboBox.getSelectedItem(), Integer.parseInt(textField.getText()));
+				if(Integer.parseInt(textField.getText()) >= 1 && Integer.parseInt(textField.getText()) <= 5){
 
-				mapArea.setText(game.currentMap.drawMap(game));
+					game.createCharacters(1, (String)comboBox.getSelectedItem(), Integer.parseInt(textField.getText()));
 
-				btnUp.setEnabled(true);
-				btnDown.setEnabled(true);
-				btnLeft.setEnabled(true);
-				btnRight.setEnabled(true);
+					mapArea.setText(game.currentMap.drawMap(game));
+
+					btnUp.setEnabled(true);
+					btnDown.setEnabled(true);
+					btnLeft.setEnabled(true);
+					btnRight.setEnabled(true);
+				} else {
+					lblTip.setText("Invalid number of ogres. Enter a number from 1 to 5 to continue");
+				}
 
 			}
 		});
@@ -228,16 +233,18 @@ public class Launcher {
 
 	public void update(char key) {
 
+		lblTip.setText("Press one of the move button to advence!");
+
 		boolean lost = false;
 
 		game.hero.move(game.currentMap, key);
 		game.guard.move();
-		
+
 		for(int i = 0; i < game.ogres.size(); i++){
 			game.ogres.get(i).moveOgre(game);
 			game.ogres.get(i).moveClub(game, game.ogres.get(i).getX(), game.ogres.get(i).getY());
 		}
-		
+
 		mapArea.setText(game.currentMap.drawMap(game));
 
 		lost = game.checkPresence();
@@ -262,7 +269,7 @@ public class Launcher {
 		if(i == 2){
 			lblTip.setText("You got caught!");
 		} else if (i == 1){
-			lblTip.setText("You escaped. Good fer ya ladie");
+			lblTip.setText("Next Level!\n Try to escape the ogres!");
 		}
 	}
 }
