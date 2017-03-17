@@ -60,13 +60,17 @@ public class GuardMap implements GameMap {
 		for (int i = 0; i < mapToDraw.length; i++) {
 			for(int j = 0; j < mapToDraw[i].length; j++){
 				if(game.guard.getX() == i && game.guard.getY() == j){
+					System.out.print(game.guard.getSymbol() + " ");
 					map += game.guard.getSymbol() + " ";
 				}else if(game.hero.getX() == i && game.hero.getY() == j){
+					System.out.print(game.hero.getSymbol() + " ");
 					map += game.hero.getSymbol() + " ";
 				} else {
+					System.out.print(mapToDraw[i][j] + " ");
 					map += mapToDraw[i][j] + " ";
 				}
 			}
+			System.out.print("\n");
 			map += "\n";
 		}
 		

@@ -42,7 +42,7 @@ public class GameLogic {
 
 		if((hero.getY() == 0 && hero.getX() == 5) || (hero.getY() == 0 && hero.getX() == 6)){
 			System.out.println("\n\nPhew! You escaped the guard!\nBut what's that?\nOh no! An ogre!\nGrab the key and escape!\nBe careful with his club!\n\n");
-			setLevelTwo();
+			setLevelTwo(0);
 		}
 		
 
@@ -121,18 +121,22 @@ public class GameLogic {
 		return false;
 	}
 
-	public void setLevelTwo(){
+	public void setLevelTwo(int numOgres){
 		currentMap = Map2;
 		createHero(7, 1);
 		hero.setSymbol('A');
-		createOgres();
+		createOgres(numOgres);
 	}
 
-	public void createOgres() {
+	public void createOgres(int numOgres) {
 
-		int numOgres = random.nextInt(4) + 1; 
+		int randomNumOgres = random.nextInt(4) + 1; 
 		int x;
 		int y;
+		
+		if(numOgres == 0){
+			numOgres = randomNumOgres;
+		}
 
 		for(int i = 0; i < numOgres; i++){
 
@@ -172,9 +176,7 @@ public class GameLogic {
 			createGuard(1, 8, typeOfGuard);
 			this.currentMap = this.Map1;
 		} else if (level == 2){
-			createHero(1,7);
-			createOgres();
-			this.currentMap = this.Map2;
+			setLevelTwo(i);
 		}
 	}
 }

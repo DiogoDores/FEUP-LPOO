@@ -25,7 +25,7 @@ public class UserInterface {
 
 			typeOfGuard = game.createGuard(1,8);			
 		} else if (level == 2){
-			game.setLevelTwo();
+			game.setLevelTwo(0);
 		}
 
 		if(typeOfGuard == 'D'){

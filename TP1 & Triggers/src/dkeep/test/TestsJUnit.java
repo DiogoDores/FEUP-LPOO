@@ -245,7 +245,7 @@ public class TestsJUnit {
 		GameLogic game = new GameLogic();
 		OgreMap testMap = new OgreMap();
 		game.changeCurrentMap(testMap);
-		game.createOgres();
+		game.createOgres(0);
 		for(int i = 0; i < game.ogres.size();i++){
 			game.ogres.get(i).moveOgre(game);
 		}
@@ -334,7 +334,7 @@ public class TestsJUnit {
 		GameLogic game = new GameLogic();
 		OgreMap testMap = new OgreMap();
 		game.changeCurrentMap(testMap);
-		game.createOgres();
+		game.createOgres(0);
 		for(int i = 0; i < game.ogres.size();i++){
 			game.ogres.get(i).moveOgre(game); game.ogres.get(i).moveOgre(game); game.ogres.get(i).moveOgre(game);game.ogres.get(i).moveOgre(game);
 			game.ogres.get(i).moveOgre(game); game.ogres.get(i).moveOgre(game); game.ogres.get(i).moveOgre(game);game.ogres.get(i).moveOgre(game);
@@ -367,7 +367,7 @@ public class TestsJUnit {
 		
 		game.changeCurrentMap(testMap);
 		game.createHero(1, 1);
-		game.createOgres();
+		game.createOgres(0);
 		game.currentMap.drawMap(game);
 
 		assertEquals(false, game.checkPresence());
@@ -403,7 +403,7 @@ public class TestsJUnit {
 		OgreMap testMap = new OgreMap();
 		
 		game.changeCurrentMap(testMap);
-		game.setLevelTwo();
+		game.setLevelTwo(0);
 		System.out.println(game.ogres.size());
 		for (int i = 0; i < game.ogres.size(); i++) {
 			
