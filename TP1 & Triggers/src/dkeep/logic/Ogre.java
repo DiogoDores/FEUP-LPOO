@@ -28,7 +28,7 @@ public class Ogre {
 				this.clubX = this.x + 1;
 				this.clubY = this.y;
 			}
-			else if(key == 'd') {
+			else if(key == 'd') { 
 				this.clubY = this.y + 1;
 				this.clubX = this.x;
 			}
