@@ -424,11 +424,4 @@ public class TestsJUnit {
 		testMap.drawMap(game);
 	}
 
-
-
-
-
-
-
-
 }
