@@ -1,13 +1,18 @@
 package dkeep.gui;
 
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import java.awt.Font;
+import java.awt.Toolkit;
+
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.SwingConstants;
 
 import dkeep.logic.GameLogic;
 
@@ -19,18 +24,16 @@ import javax.swing.JTextArea;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class Launcher {
+public class MainMenu {
 
-	private JFrame frmDungeonEscape;
+	private JFrame frame;
 	private JTextField textField;
 	private JTextArea mapArea;
 	private JComboBox comboBox;
 	private JLabel lblTip;
-	private JButton btnUp;
-	private JButton btnDown;
-	private JButton btnLeft;
-	private JButton btnRight;
-	private GameLogic game = new GameLogic();
+	private JButton btnUp, btnDown, btnLeft, btnRight, btnQuit, btnNewGame;
+	private GameLogic gameLogic = new GameLogic();
+	private Game game = new Game("Dungeon Escape", 600, 400);
 
 	/**
 	 * Launch the application.
@@ -39,8 +42,8 @@ public class Launcher {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Launcher window = new Launcher();
-					window.frmDungeonEscape.setVisible(true);
+					MainMenu window = new MainMenu();
+					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -51,32 +54,99 @@ public class Launcher {
 	/**
 	 * Create the application.
 	 */
-	public Launcher() {
+	public MainMenu() {
 		initialize();
 	}
 
 
+	public void update(char key) {
+
+		lblTip.setText("Press one of the move button to advence!");
+
+		boolean lost = false;
+
+		gameLogic.hero.move(gameLogic.currentMap, key);
+		gameLogic.guard.move();
+
+		for(int i = 0; i < gameLogic.ogres.size(); i++){
+			gameLogic.ogres.get(i).moveOgre(gameLogic);
+			gameLogic.ogres.get(i).moveClub(gameLogic, gameLogic.ogres.get(i).getX(), gameLogic.ogres.get(i).getY());
+		}
+
+		mapArea.setText(gameLogic.currentMap.drawMap(gameLogic));
+
+		lost = gameLogic.checkPresence();
+
+		if(lost == true){
+			changeMessage(2);
+			btnUp.setEnabled(false);
+			btnDown.setEnabled(false);
+			btnLeft.setEnabled(false);
+			btnRight.setEnabled(false);
+			return;
+		}
+
+		if((gameLogic.hero.getY() == 0 && gameLogic.hero.getX() == 5) || (gameLogic.hero.getY() == 0 && gameLogic.hero.getX() == 6)){
+			gameLogic.createCharacters(2, (String)comboBox.getSelectedItem(), Integer.parseInt(textField.getText()));
+			mapArea.setText(gameLogic.currentMap.drawMap(gameLogic));
+			changeMessage(1);
+		}
+	}
+
+	public void changeMessage(int i) {
+		if(i == 2){
+			lblTip.setText("You got caught!");
+		} else if (i == 1){
+			lblTip.setText("Next Level!\n Try to escape the ogres!");
+		}
+	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frmDungeonEscape = new JFrame();
-		frmDungeonEscape.setFont(new Font("Lucida Sans Unicode", Font.PLAIN, 12));
-		frmDungeonEscape.setTitle("Dungeon Escape");
-		frmDungeonEscape.setBounds(100, 100, 610, 450);
-		frmDungeonEscape.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		JButton btnNewGame = new JButton("New Game");
+		/*
+		 * Initialization of all of the frame's components
+		 */
+
+		frame = new JFrame();
+		frame.setFont(new Font("Lucida Sans Unicode", Font.PLAIN, 12));
+		frame.setTitle("Dungeon Escape");
+		frame.setBounds(100, 100, 610, 450);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		JButton buttonPlay = new JButton("Jogar");
+		buttonPlay.setHorizontalAlignment(SwingConstants.LEFT);
+		buttonPlay.setFont(new Font("Tahoma", Font.BOLD, 20));
+		buttonPlay.setForeground(Color.WHITE);
+		buttonPlay.setOpaque(false);
+		buttonPlay.setContentAreaFilled(false);
+		buttonPlay.setBorderPainted(false);
+		buttonPlay.setBounds(250, 350,120,40);
+		frame.getContentPane().add(buttonPlay);
+
+		btnNewGame = new JButton("New Game");
 		btnNewGame.setFont(new Font("Lucida Sans Unicode", Font.PLAIN, 12));
 
-		JButton btnQuit = new JButton("Quit");
+		btnQuit = new JButton("Quit");
 		btnQuit.setFont(new Font("Lucida Sans Unicode", Font.PLAIN, 12));
-		btnQuit.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				System.exit(0);				
-			}
-		});
+
+		btnUp = new JButton("Up");
+		btnUp.setEnabled(false);
+		btnUp.setFont(new Font("Lucida Sans Unicode", Font.PLAIN, 12));
+
+		btnDown = new JButton("Down");
+		btnDown.setEnabled(false);
+		btnDown.setFont(new Font("Lucida Sans Unicode", Font.PLAIN, 12));
+
+		btnLeft = new JButton("Left");
+		btnLeft.setEnabled(false);
+		btnLeft.setFont(new Font("Lucida Sans Unicode", Font.PLAIN, 12));
+
+		btnRight = new JButton("Right");
+		btnRight.setEnabled(false);
+		btnRight.setFont(new Font("Lucida Sans Unicode", Font.PLAIN, 12));
 
 		JLabel lblNumOgres = new JLabel("Number of Ogres");
 		lblNumOgres.setFont(new Font("Lucida Sans Unicode", Font.PLAIN, 12));
@@ -95,47 +165,54 @@ public class Launcher {
 		mapArea.setEditable(false);
 		mapArea.setFont(new Font("Courier New", Font.PLAIN, 25));
 
-		btnUp = new JButton("Up");
-		btnUp.setEnabled(false);
+		lblTip = new JLabel("Press \"New Game\" to start!");
+		lblTip.setFont(new Font("Lucida Sans Unicode", Font.PLAIN, 12));
+
+		/*
+		 * Button Listeners
+		 */
+
+		btnQuit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				System.exit(0);				
+			}
+		});
+
 		btnUp.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				update('w');
 			}
 		});
-		btnUp.setFont(new Font("Lucida Sans Unicode", Font.PLAIN, 12));
 
-		btnDown = new JButton("Down");
-		btnDown.setEnabled(false);
 		btnDown.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				update('s');
 			}
 		});
-		btnDown.setFont(new Font("Lucida Sans Unicode", Font.PLAIN, 12));
 
-		btnLeft = new JButton("Left");
-		btnLeft.setEnabled(false);
 		btnLeft.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				update('a');
 			}
 		});
-		btnLeft.setFont(new Font("Lucida Sans Unicode", Font.PLAIN, 12));
 
-		btnRight = new JButton("Right");
-		btnRight.setEnabled(false);
+
 		btnRight.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				update('d');
 
 			}
 		});
-		btnRight.setFont(new Font("Lucida Sans Unicode", Font.PLAIN, 12));
 
 		btnNewGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
-				if(Integer.parseInt(textField.getText()) >= 1 && Integer.parseInt(textField.getText()) <= 5){
+				frame.setVisible(false);
+				game.start();
+				
+				//window.drawPanel();
+
+				/*if(Integer.parseInt(textField.getText()) >= 1 && Integer.parseInt(textField.getText()) <= 5){
 
 					game.createCharacters(1, (String)comboBox.getSelectedItem(), Integer.parseInt(textField.getText()));
 
@@ -147,16 +224,12 @@ public class Launcher {
 					btnRight.setEnabled(true);
 				} else {
 					lblTip.setText("Invalid number of ogres. Enter a number from 1 to 5 to continue");
-				}
+				}*/
 
 			}
 		});
 
-		lblTip = new JLabel("Press \"New Game\" to start!");
-		lblTip.setFont(new Font("Lucida Sans Unicode", Font.PLAIN, 12));
-
-
-		GroupLayout groupLayout = new GroupLayout(frmDungeonEscape.getContentPane());
+		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
 		groupLayout.setHorizontalGroup(
 				groupLayout.createParallelGroup(Alignment.TRAILING)
 				.addGroup(groupLayout.createSequentialGroup()
@@ -228,48 +301,6 @@ public class Launcher {
 										.addComponent(btnQuit)))
 						.addContainerGap())
 				);
-		frmDungeonEscape.getContentPane().setLayout(groupLayout);
-	}
-
-	public void update(char key) {
-
-		lblTip.setText("Press one of the move button to advence!");
-
-		boolean lost = false;
-
-		game.hero.move(game.currentMap, key);
-		game.guard.move();
-
-		for(int i = 0; i < game.ogres.size(); i++){
-			game.ogres.get(i).moveOgre(game);
-			game.ogres.get(i).moveClub(game, game.ogres.get(i).getX(), game.ogres.get(i).getY());
-		}
-
-		mapArea.setText(game.currentMap.drawMap(game));
-
-		lost = game.checkPresence();
-
-		if(lost == true){
-			changeMessage(2);
-			btnUp.setEnabled(false);
-			btnDown.setEnabled(false);
-			btnLeft.setEnabled(false);
-			btnRight.setEnabled(false);
-			return;
-		}
-
-		if((game.hero.getY() == 0 && game.hero.getX() == 5) || (game.hero.getY() == 0 && game.hero.getX() == 6)){
-			game.createCharacters(2, (String)comboBox.getSelectedItem(), Integer.parseInt(textField.getText()));
-			mapArea.setText(game.currentMap.drawMap(game));
-			changeMessage(1);
-		}
-	}
-
-	public void changeMessage(int i) {
-		if(i == 2){
-			lblTip.setText("You got caught!");
-		} else if (i == 1){
-			lblTip.setText("Next Level!\n Try to escape the ogres!");
-		}
+		frame.getContentPane().setLayout(groupLayout);
 	}
 }

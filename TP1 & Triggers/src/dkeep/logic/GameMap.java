@@ -2,7 +2,6 @@ package dkeep.logic;
 
 public interface GameMap {
 	
-	
 	public char possibleMove(int x, int y);
 	public char possibleMove(int x, int y, GameLogic game); // Quando é preciso averiguar posições do GameLogic
 
