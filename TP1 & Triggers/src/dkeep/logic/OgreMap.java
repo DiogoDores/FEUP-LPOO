@@ -57,9 +57,10 @@ public class OgreMap implements GameMap{
 	}
 
 	@Override
-	public void drawMap(GameLogic game) {
+	public String drawMap(GameLogic game) {
 
 		char[][] mapToDraw = levelTwoMap;
+		String map = "";
 
 		for (int i = 0; i < mapToDraw.length; i++) {
 			for(int j = 0; j < mapToDraw[i].length; j++){
@@ -68,13 +69,16 @@ public class OgreMap implements GameMap{
 				boolean foundClub = false;
 				
 				for(int k = 0; k < game.ogres.size(); k++){
+
 					if(!foundOgre && (game.currentMap.getMap()[game.ogres.get(k).getX()][game.ogres.get(k).getY()] != 'O') && (game.ogres.get(k).getX() == i && game.ogres.get(k).getY() == j)){
 						System.out.print(game.ogres.get(k).getSymbol() + " ");
+						map += game.ogres.get(k).getSymbol() + " ";
 						foundOgre = true;
 						continue;
 					}
 					if(!foundClub && (game.ogres.get(k).getClubX() == i && game.ogres.get(k).getClubY() == j) && (game.currentMap.getMap()[game.ogres.get(k).getClubX()][game.ogres.get(k).getClubY()] != '*')){
 						System.out.print(game.ogres.get(k).getClubSymbol() + " ");
+						map += game.ogres.get(k).getClubSymbol() + " ";
 						foundClub = true;
 						continue;
 					}
@@ -83,19 +87,34 @@ public class OgreMap implements GameMap{
 				if(!foundOgre && !foundClub){
 					if(game.hero.getX() == i && game.hero.getY() == j){
 						System.out.print(game.hero.getSymbol() + " ");
+						map += game.hero.getSymbol() + " ";
 						continue;
 					} else {
 						System.out.print(mapToDraw[i][j] + " ");
+						map += mapToDraw[i][j] + " ";
 					}
 				}
 			}
 			System.out.print("\n");
+			map += "\n";
 		}
+		return map;
 	}
 
 	@Override
 	public char possibleMove(int x, int y) {
-		// TODO Auto-generated method stub
-		return 0;
+		if (getMap()[x][y]  == 'X'){
+			return 'X';
+		} else if (getMap()[x][y] == 'k') {
+			return 'E';
+		} else if (getMap()[x][y] == ' '){
+			return 'H';
+		} else if (getMap()[x][y] == 'I'){
+			return 'I';
+		} else if (getMap()[x][y] == 'S') {
+			return 'S';
+		} else if (getMap()[x][y] == 'H') // AC
+			return 'D';
+		return levelTwoMap[x][y];
 	}
 }

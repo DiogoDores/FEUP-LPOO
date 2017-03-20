@@ -28,7 +28,7 @@ public class Ogre {
 				this.clubX = this.x + 1;
 				this.clubY = this.y;
 			}
-			else if(key == 'd') {
+			else if(key == 'd') { 
 				this.clubY = this.y + 1;
 				this.clubX = this.x;
 			}
@@ -80,15 +80,22 @@ public class Ogre {
 			char result;
 
 			do{
+				System.out.println("DO WHILE");
 				c = createRandomMove(); 
 				result = checkPossible(c, game);
 			} while(result == 'X' || result == 'I' || result == 'S' || result == 'N' || result == '*');
+			
+			System.out.println("RESULT ==  " + result);
 
-			if (game.currentMap.getMap()[x][y] == 'k')
+			if (game.currentMap.getMap()[x][y] == 'k'){
 				restoreSymbol = true;
-			else
+			} else {
 				restoreSymbol = false;
+			}
+			
 			if (result == 'H') {
+
+				System.out.println("RESULT = H");
 
 				if(restoreSymbol){
 					this.symbol = 'O';
@@ -106,6 +113,9 @@ public class Ogre {
 				}
 
 			} else if(result == 'E'){
+				
+				System.out.println("RESULT = E");
+				
 				if(c == 'w'){
 					x--;
 				} else if (c == 'd'){
@@ -185,14 +195,14 @@ public class Ogre {
 
 		char result;
 
-		if (key == 'w' && key != 'a' && key != 's' && key != 'd') {
-			result = game.currentMap.possibleMove(x - 1, y);
-		} else if (key == 'a' && key != 's' && key != 'd' && key != 'w'){
-			result = game.currentMap.possibleMove(x, y - 1);
-		} else if (key == 's' && key != 'a' && key != 'd' && key != 'w') {
-			result = game.currentMap.possibleMove(x + 1, y);
-		} else if (key == 'd' && key != 'a' && key != 'w' && key != 's') {
-			result = game.currentMap.possibleMove(x, y + 1);
+		if (key == 'w') {
+			result = game.currentMap.possibleMove(x - 1, y, game);
+		} else if (key == 'a'){
+			result = game.currentMap.possibleMove(x, y - 1, game);
+		} else if (key == 's') {
+			result = game.currentMap.possibleMove(x + 1, y, game);
+		} else if (key == 'd') {
+			result = game.currentMap.possibleMove(x, y + 1, game);
 		} else {
 			result = 'N';
 		}
@@ -205,13 +215,13 @@ public class Ogre {
 
 		char result;
 
-		if (key == 'w' && key != 'a' && key != 's' && key != 'd') {
+		if (key == 'w') {
 			result = game.currentMap.possibleMove(clubX - 1, clubY, game );
-		} else if (key == 'a' && key != 's' && key != 'd' && key != 'w'){
+		} else if (key == 'a'){
 			result = game.currentMap.possibleMove(clubX, clubY - 1, game);
-		} else if (key == 's' && key != 'a' && key != 'd' && key != 'w') {
+		} else if (key == 's') {
 			result = game.currentMap.possibleMove(clubX + 1, clubY, game);
-		} else if (key == 'd' && key != 'a' && key != 'w' && key != 's') {
+		} else if (key == 'd') {
 			result = game.currentMap.possibleMove(clubX, clubY + 1, game);
 		} else {
 			result = 'N';

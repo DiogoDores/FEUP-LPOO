@@ -65,4 +65,8 @@ public class Guard {
 			y--;
 		}
 	}
+	
+	public char getGuardMove(){
+		return path[position];
+	}
 }

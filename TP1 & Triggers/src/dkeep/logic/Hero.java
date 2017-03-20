@@ -8,7 +8,7 @@ public class Hero {
 	public void setSymbol(char c) {
 		symbol = c;
 	}
-	
+
 	public Hero(){}
 
 	public Hero(int x, int y){
@@ -34,7 +34,7 @@ public class Hero {
 		boolean won = false;
 
 		char result;
-		if (c == 'w') {
+		/*if (c == 'w') {
 			result = map.possibleMove(x - 1, y);
 		}
 		else if (c == 'a'){
@@ -47,8 +47,9 @@ public class Hero {
 			result = map.possibleMove(x, y + 1);
 		}
 		else
-			result = 'N';
+			result = 'N';*/
 
+		result = 'H';
 
 		if (result == 'H') {
 			if (c == 'w') {
