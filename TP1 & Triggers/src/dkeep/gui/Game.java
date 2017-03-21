@@ -44,36 +44,52 @@ public class Game implements Runnable {
 	}
 
 	private void update(){
+		
 		keyManager.update();
 
 		char guardMove = gameLogic.guard.getGuardMove();
+		boolean heroHasMoved = false;
 
 		if(keyManager.up){
 			key = 'a';
 			hero = Assets.heroBack;
+			gameLogic.hero.move(gameLogic.currentMap, key);
+			heroHasMoved = true;
 		} else if (keyManager.left){
 			key = 'w';
 			hero = Assets.heroRight;
+			gameLogic.hero.move(gameLogic.currentMap, key);
+			heroHasMoved = true;
 		} else if (keyManager.down){
 			key = 'd';
 			hero = Assets.heroFront;
+			gameLogic.hero.move(gameLogic.currentMap, key);
+			heroHasMoved = true;
 		} else if (keyManager.right){
 			key = 's';
 			hero = Assets.heroLeft;
+			gameLogic.hero.move(gameLogic.currentMap, key);
+			heroHasMoved = true;
 		}
 
-		if(guardMove == 'w'){
-			guard = Assets.guardRight;
-		} else if (guardMove == 'a'){
-			guard = Assets.guardBack;
-		} else if (guardMove == 's'){
-			guard = Assets.guardLeft;
-		} else if (guardMove == 'd'){
-			guard = Assets.guardFront;
+		if(heroHasMoved){
+			if(guardMove == 'w'){
+				guard = Assets.guardRight;
+				gameLogic.guard.move();
+			} else if (guardMove == 'a'){
+				guard = Assets.guardBack;
+				gameLogic.guard.move();
+			} else if (guardMove == 's'){
+				guard = Assets.guardLeft;
+				gameLogic.guard.move();
+			} else if (guardMove == 'd'){
+				guard = Assets.guardFront;
+				gameLogic.guard.move();
+			}
+			
+			heroHasMoved = false;
 		}
 
-		//gameLogic.hero.move(gameLogic.currentMap, key);
-		//gameLogic.guard.move();
 	}
 
 	private void render(){
@@ -92,8 +108,8 @@ public class Game implements Runnable {
 		//Drawing the objects
 
 		drawImageMap();
-		g.drawImage(guard, gameLogic.guard.getX() * 32, gameLogic.guard.getY() * 32, 64, 90, null);
-		g.drawImage(hero, gameLogic.hero.getX(), gameLogic.hero.getY(), 64, 90, null);
+		g.drawImage(guard, gameLogic.guard.getX() * 16, gameLogic.guard.getY() * 16, 64, 90, null);
+		g.drawImage(hero, gameLogic.hero.getX() * 16, gameLogic.hero.getY() * 16, 64, 90, null);
 
 		//End drawing
 		buffer.show();
@@ -105,7 +121,7 @@ public class Game implements Runnable {
 		for(int i = 0; i < Assets.structures.length; i++){
 			for(int j = 0; j < Assets.structures[i].length; j++){
 				if(Assets.structures[i][j] != null){
-					g.drawImage(Assets.structures[i][j], i * 32, j * 32, null);
+					g.drawImage(Assets.structures[i][j], i * 32, j * 32, 32, 32, null);
 				}
 			}
 		}

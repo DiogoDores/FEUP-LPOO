@@ -6,7 +6,7 @@ import dkeep.logic.GameMap;
 
 public class Assets {
 
-	private static final int width = 129, height = 163, wallWidth = 64, wallHeight = 64;
+	private static final int width = 129, height = 163, wallWidth = 24, wallHeight = 24;
 
 	public static BufferedImage 
 	guardFront, guardLeft, guardRight, guardBack,
@@ -16,7 +16,7 @@ public class Assets {
 	topLeftWall, topRightWall, bottomLeftWall, bottomRightWall,
 	floor,
 	door, openDoor,
-	lever,
+	closedLever, openLever,
 	key,
 	club;
 
@@ -25,7 +25,7 @@ public class Assets {
 	public static void init(GameMap map){
 		SpriteSheet guardSheet = new SpriteSheet(ImageLoader.loadImage("/Guard.png"));
 		SpriteSheet heroSheet = new SpriteSheet(ImageLoader.loadImage("/Hero.png"));
-		SpriteSheet wallSheet = new SpriteSheet(ImageLoader.loadImage("/Walls_Floor.png"));
+		SpriteSheet wallSheet = new SpriteSheet(ImageLoader.loadImage("/Structures.png"));
 
 		heroFront = heroSheet.crop(0, 0, width, height);
 		heroLeft = heroSheet.crop(0, height, width, height);
@@ -47,6 +47,11 @@ public class Assets {
 		topRightWall = wallSheet.crop(wallWidth*2, 0, wallWidth, wallHeight);
 		bottomLeftWall = wallSheet.crop(0, wallHeight*2, wallWidth, wallHeight);
 		bottomRightWall = wallSheet.crop(wallWidth*2, wallHeight*2, wallWidth, wallHeight);
+		
+		closedLever = wallSheet.crop(wallWidth * 3, wallHeight, wallWidth, wallHeight);
+		openLever = wallSheet.crop(wallWidth * 3, wallHeight*2, wallWidth, wallHeight);
+		
+		door = wallSheet.crop(wallWidth * 3, 0, wallWidth, wallHeight);
 		
 		setStructures(map);
 
@@ -77,9 +82,17 @@ public class Assets {
 						structures[y][x] = leftWall;
 					} else if (y == mapToDraw.length - 1){
 						structures[y][x] = rightWall;
+					} else {
+						structures[x][y] = rightWall;
 					}
+				} else if (mapToDraw[y][x] == ' '){
+					structures[x][y] = floor;
+				} else if (mapToDraw[y][x] == 'k'){
+					structures[x][y] = closedLever;
+				} else if (mapToDraw[y][x] == 'I'){
+					structures[x][y] = door;
 				} else {
-					structures[y][x] = floor;
+					structures[y][x] = openLever;
 				}
 			}
 		}
