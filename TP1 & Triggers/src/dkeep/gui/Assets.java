@@ -70,7 +70,7 @@ public class Assets {
 						else if(y == mapToDraw.length - 1)
 							structures[y][x] = topRightWall;
 						else 
-							structures[y][x] = topWall;
+							structures[y][x] = topWall; 
 					} else if(x == mapToDraw[y].length - 1){
 						if(y == 0)
 							structures[y][x] = bottomLeftWall;
