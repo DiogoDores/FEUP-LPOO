@@ -56,24 +56,24 @@ public class TestMap implements GameMap{
 		for (int i = 0; i < mapToDraw.length; i++) {
 			for(int j = 0; j < mapToDraw[i].length; j++){
 				if (i == 0 && j == 0)
-					map += "X";
-				else if(game.guard.getX() == i && game.guard.getY() == j){
-					map += game.guard.getSymbol();
+					System.out.print('X');
+			 	else if(game.guard.getX() == i && game.guard.getY() == j){
+			 		System.out.print(game.guard.getSymbol());
 					continue;
 				}
 				else if(game.ogre.getX() == i && game.ogre.getY() == j){
-					map +=  game.ogre.getSymbol();
+					System.out.print(game.ogre.getSymbol());
 					continue;
 				}
 				else if(game.hero.getX() == i && game.hero.getY() == j){
-					map += game.hero.getSymbol();
+					System.out.print(game.hero.getSymbol());
 					continue;
 				} 
 				else 
-					map +=  mapToDraw[i][j];
+					System.out.print(mapToDraw[i][j]);
 
 			}
-			map += "\n";
+			System.out.print("\n");
 		}
 		return map;
 	}		

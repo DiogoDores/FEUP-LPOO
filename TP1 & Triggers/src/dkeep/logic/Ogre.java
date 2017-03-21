@@ -16,19 +16,20 @@ public class Ogre {
 		do {
 			char key = createRandomMove();
 
-
+ 
 			if(key == 'w'){
 				this.clubX = this.x - 1; 
 				this.clubY = this.y;
-			} else if(key == 'a') {
+			}
+			if(key == 'a') {
 				this.clubY = this.y - 1;
 				this.clubX = this.x;
 			}
-			else if(key == 's') {
+			if(key == 's') {
 				this.clubX = this.x + 1;
 				this.clubY = this.y;
 			}
-			else if(key == 'd') { 
+			 if(key == 'd') { 
 				this.clubY = this.y + 1;
 				this.clubX = this.x;
 			}
@@ -80,13 +81,10 @@ public class Ogre {
 			char result;
 
 			do{
-				System.out.println("DO WHILE");
 				c = createRandomMove(); 
 				result = checkPossible(c, game);
 			} while(result == 'X' || result == 'I' || result == 'S' || result == 'N' || result == '*');
 			
-			System.out.println("RESULT ==  " + result);
-
 			if (game.currentMap.getMap()[x][y] == 'k'){
 				restoreSymbol = true;
 			} else {
@@ -94,8 +92,6 @@ public class Ogre {
 			}
 			
 			if (result == 'H') {
-
-				System.out.println("RESULT = H");
 
 				if(restoreSymbol){
 					this.symbol = 'O';
