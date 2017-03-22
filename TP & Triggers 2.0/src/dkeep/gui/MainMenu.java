@@ -16,7 +16,7 @@ import java.awt.event.ActionEvent;
 public class MainMenu extends JPanel{
 
 	private JFrame frame;
-	private JButton btnNewGame, btnExit, btnSettings;
+	private JButton btnNewGame, btnExit, btnSettings, btnCreateMap;
 	private Game game;
 	private OptionsMenu options;
 	BufferedImage menuBackground = ImageLoader.loadImage("/MenuBackground.png");
@@ -49,7 +49,7 @@ public class MainMenu extends JPanel{
 	 */
 	private void initialize() {
 
-		/**
+		/*
 		 * Initialization of all of the frame's components
 		 */
 
@@ -62,8 +62,13 @@ public class MainMenu extends JPanel{
 		
 		repaint();
 		
+		btnCreateMap = new JButton("Create Map");
+		btnCreateMap.setFont(new Font("Lucida Sans Unicode", Font.PLAIN, 12));
+		btnCreateMap.setBounds(43, 485, 112, 29);
+		add(btnCreateMap);
+		
 		btnNewGame = new JButton("New Game");
-		btnNewGame.setBounds(43, 485, 112, 29);
+		btnNewGame.setBounds(43, 434, 112, 29);
 		btnNewGame.setFont(new Font("Lucida Sans Unicode", Font.PLAIN, 12));
 		
 		btnExit = new JButton("Exit");
@@ -100,6 +105,16 @@ public class MainMenu extends JPanel{
 				options.init();
 			}
 		});
+		
+		btnCreateMap.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0){
+				
+				options = new OptionsMenu("Settings", 300, 500);
+				options.setVisible(true);
+				options.init();
+			}
+		});
+		
 		
 		frame.getContentPane().setLayout(null);
 		frame.getContentPane().add(btnNewGame);
