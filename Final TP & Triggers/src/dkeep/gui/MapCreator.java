@@ -3,12 +3,7 @@ import dkeep.logic.*;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
-
-import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
 import java.awt.Graphics;
-import java.awt.event.ActionEvent;
 
 public class MapCreator extends JPanel{
 	private static EditorMap map;
@@ -18,6 +13,7 @@ public class MapCreator extends JPanel{
 	private int width, height;
 	private JFrame frame;
 	private JPanel panel;
+	
 	public MapCreator(String title, int width, int height){
 		this.title = title;
 		this.width = width;
@@ -32,7 +28,7 @@ public class MapCreator extends JPanel{
 		gameLogic = new GameLogic();
 		gameLogic.changeCurrentMap(map);
 		Assets.init(gameLogic.currentMap);
-		//paintComponent(this);
+		
 		repaint();
 		
 		gameLogic.changeCurrentMap(map);
@@ -99,8 +95,6 @@ public class MapCreator extends JPanel{
 		frame.setSize(1200,700);
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
-
 
 		panel = new JPanel();
 		panel.setBounds(0, 0, 700, 700);
