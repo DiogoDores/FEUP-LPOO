@@ -36,7 +36,7 @@ public class Game extends JPanel implements KeyListener {
 		repaint();
 	}
 
-	private void display() {
+	private void display() { 
 
 		f = new JFrame("Prison Escape");     
 		f.setContentPane(this);
