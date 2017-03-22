@@ -7,6 +7,7 @@ import javax.swing.JTextField;
 
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 
 public class MapCreator extends JPanel{
@@ -31,27 +32,67 @@ public class MapCreator extends JPanel{
 		gameLogic = new GameLogic();
 		gameLogic.changeCurrentMap(map);
 		Assets.init(gameLogic.currentMap);
-		display();
+		//paintComponent(this);
 		repaint();
+		
 		gameLogic.changeCurrentMap(map);
 		refreshMap(2,2);
-		if (map == null)
-			//System.out.println("MERDA");
 	}
 	
 	public void refreshMap(int x, int y){
-		map = new EditorMap(x, y);	
+		map = new EditorMap(x, y);
 		gameLogic.changeCurrentMap(map);
-		
 	}
 	
-	public void display() {
-		if (height != 0 && width != 0) {
-			
+	@Override
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g); // Clears board
+
+		char[][] mapToDraw = gameLogic.currentMap.getMap();
+
+		for (int x = 0; x < mapToDraw.length; x++) {
+			for(int y = 0; y < mapToDraw[x].length; y++){
+				if(mapToDraw[y][x] == 'X'){
+					if(x == 0){
+						if(y == 0)
+							g.drawImage(Assets.topLeftWall, x * 50, y * 50, 50, 50, null);
+						else if(y == mapToDraw.length - 1)
+							g.drawImage(Assets.bottomLeftWall, x * 50, y * 50, 50, 50, null);
+						else 
+							g.drawImage(Assets.leftWall, x * 50, y * 50, 50, 50, null);
+					} else if(x == mapToDraw[y].length - 1){
+						if(y == 0)
+							g.drawImage(Assets.topRightWall, x * 50, y * 50, 50, 50, null);
+						else if(y == mapToDraw.length -1)
+							g.drawImage(Assets.bottomRightWall, x * 50, y * 50, 50, 50, null);
+						else 
+							g.drawImage(Assets.rightWall, x * 50, y * 50, 50, 50, null);
+					} else if (y == 0){
+						g.drawImage(Assets.topWall, x * 50, y * 50, 50, 50, null);
+					} else if (y == mapToDraw.length - 1){
+						g.drawImage(Assets.bottomWall, x * 50, y * 50, 50, 50, null);
+					} else {
+						g.drawImage(Assets.wall, x * 50, y * 50, 50, 50, null);
+					}
+				} else if (mapToDraw[y][x] == ' '){
+					g.drawImage(Assets.floor, x * 50, y * 50, 50, 50, null);
+				} else if (mapToDraw[y][x] == 'k'){
+					g.drawImage(Assets.closedLever, x * 50, y * 50, 50, 50, null);
+				} else if (mapToDraw[y][x] == 'I'){
+					g.drawImage(Assets.door, x * 50, y * 50, 50, 50, null);
+				} else {
+					g.drawImage(Assets.floor, x * 50, y * 50, 50, 50, null);
+				}
+			}
 		}
+
+		//g.drawImage(hero, gameLogic.hero.getY() * 49 , gameLogic.hero.getX() * 49 - 49, 64, 90, null);
+		//g.drawImage(guard,  gameLogic.guard.getY() * 49, gameLogic.guard.getX() * 49 - 49, 64, 90, null);
+
+
 	}
-	
-	
+
+
 	public void init(){
 		JFrame frame = new JFrame();
 		frame.setContentPane(this);

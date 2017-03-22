@@ -435,21 +435,26 @@ public class TestsJUnit {
 
 	@Test(timeout = 15000)
 	public void testcreateClub() {
-		//System.out.println("\nTest Create Club.\n");
+		System.out.println("\nTest Create Club.\n");
 		GameLogic game = new GameLogic();
 		OgreMap testMap = new OgreMap();
 		game.changeCurrentMap(testMap);
-		game.createOgre(2,2);
-		game.createOgre(2,3);
+		game.createOgre(1,1);
+
+		game.createOgre(7,2);
+		game.createOgre(6,1);
 		game.createOgre(2,4);
 		game.createOgre(3,4);
-		game.createOgre(4,4);
-		game.createOgre(4,3);
-		game.createOgre(4,2); 
-		game.createOgre(3,3);
+		game.currentMap.drawMap(game);
+		game.currentMap.possibleMove(game.ogres.get(0).getX()-1, game.ogres.get(0).getY(), game);
+		game.createHero(1,2);
 		
+		game.currentMap.drawMap(game);
+		System.out.println(game.currentMap.possibleMove(game.ogres.get(0).getX(), game.ogres.get(0).getY()+1, game));
+		
+		assertTrue('H' == game.currentMap.possibleMove(game.ogres.get(0).getX(), game.ogres.get(0).getY()+1, game));
 		int j = 0; 
-		while (j < 50) {
+		while (j < 90) {
 			j++;
 			boolean x = game.checkPresence();
 			assertTrue(x == true || x == false);
@@ -459,7 +464,6 @@ public class TestsJUnit {
 			}
 		}
 		j=0;
-		game.currentMap.drawMap(game);
 	//	assertTrue(game.ogres.get(7).getClubX() == 3 && game.ogres.get(7).getClubY() == 2);
 
 	}

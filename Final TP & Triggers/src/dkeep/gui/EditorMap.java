@@ -10,9 +10,14 @@ public class EditorMap implements GameMap {
 	boolean foundSolution;
 
 	public EditorMap(int width, int height) {
+		level = new char[width][height];
+		visited = new boolean[width][height];
 		for (int i = 0 ; i < height ; i++) {
 			for (int j = 0; j < width ; j++) {
-				if ( i == 0 || i == height -1 ||j == 0 || j == width - 1) {
+				if ( i == 0 || j == 0) {
+					level[i][j] = 'X';
+				}	
+				else if (i == height -1 || j == width - 1) {
 					level[i][j] = 'X';
 				}	
 				else 
