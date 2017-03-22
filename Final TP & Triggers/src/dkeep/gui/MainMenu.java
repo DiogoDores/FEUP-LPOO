@@ -57,9 +57,11 @@ public class MainMenu extends JPanel{
 		frame = new JFrame("Main Menu");     
 		frame.setContentPane(this);
 		frame.setSize(1200, 700);
-		frame.setVisible(false);
+		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setLocation(75, 10);
+		frame.setResizable(false);
+		frame.setLocationRelativeTo(null);
+		
 		repaint();
 		
 		btnCreateMap = new JButton("Create Map");
@@ -85,7 +87,7 @@ public class MainMenu extends JPanel{
 			public void actionPerformed(ActionEvent arg0) {
 
 				frame.setVisible(false);
-				game = new Game("Prison Escape", 700, 500);
+				game = new Game("Prison Escape", 550, 550);
 				game.setVisible(true);
 				game.init();
 			}
@@ -100,7 +102,7 @@ public class MainMenu extends JPanel{
 		btnSettings.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0){
 				
-				options = new OptionsMenu("Settings", 300, 500);
+				options = new OptionsMenu("Settings", 300, 300);
 				options.setVisible(true);
 				options.init();
 			}

@@ -9,13 +9,15 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import dkeep.logic.GameLogic;
- 
+
 public class Game extends JPanel implements KeyListener {
 
 	private JPanel panel;
 	private JFrame f;
 	private BufferedImage guard = Assets.guardFront;
 	private BufferedImage hero = Assets.heroFront;
+
+	private int mapWidth, mapHeight;
 
 	private GameLogic gameLogic = new GameLogic();
 	public int width, height;
@@ -31,6 +33,8 @@ public class Game extends JPanel implements KeyListener {
 
 	public void init(){
 		gameLogic.createCharacters(1, "Rookie"/*(String)comboBox.getSelectedItem()*/, /*Integer.parseInt(textField.getText())*/ 1);
+		mapWidth = gameLogic.currentMap.getMap().length * 50 + 12;
+		mapHeight = gameLogic.currentMap.getMap()[0].length * 50 + 37;
 		Assets.init(gameLogic.currentMap);
 		display();
 		repaint();
@@ -40,12 +44,14 @@ public class Game extends JPanel implements KeyListener {
 
 		f = new JFrame("Prison Escape");     
 		f.setContentPane(this);
-		f.setSize(700,700);
+		f.setSize(mapWidth, mapHeight);
 		f.setVisible(true);
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		f.setResizable(false);
+		f.setLocationRelativeTo(null);
 
 		panel = new JPanel();
-		panel.setBounds(0, 0, 700, 700);
+		panel.setBounds(0, 0, mapWidth, mapHeight);
 		f.getContentPane().add(panel);
 		panel.addKeyListener(this);
 		panel.setFocusable(true);
@@ -93,6 +99,15 @@ public class Game extends JPanel implements KeyListener {
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g); // Clears board
 
+		drawStructures(g);
+
+		g.drawImage(hero, gameLogic.hero.getY() * 49 , gameLogic.hero.getX() * 49 - 49, 64, 90, null);
+		g.drawImage(guard,  gameLogic.guard.getY() * 49, gameLogic.guard.getX() * 49 - 49, 64, 90, null);
+
+
+	}
+
+	public void drawStructures(Graphics g) {
 		char[][] mapToDraw = gameLogic.currentMap.getMap();
 
 		for (int x = 0; x < mapToDraw.length; x++) {
@@ -126,15 +141,10 @@ public class Game extends JPanel implements KeyListener {
 				} else if (mapToDraw[y][x] == 'I'){
 					g.drawImage(Assets.door, x * 50, y * 50, 50, 50, null);
 				} else {
-					g.drawImage(Assets.floor, x * 50, y * 50, 50, 50, null);
+					g.drawImage(Assets.openDoor, x * 50, y * 50, 50, 50, null);
 				}
 			}
 		}
-
-		g.drawImage(hero, gameLogic.hero.getY() * 49 , gameLogic.hero.getX() * 49 - 49, 64, 90, null);
-		g.drawImage(guard,  gameLogic.guard.getY() * 49, gameLogic.guard.getX() * 49 - 49, 64, 90, null);
-
-
 	}
 
 	@Override
