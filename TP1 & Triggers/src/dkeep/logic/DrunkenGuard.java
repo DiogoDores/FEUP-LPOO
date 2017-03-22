@@ -22,7 +22,7 @@ public class DrunkenGuard extends Guard {
 			int wakeUp = random.nextInt(5);
 			
 			if(wakeUp == 0){
-				sleep(); 
+				sleep();
 			} else if(wakeUp == 1 || wakeUp == 2){
 				this.symbol = 'G';
 				this.sleeping = false;

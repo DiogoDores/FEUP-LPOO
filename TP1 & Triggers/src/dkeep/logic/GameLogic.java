@@ -39,23 +39,21 @@ public class GameLogic {
 		if(lost){
 			return 2;
 		}
-		boolean hx = checkWin(this);
-		if(hx){
+		int hx = hero.getX(), hy = hero.getY();
+		if((hy == 0 && (hx == 5 || hx == 6))){
 			System.out.println("\n\nPhew! You escaped the guard!\nBut what's that?\nOh no! An ogre!\nGrab the key and escape!\nBe careful with his club!\n\n");
 			setLevelTwo(0);
 		}
 		
 
+		if(hx == 1 && hy == 0){
+			return 1;
+		}
 
 		return 0;
 	}
 
-    public boolean checkWin(GameLogic game) {
-    	if (game.currentMap.getName() == "TestMap" || game.currentMap.getName() == "OgreMap")
-    		return (game.hero.getX() == 1 && game.hero.getY() == 0);
-    	else 
-    		return (game.hero.getX() == 0 && (game.hero.getY() == 5 || game.hero.getY() == 6));
-    }
+
 	public void changeCurrentMap(GameMap gameMap){
 		currentMap = gameMap;
 	}
@@ -107,9 +105,9 @@ public class GameLogic {
 			else if(hero.getX() == ogre.getX() && (hero.getY() == ogre.getY() + 1 || hero.getY() == ogre.getY() - 1)){
 				return true;
 			} else if(hero.getY() == ogre.getY() && (hero.getX() == ogre.getX() + 1 || hero.getX() == ogre.getX() - 1)){
-				return true; 
+				return true;
 
-			} 
+			}
 		}
 
 		return false;
@@ -125,7 +123,7 @@ public class GameLogic {
 	public void createOgres(int numOgres) {
 
 		int randomNumOgres = random.nextInt(4) + 1; 
-		int x; 
+		int x;
 		int y;
 		
 		if(numOgres == 0){
@@ -137,19 +135,14 @@ public class GameLogic {
 			do{
 				x = random.nextInt(7) + 1;
 				y = random.nextInt(7) + 1;
-				condition = checkSpawnCondition(x, y, this);
+				condition = x == hero.getX() && y == hero.getY();
+				condition = condition || (x == hero.getX() - 1 && y == hero.getY()) ;
+				condition = condition || (x == hero.getX() && y == hero.getY() + 1); 
+
 			} while(condition);
 
 			ogres.add(new Ogre(x,y));
 		}
-	}
-	
-	public boolean checkSpawnCondition(int x, int y, GameLogic game) {
-		boolean condition;
-		condition = (x == game.hero.getX() && y == game.hero.getY());
-		condition = condition || (x == game.hero.getX() - 1 && y == game.hero.getY()) ;
-		condition = condition || (x == game.hero.getX() && y == game.hero.getY() + 1); 
-		return condition;
 	}
 
 	public void createOgre(int x, int y) {
