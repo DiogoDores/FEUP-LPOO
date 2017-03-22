@@ -441,15 +441,12 @@ public class TestsJUnit {
 		game.changeCurrentMap(testMap);
 		game.createOgre(2,2);
 		game.createOgre(2,3);
-		game.createOgre(2,4);
-		game.createOgre(3,4);
-		game.createOgre(4,4);
-		game.createOgre(4,3);
-		game.createOgre(4,2); 
+		game.createOgre(3,2);
 		game.createOgre(3,3);
+	
 		
 		int j = 0; 
-		while (j < 50) {
+		while (j < 90) {
 			j++;
 			boolean x = game.checkPresence();
 			assertTrue(x == true || x == false);

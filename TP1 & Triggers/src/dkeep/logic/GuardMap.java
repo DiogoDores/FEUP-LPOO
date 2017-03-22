@@ -3,7 +3,6 @@ package dkeep.logic;
 public class GuardMap implements GameMap {
 	
 	private String mapName = "GuardMap";
-	
 	static char[][] levelOneMap = { 
 			{ 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' },
 			{ 'X', ' ', ' ', ' ', 'I', ' ', 'X', ' ', ' ', 'X' },
