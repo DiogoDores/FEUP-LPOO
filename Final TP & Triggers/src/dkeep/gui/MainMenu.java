@@ -19,6 +19,7 @@ public class MainMenu extends JPanel{
 	private JButton btnNewGame, btnExit, btnSettings, btnCreateMap;
 	private Game game;
 	private OptionsMenu options;
+	private MapCreator mapCreator;
 	BufferedImage menuBackground = ImageLoader.loadImage("/MenuBackground.png");
 
 	/**
@@ -49,7 +50,7 @@ public class MainMenu extends JPanel{
 	 */
 	private void initialize() {
 
-		/*
+		/**
 		 * Initialization of all of the frame's components
 		 */
 
@@ -59,7 +60,6 @@ public class MainMenu extends JPanel{
 		frame.setVisible(false);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLocation(75, 10);
-		
 		repaint();
 		
 		btnCreateMap = new JButton("Create Map");
@@ -108,10 +108,9 @@ public class MainMenu extends JPanel{
 		
 		btnCreateMap.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0){
-				
-				options = new OptionsMenu("Settings", 300, 500);
-				options.setVisible(true);
-				options.init();
+				mapCreator = new MapCreator("Create a new Map", 300, 500);
+				mapCreator.setVisible(true);
+				mapCreator.init();
 			}
 		});
 		
