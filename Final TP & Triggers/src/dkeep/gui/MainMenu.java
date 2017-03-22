@@ -19,7 +19,7 @@ public class MainMenu extends JPanel{
 	private JButton btnNewGame, btnExit, btnSettings, btnCreateMap;
 	private Game game;
 	private OptionsMenu options;
-	private MapCreator mapCreator;
+	//private MapCreator mapCreator;
 	BufferedImage menuBackground = ImageLoader.loadImage("/MenuBackground.png");
 
 	/**
@@ -108,9 +108,9 @@ public class MainMenu extends JPanel{
 		
 		btnCreateMap.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0){
-				mapCreator = new MapCreator("Create a new Map", 300, 500);
-				mapCreator.setVisible(true);
-				mapCreator.init();
+				//mapCreator = new MapCreator("Create a new Map", 300, 500);
+				//mapCreator.setVisible(true);
+				//mapCreator.init();
 			}
 		});
 		
