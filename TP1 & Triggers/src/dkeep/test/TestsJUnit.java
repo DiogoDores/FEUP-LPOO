@@ -1,8 +1,7 @@
 package dkeep.test;
 
-import static org.junit.Assert.*;
-
-import org.junit.Test;
+import  static org.junit.Assert.*;
+import  org.junit.Test;
 
 import dkeep.cli.UserInterface;
 import dkeep.logic.DrunkenGuard;
@@ -16,7 +15,7 @@ public class TestsJUnit {
 
 	public TestsJUnit(){};
 
-	@Test(timeout = 1000)
+	@Test
 	public void moveIntoFreeCell() {
 		System.out.println("\nTest Move to Free Cell.\n");
 		GameLogic game = new GameLogic();
@@ -28,13 +27,18 @@ public class TestsJUnit {
 		testMap.drawMap(game);
 		assertEquals(1, game.hero.getX());
 		assertEquals(2, game.hero.getY());
+		game.hero.move(testMap, 's');
 		assertEquals(2, game.hero.getX());
+		assertFalse(3 == game.hero.getX());
+		assertFalse(1 == game.hero.getX());
 		assertEquals(2, game.hero.getY());
+		assertFalse(3 == game.hero.getY());
+		assertFalse(1 == game.hero.getY());
 		testMap.drawMap(game);
 	}
 
 
-	@Test(timeout = 1000)
+	@Test
 	public void moveIntoAWall() {
 		System.out.println("\nTest Move to A Wall.\n");
 		GameLogic game = new GameLogic();
@@ -44,16 +48,22 @@ public class TestsJUnit {
 
 		testMap.drawMap(game);
 		assertEquals(1, game.hero.getX());
+		assertFalse(2 == game.hero.getX());
 		assertEquals(2, game.hero.getY());
+		assertFalse(3 == game.hero.getY());
+		assertFalse(1 == game.hero.getY());
+		
+		
 		game.hero.move(testMap, 'w');
+		testMap.drawMap(game);
+
 		assertEquals(1, game.hero.getX());
 		assertEquals(2, game.hero.getY());
-		testMap.drawMap(game);
 
 		game.createGuard(3,1);		
 	}
 
-	@Test(timeout = 1000)
+	@Test
 	public void moveIntoGuard() {
 		System.out.println("\nTest Move to A Guard.\n");
 		GameLogic game = new GameLogic();
@@ -61,7 +71,7 @@ public class TestsJUnit {
 		game.changeCurrentMap(testMap);
 		game.createHero(1, 2);
 		game.createGuard(3,2);		
-
+		assertEquals('G', game.guard.getSymbol());
 		testMap.drawMap(game);
 		assertEquals(1, game.hero.getX());
 		assertEquals(2, game.hero.getY());
@@ -69,6 +79,57 @@ public class TestsJUnit {
 		assertEquals(true, game.checkPresence());
 		testMap.drawMap(game);
 	}
+
+	@Test
+	public void moveHero() {
+		System.out.println("\nTest Move Hero.\n");
+		GameLogic game = new GameLogic();
+		TestMap testMap = new TestMap();
+		OgreMap ogreMap = new OgreMap();
+		GuardMap guardMap = new GuardMap();
+		game.changeCurrentMap(testMap);
+		game.createHero(1, 2);
+		assertEquals('H', game.hero.getSymbol());
+		testMap.drawMap(game);
+		assertEquals(1, game.hero.getX());
+		assertEquals(2, game.hero.getY());
+		game.hero.move(testMap, 's');
+		game.hero.move(testMap, 'a');
+		game.hero.move(testMap, 'w');
+		game.hero.move(testMap, 'd');
+		assertEquals(1, game.hero.getX());
+		assertEquals(2, game.hero.getY());
+		testMap.drawMap(game);
+
+		game.changeCurrentMap(ogreMap);
+		game.createHero(1, 2);
+
+		ogreMap.drawMap(game);
+		assertEquals(1, game.hero.getX());
+		assertEquals(2, game.hero.getY());
+		game.hero.move(ogreMap, 's');
+		game.hero.move(ogreMap, 'a');
+		game.hero.move(ogreMap, 'w');
+		game.hero.move(ogreMap, 'd');
+		assertEquals(1, game.hero.getX());
+		assertEquals(2, game.hero.getY());
+
+		game.changeCurrentMap(guardMap);
+		game.createHero(1, 2);
+
+		guardMap.drawMap(game);
+		assertEquals(1, game.hero.getX());
+		assertEquals(2, game.hero.getY());
+		game.hero.move(guardMap, 's');
+		game.hero.move(guardMap, 'a');
+		game.hero.move(guardMap, 'w');
+		game.hero.move(guardMap, 'd');
+		assertEquals(1, game.hero.getX());
+		assertEquals(2, game.hero.getY());
+
+	}
+
+
 
 	@Test
 	public void moveIntoOgre() {
@@ -101,7 +162,7 @@ public class TestsJUnit {
 		game.hero.move(testMap, 'a');
 		assertEquals(1, game.hero.getX());
 		assertEquals(1, game.hero.getY());
-
+		assertEquals('H', game.hero.getSymbol());
 		testMap.drawMap(game);
 	}
 
@@ -146,9 +207,10 @@ public class TestsJUnit {
 		GameLogic game = new GameLogic();
 		TestMap testMap = new TestMap();
 		game.changeCurrentMap(testMap);
-		game.createHero(1, 2); 
 		testMap.drawMap(game);
-		game.hero.move(testMap, 'd'); // Dá erro aqui, mas não entendo porquê
+
+		game.createHero(1, 2); 
+		game.hero.move(testMap, 'd'); 
 		game.hero.move(testMap, 'a'); game.hero.move(testMap, 'a'); game.hero.move(testMap, 'a'); 
 		game.hero.move(testMap, 'a');
 		assertEquals(game.currentMap.getMap()[1][0], game.currentMap.getMap()[game.hero.getX()][game.hero.getY()]);
@@ -176,24 +238,27 @@ public class TestsJUnit {
 
 	@Test
 	public void followPathRookie() {
-		System.out.println("\nTest Move.\n");
+		System.out.println("\nFollow Path Rookie.\n");
 		GameLogic game = new GameLogic();
 		GuardMap testMap = new GuardMap();
 		game.changeCurrentMap(testMap);
-		game.createGuard(1, 8, "Drunken");
+		game.createGuard(1, 8, "Rookie");
 		game.guard.move();
 		boolean test = false;
 		if ((game.guard.getX() == 1 && game.guard.getY() == 7) || (game.guard.getX() == 2 && game.guard.getY() == 8))
 			test = true;
-
+		int j = 0; 
+		while (j < 90) {
+			j++;
+			game.guard.move();
+		}
 		//assertEquals(true,test);
-		game.guard.move(); 	game.guard.move(); 	game.guard.move(); 	game.guard.move(); 	game.guard.move(); 	game.guard.move(); 	game.guard.move(); 	game.guard.move(); 	game.guard.move(); 	game.guard.move(); 	game.guard.move(); 	game.guard.move(); 	game.guard.move(); 	
-
+	
 	} 
 
 	@Test
 	public void followPathDrunken() {
-		System.out.println("\nTest Move.\n");
+	//	System.out.println("\nFollow Path Drunken.\n");
 		GameLogic game = new GameLogic();
 		GuardMap testMap = new GuardMap();
 		game.changeCurrentMap(testMap);
@@ -202,15 +267,18 @@ public class TestsJUnit {
 		boolean test = false;
 		if ((game.guard.getX() == 1 && game.guard.getY() == 7) || (game.guard.getX() == 2 && game.guard.getY() == 8) ||  (game.guard.getX() == 1 && game.guard.getY() == 8))
 			test = true;
-
+		int j = 0; 
+		while (j < 90) {
+			j++;
+			game.guard.move();
+		}
 		assertEquals(true,test);
-		game.guard.move(); 	game.guard.move(); 	game.guard.move(); 	game.guard.move(); 	game.guard.move(); 	game.guard.move(); 	game.guard.move(); 	game.guard.move(); 	game.guard.move(); 	game.guard.move(); 	game.guard.move(); 	game.guard.move(); 	game.guard.move(); 	
 	} 
 
 
 	@Test
 	public void followPathSuspicious() {
-		System.out.println("\nTest Move.\n");
+	//	System.out.println("\nFollow Path Suspicious.\n");
 		GameLogic game = new GameLogic();
 		GuardMap testMap = new GuardMap();
 		game.changeCurrentMap(testMap);
@@ -219,41 +287,72 @@ public class TestsJUnit {
 		boolean test = false;
 		if ((game.guard.getX() == 1 && game.guard.getY() == 7) || (game.guard.getX() == 2 && game.guard.getY() == 8))
 			test = true;
-
+		int j = 0; 
+		while (j < 90) {
+			game.guard.move();
+			j++;
+		}
 		assertEquals(true,test);
 		game.currentMap.drawMap(game);
-		game.guard.move(); 	game.guard.move(); 	game.guard.move(); 	game.guard.move(); 	game.guard.move(); 	game.guard.move(); 	game.guard.move(); 	game.guard.move(); 	game.guard.move(); 	game.guard.move(); 	game.guard.move(); 	game.guard.move(); 	game.guard.move(); 	
-
+	
 	} 
-
+	
 	@Test
 	public void levelTwo() {
-		System.out.println("\nTwo.\n");
+//		System.out.println("\nTwo.\n");
 		GameLogic game = new GameLogic();
 		GuardMap testMap = new GuardMap();
 		game.changeCurrentMap(testMap);
 		game.createGuard(1, 8);
 		game.currentMap.drawMap(game);
 	} 
-
-	@Test
+	
+	
+	
+	@Test(timeout = 10000)
 	public void createOgres() {
 		GameLogic game = new GameLogic();
 		OgreMap testMap = new OgreMap();
 		game.changeCurrentMap(testMap);
 		game.createHero(2, 2);
+		assertFalse(game.checkSpawnCondition(1, 1, game)); 
 		game.createOgres(0);
 		for(int i = 0; i < game.ogres.size();i++){
 			game.ogres.get(i).moveOgre(game);
 		}
+		while ( ( game.ogres.get(0).getX() == 1 && game.ogres.get(0).getY() == 1) ||  ( game.ogres.get(0).getX() == 1 && game.ogres.get(0).getY() == 2) ){
+			game.ogres.get(0).moveOgre(game);
+		}
+		
+		while ( ( game.ogres.get(0).getClubX() == 3 && game.ogres.get(0).getClubY() == 1) ||  ( game.ogres.get(0).getClubX() == 3 && game.ogres.get(0).getClubY() == 2) ){
+			game.ogres.get(0).moveOgre(game);
+			game.ogres.get(0).moveClub(game, game.ogres.get(0).getX(), game.ogres.get(0).getY());
+		}
 		game.currentMap.drawMap(game);
+		boolean test = (game.ogres.size() >= 1 && game.ogres.size() <= 9);
+		assertTrue(test);
+		assertTrue(game.ogres.get(0).getClubX() == game.ogres.get(0).getClubX() || game.ogres.get(0).getClubX() == game.ogres.get(0).getClubX()+1 || game.ogres.get(0).getClubX() == game.ogres.get(0).getClubX()-1);
+		assertTrue(game.ogres.get(0).getClubY() == game.ogres.get(0).getClubY() || game.ogres.get(0).getClubY() == game.ogres.get(0).getClubY()+1 || game.ogres.get(0).getClubY() == game.ogres.get(0).getClubY()-1);
+		
+		
+		game.ogres.get(0).stunOgre();
+		assertTrue('8' == game.ogres.get(0).getSymbol());
+		
 	} 
 
+	@Test(timeout = 10000) 
+	public void createClub() {
+		GameLogic game = new GameLogic();
+		OgreMap testMap = new OgreMap();
+		game.changeCurrentMap(testMap);
+		game.createOgre(7, 7);	
+		game.currentMap.drawMap(game);
+	}
 
 
 	@Test
 	public void testMoveTwo() {
-		System.out.println("\nTest Move.\n");
+	//	System.out.println("\nTest Move Two.\n");
 		GameLogic game = new GameLogic();
 		OgreMap testMap = new OgreMap();
 		game.changeCurrentMap(testMap);
@@ -261,14 +360,15 @@ public class TestsJUnit {
 
 		testMap.drawMap(game);
 		game.ogres.get(0).moveOgre(game);
-
+		assertEquals('*', game.ogres.get(0).getClubSymbol());
+		assertEquals('O', game.ogres.get(0).getSymbol());
 		assertEquals(false, game.checkPresence());
 		testMap.drawMap(game);
 	}
 
 	@Test
 	public void activateLever() {
-		System.out.println("\nTest Open Door.\n");
+	//	System.out.println("\nTest Activate Lever.\n");
 		GameLogic game = new GameLogic();
 		TestMapGuard testMap = new TestMapGuard();
 
@@ -285,7 +385,7 @@ public class TestsJUnit {
 
 	@Test
 	public void activateLeverGuard() {
-		System.out.println("\nTest Open Door.\n");
+	//	System.out.println("\nTest Activate Lever Guard.\n");
 		GameLogic game = new GameLogic();
 		GuardMap testMap = new GuardMap();
 
@@ -303,39 +403,39 @@ public class TestsJUnit {
 
 		testMap.drawMap(game);
 	}
-
-	@Test(timeout = 5000)
+ 
+	@Test(timeout = 100000)
 	public void testToRandomOgreMove() {
-		System.out.println("\nTest Move.\n");
+		//System.out.println("\nTest Random Ogre Move.\n");
 		GameLogic game = new GameLogic();
 		OgreMap testMap = new OgreMap();
 		game.changeCurrentMap(testMap);
 		game.createOgres(0);
-		while(game.ogres.get(0).getClubX() != 1 && game.ogres.get(0).getClubY() != 7) {
+	//	assertTrue(game.ogres.get(0).getX() + 1 == game.ogres.get(0).getClubX() || game.ogres.get(0).getX() + 1 == game.ogres.get(0).getClubX() - 1);
+	//	assertTrue(game.ogres.get(0).getY() + 1 == game.ogres.get(0).getClubY() || game.ogres.get(0).getY() + 1 == game.ogres.get(0).getClubY() - 1);
+		while(game.ogres.get(0).getX() != 7 && game.ogres.get(0).getY() != 1) {
 			game.ogres.get(0).moveOgre(game);
 			game.ogres.get(0).moveClub(game, game.ogres.get(0).getX(), game.ogres.get(0).getY());
+
 		}
-
 		game.currentMap.drawMap(game);
+		assertTrue('O' == game.ogres.get(0).checkPossible('w', game) ||'X' == game.ogres.get(0).checkPossible('w', game) || 'H' == game.ogres.get(0).checkPossible('w', game) || 'E' == game.ogres.get(0).checkPossible('w', game) || 'I' == game.ogres.get(0).checkPossible('w', game) || 'S' == game.ogres.get(0).checkPossible('w', game) || 'D' == game.ogres.get(0).checkPossible('w', game));
+		assertTrue('O' == game.ogres.get(0).checkPossible('a', game) ||'X' == game.ogres.get(0).checkPossible('a', game) ||'H' == game.ogres.get(0).checkPossible('a', game) || 'E' == game.ogres.get(0).checkPossible('a', game) || 'I' == game.ogres.get(0).checkPossible('a', game) || 'S' == game.ogres.get(0).checkPossible('a', game) || 'D' == game.ogres.get(0).checkPossible('a', game));
+		assertTrue('O' == game.ogres.get(0).checkPossible('s', game) ||'X' == game.ogres.get(0).checkPossible('s', game) ||'H' == game.ogres.get(0).checkPossible('s', game) || 'E' == game.ogres.get(0).checkPossible('s', game) || 'I' == game.ogres.get(0).checkPossible('s', game) || 'S' == game.ogres.get(0).checkPossible('s', game) || 'D' == game.ogres.get(0).checkPossible('s', game));
+		assertTrue('O' == game.ogres.get(0).checkPossible('d', game) ||'X' == game.ogres.get(0).checkPossible('d', game) ||'H' == game.ogres.get(0).checkPossible('d', game) || 'E' == game.ogres.get(0).checkPossible('d', game) || 'I' == game.ogres.get(0).checkPossible('d', game) || 'S' == game.ogres.get(0).checkPossible('d', game) || 'D' == game.ogres.get(0).checkPossible('d', game));
+		assertTrue('O' == game.ogres.get(0).checkPossibleClub('w', game) ||'X' == game.ogres.get(0).checkPossibleClub('w', game) ||'H' == game.ogres.get(0).checkPossibleClub('w', game) || 'E' == game.ogres.get(0).checkPossibleClub('w', game) || 'I' == game.ogres.get(0).checkPossibleClub('w', game) || 'S' == game.ogres.get(0).checkPossibleClub('w', game) || 'D' == game.ogres.get(0).checkPossibleClub('w', game));
+		assertTrue('O' == game.ogres.get(0).checkPossibleClub('a', game) ||'X' == game.ogres.get(0).checkPossibleClub('a', game) ||'H' == game.ogres.get(0).checkPossibleClub('a', game) || 'E' == game.ogres.get(0).checkPossibleClub('a', game) || 'I' == game.ogres.get(0).checkPossibleClub('a', game) || 'S' == game.ogres.get(0).checkPossibleClub('a', game) || 'D' == game.ogres.get(0).checkPossibleClub('a', game));
+		assertTrue('O' == game.ogres.get(0).checkPossibleClub('s', game) ||'X' == game.ogres.get(0).checkPossibleClub('s', game) ||'H' == game.ogres.get(0).checkPossibleClub('s', game) || 'E' == game.ogres.get(0).checkPossibleClub('s', game) || 'I' == game.ogres.get(0).checkPossibleClub('s', game) || 'S' == game.ogres.get(0).checkPossibleClub('s', game) || 'D' == game.ogres.get(0).checkPossibleClub('s', game));
+		assertTrue('O' == game.ogres.get(0).checkPossibleClub('d', game) ||'X' == game.ogres.get(0).checkPossibleClub('d', game) ||'H' == game.ogres.get(0).checkPossibleClub('d', game) || 'E' == game.ogres.get(0).checkPossibleClub('d', game) || 'I' == game.ogres.get(0).checkPossibleClub('d', game) || 'S' == game.ogres.get(0).checkPossibleClub('d', game) || 'D' == game.ogres.get(0).checkPossibleClub('d', game));
+	//	assertTrue(game.ogres.get(0).getX() == 1 && game.ogres.get(0).getY() == 7); 
+
 	}
-
-	@Test(timeout = 1000)
-	public void testToRandomGuardMove() {
-		System.out.println("\nTest Move.\n");
-		GameLogic game = new GameLogic();
-		OgreMap testMap = new OgreMap();
-		game.changeCurrentMap(testMap);
-		game.createGuard(2,3);
-		game.createGuard(1,3);
-		game.guard.move();game.guard.move();game.guard.move();game.guard.move();game.guard.move();game.guard.move();game.guard.move();game.guard.move();
-
-		game.currentMap.drawMap(game);
-	}
+	
 
 
-	@Test(timeout = 1000)
+	@Test(timeout = 15000)
 	public void testcreateClub() {
-		System.out.println("\nTest Move.\n");
+		//System.out.println("\nTest Create Club.\n");
 		GameLogic game = new GameLogic();
 		OgreMap testMap = new OgreMap();
 		game.changeCurrentMap(testMap);
@@ -347,21 +447,31 @@ public class TestsJUnit {
 		game.createOgre(4,3);
 		game.createOgre(4,2); 
 		game.createOgre(3,3);
-		while(game.ogres.get(7).getClubX() != 3 && game.ogres.get(7).getClubY() != 2) {
-			game.ogres.get(7).moveClub(game, game.ogres.get(7).getX(), game.ogres.get(0).getY());
+		
+		int j = 0; 
+		while (j < 50) {
+			j++;
+			boolean x = game.checkPresence();
+			assertTrue(x == true || x == false);
+			for (int i = 0; i < game.ogres.size(); i++) {
+				game.ogres.get(i).moveClub(game, game.ogres.get(i).getX(), game.ogres.get(i).getY());
+				game.ogres.get(i).moveOgre(game);
+			}
 		}
-
+		j=0;
 		game.currentMap.drawMap(game);
+	//	assertTrue(game.ogres.get(7).getClubX() == 3 && game.ogres.get(7).getClubY() == 2);
+
 	}
 
 
 
 	@Test
 	public void checkPresence() {
-		System.out.println("WOW");
+	//	System.out.println("CheckPresence");
 		GameLogic game = new GameLogic();
 		OgreMap testMap = new OgreMap();
-
+		GuardMap guardMap = new GuardMap();
 		game.changeCurrentMap(testMap);
 		game.createHero(1, 1);
 		game.createOgres(0);
@@ -370,7 +480,17 @@ public class TestsJUnit {
 		//	assertEquals(false, game.checkPresence());
 
 		assertEquals(0,game.startGame('d'));
-
+		assertFalse(game.checkWin(game));
+		int j = 0; 
+		while (j < 90) {
+			j++;
+			boolean x = game.checkPresence();
+			assertTrue(x == true || x == false);
+			game.ogres.get(0).moveOgre(game);
+			game.ogres.get(0).moveClub(game, game.ogres.get(0).getX(), game.ogres.get(0).getY());
+		}
+		j=0;
+		assertFalse(game.checkWin(game));
 
 		GameLogic game2 = new GameLogic();
 		GuardMap testMap2 = new GuardMap();
@@ -378,10 +498,17 @@ public class TestsJUnit {
 		game2.changeCurrentMap(testMap2);
 		game2.createHero(4, 1);
 		game2.createGuard(4, 2);
+		assertFalse(game.checkWin(game));
 		assertEquals(true,game2.checkPresence());
+		game.startGame('a');
+		while (j < 90) {
+			j++;
+			boolean x = game.checkPresence();
+			assertTrue(x == true || x == false);
+			game.guard.move();
+		}
+		j=0;
 
-		assertEquals(0,game2.startGame('a'));
-		//		assertEquals(false, game.stunOgre());
 
 		GameLogic game3 = new GameLogic();
 		TestMap testMap3 = new TestMap();
@@ -389,13 +516,24 @@ public class TestsJUnit {
 		game3.changeCurrentMap(testMap3);
 		game3.createHero(4, 1);
 		game3.createGuard(4, 2);
+		
+		while (j < 90) {
+			j++;
+			boolean x = game.checkPresence();
+			assertTrue(x == true || x == false);
+			game.guard.move();
+		}
+		j=0;
 		assertEquals(true,game3.checkPresence());
+		assertFalse(game.checkWin(game));
+		game.startGame('a');
+
 
 	}
 
 	@Test
 	public void moveOgre() {
-		System.out.println("\nTest Move Ogre.\n");
+	//	System.out.println("\nTest Move Ogre.\n");
 		GameLogic game = new GameLogic();
 		OgreMap testMap = new OgreMap();
 

@@ -49,7 +49,7 @@ public class Hero {
 		else
 			result = 'N';
 
-		result = 'H';
+		//result = 'H';
 
 		if (result == 'H') {
 			if (c == 'w') {
