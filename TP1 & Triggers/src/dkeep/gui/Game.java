@@ -85,8 +85,6 @@ public class Game extends JPanel implements KeyListener {
 			System.exit(0);
 		}
 
-
-
 		this.repaint();
 
 	}
@@ -128,7 +126,7 @@ public class Game extends JPanel implements KeyListener {
 				} else if (mapToDraw[y][x] == 'I'){
 					g.drawImage(Assets.door, x * 50, y * 50, 50, 50, null);
 				} else {
-					g.drawImage(Assets.openLever, x * 50, y * 50, 50, 50, null);
+					g.drawImage(Assets.floor, x * 50, y * 50, 50, 50, null);
 				}
 			}
 		}

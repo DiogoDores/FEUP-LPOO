@@ -26,7 +26,7 @@ public class Assets {
 		SpriteSheet guardSheet = new SpriteSheet(ImageLoader.loadImage("/Guard.png"));
 		SpriteSheet heroSheet = new SpriteSheet(ImageLoader.loadImage("/Hero.png"));
 		SpriteSheet wallSheet = new SpriteSheet(ImageLoader.loadImage("/Structures.png"));
-
+		
 		heroFront = heroSheet.crop(0, 0, width, height);
 		heroLeft = heroSheet.crop(0, height, width, height);
 		heroRight = heroSheet.crop(width*2, height, width, height);
