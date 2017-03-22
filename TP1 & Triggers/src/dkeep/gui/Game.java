@@ -1,27 +1,24 @@
 package dkeep.gui;
 
 import java.awt.Graphics;
-import java.awt.image.BufferStrategy;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
 import dkeep.logic.GameLogic;
-import dkeep.logic.GameMap;
 
-public class Game implements Runnable {
+public class Game extends JPanel implements KeyListener {
 
-	private Display display;
-	private Thread thread;
-	private BufferStrategy buffer;
-	private Graphics g;
+	private JPanel panel;
+	private JFrame f;
 	private BufferedImage guard = Assets.guardFront;
 	private BufferedImage hero = Assets.heroFront;
 
-	private KeyManager keyManager;
 	private GameLogic gameLogic = new GameLogic();
-	private char key;
-
 	public int width, height;
-	private boolean running = false;
 	public String title;
 
 	public Game(String title, int width, int height){
@@ -30,107 +27,148 @@ public class Game implements Runnable {
 		this.width = width;
 		this.height = height;
 
-		System.out.println(width + "   " + height);
-
-		keyManager = new KeyManager();
-
 	}
 
-	private void init(){
-		this.display = new Display(title, width, height);
-		this.display.getFrame().addKeyListener(keyManager);
+	public void init(){
 		gameLogic.createCharacters(1, "Rookie"/*(String)comboBox.getSelectedItem()*/, /*Integer.parseInt(textField.getText())*/ 1);
 		Assets.init(gameLogic.currentMap);
+		display();
+		repaint();
 	}
 
-	private void update(){
-		
-		keyManager.update();
+	private void display() { 
+
+		f = new JFrame("Prison Escape");     
+		f.setContentPane(this);
+		f.setSize(700,700);
+		f.setVisible(true);
+		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+		panel = new JPanel();
+		panel.setBounds(0, 0, 700, 700);
+		f.getContentPane().add(panel);
+		panel.addKeyListener(this);
+		panel.setFocusable(true);
+		panel.requestFocusInWindow();
+	}
+
+	private void moveEntities(char key){
 
 		char guardMove = gameLogic.guard.getGuardMove();
-		boolean heroHasMoved = false;
 
-		if(keyManager.up){
-			key = 'a';
+		if(key == 'w'){
 			hero = Assets.heroBack;
-			gameLogic.hero.move(gameLogic.currentMap, key);
-			heroHasMoved = true;
-		} else if (keyManager.left){
-			key = 'w';
+		} else if (key == 'a'){
 			hero = Assets.heroRight;
-			gameLogic.hero.move(gameLogic.currentMap, key);
-			heroHasMoved = true;
-		} else if (keyManager.down){
-			key = 'd';
+		} else if (key == 's'){
 			hero = Assets.heroFront;
-			gameLogic.hero.move(gameLogic.currentMap, key);
-			heroHasMoved = true;
-		} else if (keyManager.right){
-			key = 's';
+		} else if (key == 'd'){
 			hero = Assets.heroLeft;
-			gameLogic.hero.move(gameLogic.currentMap, key);
-			heroHasMoved = true;
 		}
 
-		if(heroHasMoved){
-			if(guardMove == 'w'){
-				guard = Assets.guardRight;
-				gameLogic.guard.move();
-			} else if (guardMove == 'a'){
-				guard = Assets.guardBack;
-				gameLogic.guard.move();
-			} else if (guardMove == 's'){
-				guard = Assets.guardLeft;
-				gameLogic.guard.move();
-			} else if (guardMove == 'd'){
-				guard = Assets.guardFront;
-				gameLogic.guard.move();
-			}
-			
-			heroHasMoved = false;
+		if(guardMove == 'w'){
+			guard = Assets.guardBack;
+		} else if (guardMove == 'a'){
+			guard = Assets.guardRight;
+		} else if (guardMove == 's'){
+			guard = Assets.guardFront;
+		} else if (guardMove == 'd'){
+			guard = Assets.guardLeft;
 		}
+
+		gameLogic.hero.move(gameLogic.currentMap, key);
+		gameLogic.guard.move();
+
+		boolean lost = gameLogic.checkPresence();
+
+		if(lost){
+			System.exit(0);
+		}
+
+		this.repaint();
 
 	}
 
-	private void render(){
-		buffer = display.getCanvas().getBufferStrategy();
+	@Override
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g); // Clears board
 
-		if(buffer == null){
-			display.getCanvas().createBufferStrategy(3);
-			return;
-		}
+		char[][] mapToDraw = gameLogic.currentMap.getMap();
 
-		g = buffer.getDrawGraphics();
-
-		//Clearing the objects
-		g.clearRect(0, 0, width, height);
-
-		//Drawing the objects
-
-		drawImageMap();
-		g.drawImage(guard, gameLogic.guard.getX() * 16, gameLogic.guard.getY() * 16, 64, 90, null);
-		g.drawImage(hero, gameLogic.hero.getX() * 16, gameLogic.hero.getY() * 16, 64, 90, null);
-
-		//End drawing
-		buffer.show();
-		g.dispose();
-	}
-
-	private void drawImageMap() {
-
-		for(int i = 0; i < Assets.structures.length; i++){
-			for(int j = 0; j < Assets.structures[i].length; j++){
-				if(Assets.structures[i][j] != null){
-					g.drawImage(Assets.structures[i][j], i * 32, j * 32, 32, 32, null);
+		for (int x = 0; x < mapToDraw.length; x++) {
+			for(int y = 0; y < mapToDraw[x].length; y++){
+				if(mapToDraw[y][x] == 'X'){
+					if(x == 0){
+						if(y == 0)
+							g.drawImage(Assets.topLeftWall, x * 50, y * 50, 50, 50, null);
+						else if(y == mapToDraw.length - 1)
+							g.drawImage(Assets.bottomLeftWall, x * 50, y * 50, 50, 50, null);
+						else 
+							g.drawImage(Assets.leftWall, x * 50, y * 50, 50, 50, null);
+					} else if(x == mapToDraw[y].length - 1){
+						if(y == 0)
+							g.drawImage(Assets.topRightWall, x * 50, y * 50, 50, 50, null);
+						else if(y == mapToDraw.length -1)
+							g.drawImage(Assets.bottomRightWall, x * 50, y * 50, 50, 50, null);
+						else 
+							g.drawImage(Assets.rightWall, x * 50, y * 50, 50, 50, null);
+					} else if (y == 0){
+						g.drawImage(Assets.topWall, x * 50, y * 50, 50, 50, null);
+					} else if (y == mapToDraw.length - 1){
+						g.drawImage(Assets.bottomWall, x * 50, y * 50, 50, 50, null);
+					} else {
+						g.drawImage(Assets.wall, x * 50, y * 50, 50, 50, null);
+					}
+				} else if (mapToDraw[y][x] == ' '){
+					g.drawImage(Assets.floor, x * 50, y * 50, 50, 50, null);
+				} else if (mapToDraw[y][x] == 'k'){
+					g.drawImage(Assets.closedLever, x * 50, y * 50, 50, 50, null);
+				} else if (mapToDraw[y][x] == 'I'){
+					g.drawImage(Assets.door, x * 50, y * 50, 50, 50, null);
+				} else {
+					g.drawImage(Assets.floor, x * 50, y * 50, 50, 50, null);
 				}
 			}
+		}
+
+		g.drawImage(hero, gameLogic.hero.getY() * 49 , gameLogic.hero.getX() * 49 - 49, 64, 90, null);
+		g.drawImage(guard,  gameLogic.guard.getY() * 49, gameLogic.guard.getX() * 49 - 49, 64, 90, null);
+
+
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+
+		char moveKey;
+
+		switch(e.getKeyCode()){
+		case KeyEvent.VK_W:
+			moveKey = 'w';
+			moveEntities(moveKey);
+			repaint(); 
+			break;
+		case KeyEvent.VK_A:
+			moveKey = 'a';
+			moveEntities(moveKey);
+			repaint();
+			break;
+		case KeyEvent.VK_S:
+			moveKey = 's';
+			moveEntities(moveKey);
+			repaint();
+			break;
+		case KeyEvent.VK_D:
+			moveKey = 'd';
+			moveEntities(moveKey);
+			break;
 		}
 	}
 
 	@Override
-	public void run() {
-		init();
+	public void keyReleased(KeyEvent e) {}
 
+<<<<<<< HEAD
 		int fps = 60;
 		double timePerUpdate = 1000000000 / fps;
 		double delta = 0;
@@ -183,5 +221,9 @@ public class Game implements Runnable {
 	
 
 
+=======
+	@Override
+	public void keyTyped(KeyEvent e) {}
+>>>>>>> branch 'master' of https://github.com/DiogoDores/LPOO1617_T2G5
 
 }
