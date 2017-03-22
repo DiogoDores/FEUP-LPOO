@@ -34,6 +34,10 @@ public class EditorMap implements GameMap {
 		return 0;
 	}
 
+	/**
+	 * Checks all possible moves.
+	 */
+	
 	@Override
 	public char possibleMove(int x, int y, GameLogic game) {
 		for (int i = 0; i < game.ogres.size(); i++) {
@@ -63,6 +67,10 @@ public class EditorMap implements GameMap {
 
 	}
 
+	/**
+	 * Draws Map only on console.
+	 */
+	
 	@Override
 	public String drawMap(GameLogic game) {
 		char[][] mapToDraw = level;
@@ -118,6 +126,38 @@ public class EditorMap implements GameMap {
 		return level;
 	}
 
+	/**
+	 * Opens all doors on the map.
+	 */
+
+	public void openDoor(GameLogic game) {
+		for (int i = 0 ; i < game.currentMap.getMap().length; i++)
+			for (int j = 0; j < game.currentMap.getMap().length; j++) {
+				if (game.currentMap.getMap()[i][j] == 'I')
+					game.currentMap.getMap()[i][j] = 'S';
+			}
+
+
+		for (int i = 0 ; i < levelHeight ; i++) 
+			for (int j = 0; j < levelWidth ; j++) 
+				visited[i][j] = false;
+
+	}
+
+	/**
+	 * User clicked the button to save the level, checks whether is is possible. 
+	 */
+	
+	public boolean saveLevel(GameLogic game) {
+		return checkMap(game);
+	}
+
+	
+	/**
+	 * With the assistance of FindWay, checks whether map
+	 * is valid or not (can be finished by the player).
+	 */
+	
 	public boolean checkMap(GameLogic game) {
 		boolean check = false;
 
@@ -137,24 +177,6 @@ public class EditorMap implements GameMap {
 		check = findWay(game, x, y);
 
 		return check;
-	}
-
-	public void openDoor(GameLogic game) {
-		for (int i = 0 ; i < game.currentMap.getMap().length; i++)
-			for (int j = 0; j < game.currentMap.getMap().length; j++) {
-				if (game.currentMap.getMap()[i][j] == 'I')
-					game.currentMap.getMap()[i][j] = 'S';
-			}
-
-
-		for (int i = 0 ; i < levelHeight ; i++) 
-			for (int j = 0; j < levelWidth ; j++) 
-				visited[i][j] = false;
-
-	}
-
-	public boolean saveLevel(GameLogic game) {
-		return checkMap(game);
 	}
 
 	public boolean findWay(GameLogic game, int x , int y) {
@@ -256,7 +278,5 @@ public class EditorMap implements GameMap {
 		return false;
 
 	}
-
-
 
 }

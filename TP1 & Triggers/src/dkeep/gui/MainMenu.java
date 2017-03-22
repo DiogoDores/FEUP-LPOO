@@ -49,7 +49,7 @@ public class MainMenu extends JPanel{
 	 */
 	private void initialize() {
 
-		/*
+		/**
 		 * Initialization of all of the frame's components
 		 */
 

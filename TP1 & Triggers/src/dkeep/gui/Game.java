@@ -180,26 +180,6 @@ public class Game implements Runnable {
 		}
 	}
 	
-	
-	public boolean checkMap(GameLogic game, GameMap map) {
-		boolean check = false;
-		
-		int x = game.hero.getX(), y = game.hero.getY();
-		
-		check = findWay(game, x, y);
-		
-		return check;
-	}
-	
-	
-	public boolean findWay(GameLogic game, int x , int y) {
-		boolean foundSolution = false;
-		
-		boolean doorIsOpen = false;
-		
-		
-		
-		return foundSolution; 
-	}
+
 	
 }
