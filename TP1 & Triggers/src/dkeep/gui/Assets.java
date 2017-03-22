@@ -53,6 +53,7 @@ public class Assets {
 		openLever = wallSheet.crop(wallWidth * 3, wallHeight*2, wallWidth, wallHeight);
 
 		door = wallSheet.crop(wallWidth * 3, 0, wallWidth, wallHeight);
+		openDoor = wallSheet.crop(wallWidth * 4, wallHeight, wallWidth, wallHeight);
 
 	}
 }

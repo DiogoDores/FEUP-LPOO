@@ -14,8 +14,7 @@ public class GameLogic {
 	public GameMap Map1 = new GuardMap(); 
 	public GameMap Map2 = new OgreMap();
 	public GameMap currentMap;
-	private int wait = 0;
-
+	
 	public int startGame(char key){
 
 		boolean lost = false;
@@ -79,7 +78,7 @@ public class GameLogic {
 		if(currentMap.getName() == "GuardMap"){
 			if(guard.symbol == 'G' && hero.getX() == guard.getX() && (hero.getY() == guard.getY() + 1 || hero.getY() == guard.getY() - 1)){
 				return true;
-			} else if(hero.getY() == guard.getY() && (hero.getX() == guard.getX() + 1 || hero.getX() == guard.getX() - 1)){
+			} else if(guard.symbol == 'G' && hero.getY() == guard.getY() && (hero.getX() == guard.getX() + 1 || hero.getX() == guard.getX() - 1)){
 				return true;
 			}
 		} 
