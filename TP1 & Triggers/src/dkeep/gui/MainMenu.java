@@ -33,7 +33,7 @@ public class MainMenu {
 	private JLabel lblTip;
 	private JButton btnUp, btnDown, btnLeft, btnRight, btnQuit, btnNewGame;
 	private GameLogic gameLogic = new GameLogic();
-	private Game game = new Game("Dungeon Escape", 600, 400);
+	private Game game;
 
 	/**
 	 * Launch the application.
@@ -61,7 +61,7 @@ public class MainMenu {
 
 	public void update(char key) {
 
-		lblTip.setText("Press one of the move button to advence!");
+		lblTip.setText("Press one of the move button to advance!");
 
 		boolean lost = false;
 
@@ -208,24 +208,9 @@ public class MainMenu {
 			public void actionPerformed(ActionEvent arg0) {
 
 				frame.setVisible(false);
-				game.start();
-				
-				//window.drawPanel();
-
-				/*if(Integer.parseInt(textField.getText()) >= 1 && Integer.parseInt(textField.getText()) <= 5){
-
-					game.createCharacters(1, (String)comboBox.getSelectedItem(), Integer.parseInt(textField.getText()));
-
-					mapArea.setText(game.currentMap.drawMap(game));
-
-					btnUp.setEnabled(true);
-					btnDown.setEnabled(true);
-					btnLeft.setEnabled(true);
-					btnRight.setEnabled(true);
-				} else {
-					lblTip.setText("Invalid number of ogres. Enter a number from 1 to 5 to continue");
-				}*/
-
+				game = new Game("Prison Escape", 700, 500);
+				game.setVisible(true);
+				game.init();
 			}
 		});
 

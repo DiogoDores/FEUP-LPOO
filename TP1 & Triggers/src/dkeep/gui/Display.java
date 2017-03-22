@@ -1,14 +1,14 @@
 package dkeep.gui;
 
-import java.awt.Canvas;
 import java.awt.Dimension;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 public class Display {
 
 	private  JFrame frame;
-	private Canvas canvas;
+	private JPanel panel;
 	
 	private String title;
 	private int width, height;
@@ -30,18 +30,18 @@ public class Display {
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 		
-		canvas = new Canvas();
-		canvas.setPreferredSize(new Dimension(width, height));
-		canvas.setMaximumSize(new Dimension(width, height));
-		canvas.setMinimumSize(new Dimension(width, height));
-		canvas.setFocusable(false);
+		panel = new JPanel();
+		panel.setPreferredSize(new Dimension(width, height));
+		panel.setMaximumSize(new Dimension(width, height));
+		panel.setMinimumSize(new Dimension(width, height));
+		panel.setFocusable(false);
 		
-		frame.add(canvas);
+		frame.add(panel);
 		frame.pack();
 	}
 	
-	public Canvas getCanvas(){
-		return canvas;
+	public JPanel getpanel(){
+		return panel;
 	}
 	
 	public JFrame getFrame(){

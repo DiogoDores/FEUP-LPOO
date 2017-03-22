@@ -6,14 +6,14 @@ import dkeep.logic.GameMap;
 
 public class Assets {
 
-	private static final int width = 129, height = 163, wallWidth = 24, wallHeight = 24;
+	public static final int width = 129, height = 163, wallWidth = 24, wallHeight = 24;
 
 	public static BufferedImage 
 	guardFront, guardLeft, guardRight, guardBack,
 	ogreFront, ogreLeft, ogreRight, ogreBack,
 	heroFront, heroLeft, heroRight, heroBack,
 	topWall, leftWall, rightWall, bottomWall, 
-	topLeftWall, topRightWall, bottomLeftWall, bottomRightWall,
+	topLeftWall, topRightWall, bottomLeftWall, bottomRightWall, wall,
 	floor,
 	door, openDoor,
 	closedLever, openLever,
@@ -47,55 +47,12 @@ public class Assets {
 		topRightWall = wallSheet.crop(wallWidth*2, 0, wallWidth, wallHeight);
 		bottomLeftWall = wallSheet.crop(0, wallHeight*2, wallWidth, wallHeight);
 		bottomRightWall = wallSheet.crop(wallWidth*2, wallHeight*2, wallWidth, wallHeight);
-		
+		wall = wallSheet.crop(wallWidth * 4, 0, wallWidth, wallHeight);
+
 		closedLever = wallSheet.crop(wallWidth * 3, wallHeight, wallWidth, wallHeight);
 		openLever = wallSheet.crop(wallWidth * 3, wallHeight*2, wallWidth, wallHeight);
-		
+
 		door = wallSheet.crop(wallWidth * 3, 0, wallWidth, wallHeight);
-		
-		setStructures(map);
 
 	}
-
-	public static void setStructures(GameMap map){
-
-		char[][] mapToDraw = map.getMap();
-
-		for (int y = 0; y < mapToDraw.length; y++) {
-			for(int x = 0; x < mapToDraw[y].length; x++){
-				if(mapToDraw[y][x] == 'X'){
-					if(x == 0){
-						if(y == 0)
-							structures[y][x] = topLeftWall;
-						else if(y == mapToDraw.length - 1)
-							structures[y][x] = topRightWall;
-						else 
-							structures[y][x] = topWall; 
-					} else if(x == mapToDraw[y].length - 1){
-						if(y == 0)
-							structures[y][x] = bottomLeftWall;
-						else if(y == mapToDraw.length -1)
-							structures[y][x] = bottomRightWall;
-						else 
-							structures[y][x] = bottomWall;
-					} else if (y == 0){
-						structures[y][x] = leftWall;
-					} else if (y == mapToDraw.length - 1){
-						structures[y][x] = rightWall;
-					} else {
-						structures[x][y] = rightWall;
-					}
-				} else if (mapToDraw[y][x] == ' '){
-					structures[x][y] = floor;
-				} else if (mapToDraw[y][x] == 'k'){
-					structures[x][y] = closedLever;
-				} else if (mapToDraw[y][x] == 'I'){
-					structures[x][y] = door;
-				} else {
-					structures[y][x] = openLever;
-				}
-			}
-		}
-	}
-
 }
