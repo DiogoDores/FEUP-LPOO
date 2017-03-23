@@ -10,29 +10,29 @@ import java.awt.event.ActionListener;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JTextPane;
 import javax.swing.JButton;
 
-public class OptionsMenu extends JPanel{
+public class MapCreator extends JPanel{
 
+	private char activeChar;
 	private String title;
 	private int width, height;
 	private JFrame frame;
+	private JPanel panel;
 	private JTextField textField;
-	private JLabel lblTypeOfGuard;
 	private JComboBox comboBox;
-	private JButton btnSaveChanges;
-	private JButton btnCancel;
+	private JButton btnPlay, btnOgre, btnHero, btnWall, btnDoor, btnKey, btnFloor;
 	private JLabel lblWarning;
 
-	private int numMechas = 1;
-	private String guardType = "Rookie";
-
-	public OptionsMenu(String title, int width, int height){
+	
+	public MapCreator(String title, int width, int height){
 		this.title = title;
 		this.width = width;
 		this.height = height;
+		activeChar = 'H';
 	}
-	
+
 	public void init(){
 
 		frame = new JFrame(title);     
@@ -45,67 +45,66 @@ public class OptionsMenu extends JPanel{
 
 		setLayout(null);
 
-		JLabel lblNumberOfMechas = new JLabel("Number of Mechas");
-		lblNumberOfMechas.setFont(new Font("Lucida Sans Unicode", Font.PLAIN, 12));
-		lblNumberOfMechas.setBounds(27, 27, 109, 17);
-		add(lblNumberOfMechas);
-
+		
 		textField = new JTextField();
 		textField.setFont(new Font("Lucida Sans Unicode", Font.PLAIN, 12));
 		textField.setBounds(146, 25, 55, 20);
 		add(textField);
 		textField.setColumns(10);
 
-		lblTypeOfGuard = new JLabel("Type of Guard");
-		lblTypeOfGuard.setFont(new Font("Lucida Sans Unicode", Font.PLAIN, 12));
-		lblTypeOfGuard.setBounds(27, 59, 109, 14);
-		add(lblTypeOfGuard);
-
+	
 		comboBox = new JComboBox();
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Rookie", "Drunken", "Suspicious"}));
 		comboBox.setFont(new Font("Lucida Sans Unicode", Font.PLAIN, 12));
 		comboBox.setBounds(143, 56, 90, 20);
 		add(comboBox);
 
-		btnSaveChanges = new JButton("Save Changes");
-		btnSaveChanges.setFont(new Font("Lucida Sans Unicode", Font.PLAIN, 12));
-		btnSaveChanges.setBounds(27, 153, 111, 23);
-		add(btnSaveChanges);
-
-		btnCancel = new JButton("Cancel");
-		btnCancel.setFont(new Font("Lucida Sans Unicode", Font.PLAIN, 12));
-		btnCancel.setBounds(146, 153, 111, 23);
-		add(btnCancel);
-
 		lblWarning = new JLabel("");
 		lblWarning.setFont(new Font("Lucida Sans Unicode", Font.PLAIN, 12));
 		lblWarning.setBounds(27, 101, 230, 33);
 		add(lblWarning);
+		initButtons();
 
-		btnSaveChanges.addActionListener(new ActionListener() {
+	}
+	
+	public void initButtons() {
+		btnOgre.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if(Integer.parseInt(textField.getText()) > 1 || Integer.parseInt(textField.getText()) < 5){
-					numMechas = Integer.parseInt(textField.getText());
-					guardType = (String)comboBox.getSelectedItem();
-					frame.dispose();
-				}
+				activeChar = 'O';
 			}
 		});
-
-
-		btnCancel.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				frame.dispose();
+		
+		btnKey.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) { 
+				activeChar = 'k';
 			}
 		});
-	}
+		
+		btnDoor.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				activeChar = 'I';
+			}
+		});
+		
+		btnWall.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				activeChar = 'X';
+			}
+		});
+		
+		btnFloor.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				activeChar = ' ';
+			}
+		});
+		
+		btnHero.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				activeChar = 'H';
 
-	public int getNumMechas(){
-		return numMechas;
-	}
+			}
+		});
+		
 
-	public String getGuardType(){
-		return guardType;
 	}
-
 }

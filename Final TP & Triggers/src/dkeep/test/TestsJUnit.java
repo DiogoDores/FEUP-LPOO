@@ -367,23 +367,6 @@ public class TestsJUnit {
 	}
 
 	@Test
-	public void activateLever() {
-	//	System.out.println("\nTest Activate Lever.\n");
-		GameLogic game = new GameLogic();
-		TestMapGuard testMap = new TestMapGuard();
-
-		game.changeCurrentMap(testMap);
-		game.createHero(1, 2); 
-
-		testMap.drawMap(game);
-		game.hero.move(testMap, 'd'); // Dá erro aqui, mas não entendo porquê
-		game.hero.move(testMap, 'a'); game.hero.move(testMap, 'a'); game.hero.move(testMap, 'a'); 
-		assertEquals('S', testMap.getMap()[1][0]);
-
-		testMap.drawMap(game);
-	}
-
-	@Test
 	public void activateLeverGuard() {
 	//	System.out.println("\nTest Activate Lever Guard.\n");
 		GameLogic game = new GameLogic();

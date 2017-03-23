@@ -26,6 +26,8 @@ public class GuardMap implements GameMap {
 			}
 		}
 	}
+	
+
 
 	@Override
 	public char possibleMove(int x, int y) {
@@ -86,6 +88,21 @@ public class GuardMap implements GameMap {
 	public char possibleMove(int x, int y, GameLogic game) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+
+
+	@Override
+	public boolean checkWin(GameLogic game) {
+		return (game.hero.getY() == 0 && (game.hero.getX() == 5  || game.hero.getX() == 6));
+	}
+
+
+
+	@Override
+	public void resetPositions(GameLogic game) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }
