@@ -26,23 +26,27 @@ public class Game extends JPanel implements KeyListener {
 	public String title;
 
 	public Game(String title, int width, int height){
-
+		System.out.println("MERDA1");
 		this.title = title;
 		this.width = width;
 		this.height = height;
-		levelPositionArray = 0;
-		levels = new GameMap[2];
-		levels[0] = new GuardMap();
-		levels[1] = new OgreMap();
+		levelPositionArray = 1;
+		levels = new GameMap[3];
+		levels[1] = new GuardMap();
+		levels[2] = new OgreMap();
+//		levels[0] = new EditorMap(2,2);
+		System.out.println("MERDA1");
 	}
 
 	public void init(){
+		System.out.println("MERDA3");
 		gameLogic.createCharacters(1, "Rookie"/*(String)comboBox.getSelectedItem()*/, /*Integer.parseInt(textField.getText())*/ 1);
 		mapWidth = gameLogic.currentMap.getMap().length * 50 + 12;
 		mapHeight = gameLogic.currentMap.getMap()[0].length * 50 + 37;
 		Assets.init(gameLogic.currentMap);
 		display();
 		repaint();
+		System.out.println("MERDA4");
 	}
 
 	private void display() { 
@@ -77,7 +81,7 @@ public class Game extends JPanel implements KeyListener {
 			hero = Assets.heroLeft;
 		}
 
-		if (levelPositionArray == 0) {
+		if (levelPositionArray == 1) {
 			if(guardMove == 'w'){
 				guard = Assets.guardBack;
 			} else if (guardMove == 'a'){
@@ -88,7 +92,7 @@ public class Game extends JPanel implements KeyListener {
 				guard = Assets.guardLeft;
 			}
 		}
-		else if (levelPositionArray == 1) {
+		else if (levelPositionArray == 2) {
 			
 		}
 

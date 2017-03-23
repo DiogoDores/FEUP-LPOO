@@ -167,7 +167,8 @@ public class EditorMap implements GameMap {
 		for (int i = 0 ; i < game.currentMap.getMap().length; i++)
 			for (int j = 0; j < game.currentMap.getMap().length; j++) {
 				if (game.currentMap.getMap()[i][j] == 'I' || game.currentMap.getMap()[i][j] == 'S')
-					hasDoor = true;
+					if (i == 0 || j == 0)
+						hasDoor = true;
 			}
 		if (!hasDoor)
 			return false;
