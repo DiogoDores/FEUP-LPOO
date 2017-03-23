@@ -276,13 +276,12 @@ public class EditorMap implements GameMap {
 
 	@Override
 	public boolean checkWin(GameLogic game) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public void resetPositions(GameLogic game) {
-		// TODO Auto-generated method stub
+		
 		
 	}
 
