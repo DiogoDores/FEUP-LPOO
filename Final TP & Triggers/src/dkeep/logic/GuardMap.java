@@ -1,6 +1,6 @@
 package dkeep.logic;
 
-public class GuardMap implements GameMap {
+public class GuardMap extends GameMap {
 	
 	private String mapName = "GuardMap";
 	 

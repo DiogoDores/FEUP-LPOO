@@ -36,18 +36,16 @@ public class Game extends JPanel implements KeyListener {
 		levels[1] = new GuardMap();
 		levels[2] = new OgreMap();
 //		levels[0] = new EditorMap(2,2);
-		System.out.println("MERDA1");
+		
 	}
 
 	public void init(){
-		System.out.println("MERDA3");
-		gameLogic.createCharacters(1, options.getGuardType(), options.getNumMechas());
-		mapWidth = gameLogic.currentMap.getMap().length * 50 + 12;
-		mapHeight = gameLogic.currentMap.getMap()[0].length * 50 + 37;
+	//	gameLogic.createCharacters(1, options.getGuardType(), options.getNumMechas());
+	//	mapWidth = gameLogic.currentMap.getMap().length * 50 + 12;
+	//	mapHeight = gameLogic.currentMap.getMap()[0].length * 50 + 37;
 		Assets.init(gameLogic.currentMap);
 		display();
 		repaint();
-		System.out.println("MERDA4");
 	}
 
 	private void display() { 
@@ -109,17 +107,18 @@ public class Game extends JPanel implements KeyListener {
 		System.out.print(gameLogic.currentMap.checkWin(gameLogic));
 		if (gameLogic.currentMap.checkWin(gameLogic)){
 			levelPositionArray++;
+			if (levelPositionArray == 3) {
+				//TODO
+				/**
+				 * POR AQUI DIALOG BOX A DIZER QUE GANHOU
+				 */
+			}
 			gameLogic.changeCurrentMap(levels[levelPositionArray]);
 			gameLogic.currentMap.resetPositions(gameLogic);
 		}
 		this.repaint();
 		
-	
-
 	}
-	
-	
-
 	
 	@Override
 	public void paintComponent(Graphics g) {

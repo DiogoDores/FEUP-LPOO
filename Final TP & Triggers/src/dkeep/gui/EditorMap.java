@@ -2,7 +2,7 @@ package dkeep.gui;
 
 import dkeep.logic.*;
 
-public class EditorMap implements GameMap {
+public class EditorMap extends GameMap {
 
 	int levelWidth, levelHeight;
 	static boolean visited[][];
