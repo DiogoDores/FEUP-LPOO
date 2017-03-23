@@ -23,16 +23,22 @@ public class OptionsMenu extends JPanel{
 	private JButton btnSaveChanges;
 	private JButton btnCancel;
 	private JLabel lblWarning;
-
-	private int numMechas = 1;
-	private String guardType = "Rookie";
+	
+	private int numMechas;
+	private String guardType;
+	public static boolean wasSetUp = false;
 
 	public OptionsMenu(String title, int width, int height){
 		this.title = title;
 		this.width = width;
 		this.height = height;
+
+		numMechas = 1;
+		guardType = "Rookie";
+
+
 	}
-	
+
 	public void init(){
 
 		frame = new JFrame(title);     
@@ -84,20 +90,37 @@ public class OptionsMenu extends JPanel{
 
 		btnSaveChanges.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if(Integer.parseInt(textField.getText()) > 1 || Integer.parseInt(textField.getText()) < 5){
-					numMechas = Integer.parseInt(textField.getText());
-					guardType = (String)comboBox.getSelectedItem();
-					frame.dispose();
-				}
+				try {
+					if(Integer.parseInt(textField.getText()) > 1 && Integer.parseInt(textField.getText()) < 5){
+						saveSettings();
+						frame.dispose();
+						wasSetUp = true;
+					} else {
+						DialogBox dialog = new DialogBox("ERROR!", 300, 100, "Invalid Num");
+						dialog.setVisible(true);
+					}
+				} catch (NumberFormatException e){
+					DialogBox dialog = new DialogBox("ERROR!", 300, 100, "Invalid Num");
+					dialog.setVisible(true);
+				} 
 			}
 		});
-
+		
+		
 
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				frame.dispose();
+				wasSetUp = true;
 			}
 		});
+	}
+
+	private void saveSettings() {
+		numMechas = Integer.parseInt(textField.getText());
+		guardType = (String)comboBox.getSelectedItem();
+		Game.changeSettings(this);
+		wasSetUp = true;
 	}
 
 	public int getNumMechas(){
@@ -106,6 +129,10 @@ public class OptionsMenu extends JPanel{
 
 	public String getGuardType(){
 		return guardType;
+	}
+
+	public static boolean getWasSetUp(){
+		return wasSetUp;
 	}
 
 }

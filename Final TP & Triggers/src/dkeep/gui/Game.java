@@ -20,34 +20,41 @@ public class Game extends JPanel implements KeyListener {
 	private BufferedImage hero = Assets.heroFront;
 
 	private int mapWidth, mapHeight;
-
-	private OptionsMenu options;
+	
+	private static int numMechas;
+	private static String guardType;
+	
 	private GameLogic gameLogic = new GameLogic();
 	public int width, height;
 	public String title;
 
 	public Game(String title, int width, int height){
-		System.out.println("MERDA1");
+		
 		this.title = title;
 		this.width = width;
 		this.height = height;
+				
 		levelPositionArray = 1;
+		
 		levels = new GameMap[3];
 		levels[1] = new GuardMap();
 		levels[2] = new OgreMap();
 //		levels[0] = new EditorMap(2,2);
-		System.out.println("MERDA1");
 	}
 
 	public void init(){
-		System.out.println("MERDA3");
-		gameLogic.createCharacters(1, options.getGuardType(), options.getNumMechas());
+		
+		if(guardType == null || numMechas == 0){
+			guardType = "Rookie";
+			numMechas = 1;
+		}
+		
+		gameLogic.createCharacters(1, guardType, numMechas);
 		mapWidth = gameLogic.currentMap.getMap().length * 50 + 12;
 		mapHeight = gameLogic.currentMap.getMap()[0].length * 50 + 37;
 		Assets.init(gameLogic.currentMap);
 		display();
 		repaint();
-		System.out.println("MERDA4");
 	}
 
 	private void display() { 
@@ -66,6 +73,11 @@ public class Game extends JPanel implements KeyListener {
 		panel.addKeyListener(this);
 		panel.setFocusable(true);
 		panel.requestFocusInWindow();
+	}
+	
+	public static void changeSettings(OptionsMenu optionsMenu){
+		numMechas = optionsMenu.getNumMechas();
+		guardType = optionsMenu.getGuardType();
 	}
 
 	private void moveEntities(char key){
@@ -106,7 +118,6 @@ public class Game extends JPanel implements KeyListener {
 			System.exit(0);
 		}
 		
-		System.out.print(gameLogic.currentMap.checkWin(gameLogic));
 		if (gameLogic.currentMap.checkWin(gameLogic)){
 			levelPositionArray++;
 			gameLogic.changeCurrentMap(levels[levelPositionArray]);
@@ -117,9 +128,6 @@ public class Game extends JPanel implements KeyListener {
 	
 
 	}
-	
-	
-
 	
 	@Override
 	public void paintComponent(Graphics g) {

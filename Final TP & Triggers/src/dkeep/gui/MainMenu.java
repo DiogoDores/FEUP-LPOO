@@ -14,10 +14,11 @@ import java.awt.image.BufferedImage;
 import java.awt.event.ActionEvent;
 
 public class MainMenu extends JPanel{
- 
+
 	private JFrame frame;
 	private JButton btnNewGame, btnExit, btnSettings, btnCreateMap;
 	private Game game;
+	private DialogBox dialog;
 	private OptionsMenu options;
 	//private MapCreator mapCreator;
 	BufferedImage menuBackground = ImageLoader.loadImage("/MenuBackground.png");
@@ -45,7 +46,7 @@ public class MainMenu extends JPanel{
 	public MainMenu() {
 		initialize();
 	}
-	
+
 	/**
 	 * Initialize the contents of the frame.
 	 */
@@ -62,18 +63,18 @@ public class MainMenu extends JPanel{
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setResizable(false);
 		frame.setLocationRelativeTo(null);
-		
+
 		repaint();
-		
+
 		btnCreateMap = new JButton("Create Map");
 		btnCreateMap.setFont(new Font("Lucida Sans Unicode", Font.PLAIN, 12));
 		btnCreateMap.setBounds(43, 485, 112, 29);
 		add(btnCreateMap);
-		
+
 		btnNewGame = new JButton("New Game");
 		btnNewGame.setBounds(43, 434, 112, 29);
 		btnNewGame.setFont(new Font("Lucida Sans Unicode", Font.PLAIN, 12));
-		
+
 		btnExit = new JButton("Exit");
 		btnExit.setFont(new Font("Lucida Sans Unicode", Font.PLAIN, 12));
 		btnExit.setBounds(43, 587, 112, 29);
@@ -81,34 +82,30 @@ public class MainMenu extends JPanel{
 		
 		btnSettings = new JButton("Settings");
 		btnSettings.setFont(new Font("Lucida Sans Unicode", Font.PLAIN, 12));
-		btnSettings.setBounds(43, 536, 112, 29);
+		btnSettings.setBounds(43, 587, 200, 45);
 		add(btnSettings);
-		
+
 		btnNewGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-
-				frame.setVisible(false);
-				game = new Game("Prison Escape", 550, 550);
-				game.setVisible(true);
-				game.init();
+				
+				if(OptionsMenu.getWasSetUp()){
+					frame.setVisible(false);
+					game = new Game("Prison Escape", 550, 550);
+					game.setVisible(true);
+					game.init();
+				} else {
+					dialog = new DialogBox("ERROR!", 400, 100, "Settings");
+					dialog.setVisible(true);
+				}
 			}
 		});
-		
+
 		btnExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0){
 				System.exit(0);
 			}
 		});
-		
-		btnSettings.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0){
-				
-				options = new OptionsMenu("Settings", 300, 300);
-				options.setVisible(true);
-				options.init();
-			}
-		});
-		
+
 		btnCreateMap.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0){
 				mapCreator = new MapCreator("Create a new Map", 300, 500);
@@ -117,12 +114,21 @@ public class MainMenu extends JPanel{
 			}
 		});
 		
-		
+		btnSettings.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0){
+				options = new OptionsMenu("Settings", 300, 300);
+				options.setVisible(true);
+				options.init();
+			}
+		});
+
+
 		frame.getContentPane().setLayout(null);
 		frame.getContentPane().add(btnNewGame);
-		
+
 	}
-	
+
+	@Override
 	public void paintComponent(Graphics g) {		
 		super.paintComponent(g); // Clears board
 		g.drawImage(menuBackground, 0, 0, 1200, 700, null);
