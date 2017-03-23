@@ -10,4 +10,5 @@ public interface GameMap {
 	public String getName();
 	public char[][] getMap();
 	public boolean checkWin(GameLogic game);
+	public void resetPositions(GameLogic game);
 }

@@ -8,7 +8,7 @@ public class Hero {
 	public void setSymbol(char c) {
 		symbol = c;
 	}
-
+	
 	public Hero(){}
 
 	public Hero(int x, int y){
@@ -17,6 +17,13 @@ public class Hero {
 		this.symbol = 'H';
 	}
 
+	public void setX(int xNew){
+		x = xNew;
+	}
+	public void setY(int yNew){
+		y = yNew;
+	}
+	
 	public int getX(){
 		return x;
 	}

@@ -96,5 +96,13 @@ public class GuardMap implements GameMap {
 	public boolean checkWin(GameLogic game) {
 		return (game.hero.getY() == 0 && (game.hero.getX() == 5  || game.hero.getX() == 6));
 	}
+
+
+
+	@Override
+	public void resetPositions(GameLogic game) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }

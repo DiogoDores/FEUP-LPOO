@@ -100,6 +100,12 @@ public class TestMap implements GameMap{
 		// TODO Auto-generated method stub
 		return false;
 	}
+
+	@Override
+	public void resetPositions(GameLogic game) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 }

@@ -105,12 +105,15 @@ public class Game extends JPanel implements KeyListener {
 		if (gameLogic.currentMap.checkWin(gameLogic)){
 			levelPositionArray++;
 			gameLogic.changeCurrentMap(levels[levelPositionArray]);
+			gameLogic.currentMap.resetPositions(gameLogic);
 		}
 		this.repaint();
 		
 	
 
 	}
+	
+	
 
 	
 	@Override

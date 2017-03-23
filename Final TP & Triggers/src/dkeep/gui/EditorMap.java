@@ -279,4 +279,10 @@ public class EditorMap implements GameMap {
 		return false;
 	}
 
+	@Override
+	public void resetPositions(GameLogic game) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
