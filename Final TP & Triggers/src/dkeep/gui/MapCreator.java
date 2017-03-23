@@ -75,7 +75,7 @@ public class MapCreator extends JPanel{
 		});
 		
 		btnKey.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+			public void actionPerformed(ActionEvent arg0) { 
 				activeChar = 'k';
 			}
 		});
