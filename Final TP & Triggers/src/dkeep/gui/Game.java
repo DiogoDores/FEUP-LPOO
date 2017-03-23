@@ -19,6 +19,7 @@ public class Game extends JPanel implements KeyListener {
 
 	private int mapWidth, mapHeight;
 
+	private OptionsMenu options;
 	private GameLogic gameLogic = new GameLogic();
 	public int width, height;
 	public String title;
@@ -32,7 +33,7 @@ public class Game extends JPanel implements KeyListener {
 	}
 
 	public void init(){
-		gameLogic.createCharacters(1, "Rookie"/*(String)comboBox.getSelectedItem()*/, /*Integer.parseInt(textField.getText())*/ 1);
+		gameLogic.createCharacters(1, options.getGuardType(), options.getNumMechas());
 		mapWidth = gameLogic.currentMap.getMap().length * 50 + 12;
 		mapHeight = gameLogic.currentMap.getMap()[0].length * 50 + 37;
 		Assets.init(gameLogic.currentMap);

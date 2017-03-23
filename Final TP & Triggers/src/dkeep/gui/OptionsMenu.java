@@ -10,7 +10,6 @@ import java.awt.event.ActionListener;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.JTextPane;
 import javax.swing.JButton;
 
 public class OptionsMenu extends JPanel{
@@ -18,7 +17,6 @@ public class OptionsMenu extends JPanel{
 	private String title;
 	private int width, height;
 	private JFrame frame;
-	private JPanel panel;
 	private JTextField textField;
 	private JLabel lblTypeOfGuard;
 	private JComboBox comboBox;
@@ -98,7 +96,6 @@ public class OptionsMenu extends JPanel{
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				frame.dispose();
-				//frame.setVisible(false);
 			}
 		});
 	}
