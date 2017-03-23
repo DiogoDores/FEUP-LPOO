@@ -24,8 +24,8 @@ public class OptionsMenu extends JPanel{
 	private JButton btnCancel;
 	private JLabel lblWarning;
 	
-	private int numMechas;
-	private String guardType;
+	private static int numMechas;
+	private static String guardType;
 	public static boolean wasSetUp = false;
 
 	public OptionsMenu(String title, int width, int height){
@@ -35,8 +35,6 @@ public class OptionsMenu extends JPanel{
 
 		numMechas = 1;
 		guardType = "Rookie";
-
-
 	}
 
 	public void init(){
@@ -123,11 +121,11 @@ public class OptionsMenu extends JPanel{
 		wasSetUp = true;
 	}
 
-	public int getNumMechas(){
+	public static int getNumMechas(){
 		return numMechas;
 	}
 
-	public String getGuardType(){
+	public static String getGuardType(){
 		return guardType;
 	}
 

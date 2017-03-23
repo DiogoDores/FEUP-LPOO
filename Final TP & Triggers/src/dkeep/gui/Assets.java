@@ -22,7 +22,7 @@ public class Assets {
 
 	public static BufferedImage[][] structures = new BufferedImage[128][128];
 
-	public static void init(GameMap map){
+	public static void init(){
 		SpriteSheet guardSheet = new SpriteSheet(ImageLoader.loadImage("/Guard.png"));
 		SpriteSheet heroSheet = new SpriteSheet(ImageLoader.loadImage("/Hero.png"));
 		SpriteSheet wallSheet = new SpriteSheet(ImageLoader.loadImage("/Structures.png"));

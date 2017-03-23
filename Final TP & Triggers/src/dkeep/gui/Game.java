@@ -20,39 +20,40 @@ public class Game extends JPanel implements KeyListener {
 	private BufferedImage hero = Assets.heroFront;
 
 	private int mapWidth, mapHeight;
-	
-	private static int numMechas;
-	private static String guardType;
-	
+
 	private GameLogic gameLogic = new GameLogic();
 	public int width, height;
 	public String title;
+	private static String guardType;
+	private static int numMechas;
 
 	public Game(String title, int width, int height){
-		
+
 		this.title = title;
 		this.width = width;
 		this.height = height;
-				
-		levelPositionArray = 1;
 		
+		levelPositionArray = 1;
 		levels = new GameMap[3];
 		levels[1] = new GuardMap();
 		levels[2] = new OgreMap();
-//		levels[0] = new EditorMap(2,2);
+		//levels[0] = new EditorMap(2,2);
+
+
 	}
 
 	public void init(){
-		
+
 		if(guardType == null || numMechas == 0){
 			guardType = "Rookie";
 			numMechas = 1;
 		}
-		
+
 		gameLogic.createCharacters(1, guardType, numMechas);
 		mapWidth = gameLogic.currentMap.getMap().length * 50 + 12;
 		mapHeight = gameLogic.currentMap.getMap()[0].length * 50 + 37;
-		Assets.init(gameLogic.currentMap);
+		Assets.init();
+
 		display();
 		repaint();
 	}
@@ -73,11 +74,6 @@ public class Game extends JPanel implements KeyListener {
 		panel.addKeyListener(this);
 		panel.setFocusable(true);
 		panel.requestFocusInWindow();
-	}
-	
-	public static void changeSettings(OptionsMenu optionsMenu){
-		numMechas = optionsMenu.getNumMechas();
-		guardType = optionsMenu.getGuardType();
 	}
 
 	private void moveEntities(char key){
@@ -106,7 +102,7 @@ public class Game extends JPanel implements KeyListener {
 			}
 		}
 		else if (levelPositionArray == 2) {
-			
+			//TODO Assign aos ogres
 		}
 
 		gameLogic.hero.move(gameLogic.currentMap, key);
@@ -117,18 +113,22 @@ public class Game extends JPanel implements KeyListener {
 		if(lost){
 			System.exit(0);
 		}
-		
+
 		if (gameLogic.currentMap.checkWin(gameLogic)){
 			levelPositionArray++;
+			if (levelPositionArray == 3) {
+				//TODO
+				/**
+				 * POR AQUI DIALOG BOX A DIZER QUE GANHOU
+				 */
+			}
 			gameLogic.changeCurrentMap(levels[levelPositionArray]);
 			gameLogic.currentMap.resetPositions(gameLogic);
 		}
 		this.repaint();
-		
-	
 
 	}
-	
+
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g); // Clears board
@@ -214,5 +214,11 @@ public class Game extends JPanel implements KeyListener {
 
 	@Override
 	public void keyTyped(KeyEvent e) {}
+
+	public static void changeSettings(OptionsMenu optionsMenu) {
+		numMechas = OptionsMenu.getNumMechas();
+		guardType = OptionsMenu.getGuardType();
+	}
+
 
 }

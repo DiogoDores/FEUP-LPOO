@@ -6,7 +6,7 @@ import dkeep.logic.GameLogic;
 import dkeep.logic.GameMap;
 import dkeep.logic.Hero;
  
-public class TestMap implements GameMap{
+public class TestMap extends GameMap{
 	private static char [][] tmp = {{'X','X','X','X','X'},
 			{'I',' ',' ','k','X'},
 			{'X',' ',' ',' ','X'},

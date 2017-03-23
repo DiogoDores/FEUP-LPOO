@@ -20,7 +20,6 @@ public class MainMenu extends JPanel{
 	private Game game;
 	private DialogBox dialog;
 	private OptionsMenu options;
-	//private MapCreator mapCreator;
 	BufferedImage menuBackground = ImageLoader.loadImage("/MenuBackground.png");
 	private MapCreator mapCreator;
 
@@ -108,7 +107,7 @@ public class MainMenu extends JPanel{
 
 		btnCreateMap.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0){
-				mapCreator = new MapCreator("Create a new Map", 300, 500);
+				mapCreator = new MapCreator("Create a new Map", 800, 800);
 				mapCreator.setVisible(true);
 				mapCreator.init();
 			}
