@@ -122,4 +122,9 @@ public class OgreMap implements GameMap{
 			return 'D';
 		return levelTwoMap[x][y];
 	}
+
+	@Override
+	public boolean checkWin(GameLogic game) {
+		return (game.hero.getY() == 0 && game.hero.getX() == 1);
+	}
 }

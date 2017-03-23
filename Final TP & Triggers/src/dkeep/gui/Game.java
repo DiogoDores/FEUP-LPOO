@@ -1,4 +1,5 @@
 package dkeep.gui;
+import dkeep.logic.*;
 
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
@@ -11,7 +12,8 @@ import javax.swing.JPanel;
 import dkeep.logic.GameLogic;
 
 public class Game extends JPanel implements KeyListener {
-
+	GameMap[] levels;
+	int levelPositionArray;
 	private JPanel panel;
 	private JFrame f;
 	private BufferedImage guard = Assets.guardFront;
@@ -28,7 +30,10 @@ public class Game extends JPanel implements KeyListener {
 		this.title = title;
 		this.width = width;
 		this.height = height;
-
+		levelPositionArray = 0;
+		levels = new GameMap[2];
+		levels[0] = new GuardMap();
+		levels[1] = new OgreMap();
 	}
 
 	public void init(){
@@ -72,14 +77,19 @@ public class Game extends JPanel implements KeyListener {
 			hero = Assets.heroLeft;
 		}
 
-		if(guardMove == 'w'){
-			guard = Assets.guardBack;
-		} else if (guardMove == 'a'){
-			guard = Assets.guardRight;
-		} else if (guardMove == 's'){
-			guard = Assets.guardFront;
-		} else if (guardMove == 'd'){
-			guard = Assets.guardLeft;
+		if (levelPositionArray == 0) {
+			if(guardMove == 'w'){
+				guard = Assets.guardBack;
+			} else if (guardMove == 'a'){
+				guard = Assets.guardRight;
+			} else if (guardMove == 's'){
+				guard = Assets.guardFront;
+			} else if (guardMove == 'd'){
+				guard = Assets.guardLeft;
+			}
+		}
+		else if (levelPositionArray == 1) {
+			
 		}
 
 		gameLogic.hero.move(gameLogic.currentMap, key);
@@ -90,11 +100,19 @@ public class Game extends JPanel implements KeyListener {
 		if(lost){
 			System.exit(0);
 		}
-
+		
+		System.out.print(gameLogic.currentMap.checkWin(gameLogic));
+		if (gameLogic.currentMap.checkWin(gameLogic)){
+			levelPositionArray++;
+			gameLogic.changeCurrentMap(levels[levelPositionArray]);
+		}
 		this.repaint();
+		
+	
 
 	}
 
+	
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g); // Clears board

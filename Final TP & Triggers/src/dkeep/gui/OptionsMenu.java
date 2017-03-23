@@ -34,7 +34,7 @@ public class OptionsMenu extends JPanel{
 		this.width = width;
 		this.height = height;
 	}
-
+	
 	public void init(){
 
 		frame = new JFrame(title);     
@@ -110,4 +110,5 @@ public class OptionsMenu extends JPanel{
 	public String getGuardType(){
 		return guardType;
 	}
+
 }

@@ -14,7 +14,7 @@ import javax.swing.JTextPane;
 import javax.swing.JButton;
 
 public class MapCreator extends JPanel{
-
+/*
 	private String title;
 	private int width, height;
 	private JFrame frame;
@@ -34,7 +34,7 @@ public class MapCreator extends JPanel{
 		this.width = width;
 		this.height = height;
 	}
-
+/*
 	public void init(){
 
 		frame = new JFrame(title);     
@@ -110,4 +110,5 @@ public class MapCreator extends JPanel{
 	public String getGuardType(){
 		return guardType;
 	}
+	*/
 }

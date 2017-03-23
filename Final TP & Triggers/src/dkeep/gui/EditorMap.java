@@ -40,10 +40,10 @@ public class EditorMap implements GameMap {
 	
 	@Override
 	public char possibleMove(int x, int y, GameLogic game) {
-		for (int i = 0; i < game.ogres.size(); i++) {
+		return 'H';
+	/*	for (int i = 0; i < game.ogres.size(); i++) {
 			if (game.ogres.get(i).getX() == x && game.ogres.get(i).getY() == y )
 				return 'O';
-
 		}
 
 		if (game.currentMap.getMap()[x][y]  == 'X'){
@@ -59,7 +59,7 @@ public class EditorMap implements GameMap {
 		} else if (game.currentMap.getMap()[x][y] == 'H') // AC
 			return 'D';
 		return 'H';
-
+	*/
 	}
 
 	@Override
@@ -73,7 +73,8 @@ public class EditorMap implements GameMap {
 	
 	@Override
 	public String drawMap(GameLogic game) {
-		char[][] mapToDraw = level;
+		return "";
+		/*char[][] mapToDraw = level;
 		String map = "";
 
 		for (int i = 0; i < mapToDraw.length; i++) {
@@ -113,7 +114,7 @@ public class EditorMap implements GameMap {
 			map += "\n";
 		}
 		return map;
-
+	*/
 	}
 
 	@Override
@@ -188,8 +189,6 @@ public class EditorMap implements GameMap {
 				if (game.currentMap.getMap()[i][j] == 'S')
 					doorIsOpen = true;
 			}
-
-
 		// PROCURA ALAVANCA
 		if (!doorIsOpen) {
 
@@ -213,15 +212,9 @@ public class EditorMap implements GameMap {
 			else if (!visited[x][y+1] && possibleMove(x, y+1, game) == 'S') {
 				return true;
 			}
-
-
 		}
-
-
-
 		// PROCURA SAIDA
 		if (doorIsOpen) {
-
 			//ENCONTRA SAIDA
 			//VAI PARA A ESQUERDA
 			if (!visited[x-1][y] && possibleMove(x-1, y, game) == 'E') {
@@ -250,6 +243,7 @@ public class EditorMap implements GameMap {
 		}
 
 		// NÃO ENCONTRA ALAVANCA NEM SAIDA
+		
 		//VAI PARA A ESQUERDA
 		if (!visited[x-1][y] && possibleMove(x-1, y, game) == 'H') {
 			visited[x-1][y] = true;
@@ -277,6 +271,12 @@ public class EditorMap implements GameMap {
 
 		return false;
 
+	}
+
+	@Override
+	public boolean checkWin(GameLogic game) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

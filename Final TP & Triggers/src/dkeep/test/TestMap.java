@@ -94,6 +94,12 @@ public class TestMap implements GameMap{
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+	@Override
+	public boolean checkWin(GameLogic game) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 	
 	
 }
