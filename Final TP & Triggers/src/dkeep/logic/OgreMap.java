@@ -131,7 +131,7 @@ public class OgreMap implements GameMap{
 	@Override
 	public void resetPositions(GameLogic game) {
 		game.hero.setX(7);
-		game.hero.setY	(1);
+		game.hero.setY(1);
 		
 	}
 }
