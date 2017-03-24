@@ -18,6 +18,7 @@ public class Game extends JPanel implements KeyListener {
 	private JFrame f;
 	private BufferedImage guard = Assets.guardFront;
 	private BufferedImage hero = Assets.heroFront;
+	private BufferedImage[] ogresSprite = new BufferedImage[4];
 
 	private int mapWidth, mapHeight;
 
@@ -32,7 +33,7 @@ public class Game extends JPanel implements KeyListener {
 		this.title = title;
 		this.width = width;
 		this.height = height;
-		
+
 		levelPositionArray = 1;
 		levels = new GameMap[3];
 		levels[1] = new GuardMap();
@@ -78,6 +79,8 @@ public class Game extends JPanel implements KeyListener {
 
 	private void moveEntities(char key){
 
+		char ogreMove;
+
 		char guardMove = gameLogic.guard.getGuardMove();
 
 		if(key == 'w'){
@@ -100,13 +103,31 @@ public class Game extends JPanel implements KeyListener {
 			} else if (guardMove == 'd'){
 				guard = Assets.guardLeft;
 			}
+			gameLogic.guard.move();
+
 		}
-		else if (levelPositionArray == 2) {
-			//TODO Assign aos ogres
+		else if (levelPositionArray == 2) {			
+			for(int i = 0; i < gameLogic.ogres.size(); i++){
+
+				ogreMove = gameLogic.ogre.createRandomMove();
+				char clubMove = gameLogic.ogre.createRandomMove();
+
+				if(ogreMove == 'w'){
+					ogresSprite[i] = Assets.ogreBack;
+				} else if (ogreMove == 'a'){
+					ogresSprite[i] = Assets.ogreRight;
+				} else if (ogreMove == 's'){
+					ogresSprite[i] = Assets.ogreFront;
+				} else if (ogreMove == 'd'){
+					ogresSprite[i] = Assets.ogreLeft;
+				}
+
+				gameLogic.ogres.get(i).moveOgre(gameLogic, ogreMove);
+				gameLogic.ogres.get(i).moveClub(gameLogic, gameLogic.ogres.get(i).getX(), gameLogic.ogres.get(i).getY());
+			}
 		}
 
 		gameLogic.hero.move(gameLogic.currentMap, key);
-		gameLogic.guard.move();
 
 		boolean lost = gameLogic.checkPresence();
 
@@ -116,6 +137,7 @@ public class Game extends JPanel implements KeyListener {
 
 		if (gameLogic.currentMap.checkWin(gameLogic)){
 			levelPositionArray++;
+			gameLogic.createOgres(numMechas);
 			if (levelPositionArray == 3) {
 				//TODO
 				/**
@@ -136,7 +158,15 @@ public class Game extends JPanel implements KeyListener {
 		drawStructures(g);
 
 		g.drawImage(hero, gameLogic.hero.getY() * 49 , gameLogic.hero.getX() * 49 - 49, 64, 90, null);
-		g.drawImage(guard,  gameLogic.guard.getY() * 49, gameLogic.guard.getX() * 49 - 49, 64, 90, null);
+
+		if(gameLogic.currentMap.getName() == "GuardMap"){
+			g.drawImage(guard,  gameLogic.guard.getY() * 49, gameLogic.guard.getX() * 49 - 49, 64, 90, null);
+		} else if (gameLogic.currentMap.getName() == "OgreMap"){
+			for(int i = 0; i < gameLogic.ogres.size(); i++){
+				g.drawImage(Assets.club, gameLogic.ogres.get(i).getClubY()* 50, gameLogic.ogres.get(i).getClubX()* 50, 50, 50, null);
+				g.drawImage(ogresSprite[i], gameLogic.ogres.get(i).getY()* 49, gameLogic.ogres.get(i).getX()* 49 - 40, 54, 80, null);
+			}
+		}
 
 
 	}
@@ -171,7 +201,10 @@ public class Game extends JPanel implements KeyListener {
 				} else if (mapToDraw[y][x] == ' '){
 					g.drawImage(Assets.floor, x * 50, y * 50, 50, 50, null);
 				} else if (mapToDraw[y][x] == 'k'){
-					g.drawImage(Assets.closedLever, x * 50, y * 50, 50, 50, null);
+					if(gameLogic.currentMap.getName() == "GuardMap")
+						g.drawImage(Assets.closedLever, x * 50, y * 50, 50, 50, null);
+					else if (gameLogic.currentMap.getName() == "OgreMap")
+						g.drawImage(Assets.key, x * 50, y * 50, 50, 50, null);
 				} else if (mapToDraw[y][x] == 'I'){
 					g.drawImage(Assets.door, x * 50, y * 50, 50, 50, null);
 				} else {

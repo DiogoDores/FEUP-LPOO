@@ -227,7 +227,7 @@ public class TestsJUnit {
 		game.createOgre(2, 2);
 
 		testMap.drawMap(game);
-		game.ogres.get(0).moveOgre(game);
+		game.ogres.get(0).moveOgre(game, 'n');
 		assertEquals(false, game.checkPresence());
 		testMap.drawMap(game);
 	} 
@@ -318,14 +318,14 @@ public class TestsJUnit {
 		assertFalse(game.checkSpawnCondition(1, 1, game)); 
 		game.createOgres(0);
 		for(int i = 0; i < game.ogres.size();i++){
-			game.ogres.get(i).moveOgre(game);
+			game.ogres.get(i).moveOgre(game, 'n');
 		}
 		while ( ( game.ogres.get(0).getX() == 1 && game.ogres.get(0).getY() == 1) ||  ( game.ogres.get(0).getX() == 1 && game.ogres.get(0).getY() == 2) ){
-			game.ogres.get(0).moveOgre(game);
+			game.ogres.get(0).moveOgre(game, 'n');
 		}
 		
 		while ( ( game.ogres.get(0).getClubX() == 3 && game.ogres.get(0).getClubY() == 1) ||  ( game.ogres.get(0).getClubX() == 3 && game.ogres.get(0).getClubY() == 2) ){
-			game.ogres.get(0).moveOgre(game);
+			game.ogres.get(0).moveOgre(game, 'n');
 			game.ogres.get(0).moveClub(game, game.ogres.get(0).getX(), game.ogres.get(0).getY());
 		}
 		game.currentMap.drawMap(game);
@@ -359,7 +359,7 @@ public class TestsJUnit {
 		game.createOgre(2, 2);
 
 		testMap.drawMap(game);
-		game.ogres.get(0).moveOgre(game);
+		game.ogres.get(0).moveOgre(game, 'n');
 		assertEquals('*', game.ogres.get(0).getClubSymbol());
 		assertEquals('O', game.ogres.get(0).getSymbol());
 		assertEquals(false, game.checkPresence());
@@ -397,7 +397,7 @@ public class TestsJUnit {
 	//	assertTrue(game.ogres.get(0).getX() + 1 == game.ogres.get(0).getClubX() || game.ogres.get(0).getX() + 1 == game.ogres.get(0).getClubX() - 1);
 	//	assertTrue(game.ogres.get(0).getY() + 1 == game.ogres.get(0).getClubY() || game.ogres.get(0).getY() + 1 == game.ogres.get(0).getClubY() - 1);
 		while(game.ogres.get(0).getX() != 7 && game.ogres.get(0).getY() != 1) {
-			game.ogres.get(0).moveOgre(game);
+			game.ogres.get(0).moveOgre(game, 'n');
 			game.ogres.get(0).moveClub(game, game.ogres.get(0).getX(), game.ogres.get(0).getY());
 
 		}
@@ -443,7 +443,7 @@ public class TestsJUnit {
 			assertTrue(x == true || x == false);
 			for (int i = 0; i < game.ogres.size(); i++) {
 				game.ogres.get(i).moveClub(game, game.ogres.get(i).getX(), game.ogres.get(i).getY());
-				game.ogres.get(i).moveOgre(game);
+				game.ogres.get(i).moveOgre(game, 'n');
 			}
 		}
 		j=0;
@@ -473,7 +473,7 @@ public class TestsJUnit {
 			j++;
 			boolean x = game.checkPresence();
 			assertTrue(x == true || x == false);
-			game.ogres.get(0).moveOgre(game);
+			game.ogres.get(0).moveOgre(game, 'n');
 			game.ogres.get(0).moveClub(game, game.ogres.get(0).getX(), game.ogres.get(0).getY());
 		}
 		j=0;
@@ -530,7 +530,7 @@ public class TestsJUnit {
 		for (int i = 0; i < game.ogres.size(); i++) {
 
 			for (int j = 0; j < 5; j++) {
-				game.ogres.get(i).moveOgre(game);
+				game.ogres.get(i).moveOgre(game, 'n');
 				game.ogres.get(i).moveClub(game, game.ogres.get(i).getX(), game.ogres.get(i).getY());;
 			}
 		}

@@ -3,7 +3,7 @@ package dkeep.logic;
 import java.util.Random;
 
 public class Ogre {
- 
+
 	private int isStunned;
 	protected int x, y, clubX, clubY;
 	protected char symbol, clubSymbol;
@@ -16,7 +16,7 @@ public class Ogre {
 		do {
 			char key = createRandomMove();
 
- 
+
 			if(key == 'w'){
 				this.clubX = this.x - 1; 
 				this.clubY = this.y;
@@ -29,7 +29,7 @@ public class Ogre {
 				this.clubX = this.x + 1;
 				this.clubY = this.y;
 			}
-			 if(key == 'd') { 
+			if(key == 'd') { 
 				this.clubY = this.y + 1;
 				this.clubX = this.x;
 			}
@@ -74,23 +74,27 @@ public class Ogre {
 		return clubSymbol;
 	}
 
-	public void moveOgre(GameLogic game) {
+	public void moveOgre(GameLogic game, char c) {
 		if (isStunned == 0) {
 			this.symbol = 'O';
-			char c;
+			//char c;
 			char result;
 
-			do{
-				c = createRandomMove(); 
+			if(c == 'n'){
+				do{
+					c = createRandomMove(); 
+					result = checkPossible(c, game);
+				} while(result == 'X' || result == 'I' || result == 'S' || result == 'N' || result == '*');
+			} else {
 				result = checkPossible(c, game);
-			} while(result == 'X' || result == 'I' || result == 'S' || result == 'N' || result == '*');
-			
+			}
+
 			if (game.currentMap.getMap()[x][y] == 'k'){
 				restoreSymbol = true;
 			} else {
 				restoreSymbol = false;
 			}
-			
+
 			if (result == 'H') {
 
 				if(restoreSymbol){
@@ -109,9 +113,7 @@ public class Ogre {
 				}
 
 			} else if(result == 'E'){
-				
-				System.out.println("RESULT = E");
-				
+
 				if(c == 'w'){
 					x--;
 				} else if (c == 'd'){

@@ -14,8 +14,6 @@ public class GameLogic {
 	public GameMap Map1 = new GuardMap(); 
 	public GameMap Map2 = new OgreMap();
 	public GameMap currentMap;
-	private int wait = 0;
-
 	public int startGame(char key){
 
 		boolean lost = false;
@@ -27,37 +25,39 @@ public class GameLogic {
 		} 
 		if (currentMap.getName() == "OgreMap"){
 			for(int i = 0; i < ogres.size(); i++){
-				ogres.get(i).moveOgre(this);
+				ogres.get(i).moveOgre(this, 'n');
 				ogres.get(i).moveClub(this, ogres.get(i).getX(), ogres.get(i).getY());
 
 			}
 		}
-		
-		
-
 
 		lost = checkPresence();
 
 		if(lost){
 			return 2;
 		}
+		
 		boolean hx = checkWin(this);
+		
+		System.out.println(hero.getX() + "   " + hero.getY());
+		
 		if(hx){
 			System.out.println("\n\nPhew! You escaped the guard!\nBut what's that?\nOh no! An ogre!\nGrab the key and escape!\nBe careful with his club!\n\n");
 			setLevelTwo(0);
 		}
 		
-
-
 		return 0;
 	}
 
     public boolean checkWin(GameLogic game) {
-    	if (game.currentMap.getName() == "TestMap" || game.currentMap.getName() == "OgreMap")
-    		return (game.hero.getX() == 1 && game.hero.getY() == 0);
-    	else 
-    		return (game.hero.getX() == 0 && (game.hero.getY() == 5 || game.hero.getY() == 6));
+    	if (currentMap.getName() == "TestMap" || currentMap.getName() == "OgreMap")
+    		return (hero.getY() == 1 && hero.getX() == 0);
+    	else if (currentMap.getName() == "GuardMap" )
+    		return (hero.getY() == 0 && (hero.getX() == 5 || hero.getX() == 6));
+    	else
+    		return false;
     }
+    
 	public void changeCurrentMap(GameMap gameMap){
 		currentMap = gameMap;
 	}

@@ -67,21 +67,21 @@ public class MainMenu extends JPanel{
 
 		btnCreateMap = new JButton("Create Map");
 		btnCreateMap.setFont(new Font("Lucida Sans Unicode", Font.PLAIN, 12));
-		btnCreateMap.setBounds(43, 485, 112, 29);
+		btnCreateMap.setBounds(43, 488, 112, 29);
 		add(btnCreateMap);
 
 		btnNewGame = new JButton("New Game");
-		btnNewGame.setBounds(43, 434, 112, 29);
+		btnNewGame.setBounds(43, 437, 112, 29);
 		btnNewGame.setFont(new Font("Lucida Sans Unicode", Font.PLAIN, 12));
 
 		btnExit = new JButton("Exit");
 		btnExit.setFont(new Font("Lucida Sans Unicode", Font.PLAIN, 12));
-		btnExit.setBounds(43, 587, 112, 29);
+		btnExit.setBounds(43, 591, 112, 29);
 		add(btnExit);
 		
 		btnSettings = new JButton("Settings");
 		btnSettings.setFont(new Font("Lucida Sans Unicode", Font.PLAIN, 12));
-		btnSettings.setBounds(43, 587, 200, 45);
+		btnSettings.setBounds(44, 539, 110, 28);
 		add(btnSettings);
 
 		btnNewGame.addActionListener(new ActionListener() {

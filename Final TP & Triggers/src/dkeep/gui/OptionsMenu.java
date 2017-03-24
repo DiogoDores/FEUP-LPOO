@@ -89,7 +89,7 @@ public class OptionsMenu extends JPanel{
 		btnSaveChanges.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
-					if(Integer.parseInt(textField.getText()) > 1 && Integer.parseInt(textField.getText()) < 5){
+					if(Integer.parseInt(textField.getText()) >= 1 && Integer.parseInt(textField.getText()) <= 5){
 						saveSettings();
 						frame.dispose();
 						wasSetUp = true;
