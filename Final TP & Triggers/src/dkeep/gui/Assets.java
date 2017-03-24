@@ -16,7 +16,8 @@ public class Assets {
 	door, openDoor,
 	closedLever, openLever,
 	key,
-	club;
+	club,
+	upArrow, downArrow, rightArrow, leftArrow;
 
 	public static BufferedImage[][] structures = new BufferedImage[128][128];
 
@@ -25,6 +26,7 @@ public class Assets {
 		SpriteSheet heroSheet = new SpriteSheet(ImageLoader.loadImage("/Hero.png"));
 		SpriteSheet wallSheet = new SpriteSheet(ImageLoader.loadImage("/Structures.png"));
 		SpriteSheet mechaSheet = new SpriteSheet(ImageLoader.loadImage("/Mecha.png"));
+		SpriteSheet arrowSheet = new SpriteSheet(ImageLoader.loadImage("/Arrows.png"));
 		
 		heroFront = heroSheet.crop(0, 0, width, height);
 		heroLeft = heroSheet.crop(0, height, width, height);
@@ -62,5 +64,11 @@ public class Assets {
 
 		door = wallSheet.crop(wallWidth * 3, 0, wallWidth, wallHeight);
 		openDoor = wallSheet.crop(wallWidth * 5, 0, wallWidth, wallHeight);
+		
+		upArrow = arrowSheet.crop(0, 0, wallWidth, wallHeight);
+		downArrow = arrowSheet.crop(0, wallHeight, wallWidth, wallHeight);
+		rightArrow = arrowSheet.crop(wallWidth, wallHeight, wallWidth, wallHeight);
+		leftArrow = arrowSheet.crop(wallWidth, 0, wallWidth, wallHeight);
+		
 	}
 }
