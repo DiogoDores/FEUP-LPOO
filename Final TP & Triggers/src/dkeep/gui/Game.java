@@ -138,11 +138,10 @@ public class Game extends JPanel implements KeyListener {
 		if (gameLogic.currentMap.checkWin(gameLogic)){
 			levelPositionArray++;
 			gameLogic.createOgres(numMechas);
-			if (levelPositionArray == 3) {
-				//TODO
-				/**
-				 * POR AQUI DIALOG BOX A DIZER QUE GANHOU
-				 */
+			if (levelPositionArray == 2) {
+				DialogBox box = new DialogBox("You Won!", 400, 400, "GameWon");
+				box.setLocationRelativeTo(null);
+				box.setVisible(true);
 			}
 			gameLogic.changeCurrentMap(levels[levelPositionArray]);
 			gameLogic.currentMap.resetPositions(gameLogic);

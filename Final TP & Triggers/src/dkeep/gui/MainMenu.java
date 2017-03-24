@@ -88,7 +88,7 @@ public class MainMenu extends JPanel{
 			public void actionPerformed(ActionEvent arg0) {
 				
 				if(OptionsMenu.getWasSetUp()){
-					frame.setVisible(false);
+					frame.dispose();
 					game = new Game("Prison Escape", 550, 550);
 					game.setVisible(true);
 					game.init();

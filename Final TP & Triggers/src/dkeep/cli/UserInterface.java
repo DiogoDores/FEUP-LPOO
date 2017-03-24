@@ -35,11 +35,9 @@ public class UserInterface {
 		}
 
 		int playing = 0;
-		if (level != -1)
-			game.currentMap.drawMap(game);
+		
 		Scanner read = new Scanner(System.in);
-		TestsJUnit test = new TestsJUnit();
-
+		
 		while(playing == 0){
 
 			char key = read.next().charAt(0);
@@ -63,8 +61,6 @@ public class UserInterface {
 	
 	public static int selectLevel() {
 		Scanner read = new Scanner(System.in);
-		TestsJUnit test = new TestsJUnit();
-
 		int level;
 
 		do{

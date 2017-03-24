@@ -3,6 +3,7 @@ package dkeep.gui;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
@@ -10,12 +11,12 @@ import javax.swing.JPanel;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.SwingConstants;
 
-public class DialogBox extends JDialog {
+public class DialogBox extends JDialog{
 
 	private JLabel txtPleaseChangeYour;
+	
 	/**
 	 * Create the dialog.
 	 */
@@ -52,6 +53,9 @@ public class DialogBox extends JDialog {
 			txtPleaseChangeYour.setText("Please change your Settings before you create a New Game!");
 		} else if(typeOfDialog == "Invalid Num"){
 			txtPleaseChangeYour.setText("Invalid number of Mechas! Please try again!");
+		} else if(typeOfDialog == "GameWon"){
+			add(new JLabel(new ImageIcon(ImageLoader.loadImage("/GameLost.png"))));
+			pack();
 		}
 		
 	}
