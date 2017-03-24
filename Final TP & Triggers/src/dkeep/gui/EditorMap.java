@@ -10,6 +10,8 @@ public class EditorMap extends GameMap {
 	boolean foundSolution;
 
 	public EditorMap(int width, int height) {
+		level = new char[width][height];
+		visited = new boolean[width][height];
 		for (int i = 0 ; i < height ; i++) {
 			for (int j = 0; j < width ; j++) {
 				if ( i == 0 || i == height -1 ||j == 0 || j == width - 1) {
