@@ -22,7 +22,7 @@ public class Game extends JPanel implements KeyListener {
 
 	private int mapWidth, mapHeight;
 
-	private GameLogic gameLogic = new GameLogic();
+	public GameLogic gameLogic = new GameLogic();
 	public int width, height;
 	public String title;
 	private static String guardType;
@@ -59,7 +59,7 @@ public class Game extends JPanel implements KeyListener {
 		repaint();
 	}
 
-	private void display() { 
+	public void display() { 
 
 		f = new JFrame("Prison Escape");     
 		f.setContentPane(this);
@@ -113,7 +113,6 @@ public class Game extends JPanel implements KeyListener {
 				char clubMove = gameLogic.ogre.createRandomMove();
 
 				if(ogreMove == 'w'){
-					ogresSprite[i] = Assets.ogreBack;
 				} else if (ogreMove == 'a'){
 					ogresSprite[i] = Assets.ogreRight;
 				} else if (ogreMove == 's'){
@@ -143,12 +142,15 @@ public class Game extends JPanel implements KeyListener {
 				box.setLocationRelativeTo(null);
 				box.setVisible(true);
 			}
-			gameLogic.changeCurrentMap(levels[levelPositionArray]);
-			gameLogic.currentMap.resetPositions(gameLogic);
+			else {
+				gameLogic.changeCurrentMap(levels[levelPositionArray]);
+				gameLogic.currentMap.resetPositions(gameLogic);
+			}
 		}
 		this.repaint();
 
 	}
+
 
 	@Override
 	public void paintComponent(Graphics g) {
@@ -160,15 +162,18 @@ public class Game extends JPanel implements KeyListener {
 
 		if(gameLogic.currentMap.getName() == "GuardMap"){
 			g.drawImage(guard,  gameLogic.guard.getY() * 49, gameLogic.guard.getX() * 49 - 49, 64, 90, null);
-		} else if (gameLogic.currentMap.getName() == "OgreMap"){
+		}
+		else {
 			for(int i = 0; i < gameLogic.ogres.size(); i++){
 				g.drawImage(Assets.club, gameLogic.ogres.get(i).getClubY()* 50, gameLogic.ogres.get(i).getClubX()* 50, 50, 50, null);
 				g.drawImage(ogresSprite[i], gameLogic.ogres.get(i).getY()* 49, gameLogic.ogres.get(i).getX()* 49 - 40, 54, 80, null);
 			}
 		}
 
-
 	}
+
+
+
 
 	public void drawStructures(Graphics g) {
 		char[][] mapToDraw = gameLogic.currentMap.getMap();
