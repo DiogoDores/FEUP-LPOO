@@ -63,7 +63,7 @@ public class Game extends JPanel implements KeyListener {
 
 		f = new JFrame(this.title);     
 		f.setContentPane(this);
-		f.setSize(mapWidth, mapHeight);
+		f.setSize(700, mapHeight);
 		f.setVisible(true);
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		f.setResizable(false);
@@ -74,9 +74,8 @@ public class Game extends JPanel implements KeyListener {
 		
 		JButton btnUp = new JButton();
 		btnUp.setIcon(new ImageIcon (Assets.upArrow));
-		btnUp.setBounds(0, 0, 25, 25);
+		btnUp.setBounds(0, 0, 50, 25);
 		f.add(btnUp);
-		
 
 		JButton btnDown = new JButton();
 		btnDown.setIcon(new ImageIcon (Assets.downArrow));
@@ -96,23 +95,26 @@ public class Game extends JPanel implements KeyListener {
 		btnUp.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				moveEntities('w');
-				f.setFocusable(true);
+				f.requestFocusInWindow();
 			}
 		});
 		
 		btnDown.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				moveEntities('s');
+				f.requestFocusInWindow();
 			}
 		});
 		btnLeft.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				moveEntities('a');
+				f.requestFocusInWindow();
 			}
 		});
 		btnRight.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				moveEntities('d');
+				f.requestFocusInWindow();
 			}
 		});
 		
@@ -191,6 +193,8 @@ public class Game extends JPanel implements KeyListener {
 			else {
 				gameLogic.changeCurrentMap(levels[levelPositionArray]);
 				gameLogic.currentMap.resetPositions(gameLogic);
+				mapWidth = gameLogic.currentMap.getMap().length * 50 + 12;
+				mapHeight = gameLogic.currentMap.getMap()[0].length * 50 + 37;
 			}
 		}
 		this.repaint();
