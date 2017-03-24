@@ -7,10 +7,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Panel;
 
 public class MapCreator extends JPanel {
 	private char activeChar;
 	private boolean hasSaved;
+	private JPanel panel;
 	private JFrame frame = new JFrame();
 	private String title;
 	private int width, height;
@@ -35,25 +37,20 @@ public class MapCreator extends JPanel {
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.setLocationRelativeTo(null);
 		
+		panel = new JPanel();
+		panel.setBounds(0, 0, 900, 700);
+		frame.getContentPane().add(panel);
+		panel.setFocusable(true);
+		panel.requestFocusInWindow();
+		
+		Assets.init();
 		
 		game = new Game("Editor", 200, 200);
 		game.levelPositionArray = 0;
 		
-		game.init();
-		game.display();
-
-		game.panel.setBounds(181, 33, 344, 259);
-		game.panel.setVisible(true);
-
-		frame.getContentPane().add(game.panel);
-		frame.add(game.panel);
-		
 		hasSaved = false;
-		//setLayout(null);
 		
 		init();
-		game.gameLogic.currentMap.drawMap(game.gameLogic);
-
 	}
 
 	public void init() {
