@@ -54,6 +54,9 @@ public class DialogBox extends JDialog{
 		} else if(typeOfDialog == "Invalid Num"){
 			txtPleaseChangeYour.setText("Invalid number of Mechas! Please try again!");
 		} else if(typeOfDialog == "GameWon"){
+			add(new JLabel(new ImageIcon(ImageLoader.loadImage("/GameWon.png"))));
+			pack();
+		} else if(typeOfDialog == "GameLost"){
 			add(new JLabel(new ImageIcon(ImageLoader.loadImage("/GameLost.png"))));
 			pack();
 		}

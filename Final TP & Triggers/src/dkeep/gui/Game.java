@@ -110,7 +110,6 @@ public class Game extends JPanel implements KeyListener {
 			for(int i = 0; i < gameLogic.ogres.size(); i++){
 
 				ogreMove = gameLogic.ogre.createRandomMove();
-				char clubMove = gameLogic.ogre.createRandomMove();
 
 				if(ogreMove == 'w'){
 					ogresSprite[i] = Assets.ogreBack;
@@ -132,16 +131,20 @@ public class Game extends JPanel implements KeyListener {
 		boolean lost = gameLogic.checkPresence();
 
 		if(lost){
-			System.exit(0);
+			DialogBox box = new DialogBox("You Lost...", 400, 400, "GameLost");
+			box.setLocationRelativeTo(null);
+			box.setVisible(true);
+			setVisible(false);
 		}
 
 		if (gameLogic.currentMap.checkWin(gameLogic)){
 			levelPositionArray++;
 			gameLogic.createOgres(numMechas);
-			if (levelPositionArray == 2) {
+			if (levelPositionArray == 3) {
 				DialogBox box = new DialogBox("You Won!", 400, 400, "GameWon");
 				box.setLocationRelativeTo(null);
 				box.setVisible(true);
+				setVisible(false);
 			}
 			gameLogic.changeCurrentMap(levels[levelPositionArray]);
 			gameLogic.currentMap.resetPositions(gameLogic);
