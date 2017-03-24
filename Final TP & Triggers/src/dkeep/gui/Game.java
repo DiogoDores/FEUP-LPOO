@@ -2,10 +2,14 @@ package dkeep.gui;
 import dkeep.logic.*;
 
 import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -13,7 +17,7 @@ import dkeep.logic.GameLogic;
 
 public class Game extends JPanel implements KeyListener {
 	GameMap[] levels;
-	int levelPositionArray;
+	public int levelPositionArray;
 	private JPanel panel;
 	private JFrame f;
 	public BufferedImage guard = Assets.guardFront;
@@ -30,15 +34,11 @@ public class Game extends JPanel implements KeyListener {
 
 	public Game(String title, int width, int height){
 
-		this.title = title;
-		this.width = width;
-		this.height = height;
-
 		levelPositionArray = 1;
 		levels = new GameMap[3];
 		levels[1] = new GuardMap();
 		levels[2] = new OgreMap();
-		//levels[0] = new EditorMap(2,2);
+		levels[0] = new EditorMap(2,2);
 
 
 	}
@@ -61,20 +61,63 @@ public class Game extends JPanel implements KeyListener {
 
 	public void display() { 
 
-		f = new JFrame("Prison Escape");     
+		f = new JFrame(this.title);     
 		f.setContentPane(this);
 		f.setSize(mapWidth, mapHeight);
 		f.setVisible(true);
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		f.setResizable(false);
 		f.setLocationRelativeTo(null);
+		f.addKeyListener(this);
+		f.setFocusable(true);
+		f.requestFocusInWindow();
+		
+		JButton btnUp = new JButton();
+		btnUp.setIcon(new ImageIcon (Assets.upArrow));
+		btnUp.setBounds(0, 0, 25, 25);
+		f.add(btnUp);
+		
 
-		panel = new JPanel();
-		panel.setBounds(0, 0, mapWidth, mapHeight);
-		f.getContentPane().add(panel);
-		panel.addKeyListener(this);
-		panel.setFocusable(true);
-		panel.requestFocusInWindow();
+		JButton btnDown = new JButton();
+		btnDown.setIcon(new ImageIcon (Assets.downArrow));
+		btnDown.setBounds(40, mapHeight - 50, 25, 25);
+		f.add(btnDown);
+
+		JButton btnLeft = new JButton();
+		btnLeft.setIcon(new ImageIcon (Assets.leftArrow));
+		btnLeft.setBounds(10, 234, 89, 23);
+		f.add(btnLeft);
+
+		JButton btnRight = new JButton();
+		btnRight.setIcon(new ImageIcon (Assets.rightArrow));
+		btnRight.setBounds(10, 234, 89, 23);
+		f.add(btnRight);
+			
+		btnUp.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				moveEntities('w');
+				f.setFocusable(true);
+			}
+		});
+		
+		btnDown.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				moveEntities('s');
+			}
+		});
+		btnLeft.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				moveEntities('a');
+			}
+		});
+		btnRight.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				moveEntities('d');
+			}
+		});
+		
+
+		
 	}
 
 	private void moveEntities(char key){
@@ -245,6 +288,7 @@ public class Game extends JPanel implements KeyListener {
 		case KeyEvent.VK_D:
 			moveKey = 'd';
 			moveEntities(moveKey);
+			repaint();
 			break;
 		}
 	}
