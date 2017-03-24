@@ -29,7 +29,7 @@ public class MapCreator extends JPanel {
 		
 		frame = new JFrame(title);     
 		frame.setContentPane(this);
-		frame.setSize(582, 423);
+		frame.setSize(1000, 700);
 		frame.setVisible(true);
 		frame.setResizable(false);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -39,7 +39,6 @@ public class MapCreator extends JPanel {
 		game = new Game("Editor", 200, 200);
 		game.levelPositionArray = 0;
 		
-
 		game.init();
 		game.display();
 

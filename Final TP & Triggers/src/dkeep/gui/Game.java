@@ -36,15 +36,15 @@ public class Game extends JPanel implements KeyListener {
 	private static String guardType;
 	private static int numMechas;
 
-	public Game(String title, int width, int height){
+	public Game(String title2, int width, int height){
 
 		levelPositionArray = 1;
 		levels = new GameMap[3];
 		levels[1] = new GuardMap();
 		levels[2] = new OgreMap();
 		levels[0] = new EditorMap(2,2);
-
-
+		title = title2;
+		
 	}
 
 
@@ -87,6 +87,7 @@ public class Game extends JPanel implements KeyListener {
 		panel.setFocusable(true);
 		panel.requestFocusInWindow();
 		if (title != "Editor") {
+			System.out.println(title);
 			f = new JFrame(this.title);     
 
 			f.setContentPane(this);
