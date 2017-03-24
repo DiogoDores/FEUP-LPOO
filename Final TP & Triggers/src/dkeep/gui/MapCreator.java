@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.Color;
+import java.awt.Graphics;
 
 public class MapCreator extends JPanel {
 	private char activeChar;
@@ -15,6 +17,7 @@ public class MapCreator extends JPanel {
 	private JButton btnDoor;
 	private EditorMap map;
 	private Game game;
+	private JPanel panel;
 
 	public MapCreator(String string, int i, int j) {
 		map = new EditorMap(2,2);
@@ -33,7 +36,6 @@ public class MapCreator extends JPanel {
 		setLayout(null);
 		game = new Game("Editor", 200, 200);
 		init();
-		update();
 		game.gameLogic.changeCurrentMap(map);
 	}
 
@@ -103,14 +105,37 @@ public class MapCreator extends JPanel {
 		});
 		add(btnSave);
 		
-		JPanel panel = new JPanel();
+		panel = new JPanel();
+		panel.setBackground(Color.WHITE);
 		panel.setBounds(181, 33, 344, 259);
-		add(panel);
+		
+		frame.add(panel);
+		repaint();
+		
+		
 	}
 
-	public void update() {
-		while(!hasSaved) {
-			
+	
+
+	@Override
+	public void paintComponent(Graphics g) {
+		System.out.print(game.gameLogic.currentMap.getMap()[0][0]);
+
+		super.paintComponent(g); 
+		game.drawStructures(g);
+		g.drawImage(game.hero, game.gameLogic.hero.getY() * 49 , game.gameLogic.hero.getX() * 49 - 49, 64, 90, null);
+
+		if(game.gameLogic.currentMap.getName() == "GuardMap"){
+			g.drawImage(game.guard,  game.gameLogic.guard.getY() * 49, game.gameLogic.guard.getX() * 49 - 49, 64, 90, null);
 		}
+		else {
+			for(int i = 0; i < game.gameLogic.ogres.size(); i++){
+				g.drawImage(Assets.club, game.gameLogic.ogres.get(i).getClubY()* 50, game.gameLogic.ogres.get(i).getClubX()* 50, 50, 50, null);
+				g.drawImage(game.ogresSprite[i], game.gameLogic.ogres.get(i).getY()* 49, game.gameLogic.ogres.get(i).getX()* 49 - 40, 54, 80, null);
+			}
+		}
+
 	}
+	
+
 }

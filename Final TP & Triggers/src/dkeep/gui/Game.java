@@ -16,9 +16,9 @@ public class Game extends JPanel implements KeyListener {
 	int levelPositionArray;
 	private JPanel panel;
 	private JFrame f;
-	private BufferedImage guard = Assets.guardFront;
-	private BufferedImage hero = Assets.heroFront;
-	private BufferedImage[] ogresSprite = new BufferedImage[4];
+	public BufferedImage guard = Assets.guardFront;
+	public BufferedImage hero = Assets.heroFront;
+	public BufferedImage[] ogresSprite = new BufferedImage[4];
 
 	private int mapWidth, mapHeight;
 
