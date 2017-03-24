@@ -87,15 +87,14 @@ public class MainMenu extends JPanel{
 		btnNewGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
-				if(OptionsMenu.getWasSetUp()){
-					frame.dispose();
-					game = new Game("Prison Escape", 550, 550);
-					game.setVisible(true);
-					game.init();
-				} else {
-					dialog = new DialogBox("ERROR!", 400, 100, "Settings");
-					dialog.setVisible(true);
-				}
+				if(!OptionsMenu.getWasSetUp()){
+					OptionsMenu options = new OptionsMenu("options", 100, 100);
+				} 
+				
+				frame.dispose();
+				game = new Game("Prison Escape", 550, 550);
+				game.setVisible(true);
+				game.init();
 			}
 		});
 
@@ -110,6 +109,7 @@ public class MainMenu extends JPanel{
 				mapCreator = new MapCreator("Create a new Map", 800, 800);
 				mapCreator.setVisible(true);
 				mapCreator.init();
+				
 			}
 		});
 		

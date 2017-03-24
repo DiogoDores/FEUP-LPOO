@@ -1,5 +1,6 @@
 package dkeep.gui;
 
+import dkeep.logic.*;
 import javax.swing.*;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
@@ -7,49 +8,64 @@ import java.awt.event.ActionListener;
 import java.awt.Color;
 import java.awt.Graphics;
 
-public class MapCreator extends JFrame {
+public class MapCreator extends JPanel {
 	private char activeChar;
 	private boolean hasSaved;
 	private JFrame frame = new JFrame();
-	private JFrame frame_1;
 	private String title;
 	private int width, height;
 	private JButton btnOgre, btnKey, btnHero, btnWall, btnFloor, btnSave;
 	private JButton btnDoor;
 	private EditorMap map;
+	private GuardMap testMap;
 	private Game game;
-	private JPanel panel;
-
+	
 	public MapCreator(String string, int i, int j) {
 		map = new EditorMap(2,2);
 		activeChar = 'H';
 		title = string;
 		width = i; 
 		height = j;
-		frame_1 = new JFrame(title);     
-
-		frame_1.setSize(582, 423);
-		frame_1.setVisible(true);
-		frame_1.setResizable(false);
-		frame_1.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		frame_1.setLocationRelativeTo(null);
-		hasSaved = false;
-		getContentPane().setLayout(null);
+		
+		frame = new JFrame(title);     
+		frame.setContentPane(this);
+		frame.setSize(1000, 700);
+		frame.setVisible(true);
+		frame.setResizable(false);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frame.setLocationRelativeTo(null);
+		
+		
 		game = new Game("Editor", 200, 200);
+		game.levelPositionArray = 0;
+		
+		game.init();
+		game.display();
+
+		game.panel.setBounds(181, 33, 344, 259);
+		game.panel.setVisible(true);
+
+		frame.getContentPane().add(game.panel);
+		frame.add(game.panel);
+		
+		hasSaved = false;
+		//setLayout(null);
+		
 		init();
-		game.gameLogic.changeCurrentMap(map);
+		game.gameLogic.currentMap.drawMap(game.gameLogic);
+
 	}
 
 	public void init() {
+
 		btnOgre = new JButton("Ogre");
 		btnOgre.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				activeChar = 'O';
 			}
 		});
-		frame_1.getContentPane().setLayout(null);
 		btnOgre.setBounds(10, 20, 100, 30);
-		frame_1.getContentPane().add(btnOgre);
+		frame.getContentPane().add(btnOgre, BorderLayout.WEST);
 
 		btnKey = new JButton("Key");
 		btnKey.setBounds(10, 70, 100, 30);
@@ -58,7 +74,7 @@ public class MapCreator extends JFrame {
 				activeChar = 'k';
 			}
 		});
-		frame_1.getContentPane().add(btnKey);
+		frame.getContentPane().add(btnKey, BorderLayout.WEST);
 
 		btnHero = new JButton("Hero");
 		btnHero.setBounds(10, 120, 100, 30);
@@ -68,51 +84,24 @@ public class MapCreator extends JFrame {
 
 			}
 		});
-		frame_1.getContentPane().add(btnHero);
-
+		frame.getContentPane().add(btnHero, BorderLayout.WEST);
 		btnWall = new JButton("Wall");
-		btnWall.setBounds(10, 213, 100, 30);
+		btnWall.setBounds(10, 170, 100, 30);
 		btnWall.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				activeChar = 'X';
 			}
 		});
-		frame_1.getContentPane().add(btnWall);
+		frame.getContentPane().add(btnWall, BorderLayout.WEST);
 
 		btnFloor = new JButton("Floor");
-		btnFloor.setBounds(10, 172, 100, 30);
+		btnFloor.setBounds(10, 220, 100, 30);
 		btnFloor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				activeChar = ' ';
 			}
 		});
-		frame_1.getContentPane().add(btnFloor);
-		
-		JPanel panel_1 = new JPanel(){
-			@Override
-			public void paintComponent(Graphics g) {
-				System.out.print(game.gameLogic.currentMap.getMap()[0][0]);
-
-				super.paintComponent(g); 
-				game.drawStructures(g);
-				g.drawImage(game.hero, game.gameLogic.hero.getY() * 49 , game.gameLogic.hero.getX() * 49 - 49, 64, 90, null);
-
-				if(game.gameLogic.currentMap.getName() == "GuardMap"){
-					g.drawImage(game.guard,  game.gameLogic.guard.getY() * 49, game.gameLogic.guard.getX() * 49 - 49, 64, 90, null);
-				}
-				else {
-					for(int i = 0; i < game.gameLogic.ogres.size(); i++){
-						g.drawImage(Assets.club, game.gameLogic.ogres.get(i).getClubY()* 50, game.gameLogic.ogres.get(i).getClubX()* 50, 50, 50, null);
-						g.drawImage(game.ogresSprite[i], game.gameLogic.ogres.get(i).getY()* 49, game.gameLogic.ogres.get(i).getX()* 49 - 40, 54, 80, null);
-					}
-				}
-
-			}
-
-	
-		};
-		panel_1.setBounds(136, 20, 415, 318);
-		frame_1.getContentPane().add(panel_1);
+		frame.getContentPane().add(btnFloor, BorderLayout.WEST);
 
 
 		btnDoor = new JButton("Door");
@@ -122,7 +111,7 @@ public class MapCreator extends JFrame {
 			}
 		});
 		btnDoor.setBounds(10, 270, 100, 30);
-		getContentPane().add(btnDoor);
+		add(btnDoor);
 
 		btnSave = new JButton("Save Changes");
 		btnSave.setBounds(195, 360, 181, 23);
@@ -131,6 +120,35 @@ public class MapCreator extends JFrame {
 				hasSaved = true;
 			}
 		});
-		getContentPane().add(btnSave);
-	}	
+		add(btnSave);
+		game.levelPositionArray = 1;
+	
+		this.repaint();
+	
+	}
+
+	
+
+	@Override
+	public void paintComponent(Graphics g) {
+		game.gameLogic.currentMap = map;
+		
+		super.paintComponent(g); 
+		game.drawStructures(g);
+		g.drawImage(game.hero, game.gameLogic.hero.getY() * 49 , game.gameLogic.hero.getX() * 49 - 49, 64, 90, null);
+
+		if(game.gameLogic.currentMap.getName() == "GuardMap"){
+			g.drawImage(game.guard,  game.gameLogic.guard.getY() * 49, game.gameLogic.guard.getX() * 49 - 49, 64, 90, null);
+		}
+		else {
+			for(int i = 0; i < game.gameLogic.ogres.size(); i++){
+				g.drawImage(Assets.club, game.gameLogic.ogres.get(i).getClubY()* 50, game.gameLogic.ogres.get(i).getClubX()* 50, 50, 50, null);
+				g.drawImage(game.ogresSprite[i], game.gameLogic.ogres.get(i).getY()* 49, game.gameLogic.ogres.get(i).getX()* 49 - 40, 54, 80, null);
+			}
+		}
+		
+
+	}
+	
+
 }

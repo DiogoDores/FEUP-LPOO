@@ -75,10 +75,9 @@ public class EditorMap extends GameMap {
 	
 	@Override
 	public String drawMap(GameLogic game) {
-		return "";
-		/*char[][] mapToDraw = level;
+		char[][] mapToDraw = level;
 		String map = "";
-
+		/*
 		for (int i = 0; i < mapToDraw.length; i++) {
 			for(int j = 0; j < mapToDraw[i].length; j++){
 
@@ -115,8 +114,9 @@ public class EditorMap extends GameMap {
 			System.out.print("\n");
 			map += "\n";
 		}
+		*/
 		return map;
-	*/
+	
 	}
 
 	@Override
