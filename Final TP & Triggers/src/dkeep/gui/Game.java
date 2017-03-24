@@ -13,15 +13,19 @@ import dkeep.logic.GameLogic;
 
 public class Game extends JPanel implements KeyListener {
 	GameMap[] levels;
-	int levelPositionArray;
-	private JPanel panel;
-	private JFrame f;
+	public int levelPositionArray;
+	public JPanel panel;
+	public JFrame f;
 	public BufferedImage guard = Assets.guardFront;
 	public BufferedImage hero = Assets.heroFront;
 	public BufferedImage[] ogresSprite = new BufferedImage[4];
 
 	private int mapWidth, mapHeight;
 
+
+	public char[][] getMap() {
+		return levels[levelPositionArray].getMap();
+	}
 	public GameLogic gameLogic = new GameLogic();
 	public int width, height;
 	public String title;
@@ -38,10 +42,11 @@ public class Game extends JPanel implements KeyListener {
 		levels = new GameMap[3];
 		levels[1] = new GuardMap();
 		levels[2] = new OgreMap();
-		//levels[0] = new EditorMap(2,2);
+		levels[0] = new EditorMap(2,2);
 
 
 	}
+
 
 	public void init(){
 
@@ -49,34 +54,43 @@ public class Game extends JPanel implements KeyListener {
 			guardType = "Rookie";
 			numMechas = 1;
 		}
-
-		gameLogic.createCharacters(1, guardType, numMechas);
+		gameLogic.currentMap = levels[levelPositionArray];
+		if (title != "Editor")
+			gameLogic.createCharacters(1, guardType, numMechas);
 		mapWidth = gameLogic.currentMap.getMap().length * 50 + 12;
 		mapHeight = gameLogic.currentMap.getMap()[0].length * 50 + 37;
 		Assets.init();
-
+		
 		display();
 		repaint();
+		
+
 	}
+	
+	
 
 	public void display() { 
-
-		f = new JFrame("Prison Escape");     
-		f.setContentPane(this);
-		f.setSize(mapWidth, mapHeight);
-		f.setVisible(true);
-		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		f.setResizable(false);
-		f.setLocationRelativeTo(null);
-
+		
+		if (title != "Editor") {
+			f = new JFrame("Prison Escape");     
+			f.setContentPane(this);
+			f.setSize(mapWidth, mapHeight);
+			f.setVisible(true);
+			f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			f.setResizable(false);
+			f.setLocationRelativeTo(null);
+		}
 		panel = new JPanel();
 		panel.setBounds(0, 0, mapWidth, mapHeight);
-		f.getContentPane().add(panel);
+		if (title != "Editor")
+			f.getContentPane().add(panel);
 		panel.addKeyListener(this);
 		panel.setFocusable(true);
 		panel.requestFocusInWindow();
 	}
 
+	
+	
 	private void moveEntities(char key){
 
 		char ogreMove;
@@ -158,7 +172,6 @@ public class Game extends JPanel implements KeyListener {
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g); // Clears board
-
 		drawStructures(g);
 
 		g.drawImage(hero, gameLogic.hero.getY() * 49 , gameLogic.hero.getX() * 49 - 49, 64, 90, null);
@@ -179,6 +192,9 @@ public class Game extends JPanel implements KeyListener {
 
 
 	public void drawStructures(Graphics g) {
+		System.out.print(gameLogic.currentMap.getName());
+	//	gameLogic.changeCurrentMap(levels[levelPositionArray]);
+		System.out.print(gameLogic.currentMap.getName());
 		char[][] mapToDraw = gameLogic.currentMap.getMap();
 
 		for (int x = 0; x < mapToDraw.length; x++) {

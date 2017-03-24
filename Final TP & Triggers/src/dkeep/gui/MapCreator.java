@@ -1,5 +1,6 @@
 package dkeep.gui;
 
+import dkeep.logic.*;
 import javax.swing.*;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
@@ -16,15 +17,16 @@ public class MapCreator extends JPanel {
 	private JButton btnOgre, btnKey, btnHero, btnWall, btnFloor, btnSave;
 	private JButton btnDoor;
 	private EditorMap map;
+	private GuardMap testMap;
 	private Game game;
-	private JPanel panel;
-
+	
 	public MapCreator(String string, int i, int j) {
 		map = new EditorMap(2,2);
 		activeChar = 'H';
 		title = string;
 		width = i; 
 		height = j;
+		
 		frame = new JFrame(title);     
 		frame.setContentPane(this);
 		frame.setSize(582, 423);
@@ -32,14 +34,31 @@ public class MapCreator extends JPanel {
 		frame.setResizable(false);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.setLocationRelativeTo(null);
-		hasSaved = false;
-		setLayout(null);
+		
+		
 		game = new Game("Editor", 200, 200);
+		game.levelPositionArray = 0;
+		
+
+		game.init();
+		game.display();
+
+		game.panel.setBounds(181, 33, 344, 259);
+		game.panel.setVisible(true);
+
+		frame.getContentPane().add(game.panel);
+		frame.add(game.panel);
+		
+		hasSaved = false;
+		//setLayout(null);
+		
 		init();
-		game.gameLogic.changeCurrentMap(map);
+		game.gameLogic.currentMap.drawMap(game.gameLogic);
+
 	}
 
 	public void init() {
+
 		btnOgre = new JButton("Ogre");
 		btnOgre.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -67,7 +86,6 @@ public class MapCreator extends JPanel {
 			}
 		});
 		frame.getContentPane().add(btnHero, BorderLayout.WEST);
-
 		btnWall = new JButton("Wall");
 		btnWall.setBounds(10, 170, 100, 30);
 		btnWall.addActionListener(new ActionListener() {
@@ -104,23 +122,18 @@ public class MapCreator extends JPanel {
 			}
 		});
 		add(btnSave);
-		
-		panel = new JPanel();
-		panel.setBackground(Color.WHITE);
-		panel.setBounds(181, 33, 344, 259);
-		
-		frame.add(panel);
-		repaint();
-		
-		
+		game.levelPositionArray = 1;
+	
+		this.repaint();
+	
 	}
 
 	
 
 	@Override
 	public void paintComponent(Graphics g) {
-		System.out.print(game.gameLogic.currentMap.getMap()[0][0]);
-
+		game.gameLogic.currentMap = map;
+		
 		super.paintComponent(g); 
 		game.drawStructures(g);
 		g.drawImage(game.hero, game.gameLogic.hero.getY() * 49 , game.gameLogic.hero.getX() * 49 - 49, 64, 90, null);
@@ -134,6 +147,7 @@ public class MapCreator extends JPanel {
 				g.drawImage(game.ogresSprite[i], game.gameLogic.ogres.get(i).getY()* 49, game.gameLogic.ogres.get(i).getX()* 49 - 40, 54, 80, null);
 			}
 		}
+		
 
 	}
 	
