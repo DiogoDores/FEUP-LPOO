@@ -52,7 +52,7 @@ public class MainMenu extends JPanel{
 	private void initialize() {
 
 		/**
-		 * Initialization of all of the frame's components
+		 * Initialization of all of the frame's components 
 		 */
 
 		frame = new JFrame("Main Menu");     
