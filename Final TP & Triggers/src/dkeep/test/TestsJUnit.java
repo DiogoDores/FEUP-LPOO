@@ -25,7 +25,9 @@ public class TestsJUnit {
 		game.createHero(1, 2);
 		testMap.drawMap(game);
 		assertEquals(1, game.hero.getX());
+		assertFalse(1 < game.hero.getX() && 1 > game.hero.getX());
 		assertEquals(2, game.hero.getY());
+		assertFalse(2 < game.hero.getY() && 2 > game.hero.getY());
 		game.hero.move(game, testMap, 's');
 		assertEquals(2, game.hero.getX());
 		assertFalse(3 == game.hero.getX());
@@ -44,6 +46,7 @@ public class TestsJUnit {
 		game.changeCurrentMap(testMap);
 		game.createHero(1, 2);
 		assertEquals(false , game.checkWin());
+		assertTrue(!game.checkWin());
 		game.createCharacters(2, "Rookie", 0);
 
 		game.createCharacters(1, "Rookie", 0);
@@ -88,6 +91,8 @@ public class TestsJUnit {
 		game.createHero(1, 2);
 		game.createGuard(3,2);		
 		assertEquals('G', game.guard.getSymbol());
+		assertFalse('G' != game.guard.getSymbol());
+
 		testMap.drawMap(game);
 		assertEquals(1, game.hero.getX());
 		assertEquals(2, game.hero.getY());
@@ -106,6 +111,7 @@ public class TestsJUnit {
 		game.changeCurrentMap(testMap);
 		game.createHero(1, 2);
 		assertEquals('H', game.hero.getSymbol());
+		assertFalse('H' != game.hero.getSymbol());
 		testMap.drawMap(game);
 		assertEquals(1, game.hero.getX());
 		assertEquals(2, game.hero.getY());
@@ -154,7 +160,7 @@ public class TestsJUnit {
 		TestMap testMap = new TestMap();
 		game.changeCurrentMap(testMap);
 		game.createHero(1, 2);
-		game.createOgre(3,2);	
+		game.createOgre(3,2, 9, 9);	
 		// TODO Não gera um ogre, para testar descomenta o @test	
 
 		testMap.drawMap(game);
@@ -241,7 +247,7 @@ public class TestsJUnit {
 		GameLogic game = new GameLogic();
 		TestMap testMap = new TestMap();
 		game.changeCurrentMap(testMap);
-		game.createOgre(2, 2);
+		game.createOgre(2, 2,9,9);
 
 		testMap.drawMap(game);
 		game.ogres.get(0).moveOgre(game, 'n');
@@ -362,7 +368,7 @@ public class TestsJUnit {
 		GameLogic game = new GameLogic();
 		OgreMap testMap = new OgreMap();
 		game.changeCurrentMap(testMap);
-		game.createOgre(7, 7);	
+		game.createOgre(7, 7, 9, 9);	
 		game.currentMap.drawMap(game);
 	}
 
@@ -373,7 +379,7 @@ public class TestsJUnit {
 		GameLogic game = new GameLogic();
 		OgreMap testMap = new OgreMap();
 		game.changeCurrentMap(testMap);
-		game.createOgre(2, 2);
+		game.createOgre(2, 2, 9, 9);
 
 		testMap.drawMap(game);
 		game.ogres.get(0).moveOgre(game, 'n');
@@ -437,12 +443,12 @@ public class TestsJUnit {
 		GameLogic game = new GameLogic();
 		OgreMap testMap = new OgreMap();
 		game.changeCurrentMap(testMap);
-		game.createOgre(1,1);
+		game.createOgre(1,1,9,9);
 
-		game.createOgre(7,2);
-		game.createOgre(6,1);
-		game.createOgre(2,4);
-		game.createOgre(3,4);
+		game.createOgre(7,2,9,9);
+		game.createOgre(6,1,9,9);
+		game.createOgre(2,4,9,9);
+		game.createOgre(3,4,9,9);
 		game.currentMap.drawMap(game);
 		game.currentMap.possibleMove(game.ogres.get(0).getX()-1, game.ogres.get(0).getY(), game);
 		game.createHero(1,2);

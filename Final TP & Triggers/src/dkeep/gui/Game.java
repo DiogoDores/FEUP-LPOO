@@ -17,7 +17,7 @@ import dkeep.logic.GameLogic;
 
 public class Game extends JPanel implements KeyListener {
 	public GameMap[] levels;
-	public int levelPositionArray;
+	public int levelPositionArray; 
 	public JPanel panel;
 	public JFrame f;
 	public BufferedImage guard = Assets.guardFront;
@@ -153,7 +153,6 @@ public class Game extends JPanel implements KeyListener {
 		if(key == 'w'){
 			hero = Assets.heroBack;
 		} else if (key == 'a'){
-			hero = Assets.heroRight;
 		} else if (key == 's'){
 			hero = Assets.heroFront;
 		} else if (key == 'd'){

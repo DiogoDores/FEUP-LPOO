@@ -17,7 +17,7 @@ public class Ogre {
 	 * Can't be on player's position, but this is checked on another function.
 	 */
 
-	public void createClub() {
+	public void createClub(int width, int height) {
 		do {
 			char key = createRandomMove();
 
@@ -38,7 +38,7 @@ public class Ogre {
 				this.clubY = this.y + 1;
 				this.clubX = this.x;
 			}
-		} while (this.clubX == 0 || this.clubX == 8 || this.clubY == 0 || this.clubY == 8);
+		} while (this.clubX == 0 || this.clubX == width -1  || this.clubY == 0 || this.clubY == height -1 );
 	}
 
 	/**
@@ -50,12 +50,12 @@ public class Ogre {
 		this.symbol = '8';
 	}
 
-	public Ogre(int x, int y){
+	public Ogre(int x, int y, int width, int height){
 		isStunned = 0;
 		this.x = x;
 		this.y = y;
 		this.symbol = 'O';
-		createClub();
+		createClub(width, height);
 		this.clubSymbol = '*';
 	}
 

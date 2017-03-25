@@ -1,7 +1,7 @@
 package dkeep.gui;
 
 import dkeep.logic.*;
-
+ 
 public class EditorMap extends GameMap {
 
 	int levelWidth, levelHeight;

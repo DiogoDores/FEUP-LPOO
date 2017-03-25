@@ -169,7 +169,7 @@ public class GameLogic {
 				condition = checkSpawnCondition(x, y);
 			} while(condition);
 
-			ogres.add(new Ogre(x,y));
+			ogres.add(new Ogre(x,y, 9, 9));
 		}
 	}
 
@@ -185,8 +185,8 @@ public class GameLogic {
 		return condition;
 	}
 
-	public void createOgre(int x, int y) {
-		Ogre e = new Ogre(x,y);
+	public void createOgre(int x, int y, int width, int height) {
+		Ogre e = new Ogre(x,y, width, height);
 		ogres.add(e);
 	}
 

@@ -12,7 +12,7 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.awt.event.ActionEvent;
-
+ 
 public class MainMenu extends JPanel{
 
 	private JFrame frame;

@@ -22,6 +22,8 @@ public class MapCreator extends JPanel implements MouseListener{
 	private EditorMap map;
 	private GuardMap testMap;
 	private Game game;
+	private boolean heroWasCreated;
+	// O SLIDER TEM DE VIR PARA AQUI
 
 	public int x, y;
 
@@ -33,8 +35,9 @@ public class MapCreator extends JPanel implements MouseListener{
 
 	public MapCreator(String string) {
 
+		// VALORES DO SLIDER AQUI
 		map = new EditorMap(10,10);
-
+		heroWasCreated = false;
 		activeChar = 0;
 		title = string;
 		mult = 500/10;
@@ -61,8 +64,11 @@ public class MapCreator extends JPanel implements MouseListener{
 					for(int j = 0; j < map.getMap().length; j++){
 						if(map.getMap()[j][i] == 'H'){
 							g.drawImage(Assets.heroFront, x * intMult - 10 , y * intMult - intMult, intMult + 14, intMult + 40, null);
-						} else if(map.getMap()[j][i] == 'O'){
-							g.drawImage(Assets.ogreFront, x * intMult - 10, y * intMult - intMult, intMult + 14, intMult + 40, null);
+						} for (int k = 0; k < game.gameLogic.ogres.size(); k++) {
+							if(game.gameLogic.ogres.get(k).getX() == i && game.gameLogic.ogres.get(k).getClubY() == j){
+								g.drawImage(Assets.ogreFront, i * intMult - 10, j * intMult - intMult, intMult + 14, intMult + 40, null);
+							}
+
 						}
 					}
 				}
@@ -243,12 +249,24 @@ public class MapCreator extends JPanel implements MouseListener{
 		x = (int)tempX;
 		y = (int)tempY;
 
-		map.place(x, y, activeChar);
-		
-		/*if(activeChar == 'H'){
-			game.gameLogic.hero.setX(x);
-			game.gameLogic.hero.setY(y);
-		} */
+
+		if(activeChar == 'H'){
+			if (heroWasCreated ) {
+				game.gameLogic.hero.setX(x);
+				game.gameLogic.hero.setY(y);
+			}
+			else {
+				map.place(x, y, activeChar);
+				heroWasCreated = true;
+			}
+		} 
+		else if (activeChar == 'O') {
+			//VALORES DO SLIDER AQUI, MUY IMPORTANTE PARA O MOVIMENTO
+			game.gameLogic.createOgre(x, y, 10, 10);
+		}
+		else
+			map.place(x, y, activeChar);
+
 
 		panel.repaint(); 
 	}
