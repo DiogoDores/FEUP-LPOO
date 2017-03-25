@@ -13,7 +13,7 @@ public class MapCreator extends JPanel {
 	private boolean hasSaved;
 	private JFrame frame = new JFrame();
 	private String title;
-	private int width, height;
+	public int width, height;
 	private JButton btnOgre, btnKey, btnHero, btnWall, btnFloor, btnSave;
 	private JButton btnDoor;
 	private EditorMap map;
@@ -21,7 +21,9 @@ public class MapCreator extends JPanel {
 	private Game game;
 	
 	public MapCreator(String string, int i, int j) {
-		map = new EditorMap(2,2);
+		map = new EditorMap(5,5);
+		width = 5; height = 5;
+		
 		activeChar = 'H';
 		title = string;
 		width = i; 
@@ -38,7 +40,7 @@ public class MapCreator extends JPanel {
 		
 		game = new Game("Editor", 200, 200);
 		game.levelPositionArray = 0;
-		
+		game.levels[0] = map;
 		game.init();
 		game.display();
 
@@ -50,7 +52,7 @@ public class MapCreator extends JPanel {
 		
 		hasSaved = false;
 		//setLayout(null);
-		
+		map.drawMap(game.gameLogic);
 		init();
 		game.gameLogic.currentMap.drawMap(game.gameLogic);
 

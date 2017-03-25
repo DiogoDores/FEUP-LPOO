@@ -16,7 +16,7 @@ import javax.swing.JPanel;
 import dkeep.logic.GameLogic;
 
 public class Game extends JPanel implements KeyListener {
-	GameMap[] levels;
+	public GameMap[] levels;
 	public int levelPositionArray;
 	public JPanel panel;
 	public JFrame f;
@@ -42,7 +42,6 @@ public class Game extends JPanel implements KeyListener {
 		levels = new GameMap[3];
 		levels[1] = new GuardMap();
 		levels[2] = new OgreMap();
-		levels[0] = new EditorMap(2,2);
 		title = title2;
 		
 	}

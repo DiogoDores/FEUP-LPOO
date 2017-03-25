@@ -11,6 +11,7 @@ public class EditorMap extends GameMap {
 
 	public EditorMap(int width, int height) {
 		level = new char[width][height];
+		levelWidth = width; levelHeight = height;
 		visited = new boolean[width][height];
 		for (int i = 0 ; i < height ; i++) {
 			for (int j = 0; j < width ; j++) {
@@ -77,7 +78,7 @@ public class EditorMap extends GameMap {
 	public String drawMap(GameLogic game) {
 		char[][] mapToDraw = level;
 		String map = "";
-		/*
+		
 		for (int i = 0; i < mapToDraw.length; i++) {
 			for(int j = 0; j < mapToDraw[i].length; j++){
 
@@ -114,7 +115,7 @@ public class EditorMap extends GameMap {
 			System.out.print("\n");
 			map += "\n";
 		}
-		*/
+		
 		return map;
 	
 	}
