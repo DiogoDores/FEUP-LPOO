@@ -72,18 +72,8 @@ public class MapCreator extends JPanel {
 		game = new Game("Editor", 200, 200);
 		game.levels[0] = map;
 		game.levelPositionArray = 0;
-		
-		//game.init();
-		//game.display();
 
-		//game.panel.setBounds(181, 33, 344, 259);
-		//game.panel.setVisible(true);
-
-		//frame.getContentPane().add(game.panel);
-		//frame.add(game.panel);
-		
 		hasSaved = false;
-		//setLayout(null);
 	}
 
 	public void init() {
