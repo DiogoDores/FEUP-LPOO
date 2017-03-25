@@ -36,7 +36,7 @@ public class EditorMap extends GameMap {
 
 	public void place(int x , int y, char symbol) {
 		if (x >= 0 && x <= levelWidth -1 && y >= 0 && y <= levelHeight-1)
-			level[x][y] = symbol;
+			level[y][x] = symbol;
 	}
 
 

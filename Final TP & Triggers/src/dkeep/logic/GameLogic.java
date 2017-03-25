@@ -166,7 +166,7 @@ public class GameLogic {
 			do{
 				x = random.nextInt(7) + 1;
 				y = random.nextInt(7) + 1;
-				condition = checkSpawnCondition(x, y, this);
+				condition = checkSpawnCondition(x, y);
 			} while(condition);
 
 			ogres.add(new Ogre(x,y));
@@ -176,12 +176,12 @@ public class GameLogic {
 	/**
 	 * Checks whether spawn isn't an insta-lose for the player.
 	 */
-
-	public boolean checkSpawnCondition(int x, int y, GameLogic game) {
+	
+	public boolean checkSpawnCondition(int x, int y) {
 		boolean condition;
-		condition = (x == game.hero.getX() && y == game.hero.getY());
-		condition = condition || (x == game.hero.getX() - 1 && y == game.hero.getY()) ;
-		condition = condition || (x == game.hero.getX() && y == game.hero.getY() + 1); 
+		condition = (x == hero.getX() && y == hero.getY());
+		condition = condition || (x == hero.getX() - 1 && y == hero.getY()) ;
+		condition = condition || (x == hero.getX() && y == hero.getY() + 1); 
 		return condition;
 	}
 

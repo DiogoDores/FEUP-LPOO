@@ -23,6 +23,10 @@ public class MapCreator extends JPanel implements MouseListener{
 	private GuardMap testMap;
 	private Game game;
 
+	public int x, y;
+
+	private int mult;
+
 	/**
 	 * Initializes a new Window with MapCreator components.
 	 */
@@ -31,8 +35,10 @@ public class MapCreator extends JPanel implements MouseListener{
 
 		map = new EditorMap(10,10);
 
-		activeChar = 'H';
+		activeChar = 0;
 		title = string;
+		mult = 500/10;
+		int intMult = (int)mult;
 
 		frame = new JFrame(title);     
 		frame.setContentPane(this);
@@ -49,28 +55,28 @@ public class MapCreator extends JPanel implements MouseListener{
 				game.gameLogic.currentMap = map;
 
 				super.paintComponent(g); 
-				game.drawStructures(g);
-				//g.drawImage(game.hero, 400, 400, 64, 90, null);
+				game.drawStructures(g, mult);
 
-				/*if(game.gameLogic.currentMap.getName() == "GuardMap"){
-					g.drawImage(game.guard,  game.gameLogic.guard.getY() * 49, game.gameLogic.guard.getX() * 49 - 49, 64, 90, null);
-				}
-				else {
-					for(int i = 0; i < game.gameLogic.ogres.size(); i++){
-						g.drawImage(Assets.club, game.gameLogic.ogres.get(i).getClubY()* 50, game.gameLogic.ogres.get(i).getClubX()* 50, 50, 50, null);
-						g.drawImage(game.ogresSprite[i], game.gameLogic.ogres.get(i).getY()* 49, game.gameLogic.ogres.get(i).getX()* 49 - 40, 54, 80, null);
+				for(int i = 0; i < map.getMap().length; i++){
+					for(int j = 0; j < map.getMap().length; j++){
+						if(map.getMap()[j][i] == 'H'){
+							g.drawImage(Assets.heroFront, x * intMult - 10 , y * intMult - intMult, intMult + 14, intMult + 40, null);
+						} else if(map.getMap()[j][i] == 'O'){
+							g.drawImage(Assets.ogreFront, x * intMult - 10, y * intMult - intMult, intMult + 14, intMult + 40, null);
+						}
 					}
-				}*/
+				}
 			}
 		};
-		panel.setBounds(251, 30, 583, 505);
+		panel.addMouseListener(this);
+		panel.setBounds(250, 30, 500, 500);
 		frame.getContentPane().add(panel);
 		panel.setFocusable(true);
 		panel.requestFocusInWindow();
 
 		Assets.init();
 
-		game = new Game("Editor", 200, 200);
+		game = new Game("Editor");
 		game.levels[0] = map;
 		game.levelPositionArray = 0;
 
@@ -207,14 +213,12 @@ public class MapCreator extends JPanel implements MouseListener{
 		btnCancel.setFont(new Font("Lucida Sans Unicode", Font.PLAIN, 12));
 		btnCancel.setBounds(10, 540, 181, 23);
 		add(btnCancel);
-		
+
 		game.levelPositionArray = 1;
 	}
 
 	@Override
-	public void mouseClicked(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-
+	public void mouseClicked(MouseEvent e) {
 	}
 
 	@Override
@@ -230,9 +234,23 @@ public class MapCreator extends JPanel implements MouseListener{
 	}
 
 	@Override
-	public void mousePressed(MouseEvent arg0) {
-		// TODO Auto-generated method stub
+	public void mousePressed(MouseEvent e) {
+		double tempX, tempY;
 
+		tempX = Math.floor((e.getX())/(500/10));
+		tempY = Math.floor((e.getY())/(500/10));
+
+		x = (int)tempX;
+		y = (int)tempY;
+
+		map.place(x, y, activeChar);
+		
+		/*if(activeChar == 'H'){
+			game.gameLogic.hero.setX(x);
+			game.gameLogic.hero.setY(y);
+		} */
+
+		panel.repaint(); 
 	}
 
 	@Override
