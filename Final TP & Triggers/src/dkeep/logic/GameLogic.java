@@ -15,7 +15,7 @@ public class GameLogic {
 	public GameMap Map2 = new OgreMap();
 	public GameMap currentMap;
 	public int startGame(char key){
-
+		
 		boolean lost = false;
 
 		hero.move(currentMap, key);
@@ -38,20 +38,19 @@ public class GameLogic {
 		}
 		
 		boolean hx = checkWin(this);
-		
-		System.out.println(hero.getX() + "   " + hero.getY());
-		
-		if(hx){
+		if(hx && currentMap.getName() == "GuardMap"){
 			System.out.println("\n\nPhew! You escaped the guard!\nBut what's that?\nOh no! An ogre!\nGrab the key and escape!\nBe careful with his club!\n\n");
 			setLevelTwo(0);
 		}
+		else if (hx && currentMap.getName() == "OgreMap")
+			return -1;
 		
 		return 0;
 	}
 
     public boolean checkWin(GameLogic game) {
     	if (currentMap.getName() == "TestMap" || currentMap.getName() == "OgreMap")
-    		return (hero.getY() == 1 && hero.getX() == 0);
+    		return (hero.getY() == 0 && hero.getX() == 1);
     	else if (currentMap.getName() == "GuardMap" )
     		return (hero.getY() == 0 && (hero.getX() == 5 || hero.getX() == 6));
     	else
@@ -145,6 +144,7 @@ public class GameLogic {
 			ogres.add(new Ogre(x,y));
 		}
 	}
+	
 	
 	public boolean checkSpawnCondition(int x, int y, GameLogic game) {
 		boolean condition;
