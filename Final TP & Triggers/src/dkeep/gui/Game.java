@@ -43,16 +43,16 @@ public class Game extends JPanel implements KeyListener {
 		levels[1] = new GuardMap();
 		levels[2] = new OgreMap();
 		title = title2;
-		
+
 	}
 
 
 	public void init(){
 
-		if(guardType == null || numMechas == 0){
+		/*if(guardType == null || numMechas == 0){
 			guardType = "Rookie";
 			numMechas = 1;
-		}
+		}*/
 		gameLogic.currentMap = levels[levelPositionArray];
 		if (title != "Editor")
 			gameLogic.createCharacters(1, guardType, numMechas);
@@ -62,48 +62,26 @@ public class Game extends JPanel implements KeyListener {
 
 		display();
 		repaint();
-
-
 	}
 
-
-
 	public void display() { 
+
 		if (title != "Editor") {
 			f = new JFrame("Prison Escape");     
 			f.setContentPane(this);
-			f.setSize(mapWidth, mapHeight);
+			f.setSize(mapWidth + 300, mapHeight);
 			f.setVisible(true);
 			f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			f.setResizable(false);
-			f.setLocationRelativeTo(null);
-		}
-		panel = new JPanel();
-		panel.setBounds(0, 0, mapWidth, mapHeight);
-		if (title != "Editor")
-			f.getContentPane().add(panel);
-		panel.addKeyListener(this);
-		panel.setFocusable(true);
-		panel.requestFocusInWindow();
-		if (title != "Editor") {
-			System.out.println(title);
-			f = new JFrame(this.title);     
-
-			f.setContentPane(this);
-			f.setSize(mapWidth, mapHeight);
-			f.setVisible(true);
-			f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-			f.setResizable(false);
-			f.setLocationRelativeTo(null);
 			f.addKeyListener(this);
-			f.setFocusable(true);
+			f.setLocationRelativeTo(null);
 			f.requestFocusInWindow();
+
 
 			JButton btnUp = new JButton();
 			btnUp.setIcon(new ImageIcon (Assets.upArrow));
 			btnUp.setBounds(0, 0, 25, 25);
 			f.add(btnUp);
-
 
 			JButton btnDown = new JButton();
 			btnDown.setIcon(new ImageIcon (Assets.downArrow));
@@ -123,31 +101,30 @@ public class Game extends JPanel implements KeyListener {
 			btnUp.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					moveEntities('w');
-					f.setFocusable(true);
+					f.requestFocusInWindow();
 				}
 			});
 
 			btnDown.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					moveEntities('s');
+					f.requestFocusInWindow();
 				}
 			});
 			btnLeft.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					moveEntities('a');
+					f.requestFocusInWindow();
 				}
 			});
 			btnRight.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					moveEntities('d');
+					f.requestFocusInWindow();
 				}
 			});
 		}
-
-
 	}
-
-
 
 	private void moveEntities(char key){
 
@@ -220,6 +197,8 @@ public class Game extends JPanel implements KeyListener {
 			else {
 				gameLogic.changeCurrentMap(levels[levelPositionArray]);
 				gameLogic.currentMap.resetPositions(gameLogic);
+				mapWidth = gameLogic.currentMap.getMap().length * 50 + 12;
+				mapHeight = gameLogic.currentMap.getMap()[0].length * 50 + 37;
 			}
 		}
 		this.repaint();
@@ -245,9 +224,6 @@ public class Game extends JPanel implements KeyListener {
 		}
 
 	}
-
-
-
 
 	public void drawStructures(Graphics g) {
 		char[][] mapToDraw = gameLogic.currentMap.getMap();
