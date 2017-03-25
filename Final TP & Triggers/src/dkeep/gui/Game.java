@@ -22,11 +22,12 @@ public class Game extends JPanel implements KeyListener {
 	public JFrame f;
 	public BufferedImage guard = Assets.guardFront;
 	public BufferedImage hero = Assets.heroFront;
-	public BufferedImage[] ogresSprite = new BufferedImage[4];
+	public BufferedImage[] ogresSprite = {Assets.ogreFront, Assets.ogreFront, Assets.ogreFront, Assets.ogreFront, Assets.ogreFront};
 
-	private int mapWidth, mapHeight;
+	private double mapWidth, mapHeight, panelWidth, panelHeight;
 	public GameLogic gameLogic = new GameLogic();
-	public int width, height;
+	public double width, height;
+	public double mult;
 	public String title;
 	private static String guardType;
 	private static int numMechas;
@@ -35,25 +36,28 @@ public class Game extends JPanel implements KeyListener {
 	 * Constructor for a new Game Instance.
 	 */
 	
-	public Game(String title2, int width, int height){
+	public Game(String title2){
 
 		levelPositionArray = 1;
 		levels = new GameMap[3];
 		levels[1] = new GuardMap();
 		levels[2] = new OgreMap();
 		title = title2;
+		
+		this.width = 500;
+		this.height = 500;
+		
+		gameLogic.currentMap = levels[levelPositionArray];
+		
+		this.mapWidth = gameLogic.currentMap.getMap().length;
+		this.mapHeight = gameLogic.currentMap.getMap().length;
+		
+		this.mult = Math.floor(width / mapWidth);
+		
+		Assets.init();
 
 	}
 
-	/**
-	 * Returns the current active map.
-	 */
-
-	public char[][] getMap() {
-		return levels[levelPositionArray].getMap();
-	}
-	
-	
 	/**
 	 * Initializes the map that is to be displayed, along with all its assets.
 	 */
@@ -65,12 +69,10 @@ public class Game extends JPanel implements KeyListener {
 			numMechas = 1;
 		}
 
-		gameLogic.currentMap = levels[levelPositionArray];
 		if (title != "Editor")
 			gameLogic.createCharacters(1, guardType, numMechas);
-		mapWidth = gameLogic.currentMap.getMap().length * 50 + 12;
-		mapHeight = gameLogic.currentMap.getMap()[0].length * 50 + 37;
-		Assets.init();
+		panelWidth =  mapWidth * mult + 12;
+		panelHeight = mapHeight * mult + 37;
 
 		display();
 		repaint();
@@ -83,14 +85,13 @@ public class Game extends JPanel implements KeyListener {
 	public void display() { 
 		f = new JFrame("Prison Escape");     
 		f.setContentPane(this);
-		f.setSize(mapWidth + 300, mapHeight);
+		f.setSize((int)panelWidth + 300, (int)panelHeight);
 		f.setVisible(true);
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		f.setResizable(false);
 		f.addKeyListener(this);
 		f.setLocationRelativeTo(null);
 		f.requestFocusInWindow();
-
 
 		JButton btnUp = new JButton();
 		btnUp.setIcon(new ImageIcon (Assets.upArrow));
@@ -99,7 +100,7 @@ public class Game extends JPanel implements KeyListener {
 
 		JButton btnDown = new JButton();
 		btnDown.setIcon(new ImageIcon (Assets.downArrow));
-		btnDown.setBounds(40, mapHeight - 50, 25, 25);
+		btnDown.setBounds(40, (int)mapHeight - 50, 25, 25);
 		f.add(btnDown);
 
 		JButton btnLeft = new JButton();
@@ -177,9 +178,8 @@ public class Game extends JPanel implements KeyListener {
 
 				ogreMove = gameLogic.ogre.createRandomMove();
 
-				if(ogreMove == 'w' && ogresSprite[i] == null){
-					// ADICIONAR SPRITE AQUI TODO
-					ogresSprite[i] = Assets.ogreFront;
+				if(ogreMove == 'w'){
+					ogresSprite[i] = Assets.ogreBack;
 				} else if (ogreMove == 'a'){
 					ogresSprite[i] = Assets.ogreRight;
 				} else if (ogreMove == 's'){
@@ -211,8 +211,10 @@ public class Game extends JPanel implements KeyListener {
 		}
 
 		if (gameLogic.currentMap.checkWin(gameLogic)){
+			Assets.init();
 			levelPositionArray++;
 			gameLogic.createOgres(numMechas);
+			
 			if (levelPositionArray == 3) {
 				DialogBox box = new DialogBox("You Won!", 400, 400, "GameWon");
 				box.setLocationRelativeTo(null);
@@ -226,6 +228,7 @@ public class Game extends JPanel implements KeyListener {
 				mapHeight = gameLogic.currentMap.getMap()[0].length * 50 + 37;
 			}
 		}
+		
 		this.repaint();
 
 	}
@@ -233,7 +236,7 @@ public class Game extends JPanel implements KeyListener {
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g); // Clears board
-		drawStructures(g);
+		drawStructures(g, mult);
 
 		g.drawImage(hero, gameLogic.hero.getY() * 49 , gameLogic.hero.getX() * 49 - 49, 64, 90, null);
 
@@ -253,7 +256,10 @@ public class Game extends JPanel implements KeyListener {
 	 * Draws all the components that are in the map, such as walls, floors, levers and keypads.
 	 */
 	
-	public void drawStructures(Graphics g) {
+	public void drawStructures(Graphics g, double i) {
+		
+		int mult = (int)i;
+		
 		char[][] mapToDraw = gameLogic.currentMap.getMap();
 
 		for (int x = 0; x < mapToDraw.length; x++) {
@@ -261,36 +267,38 @@ public class Game extends JPanel implements KeyListener {
 				if(mapToDraw[y][x] == 'X'){
 					if(x == 0){
 						if(y == 0)
-							g.drawImage(Assets.topLeftWall, x * 50, y * 50, 50, 50, null);
+							g.drawImage(Assets.topLeftWall, x * mult, y * mult, mult, mult, null);
 						else if(y == mapToDraw.length - 1)
-							g.drawImage(Assets.bottomLeftWall, x * 50, y * 50, 50, 50, null);
+							g.drawImage(Assets.bottomLeftWall, x * mult, y * mult, mult, mult, null);
 						else 
-							g.drawImage(Assets.leftWall, x * 50, y * 50, 50, 50, null);
+							g.drawImage(Assets.leftWall, x * mult, y * mult, mult, mult, null);
 					} else if(x == mapToDraw[y].length - 1){
 						if(y == 0)
-							g.drawImage(Assets.topRightWall, x * 50, y * 50, 50, 50, null);
+							g.drawImage(Assets.topRightWall, x * mult, y * mult, mult, mult, null);
 						else if(y == mapToDraw.length -1)
-							g.drawImage(Assets.bottomRightWall, x * 50, y * 50, 50, 50, null);
+							g.drawImage(Assets.bottomRightWall, x * mult, y * mult, mult, mult, null);
 						else 
-							g.drawImage(Assets.rightWall, x * 50, y * 50, 50, 50, null);
+							g.drawImage(Assets.rightWall, x * mult, y * mult, mult, mult, null);
 					} else if (y == 0){
-						g.drawImage(Assets.topWall, x * 50, y * 50, 50, 50, null);
+						g.drawImage(Assets.topWall, x * mult, y * mult, mult, mult, null);
 					} else if (y == mapToDraw.length - 1){
-						g.drawImage(Assets.bottomWall, x * 50, y * 50, 50, 50, null);
+						g.drawImage(Assets.bottomWall, x * mult, y * mult, mult, mult, null);
 					} else {
-						g.drawImage(Assets.wall, x * 50, y * 50, 50, 50, null);
+						g.drawImage(Assets.wall, x * mult, y * mult, mult, mult, null);
 					}
 				} else if (mapToDraw[y][x] == ' '){
-					g.drawImage(Assets.floor, x * 50, y * 50, 50, 50, null);
+					g.drawImage(Assets.floor, x * mult, y * mult, mult, mult, null);
 				} else if (mapToDraw[y][x] == 'k'){
 					if(gameLogic.currentMap.getName() == "GuardMap")
-						g.drawImage(Assets.closedLever, x * 50, y * 50, 50, 50, null);
+						g.drawImage(Assets.closedLever, x * mult, y * mult, mult, mult, null);
 					else if (gameLogic.currentMap.getName() == "OgreMap")
-						g.drawImage(Assets.key, x * 50, y * 50, 50, 50, null);
+						g.drawImage(Assets.key, x * mult, y * mult, mult, mult, null);
 				} else if (mapToDraw[y][x] == 'I'){
-					g.drawImage(Assets.door, x * 50, y * 50, 50, 50, null);
+					g.drawImage(Assets.door, x * mult, y * mult, mult, mult, null);
+				} else if (mapToDraw[y][x] == 'S'){
+					g.drawImage(Assets.openDoor, x * mult, y * mult, mult, mult, null);
 				} else {
-					g.drawImage(Assets.openDoor, x * 50, y * 50, 50, 50, null);
+					g.drawImage(Assets.floor, x * mult, y * mult, mult, mult, null);
 				}
 			}
 		}

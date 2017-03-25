@@ -83,9 +83,7 @@ public class Ogre {
 		return clubSymbol;
 	}
 
-	public void moveOgre(GameLogic game, char c) {
-		System.out.print(isStunned);
-		
+	public void moveOgre(GameLogic game, char c) {		
 		if (isStunned == 0) {
 			this.symbol = 'O';
 			//char c;

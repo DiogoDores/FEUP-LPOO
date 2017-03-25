@@ -90,8 +90,9 @@ public class MainMenu extends JPanel{
 					OptionsMenu options = new OptionsMenu("options", 100, 100);
 				} 
 
+				Assets.init();
 				frame.dispose();
-				game = new Game("Prison Escape", 550, 550);
+				game = new Game("Prison Escape");
 				game.setVisible(true);
 				game.init();
 			}

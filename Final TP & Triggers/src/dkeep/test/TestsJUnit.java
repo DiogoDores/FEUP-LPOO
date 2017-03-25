@@ -315,7 +315,7 @@ public class TestsJUnit {
 		OgreMap testMap = new OgreMap();
 		game.changeCurrentMap(testMap);
 		game.createHero(2, 2);
-		assertFalse(game.checkSpawnCondition(1, 1, game)); 
+		assertFalse(game.checkSpawnCondition(1, 1)); 
 		game.createOgres(0);
 		for(int i = 0; i < game.ogres.size();i++){
 			game.ogres.get(i).moveOgre(game, 'n');
