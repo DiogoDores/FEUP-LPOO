@@ -14,6 +14,11 @@ public class GameLogic {
 	public GameMap Map1 = new GuardMap(); 
 	public GameMap Map2 = new OgreMap();
 	public GameMap currentMap;
+	
+	/**
+	 * Starts a game, and handles the movements of all characters, and returns the state of the game (playing, lost, won).
+	 */
+	
 	public int startGame(char key){
 		
 		boolean lost = false;
@@ -48,6 +53,10 @@ public class GameLogic {
 		return 0;
 	}
 
+	/**
+	 * Checks whether player was won the specific map.
+	 */
+	
     public boolean checkWin(GameLogic game) {
     	if (currentMap.getName() == "TestMap" || currentMap.getName() == "OgreMap")
     		return (hero.getY() == 0 && hero.getX() == 1);
@@ -75,6 +84,11 @@ public class GameLogic {
 		}
 	}
 
+	/**
+	 * Checks surroundings of enemies and compares them to hero's.
+	 * Returns true if player lost, false if enemies aren't near hero.
+	 */
+	
 	public boolean checkPresence() {
 
 		if(currentMap.getName() == "GuardMap"){
@@ -118,6 +132,10 @@ public class GameLogic {
 		return false;
 	}
 
+	/**
+	 * Player won first level.
+	 */
+	
 	public void setLevelTwo(int numOgres){
 		currentMap = Map2;
 		createHero(7, 1);
@@ -125,6 +143,10 @@ public class GameLogic {
 		createOgres(numOgres);
 	}
 
+	/**
+	 * Randomly creates Ogres in the scene.
+	 */
+	
 	public void createOgres(int numOgres) {
 
 		int randomNumOgres = random.nextInt(4) + 1; 
@@ -147,6 +169,9 @@ public class GameLogic {
 		}
 	}
 	
+	/**
+	 * Checks whether spawn isn't an insta-lose for the player.
+	 */
 	
 	public boolean checkSpawnCondition(int x, int y, GameLogic game) {
 		boolean condition;

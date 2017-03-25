@@ -8,6 +8,10 @@ public class EditorMap extends GameMap {
 	static boolean visited[][];
 	static char level[][];
 	boolean foundSolution;
+	/**
+	 * Creates an Editor Map, with self-explanatory parameters. These can be
+	 * altered by the player. 
+	 */
 
 	public EditorMap(int width, int height) {
 		

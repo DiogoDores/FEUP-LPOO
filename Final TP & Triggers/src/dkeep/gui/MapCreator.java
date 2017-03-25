@@ -15,21 +15,22 @@ public class MapCreator extends JPanel {
 	private JPanel panel;
 	private JFrame frame = new JFrame();
 	private String title;
-	public int width, height;
 	private JButton btnOgre, btnKey, btnHero, btnWall, btnFloor, btnSave;
 	private JButton btnDoor;
 	private EditorMap map;
 	private GuardMap testMap;
 	private Game game;
 	
-	public MapCreator(String string, int i, int j) {
+	/**
+	 * Initializes a new Window with MapCreator components.
+	 */
+	
+	public MapCreator(String string) {
 
 		map = new EditorMap(10,10);
 
 		activeChar = 'H';
 		title = string;
-		width = i; 
-		height = j;
 		
 		frame = new JFrame(title);     
 		frame.setContentPane(this);
@@ -76,6 +77,10 @@ public class MapCreator extends JPanel {
 		hasSaved = false;
 	}
 
+	/**
+	 * Adds buttons and respective listeners. They modify the activeChar that will modify the EditorMap in question.
+	 */
+	
 	public void init() {
 
 		btnOgre = new JButton("Ogre");

@@ -26,6 +26,7 @@ public class MainMenu extends JPanel{
 	/**
 	 * Launch the application.
 	 */
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -42,6 +43,7 @@ public class MainMenu extends JPanel{
 	/**
 	 * Create the application.
 	 */
+	
 	public MainMenu() {
 		initialize();
 	}
@@ -49,11 +51,8 @@ public class MainMenu extends JPanel{
 	/**
 	 * Initialize the contents of the frame.
 	 */
+	
 	private void initialize() {
-
-		/**
-		 * Initialization of all of the frame's components 
-		 */
 
 		frame = new JFrame("Main Menu");     
 		frame.setContentPane(this);
@@ -106,7 +105,7 @@ public class MainMenu extends JPanel{
 
 		btnCreateMap.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0){
-				mapCreator = new MapCreator("Create a new Map", 800, 800);
+				mapCreator = new MapCreator("Create a new Map");
 				mapCreator.setVisible(true);
 				mapCreator.init();
 			}

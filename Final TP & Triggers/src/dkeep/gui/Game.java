@@ -25,17 +25,16 @@ public class Game extends JPanel implements KeyListener {
 	public BufferedImage[] ogresSprite = new BufferedImage[4];
 
 	private int mapWidth, mapHeight;
-
-
-	public char[][] getMap() {
-		return levels[levelPositionArray].getMap();
-	}
 	public GameLogic gameLogic = new GameLogic();
 	public int width, height;
 	public String title;
 	private static String guardType;
 	private static int numMechas;
 
+	/**
+	 * Constructor for a new Game Instance.
+	 */
+	
 	public Game(String title2, int width, int height){
 
 		levelPositionArray = 1;
@@ -46,7 +45,19 @@ public class Game extends JPanel implements KeyListener {
 
 	}
 
+	/**
+	 * Returns the current active map.
+	 */
 
+	public char[][] getMap() {
+		return levels[levelPositionArray].getMap();
+	}
+	
+	
+	/**
+	 * Initializes the map that is to be displayed, along with all its assets.
+	 */
+	
 	public void init(){
 		gameLogic.currentMap = levels[levelPositionArray];
 		if (title != "Editor")
@@ -58,7 +69,11 @@ public class Game extends JPanel implements KeyListener {
 		display();
 		repaint();
 	}
-
+	
+	/**
+	 * Displays the buttons inside a new JFrame, and adds its listeners.
+	 */
+	
 	public void display() { 
 		f = new JFrame("Prison Escape");     
 		f.setContentPane(this);
@@ -117,7 +132,11 @@ public class Game extends JPanel implements KeyListener {
 			}
 		});
 	}
-
+	
+	/**
+	 * Moves all the components, hero based on key received, ogres and guards based on a random created value.
+	 */
+	
 	private void moveEntities(char key){
 
 		char ogreMove;
@@ -205,7 +224,6 @@ public class Game extends JPanel implements KeyListener {
 
 	}
 
-
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g); // Clears board
@@ -225,6 +243,10 @@ public class Game extends JPanel implements KeyListener {
 
 	}
 
+	/**
+	 * Draws all the components that are in the map, such as walls, floors, levers and keypads.
+	 */
+	
 	public void drawStructures(Graphics g) {
 		char[][] mapToDraw = gameLogic.currentMap.getMap();
 
@@ -303,6 +325,10 @@ public class Game extends JPanel implements KeyListener {
 	@Override
 	public void keyTyped(KeyEvent e) {}
 
+	/**
+	 * Changes the settings to be saved in this class.
+	 */
+	
 	public static void changeSettings(OptionsMenu optionsMenu) {
 		numMechas = OptionsMenu.getNumMechas();
 		guardType = OptionsMenu.getGuardType();
