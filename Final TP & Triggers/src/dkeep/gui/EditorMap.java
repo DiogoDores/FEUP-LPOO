@@ -78,51 +78,6 @@ public class EditorMap extends GameMap {
 	 * Draws Map only on console.
 	 */
 	
-	@Override
-	public String drawMap(GameLogic game) {
-		char[][] mapToDraw = level;
-		String map = "";
-		
-		for (int i = 0; i < mapToDraw.length; i++) {
-			for(int j = 0; j < mapToDraw[i].length; j++){
-
-				boolean foundOgre = false;
-				boolean foundClub = false;
-
-				for(int k = 0; k < game.ogres.size(); k++){
-
-					if(!foundOgre && (game.currentMap.getMap()[game.ogres.get(k).getX()][game.ogres.get(k).getY()] != 'O') && (game.ogres.get(k).getX() == i && game.ogres.get(k).getY() == j)){
-						System.out.print(game.ogres.get(k).getSymbol() + " ");
-						map += game.ogres.get(k).getSymbol() + " ";
-						foundOgre = true;
-						continue;
-					}
-					if(!foundClub && (game.ogres.get(k).getClubX() == i && game.ogres.get(k).getClubY() == j) && (game.currentMap.getMap()[game.ogres.get(k).getClubX()][game.ogres.get(k).getClubY()] != '*')){
-						System.out.print(game.ogres.get(k).getClubSymbol() + " ");
-						map += game.ogres.get(k).getClubSymbol() + " ";
-						foundClub = true;
-						continue;
-					}
-				}
-
-				if(!foundOgre && !foundClub){
-					if(game.hero.getX() == i && game.hero.getY() == j){
-						System.out.print(game.hero.getSymbol() + " ");
-						map += game.hero.getSymbol() + " ";
-						continue;
-					} else {
-						System.out.print(mapToDraw[i][j] + " ");
-						map += mapToDraw[i][j] + " ";
-					}
-				}
-			}
-			System.out.print("\n");
-			map += "\n";
-		}
-		
-		return map;
-	
-	}
 
 	@Override
 	public String getName() {

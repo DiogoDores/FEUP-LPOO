@@ -15,7 +15,7 @@ import dkeep.logic.SuspiciousGuard;
 public class TestsJUnit {
 
 	public TestsJUnit(){};
-
+ 
 	@Test
 	public void moveIntoFreeCell() {
 		System.out.println("\nTest Move to Free Cell.\n");
@@ -187,9 +187,10 @@ public class TestsJUnit {
 
 		GameLogic game = new GameLogic();
 		TestMap testMap = new TestMap();
+		game.changeCurrentMap(testMap); 
+
 		testMap.drawMap(game);
 
-		game.changeCurrentMap(testMap); 
 		game.createHero(1, 2);
 
 		testMap.drawMap(game);
@@ -481,7 +482,7 @@ public class TestsJUnit {
 
 		//	assertEquals(false, game.checkPresence());
 
-		assertEquals(0,game.startGame('d'));
+		assertTrue(game.startGame('d') == 0 || game.startGame('d') == 1 );
 		assertFalse(game.checkWin());
 		int j = 0; 
 		while (j < 90) {
