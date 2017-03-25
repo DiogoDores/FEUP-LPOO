@@ -23,7 +23,7 @@ public class MapCreator extends JPanel {
 	private Game game;
 	
 	public MapCreator(String string, int i, int j) {
-		map = new EditorMap(2,2);
+		map = new EditorMap(10,10);
 		activeChar = 'H';
 		title = string;
 		width = i; 
@@ -36,9 +36,31 @@ public class MapCreator extends JPanel {
 		frame.setResizable(false);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.setLocationRelativeTo(null);
+		setLayout(null);
 		
-		panel = new JPanel();
-		panel.setBounds(0, 0, 900, 700);
+		panel = new JPanel(){
+			@Override
+			public void paintComponent(Graphics g) {
+				game.gameLogic.currentMap = map;
+				
+				super.paintComponent(g); 
+				game.drawStructures(g);
+				g.drawImage(game.hero, 400, 400, 64, 90, null);
+
+				if(game.gameLogic.currentMap.getName() == "GuardMap"){
+					g.drawImage(game.guard,  game.gameLogic.guard.getY() * 49, game.gameLogic.guard.getX() * 49 - 49, 64, 90, null);
+				}
+				else {
+					for(int i = 0; i < game.gameLogic.ogres.size(); i++){
+						g.drawImage(Assets.club, game.gameLogic.ogres.get(i).getClubY()* 50, game.gameLogic.ogres.get(i).getClubX()* 50, 50, 50, null);
+						g.drawImage(game.ogresSprite[i], game.gameLogic.ogres.get(i).getY()* 49, game.gameLogic.ogres.get(i).getX()* 49 - 40, 54, 80, null);
+					}
+				}
+				
+
+			}
+		};
+		panel.setBounds(316, 67, 417, 293);
 		frame.getContentPane().add(panel);
 		panel.setFocusable(true);
 		panel.requestFocusInWindow();
@@ -46,11 +68,22 @@ public class MapCreator extends JPanel {
 		Assets.init();
 		
 		game = new Game("Editor", 200, 200);
+		game.levels[0] = map;
 		game.levelPositionArray = 0;
 		
-		hasSaved = false;
+		//game.init();
+		//game.display();
+
+		//game.panel.setBounds(181, 33, 344, 259);
+		//game.panel.setVisible(true);
+
+		//frame.getContentPane().add(game.panel);
+		//frame.add(game.panel);
 		
-		init();
+		hasSaved = false;
+		//setLayout(null);
+
+
 	}
 
 	public void init() {
@@ -120,32 +153,8 @@ public class MapCreator extends JPanel {
 		add(btnSave);
 		game.levelPositionArray = 1;
 	
-		this.repaint();
+		//repaint();
 	
-	}
-
-	
-
-	@Override
-	public void paintComponent(Graphics g) {
-		game.gameLogic.currentMap = map;
-		
-		super.paintComponent(g); 
-		game.drawStructures(g);
-		g.drawImage(game.hero, game.gameLogic.hero.getY() * 49 , game.gameLogic.hero.getX() * 49 - 49, 64, 90, null);
-
-		if(game.gameLogic.currentMap.getName() == "GuardMap"){
-			g.drawImage(game.guard,  game.gameLogic.guard.getY() * 49, game.gameLogic.guard.getX() * 49 - 49, 64, 90, null);
-		}
-		else {
-			for(int i = 0; i < game.gameLogic.ogres.size(); i++){
-				g.drawImage(Assets.club, game.gameLogic.ogres.get(i).getClubY()* 50, game.gameLogic.ogres.get(i).getClubX()* 50, 50, 50, null);
-				g.drawImage(game.ogresSprite[i], game.gameLogic.ogres.get(i).getY()* 49, game.gameLogic.ogres.get(i).getX()* 49 - 40, 54, 80, null);
-			}
-		}
-		
-
-	}
-	
+	}	
 
 }

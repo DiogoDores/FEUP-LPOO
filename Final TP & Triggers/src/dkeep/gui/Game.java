@@ -16,7 +16,7 @@ import javax.swing.JPanel;
 import dkeep.logic.GameLogic;
 
 public class Game extends JPanel implements KeyListener {
-	GameMap[] levels;
+	public GameMap[] levels;
 	public int levelPositionArray;
 	public JPanel panel;
 	public JFrame f;
@@ -42,18 +42,12 @@ public class Game extends JPanel implements KeyListener {
 		levels = new GameMap[3];
 		levels[1] = new GuardMap();
 		levels[2] = new OgreMap();
-		levels[0] = new EditorMap(2,2);
 		title = title2;
 
 	}
 
 
 	public void init(){
-
-		/*if(guardType == null || numMechas == 0){
-			guardType = "Rookie";
-			numMechas = 1;
-		}*/
 		gameLogic.currentMap = levels[levelPositionArray];
 		if (title != "Editor")
 			gameLogic.createCharacters(1, guardType, numMechas);
@@ -66,65 +60,62 @@ public class Game extends JPanel implements KeyListener {
 	}
 
 	public void display() { 
-
-		if (title != "Editor") {
-			f = new JFrame("Prison Escape");     
-			f.setContentPane(this);
-			f.setSize(mapWidth + 300, mapHeight);
-			f.setVisible(true);
-			f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-			f.setResizable(false);
-			f.addKeyListener(this);
-			f.setLocationRelativeTo(null);
-			f.requestFocusInWindow();
+		f = new JFrame("Prison Escape");     
+		f.setContentPane(this);
+		f.setSize(mapWidth + 300, mapHeight);
+		f.setVisible(true);
+		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		f.setResizable(false);
+		f.addKeyListener(this);
+		f.setLocationRelativeTo(null);
+		f.requestFocusInWindow();
 
 
-			JButton btnUp = new JButton();
-			btnUp.setIcon(new ImageIcon (Assets.upArrow));
-			btnUp.setBounds(0, 0, 25, 25);
-			f.add(btnUp);
+		JButton btnUp = new JButton();
+		btnUp.setIcon(new ImageIcon (Assets.upArrow));
+		btnUp.setBounds(0, 0, 25, 25);
+		f.add(btnUp);
 
-			JButton btnDown = new JButton();
-			btnDown.setIcon(new ImageIcon (Assets.downArrow));
-			btnDown.setBounds(40, mapHeight - 50, 25, 25);
-			f.add(btnDown);
+		JButton btnDown = new JButton();
+		btnDown.setIcon(new ImageIcon (Assets.downArrow));
+		btnDown.setBounds(40, mapHeight - 50, 25, 25);
+		f.add(btnDown);
 
-			JButton btnLeft = new JButton();
-			btnLeft.setIcon(new ImageIcon (Assets.leftArrow));
-			btnLeft.setBounds(10, 234, 89, 23);
-			f.add(btnLeft);
+		JButton btnLeft = new JButton();
+		btnLeft.setIcon(new ImageIcon (Assets.leftArrow));
+		btnLeft.setBounds(10, 234, 89, 23);
+		f.add(btnLeft);
 
-			JButton btnRight = new JButton();
-			btnRight.setIcon(new ImageIcon (Assets.rightArrow));
-			btnRight.setBounds(10, 234, 89, 23);
-			f.add(btnRight);
+		JButton btnRight = new JButton();
+		btnRight.setIcon(new ImageIcon (Assets.rightArrow));
+		btnRight.setBounds(10, 234, 89, 23);
+		f.add(btnRight);
 
-			btnUp.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent arg0) {
-					moveEntities('w');
-					f.requestFocusInWindow();
-				}
-			});
+		btnUp.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				moveEntities('w');
+				f.requestFocusInWindow();
+			}
+		});
 
-			btnDown.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent arg0) {
-					moveEntities('s');
-					f.requestFocusInWindow();
-				}
-			});
-			btnLeft.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent arg0) {
-					moveEntities('a');
-					f.requestFocusInWindow();
-				}
-			});
-			btnRight.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent arg0) {
-					moveEntities('d');
-					f.requestFocusInWindow();
-				}
-			});
-		}
+		btnDown.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				moveEntities('s');
+				f.requestFocusInWindow();
+			}
+		});
+		btnLeft.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				moveEntities('a');
+				f.requestFocusInWindow();
+			}
+		});
+		btnRight.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				moveEntities('d');
+				f.requestFocusInWindow();
+			}
+		});
 	}
 
 	private void moveEntities(char key){

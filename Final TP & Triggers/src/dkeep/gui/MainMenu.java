@@ -109,7 +109,6 @@ public class MainMenu extends JPanel{
 				mapCreator = new MapCreator("Create a new Map", 800, 800);
 				mapCreator.setVisible(true);
 				mapCreator.init();
-				
 			}
 		});
 		

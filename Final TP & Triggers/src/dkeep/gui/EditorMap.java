@@ -10,6 +10,10 @@ public class EditorMap extends GameMap {
 	boolean foundSolution;
 
 	public EditorMap(int width, int height) {
+		
+		this.levelWidth = width;
+		this.levelHeight = height;
+		
 		level = new char[width][height];
 		visited = new boolean[width][height];
 		for (int i = 0 ; i < height ; i++) {
@@ -178,12 +182,10 @@ public class EditorMap extends GameMap {
 
 		int x = game.hero.getX(), y = game.hero.getY();
 
-		check = findWay(game, x, y);
-
 		return check;
 	}
 
-	public boolean findWay(GameLogic game, int x , int y) {
+	/*public boolean findWay(GameLogic game, int x , int y) {
 
 		boolean doorIsOpen = false;
 
@@ -274,7 +276,7 @@ public class EditorMap extends GameMap {
 
 		return false;
 
-	}
+	}*/
 
 	@Override
 	public boolean checkWin(GameLogic game) {
