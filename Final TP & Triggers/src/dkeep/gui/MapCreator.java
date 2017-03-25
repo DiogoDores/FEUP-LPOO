@@ -15,7 +15,7 @@ public class MapCreator extends JPanel {
 	private JPanel panel;
 	private JFrame frame = new JFrame();
 	private String title;
-	private int width, height;
+	public int width, height;
 	private JButton btnOgre, btnKey, btnHero, btnWall, btnFloor, btnSave;
 	private JButton btnDoor;
 	private EditorMap map;
@@ -23,7 +23,9 @@ public class MapCreator extends JPanel {
 	private Game game;
 	
 	public MapCreator(String string, int i, int j) {
+
 		map = new EditorMap(10,10);
+
 		activeChar = 'H';
 		title = string;
 		width = i; 
@@ -82,8 +84,6 @@ public class MapCreator extends JPanel {
 		
 		hasSaved = false;
 		//setLayout(null);
-
-
 	}
 
 	public void init() {
