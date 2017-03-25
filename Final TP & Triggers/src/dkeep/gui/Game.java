@@ -59,6 +59,12 @@ public class Game extends JPanel implements KeyListener {
 	 */
 	
 	public void init(){
+
+		if(guardType == null || numMechas == 0){
+			guardType = "Rookie";
+			numMechas = 1;
+		}
+
 		gameLogic.currentMap = levels[levelPositionArray];
 		if (title != "Editor")
 			gameLogic.createCharacters(1, guardType, numMechas);
