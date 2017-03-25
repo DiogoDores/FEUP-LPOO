@@ -111,9 +111,6 @@ public class EditorMap extends GameMap {
 	 * User clicked the button to save the level, checks whether is is possible. 
 	 */
 	
-	public boolean saveLevel(GameLogic game) {
-		return checkMap(game);
-	}
 
 	
 	/**
@@ -121,24 +118,29 @@ public class EditorMap extends GameMap {
 	 * is valid or not (can be finished by the player).
 	 */
 	
-	public boolean checkMap(GameLogic game) {
+	public boolean checkMap(GameLogic game, int width, int height) {
 		boolean check = false;
 
+		boolean hasKey = false;
 		boolean hasDoor = false;
-
+		boolean hasOgre = false;
 		for (int i = 0 ; i < game.currentMap.getMap().length; i++)
 			for (int j = 0; j < game.currentMap.getMap().length; j++) {
 				if (game.currentMap.getMap()[i][j] == 'I' || game.currentMap.getMap()[i][j] == 'S')
-					if (i == 0 || j == 0)
+					if (i == 0 || j == 0 || i == width || i == height)
 						hasDoor = true;
+				if (game.currentMap.getMap()[i][j] == 'k')
+						hasKey = true;
+				
 			}
-		if (!hasDoor)
-			return false;
+		if (game.ogres.size() >= 1)
+			hasOgre = true;
+		
+		return hasOgre && hasDoor && hasKey;
+	
 
 
-		int x = game.hero.getX(), y = game.hero.getY();
-
-		return check;
+		
 	}
 
 	/*public boolean findWay(GameLogic game, int x , int y) {

@@ -247,7 +247,7 @@ public class TestsJUnit {
 		GameLogic game = new GameLogic();
 		TestMap testMap = new TestMap();
 		game.changeCurrentMap(testMap);
-		game.createOgre(2, 2,9,9);
+		game.createOgre(2, 2, 9, 9);
 
 		testMap.drawMap(game);
 		game.ogres.get(0).moveOgre(game, 'n');

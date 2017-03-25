@@ -206,7 +206,12 @@ public class MapCreator extends JPanel implements MouseListener{
 		btnSave.setBounds(10, 512, 181, 23);
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				hasSaved = true;
+				if (map.checkMap(game.gameLogic, 10 ,10 ) && heroWasCreated) {
+					//INICIAR JOGO
+					hasSaved = true;
+					System.out.print("ENDED");
+					frame.getDefaultCloseOperation();
+				}
 			}
 		});
 		add(btnSave);
