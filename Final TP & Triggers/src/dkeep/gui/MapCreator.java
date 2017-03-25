@@ -5,11 +5,13 @@ import javax.swing.*;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.Color;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.Graphics;
-import java.awt.Panel;
+import java.awt.Image;
+import java.awt.Font;
 
-public class MapCreator extends JPanel {
+public class MapCreator extends JPanel implements MouseListener{
 	private char activeChar;
 	private boolean hasSaved;
 	private JPanel panel;
@@ -21,7 +23,7 @@ public class MapCreator extends JPanel {
 	private EditorMap map;
 	private GuardMap testMap;
 	private Game game;
-	
+
 	public MapCreator(String string, int i, int j) {
 
 		map = new EditorMap(10,10);
@@ -30,21 +32,21 @@ public class MapCreator extends JPanel {
 		title = string;
 		width = i; 
 		height = j;
-		
+
 		frame = new JFrame(title);     
 		frame.setContentPane(this);
-		frame.setSize(1000, 700);
+		frame.setSize(800, 600);
 		frame.setVisible(true);
 		frame.setResizable(false);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.setLocationRelativeTo(null);
 		setLayout(null);
-		
+
 		panel = new JPanel(){
 			@Override
 			public void paintComponent(Graphics g) {
 				game.gameLogic.currentMap = map;
-				
+
 				super.paintComponent(g); 
 				game.drawStructures(g);
 				g.drawImage(game.hero, 400, 400, 64, 90, null);
@@ -58,37 +60,47 @@ public class MapCreator extends JPanel {
 						g.drawImage(game.ogresSprite[i], game.gameLogic.ogres.get(i).getY()* 49, game.gameLogic.ogres.get(i).getX()* 49 - 40, 54, 80, null);
 					}
 				}
-				
-
 			}
 		};
-		panel.setBounds(316, 67, 417, 293);
+		panel.setBounds(251, 30, 583, 505);
 		frame.getContentPane().add(panel);
 		panel.setFocusable(true);
 		panel.requestFocusInWindow();
-		
+
 		Assets.init();
-		
+
 		game = new Game("Editor", 200, 200);
 		game.levels[0] = map;
 		game.levelPositionArray = 0;
 
 		hasSaved = false;
-	}
 
-	public void init() {
+		btnOgre = new JButton();
+		
+		ImageIcon ogre = new ImageIcon(Assets.ogreFront);
+		Image imgOgre = ogre.getImage().getScaledInstance(64, 90, java.awt.Image.SCALE_SMOOTH);  
 
-		btnOgre = new JButton("Ogre");
+		ogre = new ImageIcon(imgOgre);
+		
+		btnOgre.setIcon(ogre);
 		btnOgre.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				activeChar = 'O';
 			}
 		});
-		btnOgre.setBounds(10, 20, 100, 30);
+		btnOgre.setBounds(40, 70, 85, 100);
 		frame.getContentPane().add(btnOgre, BorderLayout.WEST);
-
-		btnKey = new JButton("Key");
-		btnKey.setBounds(10, 70, 100, 30);
+		
+		
+		
+		btnKey = new JButton();
+		
+		ImageIcon key = new ImageIcon(Assets.key);
+		Image imgKey = key.getImage().getScaledInstance(64, 64, java.awt.Image.SCALE_DEFAULT);  
+		key = new ImageIcon(imgKey);
+		
+		btnKey.setIcon(key);
+		btnKey.setBounds(40, 210, 85, 100);
 		btnKey.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) { 
 				activeChar = 'k';
@@ -96,8 +108,17 @@ public class MapCreator extends JPanel {
 		});
 		frame.getContentPane().add(btnKey, BorderLayout.WEST);
 
-		btnHero = new JButton("Hero");
-		btnHero.setBounds(10, 120, 100, 30);
+		
+		
+		btnHero = new JButton();
+		
+		ImageIcon hero = new ImageIcon(Assets.heroFront);
+		Image imgHero = hero.getImage().getScaledInstance(64, 90, java.awt.Image.SCALE_SMOOTH);  
+		hero = new ImageIcon(imgHero);
+		
+		btnHero.setIcon(hero);
+		
+		btnHero.setBounds(135, 70, 85, 100);
 		btnHero.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				activeChar = 'H';
@@ -105,8 +126,18 @@ public class MapCreator extends JPanel {
 			}
 		});
 		frame.getContentPane().add(btnHero, BorderLayout.WEST);
-		btnWall = new JButton("Wall");
-		btnWall.setBounds(10, 170, 100, 30);
+		
+		
+		btnWall = new JButton();
+		
+		ImageIcon wall = new ImageIcon(Assets.wall);
+		Image imgWall = wall.getImage().getScaledInstance(64, 64, java.awt.Image.SCALE_SMOOTH);  
+
+		wall = new ImageIcon(imgWall);
+		
+		btnWall.setIcon(wall);
+		
+		btnWall.setBounds(40, 350, 85, 100);
 		btnWall.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				activeChar = 'X';
@@ -114,8 +145,17 @@ public class MapCreator extends JPanel {
 		});
 		frame.getContentPane().add(btnWall, BorderLayout.WEST);
 
-		btnFloor = new JButton("Floor");
-		btnFloor.setBounds(10, 220, 100, 30);
+		
+		btnFloor = new JButton();
+		
+		ImageIcon floor = new ImageIcon(Assets.floor);
+		Image imgFloor = floor.getImage().getScaledInstance(64, 64, java.awt.Image.SCALE_SMOOTH);  
+
+		floor = new ImageIcon(imgFloor);
+		
+		btnFloor.setIcon(floor);
+		
+		btnFloor.setBounds(135, 350, 85, 100);
 		btnFloor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				activeChar = ' ';
@@ -124,27 +164,76 @@ public class MapCreator extends JPanel {
 		frame.getContentPane().add(btnFloor, BorderLayout.WEST);
 
 
-		btnDoor = new JButton("Door");
+		btnDoor = new JButton();
+		
+		ImageIcon door = new ImageIcon(Assets.door);
+		Image imgDoor = door.getImage().getScaledInstance(64, 64, java.awt.Image.SCALE_SMOOTH);  
+
+		door = new ImageIcon(imgDoor);
+		
+		btnDoor.setIcon(door);
+		
 		btnDoor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				activeChar = 'I';
 			}
 		});
-		btnDoor.setBounds(10, 270, 100, 30);
+		btnDoor.setBounds(135, 210, 85, 100);
 		add(btnDoor);
 
 		btnSave = new JButton("Save Changes");
-		btnSave.setBounds(195, 360, 181, 23);
+		btnSave.setFont(new Font("Lucida Sans Unicode", Font.PLAIN, 12));
+		btnSave.setBounds(10, 512, 181, 23);
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				hasSaved = true;
 			}
 		});
 		add(btnSave);
-		game.levelPositionArray = 1;
-	
-		//repaint();
-	
-	}	
+		
+		JButton btnCancel = new JButton("Cancel");
+		btnCancel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnCancel.setFont(new Font("Lucida Sans Unicode", Font.PLAIN, 12));
+		btnCancel.setBounds(10, 540, 181, 23);
+		add(btnCancel);
+	}
 
+	public void init() {
+
+		
+		game.levelPositionArray = 1;
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}	
 }
