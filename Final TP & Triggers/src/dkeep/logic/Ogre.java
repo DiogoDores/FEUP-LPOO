@@ -84,8 +84,6 @@ public class Ogre {
 	}
 
 	public void moveOgre(GameLogic game, char c) {
-		System.out.print(isStunned);
-		
 		if (isStunned == 0) {
 			this.symbol = 'O';
 			//char c;
@@ -95,6 +93,7 @@ public class Ogre {
 				do{
 					c = createRandomMove(); 
 					result = checkPossible(c, game);
+					System.out.println(result);
 				} while(result == 'X' || result == 'I' || result == 'S' || result == 'N' || result == '*');
 			} else {
 				result = checkPossible(c, game);

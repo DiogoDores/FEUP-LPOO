@@ -86,23 +86,6 @@ public class OgreMap extends GameMap{
 	}
 
 	@Override
-	public char possibleMove(int x, int y) {
-		if (getMap()[x][y]  == 'X'){
-			return 'X';
-		} else if (getMap()[x][y] == 'k') {
-			return 'E';
-		} else if (getMap()[x][y] == ' '){
-			return 'H';
-		} else if (getMap()[x][y] == 'I'){
-			return 'I';
-		} else if (getMap()[x][y] == 'S') {
-			return 'S';
-		} else if (getMap()[x][y] == 'H') // AC
-			return 'D';
-		return levelTwoMap[x][y];
-	}
-
-	@Override
 	public boolean checkWin(GameLogic game) {
 		return (game.hero.getY() == 0 && game.hero.getX() == 1);
 	}
@@ -113,4 +96,6 @@ public class OgreMap extends GameMap{
 		game.hero.setY(1);
 		
 	}
+	
+	
 }

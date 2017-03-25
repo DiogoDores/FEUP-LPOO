@@ -2,11 +2,6 @@ package dkeep.logic;
 
 public abstract class GameMap { 
 	
-	/**
-	 * Possible Move. Doesn't need coordinates of other game components (ogre's position, hero's...) 
-	 */
-	public abstract char possibleMove(int x, int y);
-	
 	public void activateLever(Hero hero) {}
 	public String drawMap(GameLogic game) {
 		return null;
@@ -22,26 +17,24 @@ public abstract class GameMap {
 	 * Is aware of other game components.
 	 */
 	
-	public char possibleMove(int x, int y, GameLogic game) { 
-		for (int i = 0; i < game.ogres.size(); i++) {
-			if (game.ogres.get(i).getX() == x && game.ogres.get(i).getY() == y )
+	public char possibleMove(int x, int y, GameLogic game) {
+		for (int i = 0 ; i < game.ogres.size(); i++) {
+			if (game.ogres.get(i).getX() == x && game.ogres.get(i).getY() == y)
 				return 'O';
-
 		}
-
-		if (game.currentMap.getMap()[x][y]  == 'X'){
+		if (getMap()[x][y]  == 'X'){
 			return 'X';
-		} else if (game.currentMap.getMap()[x][y] == 'k') {
+		} else if (getMap()[x][y] == 'k') {
 			return 'E';
-		} else if (game.currentMap.getMap()[x][y] == ' '){
+		} else if (getMap()[x][y] == ' '){
 			return 'H';
-		} else if (game.currentMap.getMap()[x][y] == 'I'){
+		} else if (getMap()[x][y] == 'I'){
 			return 'I';
-		} else if (game.currentMap.getMap()[x][y] == 'S') {
+		} else if (getMap()[x][y] == 'S') {
 			return 'S';
-		} else if (game.currentMap.getMap()[x][y] == 'H') // AC
+		} else if (getMap()[x][y] == 'H') // AC
 			return 'D';
-		return 'H';
-
+		return ' ';
 	}
+
 }

@@ -25,23 +25,6 @@ public class TestMap extends GameMap{
 		
 	}
 	
-	@Override
-	public char possibleMove(int x, int y) {
-		if (TestMap[x][y]  == 'X'){
-			return 'X';
-		} else if (TestMap[x][y] == 'k') {
-			return 'E';
-		} else if (TestMap[x][y] == ' '){
-			return 'H';
-		} else if (TestMap[x][y] == 'I'){
-			return 'I';
-		} else if (TestMap[x][y] == 'S') {
-			return 'S';
-		} else if (TestMap[x][y] == 'H') // AC
-			return 'D';
-		return TestMap[x][y];
-
-	}
 
 	@Override
 	public void activateLever(Hero hero) {
@@ -89,11 +72,6 @@ public class TestMap extends GameMap{
 		return TestMap;
 	}
 
-	@Override
-	public char possibleMove(int x, int y, GameLogic game) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 
 	@Override
 	public boolean checkWin(GameLogic game) {

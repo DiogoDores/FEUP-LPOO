@@ -40,15 +40,11 @@ public class EditorMap extends GameMap {
 	}
 
 
-	@Override
-	public char possibleMove(int x, int y) {
-		return 0;
-	}
 
 	/**
 	 * Checks all possible moves.
 	 */
-	
+	 
 	@Override
 	public char possibleMove(int x, int y, GameLogic game) {
 		return 'H';

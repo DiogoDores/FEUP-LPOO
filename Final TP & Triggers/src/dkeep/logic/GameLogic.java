@@ -5,7 +5,7 @@ import java.util.Random;
 import dkeep.test.*;
 
 public class GameLogic {
- 
+
 	Random random = new Random();
 	public Guard guard = new Guard();
 	public Hero hero = new Hero();
@@ -14,16 +14,16 @@ public class GameLogic {
 	public GameMap Map1 = new GuardMap(); 
 	public GameMap Map2 = new OgreMap();
 	public GameMap currentMap;
-	
+
 	/**
 	 * Starts a game, and handles the movements of all characters, and returns the state of the game (playing, lost, won).
 	 */
-	
+
 	public int startGame(char key){
-		
+
 		boolean lost = false;
 
-		hero.move(currentMap, key);
+		hero.move(this, currentMap, key);
 
 		if(currentMap.getName() == "GuardMap"){
 			guard.move(); 
@@ -41,31 +41,31 @@ public class GameLogic {
 		if(lost){
 			return 2;
 		}
-		
-		boolean hx = checkWin(this);
+
+		boolean hx = checkWin();
 		if(hx && currentMap.getName() == "GuardMap"){
 			System.out.println("\n\nPhew! You escaped the guard!\nBut what's that?\nOh no! An ogre!\nGrab the key and escape!\nBe careful with his club!\n\n");
 			setLevelTwo(0);
 		}
 		else if (hx && currentMap.getName() == "OgreMap")
 			return -1;
-		
+
 		return 0;
 	}
 
 	/**
 	 * Checks whether player was won the specific map.
 	 */
-	
-    public boolean checkWin(GameLogic game) {
-    	if (currentMap.getName() == "TestMap" || currentMap.getName() == "OgreMap")
-    		return (hero.getY() == 0 && hero.getX() == 1);
-    	else if (currentMap.getName() == "GuardMap" )
-    		return (hero.getY() == 0 && (hero.getX() == 5 || hero.getX() == 6));
-    	else
-    		return false;
-    }
-    
+
+	public boolean checkWin() {
+		if (currentMap.getName() == "TestMap" || currentMap.getName() == "OgreMap")
+			return (hero.getY() == 0 && hero.getX() == 1);
+		else if (currentMap.getName() == "GuardMap" )
+			return (hero.getY() == 0 && (hero.getX() == 5 || hero.getX() == 6));
+		else
+			return false;
+	}
+
 	public void changeCurrentMap(GameMap gameMap){
 		currentMap = gameMap;
 	}
@@ -88,7 +88,7 @@ public class GameLogic {
 	 * Checks surroundings of enemies and compares them to hero's.
 	 * Returns true if player lost, false if enemies aren't near hero.
 	 */
-	
+
 	public boolean checkPresence() {
 
 		if(currentMap.getName() == "GuardMap"){
@@ -115,7 +115,7 @@ public class GameLogic {
 			}
 		}
 
-		else if (currentMap.getName() == "TestMap") {
+		else {
 			if(hero.getX() == guard.getX() && (hero.getY() == guard.getY() + 1 || hero.getY() == guard.getY() - 1)){
 				return true; 
 			} else if(hero.getY() == guard.getY() && (hero.getX() == guard.getX() + 1 || hero.getX() == guard.getX() - 1)){
@@ -125,17 +125,18 @@ public class GameLogic {
 				return true;
 			} else if(hero.getY() == ogre.getY() && (hero.getX() == ogre.getX() + 1 || hero.getX() == ogre.getX() - 1)){
 				return true; 
-
-			} 
+				
+			}
+		
 		}
-
 		return false;
+
 	}
 
 	/**
 	 * Player won first level.
 	 */
-	
+
 	public void setLevelTwo(int numOgres){
 		currentMap = Map2;
 		createHero(7, 1);
@@ -146,18 +147,18 @@ public class GameLogic {
 	/**
 	 * Randomly creates Ogres in the scene.
 	 */
-	
+
 	public void createOgres(int numOgres) {
 
 		int randomNumOgres = random.nextInt(4) + 1; 
 		int x; 
 		int y;
-		
+
 		if(numOgres == 0){
 			numOgres = randomNumOgres;
 		}
 		boolean condition;
-       
+
 		for(int i = 0; i < numOgres; i++){
 			do{
 				x = random.nextInt(7) + 1;
@@ -168,11 +169,11 @@ public class GameLogic {
 			ogres.add(new Ogre(x,y));
 		}
 	}
-	
+
 	/**
 	 * Checks whether spawn isn't an insta-lose for the player.
 	 */
-	
+
 	public boolean checkSpawnCondition(int x, int y, GameLogic game) {
 		boolean condition;
 		condition = (x == game.hero.getX() && y == game.hero.getY());

@@ -29,25 +29,6 @@ public class GuardMap extends GameMap {
 	
 
 
-	@Override
-	public char possibleMove(int x, int y) {
-		
-		//Era o antigo next
-
-		if (levelOneMap[x][y]  == 'X'){
-			return 'X';
-		} else if (levelOneMap[x][y] == 'k') {
-			return 'E';
-		} else if (levelOneMap[x][y] == ' '){
-			return 'H';
-		} else if (levelOneMap[x][y] == 'I'){
-			return 'X';
-		} else if (levelOneMap[x][y] == 'S') {
-			return 'S';
-		} else if (levelOneMap[x][y] == 'H') // AC
-			return 'D';
-		return levelOneMap[x][y];
-	}
 
 	@Override
 	public char[][] getMap() {
@@ -84,12 +65,7 @@ public class GuardMap extends GameMap {
 		return mapName;
 	}
 
-	@Override
-	public char possibleMove(int x, int y, GameLogic game) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
+	
 
 
 	@Override
