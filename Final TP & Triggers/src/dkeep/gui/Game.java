@@ -152,13 +152,21 @@ public class Game extends JPanel implements KeyListener {
 
 				ogreMove = gameLogic.ogre.createRandomMove();
 
-				if(ogreMove == 'w'){
+				if(ogreMove == 'w' && ogresSprite[i] == null){
+					// ADICIONAR SPRITE AQUI TODO
+					ogresSprite[i] = Assets.ogreFront;
 				} else if (ogreMove == 'a'){
 					ogresSprite[i] = Assets.ogreRight;
 				} else if (ogreMove == 's'){
 					ogresSprite[i] = Assets.ogreFront;
 				} else if (ogreMove == 'd'){
 					ogresSprite[i] = Assets.ogreLeft;
+				}
+				
+				if((gameLogic.hero.getX() == gameLogic.ogres.get(i).getX() && gameLogic.hero.getY() == gameLogic.ogres.get(i).getY() + 1) || (gameLogic.hero.getX() == gameLogic.ogres.get(i).getX() && gameLogic.hero.getY() == gameLogic.ogres.get(i).getY() - 1)){
+					gameLogic.ogres.get(i).stunOgre();
+				} else if((gameLogic.hero.getY() == gameLogic.ogres.get(i).getY() && gameLogic.hero.getX() == gameLogic.ogres.get(i).getX() + 1) || (gameLogic.hero.getY() == gameLogic.ogres.get(i).getY() && gameLogic.hero.getX() == gameLogic.ogres.get(i).getX() - 1)){
+					gameLogic.ogres.get(i).stunOgre();
 				}
 
 				gameLogic.ogres.get(i).moveOgre(gameLogic, ogreMove);

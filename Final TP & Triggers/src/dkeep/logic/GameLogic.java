@@ -90,6 +90,8 @@ public class GameLogic {
 				if(hero.getX() == ogres.get(i).getClubX() && hero.getY() == ogres.get(i).getClubY()){
 					return true;
 				}
+				else if (hero.getX() == ogres.get(i).getX() && hero.getY() == ogres.get(i).getY())
+					return true;
 				if((hero.getX() == ogres.get(i).getX() && hero.getY() == ogres.get(i).getY() + 1) || (hero.getX() == ogres.get(i).getX() && hero.getY() == ogres.get(i).getY() - 1)){
 					ogres.get(i).stunOgre();
 				} else if((hero.getY() == ogres.get(i).getY() && hero.getX() == ogres.get(i).getX() + 1) || (hero.getY() == ogres.get(i).getY() && hero.getX() == ogres.get(i).getX() - 1)){

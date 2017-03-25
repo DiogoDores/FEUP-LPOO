@@ -78,7 +78,7 @@ public class MainMenu extends JPanel{
 		btnExit.setFont(new Font("Lucida Sans Unicode", Font.PLAIN, 12));
 		btnExit.setBounds(43, 591, 112, 29);
 		add(btnExit);
-		
+
 		btnSettings = new JButton("Settings");
 		btnSettings.setFont(new Font("Lucida Sans Unicode", Font.PLAIN, 12));
 		btnSettings.setBounds(44, 539, 110, 28);
@@ -86,11 +86,11 @@ public class MainMenu extends JPanel{
 
 		btnNewGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
+
 				if(!OptionsMenu.getWasSetUp()){
 					OptionsMenu options = new OptionsMenu("options", 100, 100);
 				} 
-				
+
 				frame.dispose();
 				game = new Game("Prison Escape", 550, 550);
 				game.setVisible(true);
@@ -111,7 +111,7 @@ public class MainMenu extends JPanel{
 				mapCreator.init();
 			}
 		});
-		
+
 		btnSettings.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0){
 				options = new OptionsMenu("Settings", 300, 300);

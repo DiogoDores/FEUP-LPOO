@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class Ogre {
 
-	private int isStunned;
+	public int isStunned;
 	protected int x, y, clubX, clubY;
 	protected char symbol, clubSymbol;
 	private boolean restoreSymbol = false;
@@ -75,6 +75,8 @@ public class Ogre {
 	}
 
 	public void moveOgre(GameLogic game, char c) {
+		System.out.print(isStunned);
+		
 		if (isStunned == 0) {
 			this.symbol = 'O';
 			//char c;
