@@ -40,22 +40,21 @@ public class Hero {
 	 * Moves hero based on map and key pressed by the player.
 	 */
 
-	public void move(GameMap map, char c) {
-
+	public void move(GameLogic game, GameMap map, char c) {
 		boolean won = false;
 
 		char result;
 		if (c == 'w') {
-			result = map.possibleMove(x - 1, y);
+			result = map.possibleMove(x - 1, y, game);
 		}
 		else if (c == 'a'){
-			result = map.possibleMove(x, y - 1);
+			result = map.possibleMove(x, y - 1, game);
 		}
 		else if (c == 's') {
-			result = map.possibleMove(x + 1, y);
+			result = map.possibleMove(x + 1, y, game);
 		}
 		else if (c == 'd') {
-			result = map.possibleMove(x, y + 1);
+			result = map.possibleMove(x, y + 1, game);
 		}
 		else
 			result = 'N';

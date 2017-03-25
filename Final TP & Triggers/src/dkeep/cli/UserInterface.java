@@ -13,7 +13,7 @@ public class UserInterface {
 		System.out.println("| WELCOME TO DUNGEON ESCAPE! |");
 		System.out.println(" ---------------------------- \n");
 		int level = selectLevel();
-		char typeOfGuard = 0;
+		char typeOfGuard = 0; 
 
  
 		System.out.println("\n\nType W/A/S/D to move. Activate the lever and escape!\n\n");

@@ -8,12 +8,6 @@ public class Guard {
 	
 	public Guard(){}
 	
-	public Guard(int x, int y){
-		this.x = x;
-		this.y = y;
-		this.symbol = 'G';
-	}
-	
 	public int getX(){
 		return x;
 	}
