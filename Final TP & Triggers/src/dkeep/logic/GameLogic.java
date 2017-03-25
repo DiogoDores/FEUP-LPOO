@@ -14,8 +14,13 @@ public class GameLogic {
 	public GameMap Map1 = new GuardMap(); 
 	public GameMap Map2 = new OgreMap();
 	public GameMap currentMap;
+	
+	/**
+	 * Starts a game, and handles the movements of all characters, and returns the state of the game (playing, lost, won).
+	 */
+	
 	public int startGame(char key){
-
+		
 		boolean lost = false;
 
 		hero.move(currentMap, key);
@@ -38,20 +43,23 @@ public class GameLogic {
 		}
 		
 		boolean hx = checkWin(this);
-		
-		System.out.println(hero.getX() + "   " + hero.getY());
-		
-		if(hx){
+		if(hx && currentMap.getName() == "GuardMap"){
 			System.out.println("\n\nPhew! You escaped the guard!\nBut what's that?\nOh no! An ogre!\nGrab the key and escape!\nBe careful with his club!\n\n");
 			setLevelTwo(0);
 		}
+		else if (hx && currentMap.getName() == "OgreMap")
+			return -1;
 		
 		return 0;
 	}
 
+	/**
+	 * Checks whether player was won the specific map.
+	 */
+	
     public boolean checkWin(GameLogic game) {
     	if (currentMap.getName() == "TestMap" || currentMap.getName() == "OgreMap")
-    		return (hero.getY() == 1 && hero.getX() == 0);
+    		return (hero.getY() == 0 && hero.getX() == 1);
     	else if (currentMap.getName() == "GuardMap" )
     		return (hero.getY() == 0 && (hero.getX() == 5 || hero.getX() == 6));
     	else
@@ -76,6 +84,11 @@ public class GameLogic {
 		}
 	}
 
+	/**
+	 * Checks surroundings of enemies and compares them to hero's.
+	 * Returns true if player lost, false if enemies aren't near hero.
+	 */
+	
 	public boolean checkPresence() {
 
 		if(currentMap.getName() == "GuardMap"){
@@ -91,6 +104,8 @@ public class GameLogic {
 				if(hero.getX() == ogres.get(i).getClubX() && hero.getY() == ogres.get(i).getClubY()){
 					return true;
 				}
+				else if (hero.getX() == ogres.get(i).getX() && hero.getY() == ogres.get(i).getY())
+					return true;
 				if((hero.getX() == ogres.get(i).getX() && hero.getY() == ogres.get(i).getY() + 1) || (hero.getX() == ogres.get(i).getX() && hero.getY() == ogres.get(i).getY() - 1)){
 					ogres.get(i).stunOgre();
 				} else if((hero.getY() == ogres.get(i).getY() && hero.getX() == ogres.get(i).getX() + 1) || (hero.getY() == ogres.get(i).getY() && hero.getX() == ogres.get(i).getX() - 1)){
@@ -117,6 +132,10 @@ public class GameLogic {
 		return false;
 	}
 
+	/**
+	 * Player won first level.
+	 */
+	
 	public void setLevelTwo(int numOgres){
 		currentMap = Map2;
 		createHero(7, 1);
@@ -124,6 +143,10 @@ public class GameLogic {
 		createOgres(numOgres);
 	}
 
+	/**
+	 * Randomly creates Ogres in the scene.
+	 */
+	
 	public void createOgres(int numOgres) {
 
 		int randomNumOgres = random.nextInt(4) + 1; 
@@ -145,6 +168,10 @@ public class GameLogic {
 			ogres.add(new Ogre(x,y));
 		}
 	}
+	
+	/**
+	 * Checks whether spawn isn't an insta-lose for the player.
+	 */
 	
 	public boolean checkSpawnCondition(int x, int y, GameLogic game) {
 		boolean condition;

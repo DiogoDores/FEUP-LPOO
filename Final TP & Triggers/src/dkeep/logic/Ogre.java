@@ -4,13 +4,18 @@ import java.util.Random;
 
 public class Ogre {
 
-	private int isStunned;
+	public int isStunned;
 	protected int x, y, clubX, clubY;
 	protected char symbol, clubSymbol;
 	private boolean restoreSymbol = false;
 	private boolean restoreClubSymbol = false;
 
 	public Ogre(){}
+	
+	/**
+	 * Creates club on a position that is not on the walls. 
+	 * Can't be on player's position, but this is checked on another function.
+	 */
 
 	public void createClub() {
 		do {
@@ -35,6 +40,10 @@ public class Ogre {
 			}
 		} while (this.clubX == 0 || this.clubX == 8 || this.clubY == 0 || this.clubY == 8);
 	}
+
+	/**
+	 * Stuns ogre if it gets close to the hero, but its club doesn't kill him. 
+	 */
 
 	public void stunOgre() {
 		isStunned = 2;
@@ -75,6 +84,8 @@ public class Ogre {
 	}
 
 	public void moveOgre(GameLogic game, char c) {
+		System.out.print(isStunned);
+		
 		if (isStunned == 0) {
 			this.symbol = 'O';
 			//char c;

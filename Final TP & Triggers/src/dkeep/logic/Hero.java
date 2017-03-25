@@ -35,6 +35,10 @@ public class Hero {
 	public char getSymbol(){
 		return symbol;
 	}
+	
+	/**
+	 * Moves hero based on map and key pressed by the player.
+	 */
 
 	public void move(GameMap map, char c) {
 

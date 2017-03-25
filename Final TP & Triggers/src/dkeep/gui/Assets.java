@@ -3,7 +3,9 @@
 import java.awt.image.BufferedImage;
 
 public class Assets {
-
+	/**
+	 * Initializes all assets. 
+	 */
 	public static final int width = 129, height = 163, wallWidth = 24, wallHeight = 24;
 
 	public static BufferedImage 

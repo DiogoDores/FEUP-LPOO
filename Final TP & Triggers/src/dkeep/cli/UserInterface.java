@@ -37,23 +37,20 @@ public class UserInterface {
 		int playing = 0;
 		
 		Scanner read = new Scanner(System.in);
+		game.currentMap.drawMap(game);
 		
 		while(playing == 0){
-
 			char key = read.next().charAt(0);
-
 			playing = game.startGame(key);
-
-			game.currentMap.drawMap(game);
-
+			game.currentMap.drawMap(game);	
 		}
 
 		if(playing == 2){
-			System.out.println(" ------------ ");
+			System.out.println("\n ------------ ");
 			System.out.println("| GAME OVER! |");
 			System.out.println(" ------------ \n");
-		} else {
-			System.out.println(" ---------- ");
+		} else if (playing == -1){
+			System.out.println("\n ---------- ");
 			System.out.println("| YOU WON! |");
 			System.out.println(" ---------- \n");
 		}

@@ -30,6 +30,10 @@ public class Guard {
 		return;
 	}
 	
+	/**
+	 * Follows set Path.
+	 */
+	
 	public void followPath(){
 		if(path[position] == 'w'){
 			x--;

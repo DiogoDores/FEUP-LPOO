@@ -17,21 +17,22 @@ public class MapCreator extends JPanel implements MouseListener{
 	private JPanel panel;
 	private JFrame frame = new JFrame();
 	private String title;
-	public int width, height;
 	private JButton btnOgre, btnKey, btnHero, btnWall, btnFloor, btnSave;
 	private JButton btnDoor;
 	private EditorMap map;
 	private GuardMap testMap;
 	private Game game;
 
-	public MapCreator(String string, int i, int j) {
+	/**
+	 * Initializes a new Window with MapCreator components.
+	 */
+
+	public MapCreator(String string) {
 
 		map = new EditorMap(10,10);
 
 		activeChar = 'H';
 		title = string;
-		width = i; 
-		height = j;
 
 		frame = new JFrame(title);     
 		frame.setContentPane(this);
@@ -49,9 +50,9 @@ public class MapCreator extends JPanel implements MouseListener{
 
 				super.paintComponent(g); 
 				game.drawStructures(g);
-				g.drawImage(game.hero, 400, 400, 64, 90, null);
+				//g.drawImage(game.hero, 400, 400, 64, 90, null);
 
-				if(game.gameLogic.currentMap.getName() == "GuardMap"){
+				/*if(game.gameLogic.currentMap.getName() == "GuardMap"){
 					g.drawImage(game.guard,  game.gameLogic.guard.getY() * 49, game.gameLogic.guard.getX() * 49 - 49, 64, 90, null);
 				}
 				else {
@@ -59,7 +60,7 @@ public class MapCreator extends JPanel implements MouseListener{
 						g.drawImage(Assets.club, game.gameLogic.ogres.get(i).getClubY()* 50, game.gameLogic.ogres.get(i).getClubX()* 50, 50, 50, null);
 						g.drawImage(game.ogresSprite[i], game.gameLogic.ogres.get(i).getY()* 49, game.gameLogic.ogres.get(i).getX()* 49 - 40, 54, 80, null);
 					}
-				}
+				}*/
 			}
 		};
 		panel.setBounds(251, 30, 583, 505);
@@ -75,13 +76,20 @@ public class MapCreator extends JPanel implements MouseListener{
 
 		hasSaved = false;
 
+	}
+	/**
+	 * Adds buttons and respective listeners. They modify the activeChar that will modify the EditorMap in question.
+	 */
+
+	public void init() {
+
 		btnOgre = new JButton();
-		
+
 		ImageIcon ogre = new ImageIcon(Assets.ogreFront);
-		Image imgOgre = ogre.getImage().getScaledInstance(64, 90, java.awt.Image.SCALE_SMOOTH);  
+		Image imgOgre = ogre.getImage().getScaledInstance(64, 90, java.awt.Image.SCALE_SMOOTH);
 
 		ogre = new ImageIcon(imgOgre);
-		
+
 		btnOgre.setIcon(ogre);
 		btnOgre.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -90,15 +98,15 @@ public class MapCreator extends JPanel implements MouseListener{
 		});
 		btnOgre.setBounds(40, 70, 85, 100);
 		frame.getContentPane().add(btnOgre, BorderLayout.WEST);
-		
-		
-		
+
+
+
 		btnKey = new JButton();
-		
+
 		ImageIcon key = new ImageIcon(Assets.key);
 		Image imgKey = key.getImage().getScaledInstance(64, 64, java.awt.Image.SCALE_DEFAULT);  
 		key = new ImageIcon(imgKey);
-		
+
 		btnKey.setIcon(key);
 		btnKey.setBounds(40, 210, 85, 100);
 		btnKey.addActionListener(new ActionListener() {
@@ -108,16 +116,16 @@ public class MapCreator extends JPanel implements MouseListener{
 		});
 		frame.getContentPane().add(btnKey, BorderLayout.WEST);
 
-		
-		
+
+
 		btnHero = new JButton();
-		
+
 		ImageIcon hero = new ImageIcon(Assets.heroFront);
 		Image imgHero = hero.getImage().getScaledInstance(64, 90, java.awt.Image.SCALE_SMOOTH);  
 		hero = new ImageIcon(imgHero);
-		
+
 		btnHero.setIcon(hero);
-		
+
 		btnHero.setBounds(135, 70, 85, 100);
 		btnHero.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -126,17 +134,17 @@ public class MapCreator extends JPanel implements MouseListener{
 			}
 		});
 		frame.getContentPane().add(btnHero, BorderLayout.WEST);
-		
-		
+
+
 		btnWall = new JButton();
-		
+
 		ImageIcon wall = new ImageIcon(Assets.wall);
 		Image imgWall = wall.getImage().getScaledInstance(64, 64, java.awt.Image.SCALE_SMOOTH);  
 
 		wall = new ImageIcon(imgWall);
-		
+
 		btnWall.setIcon(wall);
-		
+
 		btnWall.setBounds(40, 350, 85, 100);
 		btnWall.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -145,16 +153,16 @@ public class MapCreator extends JPanel implements MouseListener{
 		});
 		frame.getContentPane().add(btnWall, BorderLayout.WEST);
 
-		
+
 		btnFloor = new JButton();
-		
+
 		ImageIcon floor = new ImageIcon(Assets.floor);
 		Image imgFloor = floor.getImage().getScaledInstance(64, 64, java.awt.Image.SCALE_SMOOTH);  
 
 		floor = new ImageIcon(imgFloor);
-		
+
 		btnFloor.setIcon(floor);
-		
+
 		btnFloor.setBounds(135, 350, 85, 100);
 		btnFloor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -165,14 +173,14 @@ public class MapCreator extends JPanel implements MouseListener{
 
 
 		btnDoor = new JButton();
-		
+
 		ImageIcon door = new ImageIcon(Assets.door);
 		Image imgDoor = door.getImage().getScaledInstance(64, 64, java.awt.Image.SCALE_SMOOTH);  
 
 		door = new ImageIcon(imgDoor);
-		
+
 		btnDoor.setIcon(door);
-		
+
 		btnDoor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				activeChar = 'I';
@@ -190,7 +198,7 @@ public class MapCreator extends JPanel implements MouseListener{
 			}
 		});
 		add(btnSave);
-		
+
 		JButton btnCancel = new JButton("Cancel");
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -199,10 +207,6 @@ public class MapCreator extends JPanel implements MouseListener{
 		btnCancel.setFont(new Font("Lucida Sans Unicode", Font.PLAIN, 12));
 		btnCancel.setBounds(10, 540, 181, 23);
 		add(btnCancel);
-	}
-
-	public void init() {
-
 		
 		game.levelPositionArray = 1;
 	}
@@ -210,30 +214,30 @@ public class MapCreator extends JPanel implements MouseListener{
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void mouseEntered(MouseEvent arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void mouseExited(MouseEvent arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void mousePressed(MouseEvent arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}	
 }

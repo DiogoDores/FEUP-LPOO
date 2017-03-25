@@ -37,6 +37,10 @@ public class OptionsMenu extends JPanel{
 		guardType = "Rookie";
 	}
 
+	/**
+	 * Initializes frame's components.
+	 */
+	
 	public void init(){
 
 		frame = new JFrame(title);     
@@ -114,6 +118,10 @@ public class OptionsMenu extends JPanel{
 		});
 	}
 
+	/**
+	 * Saves settings present on the menu, and modifies the values on the active game.
+	 */
+	
 	private void saveSettings() {
 		numMechas = Integer.parseInt(textField.getText());
 		guardType = (String)comboBox.getSelectedItem();
