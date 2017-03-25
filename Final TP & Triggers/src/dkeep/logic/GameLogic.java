@@ -33,7 +33,7 @@ public class GameLogic {
 				ogres.get(i).moveOgre(this, 'n');
 				ogres.get(i).moveClub(this, ogres.get(i).getX(), ogres.get(i).getY());
 
-			}
+			} 
 		}
 
 		lost = checkPresence();
@@ -43,12 +43,15 @@ public class GameLogic {
 		}
 
 		boolean hx = checkWin();
-		if(hx && currentMap.getName() == "GuardMap"){
-			System.out.println("\n\nPhew! You escaped the guard!\nBut what's that?\nOh no! An ogre!\nGrab the key and escape!\nBe careful with his club!\n\n");
-			setLevelTwo(0);
+		if(hx) {
+			if(currentMap.getName() == "GuardMap"){
+				System.out.println("\n\nPhew! You escaped the guard!\nBut what's that?\nOh no! An ogre!\nGrab the key and escape!\nBe careful with his club!\n\n");
+				setLevelTwo(0);
+			}
+
+			else if(currentMap.getName() == "OgreMap")
+				return -1;
 		}
-		else if (hx && currentMap.getName() == "OgreMap")
-			return -1;
 
 		return 0;
 	}
@@ -59,9 +62,9 @@ public class GameLogic {
 
 	public boolean checkWin() {
 		if (currentMap.getName() == "TestMap" || currentMap.getName() == "OgreMap")
-			return (hero.getY() == 0 && hero.getX() == 1);
+			return (hero.getX() == 0 && hero.getY() == 1);
 		else if (currentMap.getName() == "GuardMap" )
-			return (hero.getY() == 0 && (hero.getX() == 5 || hero.getX() == 6));
+			return (hero.getX() == 0 && (hero.getY() == 5 || hero.getY() == 6));
 		else
 			return false;
 	}
@@ -92,7 +95,7 @@ public class GameLogic {
 	public boolean checkPresence() {
 
 		if(currentMap.getName() == "GuardMap"){
-			if(guard.symbol == 'G' && hero.getX() == guard.getX() && (hero.getY() == guard.getY() + 1 || hero.getY() == guard.getY() - 1)){
+			if(guard.symbol == 'G' && (hero.getX() == guard.getX()) && ((hero.getY() == guard.getY() + 1) || (hero.getY() == guard.getY() - 1))){
 				return true;
 			} else if(hero.getY() == guard.getY() && (hero.getX() == guard.getX() + 1 || hero.getX() == guard.getX() - 1)){
 				return true;
@@ -125,9 +128,9 @@ public class GameLogic {
 				return true;
 			} else if(hero.getY() == ogre.getY() && (hero.getX() == ogre.getX() + 1 || hero.getX() == ogre.getX() - 1)){
 				return true; 
-				
+
 			}
-		
+
 		}
 		return false;
 

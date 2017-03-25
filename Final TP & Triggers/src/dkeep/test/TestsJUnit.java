@@ -23,7 +23,6 @@ public class TestsJUnit {
 		TestMap testMap = new TestMap();
 		game.changeCurrentMap(testMap);
 		game.createHero(1, 2);
-		assertEquals(false , game.checkWin());
 		testMap.drawMap(game);
 		assertEquals(1, game.hero.getX());
 		assertEquals(2, game.hero.getY());
@@ -45,6 +44,8 @@ public class TestsJUnit {
 		game.changeCurrentMap(testMap);
 		game.createHero(1, 2);
 		assertEquals(false , game.checkWin());
+		game.createCharacters(2, "Rookie", 0);
+
 		game.createCharacters(1, "Rookie", 0);
 		assertEquals(game.hero.getX(), 1);
 		assertEquals(game.hero.getY(), 1);
@@ -410,23 +411,20 @@ public class TestsJUnit {
 		OgreMap testMap = new OgreMap();
 		game.changeCurrentMap(testMap);
 		game.createOgres(1);
-	//	assertTrue(game.ogres.get(0).getX() + 1 == game.ogres.get(0).getClubX() || game.ogres.get(0).getX() + 1 == game.ogres.get(0).getClubX() - 1);
-	//	assertTrue(game.ogres.get(0).getY() + 1 == game.ogres.get(0).getClubY() || game.ogres.get(0).getY() + 1 == game.ogres.get(0).getClubY() - 1);
 		while(game.ogres.get(0).getX() != 4 && game.ogres.get(0).getY() != 4) {
 			System.out.println(game.ogres.get(0).getX() + " " + game.ogres.get(0).getY());
 			game.ogres.get(0).moveOgre(game, 'n');
 			game.ogres.get(0).moveClub(game, game.ogres.get(0).getX(), game.ogres.get(0).getY());
-
 		}
 		game.currentMap.drawMap(game);
 		game.ogres.get(0).checkPossible('a', game);
-		//assertTrue('O' == game.ogres.get(0).checkPossible('a', game) ||'X' == game.ogres.get(0).checkPossible('a', game) ||'H' == game.ogres.get(0).checkPossible('a', game) || 'E' == game.ogres.get(0).checkPossible('a', game) || 'I' == game.ogres.get(0).checkPossible('a', game) || 'S' == game.ogres.get(0).checkPossible('a', game) || 'D' == game.ogres.get(0).checkPossible('a', game));
-		//assertTrue('O' == game.ogres.get(0).checkPossible('s', game) ||'X' == game.ogres.get(0).checkPossible('s', game) ||'H' == game.ogres.get(0).checkPossible('s', game) || 'E' == game.ogres.get(0).checkPossible('s', game) || 'I' == game.ogres.get(0).checkPossible('s', game) || 'S' == game.ogres.get(0).checkPossible('s', game) || 'D' == game.ogres.get(0).checkPossible('s', game));
-		//assertTrue('O' == game.ogres.get(0).checkPossible('d', game) ||'X' == game.ogres.get(0).checkPossible('d', game) ||'H' == game.ogres.get(0).checkPossible('d', game) || 'E' == game.ogres.get(0).checkPossible('d', game) || 'I' == game.ogres.get(0).checkPossible('d', game) || 'S' == game.ogres.get(0).checkPossible('d', game) || 'D' == game.ogres.get(0).checkPossible('d', game));
-		//assertTrue('O' == game.ogres.get(0).checkPossibleClub('w', game) ||'X' == game.ogres.get(0).checkPossibleClub('w', game) ||'H' == game.ogres.get(0).checkPossibleClub('w', game) || 'E' == game.ogres.get(0).checkPossibleClub('w', game) || 'I' == game.ogres.get(0).checkPossibleClub('w', game) || 'S' == game.ogres.get(0).checkPossibleClub('w', game) || 'D' == game.ogres.get(0).checkPossibleClub('w', game));
-		//assertTrue('O' == game.ogres.get(0).checkPossibleClub('a', game) ||'X' == game.ogres.get(0).checkPossibleClub('a', game) ||'H' == game.ogres.get(0).checkPossibleClub('a', game) || 'E' == game.ogres.get(0).checkPossibleClub('a', game) || 'I' == game.ogres.get(0).checkPossibleClub('a', game) || 'S' == game.ogres.get(0).checkPossibleClub('a', game) || 'D' == game.ogres.get(0).checkPossibleClub('a', game));
-		//assertTrue('O' == game.ogres.get(0).checkPossibleClub('s', game) ||'X' == game.ogres.get(0).checkPossibleClub('s', game) ||'H' == game.ogres.get(0).checkPossibleClub('s', game) || 'E' == game.ogres.get(0).checkPossibleClub('s', game) || 'I' == game.ogres.get(0).checkPossibleClub('s', game) || 'S' == game.ogres.get(0).checkPossibleClub('s', game) || 'D' == game.ogres.get(0).checkPossibleClub('s', game));
-		//assertTrue('O' == game.ogres.get(0).checkPossibleClub('d', game) ||'X' == game.ogres.get(0).checkPossibleClub('d', game) ||'H' == game.ogres.get(0).checkPossibleClub('d', game) || 'E' == game.ogres.get(0).checkPossibleClub('d', game) || 'I' == game.ogres.get(0).checkPossibleClub('d', game) || 'S' == game.ogres.get(0).checkPossibleClub('d', game) || 'D' == game.ogres.get(0).checkPossibleClub('d', game));
+		assertTrue('O' == game.ogres.get(0).checkPossible('a', game) ||'X' == game.ogres.get(0).checkPossible('a', game) ||'H' == game.ogres.get(0).checkPossible('a', game) || 'E' == game.ogres.get(0).checkPossible('a', game) || 'I' == game.ogres.get(0).checkPossible('a', game) || 'S' == game.ogres.get(0).checkPossible('a', game) || 'D' == game.ogres.get(0).checkPossible('a', game) || 'S' == game.ogres.get(0).checkPossible('a', game));
+		assertTrue('O' == game.ogres.get(0).checkPossible('s', game) ||'X' == game.ogres.get(0).checkPossible('s', game) ||'H' == game.ogres.get(0).checkPossible('s', game) || 'E' == game.ogres.get(0).checkPossible('s', game) || 'I' == game.ogres.get(0).checkPossible('s', game) || 'S' == game.ogres.get(0).checkPossible('s', game) || 'D' == game.ogres.get(0).checkPossible('s', game) || 'S' == game.ogres.get(0).checkPossible('s', game));
+		assertTrue('O' == game.ogres.get(0).checkPossible('d', game) ||'X' == game.ogres.get(0).checkPossible('d', game) ||'H' == game.ogres.get(0).checkPossible('d', game) || 'E' == game.ogres.get(0).checkPossible('d', game) || 'I' == game.ogres.get(0).checkPossible('d', game) || 'S' == game.ogres.get(0).checkPossible('d', game) || 'D' == game.ogres.get(0).checkPossible('d', game) || 'S' == game.ogres.get(0).checkPossible('d', game));
+		assertTrue('O' == game.ogres.get(0).checkPossibleClub('w', game) ||'X' == game.ogres.get(0).checkPossibleClub('w', game) ||'H' == game.ogres.get(0).checkPossibleClub('w', game) || 'E' == game.ogres.get(0).checkPossibleClub('w', game) || 'I' == game.ogres.get(0).checkPossibleClub('w', game) || 'S' == game.ogres.get(0).checkPossibleClub('w', game) || 'D' == game.ogres.get(0).checkPossibleClub('w', game) || 'S' == game.ogres.get(0).checkPossibleClub('w', game));
+		assertTrue('O' == game.ogres.get(0).checkPossibleClub('a', game) ||'X' == game.ogres.get(0).checkPossibleClub('a', game) ||'H' == game.ogres.get(0).checkPossibleClub('a', game) || 'E' == game.ogres.get(0).checkPossibleClub('a', game) || 'I' == game.ogres.get(0).checkPossibleClub('a', game) || 'S' == game.ogres.get(0).checkPossibleClub('a', game) || 'D' == game.ogres.get(0).checkPossibleClub('a', game) || 'S' == game.ogres.get(0).checkPossibleClub('a', game));
+		assertTrue('O' == game.ogres.get(0).checkPossibleClub('s', game) ||'X' == game.ogres.get(0).checkPossibleClub('s', game) ||'H' == game.ogres.get(0).checkPossibleClub('s', game) || 'E' == game.ogres.get(0).checkPossibleClub('s', game) || 'I' == game.ogres.get(0).checkPossibleClub('s', game) || 'S' == game.ogres.get(0).checkPossibleClub('s', game) || 'D' == game.ogres.get(0).checkPossibleClub('s', game) || 'S' == game.ogres.get(0).checkPossibleClub('s', game));
+		
 	//	assertTrue(game.ogres.get(0).getX() == 1 && game.ogres.get(0).getY() == 7); 
 
 	}
@@ -453,13 +451,14 @@ public class TestsJUnit {
 		System.out.println(game.currentMap.possibleMove(game.ogres.get(0).getX(), game.ogres.get(0).getY()+1, game));
 		
 		int j = 0; 
-		while (j < 90) {
+		while (j < 10) {
 			j++;
 			boolean x = game.checkPresence();
 			assertTrue(x == true || x == false);
 			for (int i = 0; i < game.ogres.size(); i++) {
-				game.ogres.get(i).moveClub(game, game.ogres.get(i).getX(), game.ogres.get(i).getY());
 				game.ogres.get(i).moveOgre(game, 'n');
+				game.ogres.get(i).moveClub(game, game.ogres.get(i).getX(), game.ogres.get(i).getY());
+				
 			}
 		}
 		j=0;
@@ -471,18 +470,23 @@ public class TestsJUnit {
 
 	@Test
 	public void checkPresence() {
-	//	System.out.println("CheckPresence");
+		System.out.println("CheckPresence");
 		GameLogic game = new GameLogic();
+		GameLogic gameG = new GameLogic();
 		OgreMap testMap = new OgreMap();
-		GuardMap guardMap = new GuardMap();
+		GuardMap testMapG = new GuardMap();
 		game.changeCurrentMap(testMap);
-		game.createHero(1, 1);
+		game.createHero(1, 0);
 		game.createOgres(0);
+		gameG.changeCurrentMap(testMapG);
+		gameG.createHero(1, 0);
+		gameG.createOgres(0);
 		game.currentMap.drawMap(game);
 
 		//	assertEquals(false, game.checkPresence());
 
-		assertTrue(game.startGame('d') == 0 || game.startGame('d') == 1 );
+		game.startGame('d');
+		gameG.startGame('d');
 		assertFalse(game.checkWin());
 		int j = 0; 
 		while (j < 90) {
@@ -493,16 +497,20 @@ public class TestsJUnit {
 			game.ogres.get(0).moveClub(game, game.ogres.get(0).getX(), game.ogres.get(0).getY());
 		}
 		j=0;
-		assertFalse(game.checkWin());
+		game.currentMap.resetPositions(game);
+		assertEquals(7, game.hero.getX());
 
 		GameLogic game2 = new GameLogic();
 		GuardMap testMap2 = new GuardMap();
 
 		game2.changeCurrentMap(testMap2);
-		game2.createHero(4, 1);
-		game2.createGuard(4, 2);
+		game2.createHero(0, 5);
+		game2.createGuard(1, 5);
 		assertEquals('a', game2.guard.getGuardMove());
-		assertFalse(game.checkWin());
+		System.out.print(" WOWOW " + game2.hero.getX() + "  " + game2.hero.getY());
+		assertTrue(game2.checkWin());
+		game2.currentMap.resetPositions(game2);
+		assertEquals(1, game.hero.getY());
 		assertEquals(true,game2.checkPresence());
 		game.startGame('a');
 		while (j < 90) {
