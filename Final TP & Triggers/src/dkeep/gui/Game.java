@@ -56,7 +56,12 @@ public class Game extends JPanel implements KeyListener {
 		this.mapWidth = gameLogic.currentMap.getMap().length;
 		this.mapHeight = gameLogic.currentMap.getMap().length;
 
-		this.mult = Math.floor(width / mapWidth);
+		System.out.println(gameLogic.currentMap.getMap().length + "MERDA");
+
+		if(title2 == "Editor")
+			this.mult = Math.round(width / gameLogic.currentMap.getMap().length);
+		else
+			this.mult = Math.round(width / mapWidth);
 
 		Assets.init();
 
@@ -200,20 +205,28 @@ public class Game extends JPanel implements KeyListener {
 			for(int i = 0; i < gameLogic.ogres.size(); i++){
 				ogreMove = gameLogic.ogre.createRandomMove();
 
-				if(ogreMove == 'w'){
-					ogresSprite[i] = Assets.ogreBack;
-				} else if (ogreMove == 'a'){
-					ogresSprite[i] = Assets.ogreRight;
-				} else if (ogreMove == 's'){
-					ogresSprite[i] = Assets.ogreFront;
-				} else if (ogreMove == 'd'){
-					ogresSprite[i] = Assets.ogreLeft;
-				}
+				boolean stunned = isStunned(i);
 
-				if((gameLogic.hero.getX() == gameLogic.ogres.get(i).getX() && gameLogic.hero.getY() == gameLogic.ogres.get(i).getY() + 1) || (gameLogic.hero.getX() == gameLogic.ogres.get(i).getX() && gameLogic.hero.getY() == gameLogic.ogres.get(i).getY() - 1)){
-					gameLogic.ogres.get(i).stunOgre();
-				} else if((gameLogic.hero.getY() == gameLogic.ogres.get(i).getY() && gameLogic.hero.getX() == gameLogic.ogres.get(i).getX() + 1) || (gameLogic.hero.getY() == gameLogic.ogres.get(i).getY() && gameLogic.hero.getX() == gameLogic.ogres.get(i).getX() - 1)){
-					gameLogic.ogres.get(i).stunOgre();
+				if(ogreMove == 'w'){
+					if(stunned)
+						ogresSprite[i] = Assets.sOgreBack;
+					else
+						ogresSprite[i] = Assets.ogreBack;
+				} else if (ogreMove == 'a'){
+					if(stunned)
+						ogresSprite[i] = Assets.sOgreRight;
+					else
+						ogresSprite[i] = Assets.ogreRight;
+				} else if (ogreMove == 's'){
+					if(stunned)
+						ogresSprite[i] = Assets.sOgreFront;
+					else
+						ogresSprite[i] = Assets.ogreFront;
+				} else if (ogreMove == 'd'){
+					if(stunned)
+						ogresSprite[i] = Assets.sOgreLeft;
+					else
+						ogresSprite[i] = Assets.ogreLeft;
 				}
 
 				gameLogic.ogres.get(i).moveOgre(gameLogic, ogreMove);
@@ -255,20 +268,33 @@ public class Game extends JPanel implements KeyListener {
 
 	}
 
+	private boolean isStunned(int i) {
+		if((gameLogic.hero.getX() == gameLogic.ogres.get(i).getX() && gameLogic.hero.getY() == gameLogic.ogres.get(i).getY() + 1) || (gameLogic.hero.getX() == gameLogic.ogres.get(i).getX() && gameLogic.hero.getY() == gameLogic.ogres.get(i).getY() - 1)){
+			gameLogic.ogres.get(i).stunOgre();
+			return true;
+		} else if((gameLogic.hero.getY() == gameLogic.ogres.get(i).getY() && gameLogic.hero.getX() == gameLogic.ogres.get(i).getX() + 1) || (gameLogic.hero.getY() == gameLogic.ogres.get(i).getY() && gameLogic.hero.getX() == gameLogic.ogres.get(i).getX() - 1)){
+			gameLogic.ogres.get(i).stunOgre();
+			return true;
+		}
+		return false;
+	}
+
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g); // Clears board
 		drawStructures(g, mult);
 
-		g.drawImage(hero, gameLogic.hero.getY() * 49 , gameLogic.hero.getX() * 49 - 49, 64, 90, null);
+		int a = (int)mult;
+
+		g.drawImage(hero, gameLogic.hero.getY() * a , gameLogic.hero.getX() * a - a, 64, 90, null);
 
 		if(gameLogic.currentMap.getName() == "GuardMap"){
-			g.drawImage(guard,  gameLogic.guard.getY() * 49, gameLogic.guard.getX() * 49 - 49, 64, 90, null);
+			g.drawImage(guard,  gameLogic.guard.getY() * a, gameLogic.guard.getX() * a - a, 64, 90, null);
 		}
 		else {
 			for(int i = 0; i < gameLogic.ogres.size(); i++){
-				g.drawImage(Assets.club, gameLogic.ogres.get(i).getClubY()* 50, gameLogic.ogres.get(i).getClubX()* 50, 50, 50, null);
-				g.drawImage(ogresSprite[i], gameLogic.ogres.get(i).getY()* 49, gameLogic.ogres.get(i).getX()* 49 - 40, 54, 80, null);
+				g.drawImage(Assets.club, gameLogic.ogres.get(i).getClubY()* a, gameLogic.ogres.get(i).getClubX()* a, 50, 50, null);
+				g.drawImage(ogresSprite[i], gameLogic.ogres.get(i).getY()* a, gameLogic.ogres.get(i).getX()* a - a, 54, 80, null);
 			}
 		}
 

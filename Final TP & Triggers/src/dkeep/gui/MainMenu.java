@@ -106,7 +106,7 @@ public class MainMenu extends JPanel{
 
 		btnCreateMap.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0){
-				mapCreator = new MapCreator("Create a new Map");
+				mapCreator = new MapCreator();
 				mapCreator.setVisible(true);
 				mapCreator.init();
 			}

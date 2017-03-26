@@ -21,13 +21,12 @@ public class MapCreator extends JPanel implements MouseListener{
 	private char activeChar;
 	private JPanel panel;
 	private JFrame frame = new JFrame();
-	private String title;
 	private JButton btnOgre, btnKey, btnHero, btnWall, btnFloor, btnSave;
 	private JButton btnDoor;
 	private EditorMap map;
 	private Game game;
 	private boolean heroWasCreated, keyWasCreated;
-	private JSlider slider;
+	public JSlider slider;
 
 	public int x, y;
 	double mult;
@@ -56,12 +55,11 @@ public class MapCreator extends JPanel implements MouseListener{
 	/**
 	 * Initializes a new Window with MapCreator components.
 	 */
-	public MapCreator(String string) {
+	public MapCreator() {
 
 		keyWasCreated = false;
 		heroWasCreated = false;
 		activeChar = 0;
-		title = string;
 
 		map = new EditorMap(4, 4);
 		game = new Game("Editor");
@@ -69,7 +67,7 @@ public class MapCreator extends JPanel implements MouseListener{
 		game.levelPositionArray = 0;
 		game.gameLogic.currentMap = map;
 		game.gameLogic.createHero(1, 1);
-		frame = new JFrame(title);     
+		frame = new JFrame("Level Editor");     
 		frame.setContentPane(this);
 		frame.setSize(800, 600);
 		frame.setVisible(true);

@@ -12,6 +12,7 @@ public class Assets {
 	guardFront, guardLeft, guardRight, guardBack,
 	sGuardFront, sGuardLeft, sGuardRight, sGuardBack,
 	ogreFront, ogreLeft, ogreRight, ogreBack,
+	sOgreFront, sOgreLeft, sOgreRight, sOgreBack,
 	heroFront, heroLeft, heroRight, heroBack,
 	topWall, leftWall, rightWall, bottomWall, 
 	topLeftWall, topRightWall, bottomLeftWall, bottomRightWall, wall,
@@ -31,6 +32,7 @@ public class Assets {
 		SpriteSheet mechaSheet = new SpriteSheet(ImageLoader.loadImage("/Mecha.png"));
 		SpriteSheet arrowSheet = new SpriteSheet(ImageLoader.loadImage("/Arrows.png"));
 		SpriteSheet sGuardSheet = new SpriteSheet(ImageLoader.loadImage("/GuardAsleep.png"));
+		SpriteSheet sOgreSheet = new SpriteSheet(ImageLoader.loadImage("/MechaAsleep.png"));
 		
 		
 		heroFront = heroSheet.crop(0, 0, width, height);
@@ -52,6 +54,11 @@ public class Assets {
 		ogreLeft = mechaSheet.crop(0, height, width, height);
 		ogreRight = mechaSheet.crop(width*2, height, width, height);
 		ogreBack = mechaSheet.crop(0, height*2, width, height);
+		
+		sOgreFront = sOgreSheet.crop(0, 0, width, height);
+		sOgreLeft = sOgreSheet.crop(0, height, width, height);
+		sOgreRight = sOgreSheet.crop(width*2, height, width, height);
+		sOgreBack = sOgreSheet.crop(0, height*2, width, height);
 		
 		club = wallSheet.crop(wallWidth * 4, wallHeight, wallWidth, wallHeight);
 
