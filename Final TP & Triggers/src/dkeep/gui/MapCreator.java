@@ -63,7 +63,13 @@ public class MapCreator extends JPanel implements MouseListener{
 		activeChar = 0;
 		title = string;
 		ogreCounter = 0;
-
+		
+		map = new EditorMap(4, 4);
+		game = new Game("Editor");
+		game.levels[0] = map;
+		game.levelPositionArray = 0;
+		game.gameLogic.currentMap = map;
+		
 		frame = new JFrame(title);     
 		frame.setContentPane(this);
 		frame.setSize(800, 600);
@@ -88,12 +94,14 @@ public class MapCreator extends JPanel implements MouseListener{
 
 				for(int i = 0; i < map.getMap().length; i++){
 					for(int j = 0; j < map.getMap().length; j++){
+						for (int k = 0; k < game.gameLogic.ogres.size(); k++) {
+							if (game.gameLogic.ogres.get(k).getX() == j && game.gameLogic.ogres.get(k).getY() == i)
+								g.drawImage(Assets.ogreFront, i * intMult - 10, j * intMult - 55, intMult + 14, intMult + 30, null);
+						}
 						if(map.getMap()[j][i] == 'H'){
 							g.drawImage(Assets.heroFront, game.gameLogic.hero.getX() * intMult - 10, game.gameLogic.hero.getY() * intMult - 55, intMult + 14, intMult + 30, null);
-						} else if(map.getMap()[j][i] == 'O'){
-							g.drawImage(Assets.ogreFront, i * intMult - 10, j * intMult - 55, intMult + 14, intMult + 30, null);
 						}
-
+						
 					}
 				}
 			}
@@ -307,8 +315,10 @@ public class MapCreator extends JPanel implements MouseListener{
 				heroWasCreated = true;
 			} else if (activeChar == 'O') {
 				
+				
 				if(ogreCounter < 5){
 					ogreCounter++;
+					map.place(x, y, ' ');
 					game.gameLogic.createOgre(y, x, slider.getValue(), slider.getValue());
 				
 				}
