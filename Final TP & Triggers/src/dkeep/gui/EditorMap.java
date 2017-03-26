@@ -38,6 +38,17 @@ public class EditorMap extends GameMap {
 	}
 
 
+	public boolean checkOgre(GameLogic game, int x, int y) {
+		for (int i = 0 ; i < game.ogres.size(); i++) {
+			if (game.ogres.get(i).getX() == y && game.ogres.get(i).getY() == x) {
+				game.ogres.remove(i);
+				return true;
+			}
+		}
+		return false;
+
+	}
+
 
 	/**
 	 * Checks all possible moves.

@@ -306,15 +306,23 @@ public class MapCreator extends JPanel implements MouseListener{
 				game.gameLogic.hero.setY(y);
 				heroWasCreated = true;
 			} else if (activeChar == 'O') {
-
+				
 				if(ogreCounter < 5){
 					ogreCounter++;
-					game.gameLogic.createOgre(x, y, slider.getValue(), slider.getValue());
+					game.gameLogic.createOgre(y, x, slider.getValue(), slider.getValue());
+				
 				}
 			}
-			map.place(x, y, activeChar);
+			
+			else { 
+				map.checkOgre(game.gameLogic, x ,y);
+				map.place(x, y, activeChar);
+			}
 		}
 
+		game.gameLogic.currentMap.drawMap(game.gameLogic);
+		
+		System.out.println("");
 
 		panel.repaint(); 
 	}
