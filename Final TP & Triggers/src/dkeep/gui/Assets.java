@@ -10,6 +10,7 @@ public class Assets {
 
 	public static BufferedImage 
 	guardFront, guardLeft, guardRight, guardBack,
+	sGuardFront, sGuardLeft, sGuardRight, sGuardBack,
 	ogreFront, ogreLeft, ogreRight, ogreBack,
 	heroFront, heroLeft, heroRight, heroBack,
 	topWall, leftWall, rightWall, bottomWall, 
@@ -29,6 +30,8 @@ public class Assets {
 		SpriteSheet wallSheet = new SpriteSheet(ImageLoader.loadImage("/Structures.png"));
 		SpriteSheet mechaSheet = new SpriteSheet(ImageLoader.loadImage("/Mecha.png"));
 		SpriteSheet arrowSheet = new SpriteSheet(ImageLoader.loadImage("/Arrows.png"));
+		SpriteSheet sGuardSheet = new SpriteSheet(ImageLoader.loadImage("/GuardAsleep.png"));
+		
 		
 		heroFront = heroSheet.crop(0, 0, width, height);
 		heroLeft = heroSheet.crop(0, height, width, height);
@@ -39,6 +42,11 @@ public class Assets {
 		guardLeft = guardSheet.crop(0, height, width, height);
 		guardRight = guardSheet.crop(width*2, height, width, height);
 		guardBack = guardSheet.crop(0, height*2, width, height);
+		
+		sGuardFront = sGuardSheet.crop(0, 0, width, height);
+		sGuardLeft = sGuardSheet.crop(0, height, width, height);
+		sGuardRight = sGuardSheet.crop(width*2, height, width, height);
+		sGuardBack = sGuardSheet.crop(0, height*2, width, height);
 		
 		ogreFront = mechaSheet.crop(0, 0, width, height);
 		ogreLeft = mechaSheet.crop(0, height, width, height);
