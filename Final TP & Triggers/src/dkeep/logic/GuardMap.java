@@ -1,5 +1,12 @@
 package dkeep.logic;
 
+/**
+ * Handles the Guard's level
+ * Extends GameMap class
+ * @author Diogo Dores, Pedro Reis
+ *
+ */
+
 public class GuardMap extends GameMap {
 	
 	private String mapName = "GuardMap";
@@ -18,6 +25,10 @@ public class GuardMap extends GameMap {
 	
 	
 
+	/**
+	 * Opens all the map's doors
+	 *@param hero This is an object from the Hero class
+	 */
 	public void activateLever(Hero hero) {
 		for (int i = 0; i < levelOneMap.length; i++) {
 			for (int j = 0; j < levelOneMap[i].length; j++) {
@@ -29,12 +40,17 @@ public class GuardMap extends GameMap {
 	
 
 
-
+	/**
+	 * @return char[][] This returns the guard's map
+	 */
 	@Override
 	public char[][] getMap() {
 		return levelOneMap;
 	}
 
+	/**
+	 * @return String This returns the classe's name
+	 */
 	@Override
 	public String getName() {
 		return mapName;
@@ -42,7 +58,10 @@ public class GuardMap extends GameMap {
 
 	
 
-
+	/**
+	 * @param game This is an object from the GameLogic class
+	 * @return boolean This return true if the hero is past the level's doors
+	 */
 	@Override
 	public boolean checkWin(GameLogic game) {
 		return (game.hero.getX() == 0 && (game.hero.getY() == 5  || game.hero.getY() == 6));
