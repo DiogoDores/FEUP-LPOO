@@ -26,7 +26,7 @@ public class MapCreator extends JPanel implements MouseListener{
 	private JButton btnDoor;
 	private EditorMap map;
 	private Game game;
-	private boolean heroWasCreated;
+	private boolean heroWasCreated, keyWasCreated;
 	private JSlider slider;
 
 	public int x, y;
@@ -58,6 +58,7 @@ public class MapCreator extends JPanel implements MouseListener{
 	 */
 	public MapCreator(String string) {
 
+		keyWasCreated = false;
 		heroWasCreated = false;
 		activeChar = 0;
 		title = string;
@@ -99,6 +100,11 @@ public class MapCreator extends JPanel implements MouseListener{
 						if(i == game.gameLogic.hero.getX() && j == game.gameLogic.hero.getY() && heroWasCreated){
 							g.drawImage(Assets.heroFront, i * intMult - 10, j * intMult - 55, intMult + 14, intMult + 30, null);
 						}
+						else if (map.getMap()[i][j] == 'k')
+							//COORDENADAS ESTAO ERRADAS
+							g.drawImage(Assets.key,i * intMult - 10, j * intMult - 55, intMult + 14, intMult + 30, null);
+
+						
 
 					}
 				}
@@ -310,7 +316,15 @@ public class MapCreator extends JPanel implements MouseListener{
 			game.gameLogic.hero.setY(y);
 			heroWasCreated = true;
 		
-		}  else if (activeChar == 'O') {
+		} 
+		else if(activeChar == 'k'){
+			
+			if (!keyWasCreated) {
+				map.place(x, y, 'k');
+				keyWasCreated = true;
+			}
+		
+		} else if (activeChar == 'O') {
 				if (x == game.gameLogic.hero.getX() && y == game.gameLogic.hero.getY())
 					heroWasCreated = false;
 				game.gameLogic.createOgre(y, x, slider.getValue(), slider.getValue());
@@ -324,6 +338,8 @@ public class MapCreator extends JPanel implements MouseListener{
 
 
 		panel.repaint(); 
+		
+		game.gameLogic.currentMap.drawMap(game.gameLogic);
 	}
 
 
