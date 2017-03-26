@@ -90,18 +90,20 @@ public class MapCreator extends JPanel implements MouseListener{
 				super.paintComponent(g);
 
 				game.drawStructures(g, mult);
-
+				
 				for(int i = 0; i < map.getMap().length; i++){
 					for(int j = 0; j < map.getMap().length; j++){
 						for (int k = 0; k < game.gameLogic.ogres.size(); k++) {
-							if (game.gameLogic.ogres.get(k).getX() == j && game.gameLogic.ogres.get(k).getY() == i)
+							if (game.gameLogic.ogres.get(k).getX() == j && game.gameLogic.ogres.get(k).getY() == i) {
+								System.out.println(i + " " + j);	
 								g.drawImage(Assets.ogreFront, i * intMult - 10, j * intMult - 55, intMult + 14, intMult + 30, null);
+							}
 						}
 						if(i == game.gameLogic.hero.getX() && j == game.gameLogic.hero.getY() && heroWasCreated){
 							g.drawImage(Assets.heroFront, i * intMult - 10, j * intMult - 55, intMult + 14, intMult + 30, null);
 						}
 						else if (map.getMap()[i][j] == 'k')
-							//COORDENADAS ESTAO ERRADAS
+							
 							g.drawImage(Assets.key,j * intMult, j * intMult , intMult, intMult , null);
 
 						
@@ -332,10 +334,10 @@ public class MapCreator extends JPanel implements MouseListener{
 						System.out.print(" " + i + " " + j );
 					}
 				}				
-				map.place(x, y, 'k');
+				map.place(y, x, 'k');
 			}
 			else {
-				map.place(x, y, 'k');
+				map.place(y, x, 'k');
 				keyWasCreated = true;
 			}
 		

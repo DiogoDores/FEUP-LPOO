@@ -64,7 +64,7 @@ public class GuardMap extends GameMap {
 	 */
 	@Override
 	public boolean checkWin(GameLogic game) {
-		return (game.hero.getX() == 0 && (game.hero.getY() == 5  || game.hero.getY() == 6));
+		return (game.hero.getY() == 0 && (game.hero.getX() == 5  || game.hero.getX() == 6));
 	}
 
 
