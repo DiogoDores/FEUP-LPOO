@@ -43,6 +43,7 @@ public class Game extends JPanel implements KeyListener {
 	public Game(String title2){
 
 		levelPositionArray = 1;
+
 		levels = new GameMap[3];
 		levels[1] = new GuardMap();
 		levels[2] = new OgreMap();
@@ -53,15 +54,7 @@ public class Game extends JPanel implements KeyListener {
 
 		gameLogic.currentMap = levels[levelPositionArray];
 
-		this.mapWidth = gameLogic.currentMap.getMap().length;
-		this.mapHeight = gameLogic.currentMap.getMap().length;
-
-		System.out.println(gameLogic.currentMap.getMap().length + "MERDA");
-
-		if(title2 == "Editor")
-			this.mult = Math.round(width / gameLogic.currentMap.getMap().length);
-		else
-			this.mult = Math.round(width / mapWidth);
+		
 
 		Assets.init();
 
@@ -79,14 +72,16 @@ public class Game extends JPanel implements KeyListener {
 			}
 			gameLogic.createCharacters(1, guardType, numMechas);
 			System.out.println(guardType);
-			
+
 		}
 		else
 			levelPositionArray = 0;
-		
-		
 
-		
+		this.mapWidth = gameLogic.currentMap.getMap().length;
+		this.mapHeight = gameLogic.currentMap.getMap().length;
+
+		this.mult = Math.round(width / mapWidth);
+
 		panelWidth =  mapWidth * mult + 12;
 		panelHeight = mapHeight * mult + 37;
 
@@ -101,7 +96,7 @@ public class Game extends JPanel implements KeyListener {
 	public void display() { 
 		f = new JFrame("Prison Escape");     
 		f.setContentPane(this);
-		f.setSize((int)panelWidth + 300, (int)panelHeight);
+		f.setSize((int)panelWidth, (int)panelHeight);
 		f.setVisible(true);
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		f.setResizable(false);
@@ -175,8 +170,8 @@ public class Game extends JPanel implements KeyListener {
 		} else if (key == 'd'){
 			hero = Assets.heroLeft;
 		}
-		
-		
+
+
 		if (levelPositionArray == 1) {
 			if(guardMove == 'w'){
 				guard = Assets.guardBack;
@@ -190,9 +185,9 @@ public class Game extends JPanel implements KeyListener {
 			gameLogic.guard.move();
 
 		}
-		
-		
-		
+
+
+
 		else if (levelPositionArray == 2 || levelPositionArray == 0) {			
 			for(int i = 0; i < gameLogic.ogres.size(); i++){
 				ogreMove = gameLogic.ogre.createRandomMove();
@@ -200,9 +195,6 @@ public class Game extends JPanel implements KeyListener {
 				boolean stunned = isStunned(i);
 
 				if(ogreMove == 'w'){
-					if(stunned)
-						ogresSprite[i] = Assets.sOgreBack;
-					else
 						ogresSprite[i] = Assets.ogreBack;
 				} else if (ogreMove == 'a'){
 					if(stunned)
@@ -277,16 +269,17 @@ public class Game extends JPanel implements KeyListener {
 		drawStructures(g, mult);
 
 		int a = (int)mult;
+		int size = (int) (a * 1.5);
 
-		g.drawImage(hero, gameLogic.hero.getY() * a , gameLogic.hero.getX() * a - a, 64, 90, null);
+		g.drawImage(hero, gameLogic.hero.getY() * a - a/4, gameLogic.hero.getX() * a - a, size, size, null);
 
 		if(gameLogic.currentMap.getName() == "GuardMap"){
-			g.drawImage(guard,  gameLogic.guard.getY() * a, gameLogic.guard.getX() * a - a, 64, 90, null);
+			g.drawImage(guard,  gameLogic.guard.getY() * a - a/4, gameLogic.guard.getX() * a - a, size, size, null);
 		}
 		else {
 			for(int i = 0; i < gameLogic.ogres.size(); i++){
 				g.drawImage(Assets.club, gameLogic.ogres.get(i).getClubY()* a, gameLogic.ogres.get(i).getClubX()* a, 50, 50, null);
-				g.drawImage(ogresSprite[i], gameLogic.ogres.get(i).getY()* a, gameLogic.ogres.get(i).getX()* a - a, 54, 80, null);
+				g.drawImage(ogresSprite[i], gameLogic.ogres.get(i).getY()* a - a/4, gameLogic.ogres.get(i).getX()* a - a, size, size, null);
 			}
 		}
 

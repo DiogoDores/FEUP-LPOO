@@ -6,13 +6,13 @@ public class Assets {
 	/**
 	 * Initializes all assets. 
 	 */
-	public static final int width = 129, height = 163, wallWidth = 24, wallHeight = 24;
+	public static final int width = 127, height = 127, heroWidth = 163, heroHeight = 163, wallWidth = 24, wallHeight = 24;
 
 	public static BufferedImage 
 	guardFront, guardLeft, guardRight, guardBack,
 	sGuardFront, sGuardLeft, sGuardRight, sGuardBack,
 	ogreFront, ogreLeft, ogreRight, ogreBack,
-	sOgreFront, sOgreLeft, sOgreRight, sOgreBack,
+	sOgreFront, sOgreLeft, sOgreRight,
 	heroFront, heroLeft, heroRight, heroBack,
 	topWall, leftWall, rightWall, bottomWall, 
 	topLeftWall, topRightWall, bottomLeftWall, bottomRightWall, wall,
@@ -35,10 +35,10 @@ public class Assets {
 		SpriteSheet sOgreSheet = new SpriteSheet(ImageLoader.loadImage("/MechaAsleep.png"));
 		
 		
-		heroFront = heroSheet.crop(0, 0, width, height);
-		heroLeft = heroSheet.crop(0, height, width, height);
-		heroRight = heroSheet.crop(width*2, height, width, height);
-		heroBack = heroSheet.crop(0, height*2, width, height);
+		heroFront = heroSheet.crop(0, 0, heroWidth, heroHeight);
+		heroBack = heroSheet.crop(0, heroHeight, heroWidth, heroHeight);
+		heroLeft = heroSheet.crop(heroWidth, 0, heroWidth, heroHeight);
+		heroRight = heroSheet.crop(heroWidth*2, 0, heroWidth, heroHeight);
 
 		guardFront = guardSheet.crop(0, 0, width, height);
 		guardLeft = guardSheet.crop(0, height, width, height);
@@ -50,15 +50,14 @@ public class Assets {
 		sGuardRight = sGuardSheet.crop(width*2, height, width, height);
 		sGuardBack = sGuardSheet.crop(0, height*2, width, height);
 		
-		ogreFront = mechaSheet.crop(0, 0, width, height);
-		ogreLeft = mechaSheet.crop(0, height, width, height);
-		ogreRight = mechaSheet.crop(width*2, height, width, height);
-		ogreBack = mechaSheet.crop(0, height*2, width, height);
+		ogreFront = mechaSheet.crop(0, 0, heroWidth, heroHeight);
+		ogreBack = mechaSheet.crop(0, heroHeight, heroWidth, heroHeight);
+		ogreLeft = mechaSheet.crop(heroWidth, 0, heroWidth, heroHeight);
+		ogreRight = mechaSheet.crop(heroWidth*2, 0, heroWidth, heroHeight);
 		
-		sOgreFront = sOgreSheet.crop(0, 0, width, height);
-		sOgreLeft = sOgreSheet.crop(0, height, width, height);
-		sOgreRight = sOgreSheet.crop(width*2, height, width, height);
-		sOgreBack = sOgreSheet.crop(0, height*2, width, height);
+		sOgreFront = sOgreSheet.crop(0, 0, heroWidth, heroHeight);
+		sOgreLeft = sOgreSheet.crop(0, heroHeight, heroWidth, heroHeight);
+		sOgreRight = sOgreSheet.crop(heroWidth, 0, heroWidth, heroHeight);
 		
 		club = wallSheet.crop(wallWidth * 4, wallHeight, wallWidth, wallHeight);
 
