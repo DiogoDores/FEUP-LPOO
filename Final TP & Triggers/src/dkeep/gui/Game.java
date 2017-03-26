@@ -68,12 +68,20 @@ public class Game extends JPanel implements KeyListener {
 
 	public void init(){
 		if (title != "Editor"){
-			gameLogic.createCharacters(1, guardType, numMechas);
 			if(guardType == null || numMechas == 0){
 				guardType = "Rookie";
 				numMechas = 1;
 			}
+			gameLogic.createCharacters(1, guardType, numMechas);
+			System.out.println(guardType);
+			
 		}
+		else
+			levelPositionArray = 0;
+		
+		
+
+		
 		panelWidth =  mapWidth * mult + 12;
 		panelHeight = mapHeight * mult + 37;
 
@@ -162,7 +170,9 @@ public class Game extends JPanel implements KeyListener {
 		} else if (key == 'd'){
 			hero = Assets.heroLeft;
 		}
-
+		
+		System.out.println(gameLogic.guard.getX());
+		
 		if (levelPositionArray == 1) {
 			if(guardMove == 'w'){
 				guard = Assets.guardBack;
@@ -176,9 +186,11 @@ public class Game extends JPanel implements KeyListener {
 			gameLogic.guard.move();
 
 		}
-		else if (levelPositionArray == 2) {			
+		
+		
+		
+		else if (levelPositionArray == 2 || levelPositionArray == 0) {			
 			for(int i = 0; i < gameLogic.ogres.size(); i++){
-
 				ogreMove = gameLogic.ogre.createRandomMove();
 
 				if(ogreMove == 'w'){

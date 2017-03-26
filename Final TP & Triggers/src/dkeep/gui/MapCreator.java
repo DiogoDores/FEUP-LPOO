@@ -250,7 +250,8 @@ public class MapCreator extends JPanel implements MouseListener{
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (map.checkMap(game.gameLogic, slider.getValue(), slider.getValue()) && heroWasCreated) {
-
+					game.gameLogic.hero.setX(game.gameLogic.hero.getY());
+					game.gameLogic.hero.setY(game.gameLogic.hero.getX());
 					Assets.init();
 					game.setVisible(true);
 					game.init();

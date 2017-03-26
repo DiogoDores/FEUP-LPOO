@@ -94,14 +94,14 @@ public class MainMenu extends JPanel{
 				frame.dispose();
 				game = new Game("Prison Escape");
 				game.setVisible(true);
-				game.init();
+				game.init(); 
 			}
 		});
 
 		btnExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0){
 				System.exit(0);
-			}
+			}	
 		});
 
 		btnCreateMap.addActionListener(new ActionListener() {
