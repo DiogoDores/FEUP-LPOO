@@ -38,8 +38,7 @@ public class Guard {
 	 * Abstract function for all the child classes
 	 */
 	public void move(){
-		
-		return;
+		followPath();
 	}
 	
 	/**
