@@ -259,7 +259,6 @@ public class MapCreator extends JPanel implements MouseListener{
 		btnSave.setBounds(10, 512, 181, 23);
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				System.out.println("KEY " +  keyWasCreated + " HERO  " + heroWasCreated);
 				if (map.checkMap(game.gameLogic, slider.getValue(), slider.getValue()) && heroWasCreated && keyWasCreated) {
 					game.gameLogic.hero.setX(game.gameLogic.hero.getY());
 					game.gameLogic.hero.setY(game.gameLogic.hero.getX());
@@ -361,7 +360,6 @@ public class MapCreator extends JPanel implements MouseListener{
 
 		panel.repaint(); 
 		
-		game.gameLogic.currentMap.drawMap(game.gameLogic);
 	}
 
 

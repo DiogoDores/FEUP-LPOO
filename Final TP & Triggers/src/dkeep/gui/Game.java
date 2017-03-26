@@ -67,15 +67,16 @@ public class Game extends JPanel implements KeyListener {
 	 */
 
 	public void init(){
+		if(guardType == null || numMechas == 0){
+			guardType = "Rookie";
+			numMechas = 1;
+		}
+	
 		if (title != "Editor"){
-			if(guardType == null || numMechas == 0){
-				guardType = "Rookie";
-				numMechas = 1;
-			}
 			gameLogic.createCharacters(1, guardType, numMechas);
 
 		}
-		if (title == "Editor")
+		else
 			levelPositionArray = 0;
 
 		panelWidth =  mapWidth * mult + 12;
@@ -160,7 +161,7 @@ public class Game extends JPanel implements KeyListener {
 		char ogreMove;
 
 		char guardMove = gameLogic.guard.getGuardMove();
-
+		System.out.print(guardMove);
 		if(key == 'w'){
 			hero = Assets.heroBack;
 		} else if (key == 'a'){
@@ -227,16 +228,7 @@ public class Game extends JPanel implements KeyListener {
 		if (gameLogic.currentMap.checkWin(gameLogic)){
 			Assets.init();
 			levelPositionArray++;
-			if (levelPositionArray == 1) {
-				if (title != "Editor"){
-					if(guardType == null || numMechas == 0){
-						guardType = "Rookie";
-						numMechas = 1;
-					}
-					gameLogic.createCharacters(1, guardType, numMechas);
-				}
-			}
-			
+			//gameLogic.currentMap.resetPositions(gameLogic);
 			gameLogic.createOgres(numMechas);
 
 			if (levelPositionArray == 3) {
@@ -322,7 +314,7 @@ public class Game extends JPanel implements KeyListener {
 				} else if (mapToDraw[y][x] == 'k'){
 					if(gameLogic.currentMap.getName() == "GuardMap")
 						g.drawImage(Assets.closedLever, x * mult, y * mult, mult, mult, null);
-					else if (gameLogic.currentMap.getName() == "OgreMap")
+					else if (gameLogic.currentMap.getName() == "OgreMap" || gameLogic.currentMap.getName() == "Editor")
 						g.drawImage(Assets.key, x * mult, y * mult, mult, mult, null);
 				} else if (mapToDraw[y][x] == 'I'){
 					g.drawImage(Assets.door, x * mult, y * mult, mult, mult, null);

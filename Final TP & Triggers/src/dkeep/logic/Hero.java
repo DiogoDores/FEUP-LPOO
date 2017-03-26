@@ -113,12 +113,14 @@ public class Hero {
 		}
 
 		else if (result == 'S') {
-			if (c == 'a' && y > 1) {
-				y -= 2;
-			} else if (c == 'a' && y == 1) {
+			if (c == 'a') {
 				y--;
+			} else if (c == 's') {
+				x++;
 			} else if (c == 'd') {
-				y +=2;
+				y++;
+			} else if (c == 'w') {
+				x--;
 			}
 
 		} 

@@ -63,7 +63,6 @@ public class EditorMap extends GameMap {
 			if (game.ogres.get(i).getX() == x && game.ogres.get(i).getY() == y)
 				return 'O';
 		}
-
 		if (game.currentMap.getMap()[x][y]  == 'X'){
 			return 'X';
 		} else if (game.currentMap.getMap()[x][y] == 'k') {
