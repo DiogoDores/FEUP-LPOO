@@ -36,7 +36,35 @@ public class EditorMap extends GameMap {
 		if (x >= 0 && x <= levelWidth -1 && y >= 0 && y <= levelHeight-1)
 			level[y][x] = symbol;
 	}
+	
+	public EditorMap changeHero(EditorMap map, int x, int y) {
+		boolean newHeroWasPlaced = true;
+		for (int i = 0; i < levelWidth ; i++) {
+			for (int j = 0; j < levelHeight; j++) {
+				if (x == i && j == y) {
+					newHeroWasPlaced = true;
+					map.place(x, y , 'H');
+				}
+				else if (map.getMap()[i][j] == 'H' && !newHeroWasPlaced)
+					map.place(i, j , ' ');
+			}
+			
+			
+		}
+		return map;
+	}
 
+
+	public void checkOgre(GameLogic game, int x, int y) {
+		for (int i = 0 ; i < game.ogres.size(); i++) {
+			if (game.ogres.get(i).getX() == y && game.ogres.get(i).getY() == x) {
+				game.ogres.remove(i);
+				
+			}
+		}
+	}
+	
+	
 
 
 	/**
