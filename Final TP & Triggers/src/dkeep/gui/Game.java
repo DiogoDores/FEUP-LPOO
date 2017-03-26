@@ -88,7 +88,7 @@ public class Game extends JPanel implements KeyListener {
 	public void display() { 
 		f = new JFrame("Prison Escape");     
 		f.setContentPane(this);
-		f.setSize((int)panelWidth + 300, (int)panelHeight);
+		f.setSize((int)panelWidth, (int)panelHeight);
 		f.setVisible(true);
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		f.setResizable(false);
