@@ -28,7 +28,7 @@ public class TestsJUnit {
 		assertFalse(1 < game.hero.getX() && 1 > game.hero.getX());
 		assertEquals(2, game.hero.getY());
 		assertFalse(2 < game.hero.getY() && 2 > game.hero.getY());
-		game.hero.move(game, testMap, 's');
+		game.hero.move(game, 's');
 		assertEquals(2, game.hero.getX());
 		assertFalse(3 == game.hero.getX());
 		assertFalse(1 == game.hero.getX());
@@ -73,7 +73,7 @@ public class TestsJUnit {
 		assertFalse(1 == game.hero.getY());
 		
 		
-		game.hero.move(game, testMap, 'w');
+		game.hero.move(game, 'w');
 		testMap.drawMap(game);
  
 		assertEquals(1, game.hero.getX());
@@ -96,7 +96,7 @@ public class TestsJUnit {
 		testMap.drawMap(game);
 		assertEquals(1, game.hero.getX());
 		assertEquals(2, game.hero.getY());
-		game.hero.move( game,testMap, 's');
+		game.hero.move( game, 's');
 		assertEquals(true, game.checkPresence());
 		testMap.drawMap(game);
 	}
@@ -115,10 +115,10 @@ public class TestsJUnit {
 		testMap.drawMap(game);
 		assertEquals(1, game.hero.getX());
 		assertEquals(2, game.hero.getY());
-		game.hero.move( game,testMap, 's');
-		game.hero.move( game,testMap, 'a');
-		game.hero.move( game,testMap, 'w');
-		game.hero.move( game,testMap, 'd');
+		game.hero.move( game, 's');
+		game.hero.move( game, 'a');
+		game.hero.move( game, 'w');
+		game.hero.move( game, 'd');
 		assertEquals(1, game.hero.getX());
 		assertEquals(2, game.hero.getY());
 		testMap.drawMap(game);
@@ -129,10 +129,10 @@ public class TestsJUnit {
 		ogreMap.drawMap(game);
 		assertEquals(1, game.hero.getX());
 		assertEquals(2, game.hero.getY());
-		game.hero.move( game,ogreMap, 's');
-		game.hero.move( game,ogreMap, 'a');
-		game.hero.move( game,ogreMap, 'w');
-		game.hero.move( game,ogreMap, 'd');
+		game.hero.move( game, 's');
+		game.hero.move( game, 'a');
+		game.hero.move( game, 'w');
+		game.hero.move( game, 'd');
 		assertEquals(1, game.hero.getX());
 		assertEquals(2, game.hero.getY());
 
@@ -142,10 +142,10 @@ public class TestsJUnit {
 		guardMap.drawMap(game);
 		assertEquals(1, game.hero.getX());
 		assertEquals(2, game.hero.getY());
-		game.hero.move( game,guardMap, 's');
-		game.hero.move( game,guardMap, 'a');
-		game.hero.move( game,guardMap, 'w');
-		game.hero.move( game,guardMap, 'd');
+		game.hero.move( game, 's');
+		game.hero.move( game, 'a');
+		game.hero.move( game, 'w');
+		game.hero.move( game, 'd');
 		assertEquals(1, game.hero.getX());
 		assertEquals(2, game.hero.getY());
 
@@ -161,12 +161,11 @@ public class TestsJUnit {
 		game.changeCurrentMap(testMap);
 		game.createHero(1, 2);
 		game.createOgre(3,2, 9, 9);	
-		// TODO Não gera um ogre, para testar descomenta o @test	
-
+		
 		testMap.drawMap(game);
 		assertEquals(1, game.hero.getX());
 		assertEquals(2, game.hero.getY());
-		game.hero.move( game,testMap, 's');
+		game.hero.move( game, 's');
 		testMap.drawMap(game);
 		assertEquals(false, game.checkPresence());
 		testMap.drawMap(game);
@@ -181,7 +180,7 @@ public class TestsJUnit {
 		game.createHero(1, 1);
 
 		testMap.drawMap(game);
-		game.hero.move( game,testMap, 'a');
+		game.hero.move( game, 'a');
 		assertEquals(1, game.hero.getX());
 		assertEquals(1, game.hero.getY());
 		assertEquals('H', game.hero.getSymbol());
@@ -201,7 +200,7 @@ public class TestsJUnit {
 		game.createHero(1, 2);
 
 		testMap.drawMap(game);
-		game.hero.move( game,testMap, 'd'); // Dá erro aqui, mas não entendo porquê
+		game.hero.move( game, 'd');
 		assertEquals('K', game.hero.getSymbol());
 
 		testMap.drawMap(game);
@@ -217,8 +216,8 @@ public class TestsJUnit {
 		game.createHero(1, 2); 
 
 		testMap.drawMap(game);
-		game.hero.move( game,testMap, 'd'); // Dá erro aqui, mas não entendo porquê
-		game.hero.move( game,testMap, 'a'); game.hero.move( game,testMap, 'a'); game.hero.move( game,testMap, 'a'); 
+		game.hero.move( game, 'd'); 
+		game.hero.move( game, 'a'); game.hero.move( game, 'a'); game.hero.move( game, 'a'); 
 		assertEquals('S', testMap.getMap()[1][0]);
 
 		testMap.drawMap(game);
@@ -233,9 +232,9 @@ public class TestsJUnit {
 		testMap.drawMap(game);
 
 		game.createHero(1, 2); 
-		game.hero.move( game,testMap, 'd'); 
-		game.hero.move( game,testMap, 'a'); game.hero.move( game,testMap, 'a'); game.hero.move( game,testMap, 'a'); 
-		game.hero.move( game,testMap, 'a');
+		game.hero.move( game, 'd'); 
+		game.hero.move( game, 'a'); game.hero.move( game, 'a'); game.hero.move( game, 'a'); 
+		game.hero.move( game, 'a');
 		assertEquals(game.currentMap.getMap()[1][0], game.currentMap.getMap()[game.hero.getX()][game.hero.getY()]);
 
 		testMap.drawMap(game); 
@@ -267,21 +266,17 @@ public class TestsJUnit {
 		game.changeCurrentMap(testMap);
 		game.createGuard(1, 8, "Rookie");
 		game.guard.move();
-		boolean test = false;
-		if ((game.guard.getX() == 1 && game.guard.getY() == 7) || (game.guard.getX() == 2 && game.guard.getY() == 8))
-			test = true;
+		if ((game.guard.getX() == 1 && game.guard.getY() == 7) || (game.guard.getX() == 2 && game.guard.getY() == 8)) {
+		}
 		int j = 0; 
 		while (j < 90) {
 			j++;
 			game.guard.move();
-		}
-		//assertEquals(true,test);
-	
+		}	
 	} 
 
 	@Test
 	public void followPathDrunken() {
-	//	System.out.println("\nFollow Path Drunken.\n");
 		GameLogic game = new GameLogic();
 		GuardMap testMap = new GuardMap();
 		game.changeCurrentMap(testMap);
@@ -375,7 +370,6 @@ public class TestsJUnit {
 
 	@Test
 	public void testMoveTwo() {
-	//	System.out.println("\nTest Move Two.\n");
 		GameLogic game = new GameLogic();
 		OgreMap testMap = new OgreMap();
 		game.changeCurrentMap(testMap);
@@ -391,7 +385,6 @@ public class TestsJUnit {
 
 	@Test
 	public void activateLeverGuard() {
-	//	System.out.println("\nTest Activate Lever Guard.\n");
 		GameLogic game = new GameLogic();
 		GuardMap testMap = new GuardMap();
 
@@ -400,11 +393,11 @@ public class TestsJUnit {
 
 		testMap.drawMap(game);
 
-		game.hero.move( game,testMap, 'd'); game.hero.move( game,testMap, 'd'); game.hero.move( game,testMap, 's');  game.hero.move( game,testMap, 's');  game.hero.move( game,testMap, 's');  game.hero.move( game,testMap, 's');  game.hero.move( game,testMap, 's'); 
-		game.hero.move( game,testMap, 'd');game.hero.move( game,testMap, 'd');game.hero.move( game,testMap, 'd');game.hero.move( game,testMap, 'd');game.hero.move( game,testMap, 'd');
-		game.hero.move( game,testMap, 's');game.hero.move( game,testMap, 's');game.hero.move( game,testMap, 'a');
-		game.hero.move( game,testMap, 'w');game.hero.move( game,testMap, 'w');game.hero.move( game,testMap, 'a');
-		game.hero.move( game,testMap, 'a');game.hero.move( game,testMap, 'a');game.hero.move( game,testMap, 'a');game.hero.move( game,testMap, 'a');game.hero.move( game,testMap, 'a');game.hero.move( game,testMap, 'a');game.hero.move( game,testMap, 'a');		 
+		game.hero.move( game, 'd'); game.hero.move( game, 'd'); game.hero.move( game, 's');  game.hero.move( game, 's');  game.hero.move( game, 's');  game.hero.move( game, 's');  game.hero.move( game, 's'); 
+		game.hero.move( game, 'd');game.hero.move( game, 'd');game.hero.move( game, 'd');game.hero.move( game, 'd');game.hero.move( game, 'd');
+		game.hero.move( game, 's');game.hero.move( game, 's');game.hero.move( game, 'a');
+		game.hero.move( game, 'w');game.hero.move( game, 'w');game.hero.move( game, 'a');
+		game.hero.move( game, 'a');game.hero.move( game, 'a');game.hero.move( game, 'a');game.hero.move( game, 'a');game.hero.move( game, 'a');game.hero.move( game, 'a');game.hero.move( game, 'a');		 
 		assertEquals(testMap.getMap()[6][0], testMap.getMap()[game.hero.getX()][game.hero.getY()]);
 
 		testMap.drawMap(game);
@@ -568,11 +561,11 @@ public class TestsJUnit {
 
 		testMap.drawMap(game);
 
-		game.hero.move( game,testMap, 'd'); game.hero.move( game,testMap, 'd'); game.hero.move( game,testMap, 's');  game.hero.move( game,testMap, 's');  game.hero.move( game,testMap, 's');  game.hero.move( game,testMap, 's');  game.hero.move( game,testMap, 's'); 
-		game.hero.move( game,testMap, 'd');game.hero.move( game,testMap, 'd');game.hero.move( game,testMap, 'd');game.hero.move( game,testMap, 'd');game.hero.move( game,testMap, 'd');
-		game.hero.move( game,testMap, 's');game.hero.move( game,testMap, 's');game.hero.move( game,testMap, 'a');
-		game.hero.move( game,testMap, 'w');game.hero.move( game,testMap, 'w');game.hero.move( game,testMap, 'a');
-		game.hero.move( game,testMap, 'a');game.hero.move( game,testMap, 'a');game.hero.move( game,testMap, 'a');game.hero.move( game,testMap, 'a');game.hero.move( game,testMap, 'a');game.hero.move( game,testMap, 'a');game.hero.move( game,testMap, 'a');		 
+		game.hero.move( game, 'd'); game.hero.move( game, 'd'); game.hero.move( game, 's');  game.hero.move( game, 's');  game.hero.move( game, 's');  game.hero.move( game, 's');  game.hero.move( game, 's'); 
+		game.hero.move( game, 'd');game.hero.move( game, 'd');game.hero.move( game, 'd');game.hero.move( game, 'd');game.hero.move( game, 'd');
+		game.hero.move( game, 's');game.hero.move( game, 's');game.hero.move( game, 'a');
+		game.hero.move( game, 'w');game.hero.move( game, 'w');game.hero.move( game, 'a');
+		game.hero.move( game, 'a');game.hero.move( game, 'a');game.hero.move( game, 'a');game.hero.move( game, 'a');game.hero.move( game, 'a');game.hero.move( game, 'a');game.hero.move( game, 'a');		 
 
 		testMap.drawMap(game);
 	}

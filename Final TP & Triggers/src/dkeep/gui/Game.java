@@ -198,7 +198,7 @@ public class Game extends JPanel implements KeyListener {
 			}
 		}
 
-		gameLogic.hero.move( gameLogic,gameLogic.currentMap, key);
+		gameLogic.hero.move(gameLogic, key);
 
 		boolean lost = gameLogic.checkPresence();
 

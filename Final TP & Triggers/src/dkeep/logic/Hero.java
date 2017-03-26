@@ -40,21 +40,21 @@ public class Hero {
 	 * Moves hero based on map and key pressed by the player.
 	 */
 
-	public void move(GameLogic game, GameMap map, char c) {
+	public void move(GameLogic game, char c) {
 		boolean won = false;
 
 		char result;
 		if (c == 'w') {
-			result = map.possibleMove(x - 1, y, game);
+			result = game.currentMap.possibleMove(x - 1, y, game);
 		}
 		else if (c == 'a'){
-			result = map.possibleMove(x, y - 1, game);
+			result = game.currentMap.possibleMove(x, y - 1, game);
 		}
 		else if (c == 's') {
-			result = map.possibleMove(x + 1, y, game);
+			result = game.currentMap.possibleMove(x + 1, y, game);
 		}
 		else if (c == 'd') {
-			result = map.possibleMove(x, y + 1, game);
+			result = game.currentMap.possibleMove(x, y + 1, game);
 		}
 		else
 			result = 'N';
@@ -87,32 +87,32 @@ public class Hero {
 		} 
 
 		else if (result == 'E') { 
-			if (map.getName() == "OgreMap") {
+			if (game.currentMap.getName() == "OgreMap") {
 				if (c == 'w') {
 					x--;
 				} else if (c == 'd') {
 					y++;
 				}
 				this.symbol = 'K';
-				map.getMap()[1][7] = ' '; 
+				game.currentMap.getMap()[1][7] = ' '; 
 
 			}
-			else if(map.getName() == "TestMap"){
+			else if(game.currentMap.getName() == "TestMap"){
 				if (c == 'w') {
 					x--;
 				} else if (c == 'd') {
 					y++;
 				}
 				this.symbol = 'K';
-				map.getMap()[1][3] = ' '; 
+				game.currentMap.getMap()[1][3] = ' '; 
 			} else {
-				map.activateLever(new Hero(x, y));
+				game.currentMap.activateLever(new Hero(x, y));
 			}
 
 		} else if(result == 'I'){
-			if(map.getName() == "OgreMap" || map.getName() == "TestMap" ){
+			if(game.currentMap.getName() == "OgreMap" || game.currentMap.getName() == "TestMap" ){
 				if(this.symbol == 'K'){
-					map.getMap()[1][0] = 'S';
+					game.currentMap.getMap()[1][0] = 'S';
 				}
 			}
 		}

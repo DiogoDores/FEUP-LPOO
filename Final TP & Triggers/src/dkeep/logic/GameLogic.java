@@ -23,7 +23,7 @@ public class GameLogic {
 
 		boolean lost = false;
 
-		hero.move(this, currentMap, key);
+		hero.move(this, key);
 
 		if(currentMap.getName() == "GuardMap"){
 			guard.move(); 
