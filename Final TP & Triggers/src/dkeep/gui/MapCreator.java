@@ -44,7 +44,7 @@ public class MapCreator extends JPanel implements MouseListener{
 			game.levels[0] = map;
 			game.levelPositionArray = 0;
 			game.gameLogic.currentMap = map;
-
+			
 			mult = 500/slider.getValue();
 			intMult = (int)mult;
 
@@ -63,13 +63,13 @@ public class MapCreator extends JPanel implements MouseListener{
 		activeChar = 0;
 		title = string;
 		ogreCounter = 0;
-		
+
 		map = new EditorMap(4, 4);
 		game = new Game("Editor");
 		game.levels[0] = map;
 		game.levelPositionArray = 0;
 		game.gameLogic.currentMap = map;
-		
+		game.gameLogic.createHero(1, 1);
 		frame = new JFrame(title);     
 		frame.setContentPane(this);
 		frame.setSize(800, 600);
@@ -98,10 +98,10 @@ public class MapCreator extends JPanel implements MouseListener{
 							if (game.gameLogic.ogres.get(k).getX() == j && game.gameLogic.ogres.get(k).getY() == i)
 								g.drawImage(Assets.ogreFront, i * intMult - 10, j * intMult - 55, intMult + 14, intMult + 30, null);
 						}
-						if(map.getMap()[j][i] == 'H'){
-							g.drawImage(Assets.heroFront, game.gameLogic.hero.getX() * intMult - 10, game.gameLogic.hero.getY() * intMult - 55, intMult + 14, intMult + 30, null);
+						if(i == game.gameLogic.hero.getX() && j == game.gameLogic.hero.getY() && heroWasCreated){
+							g.drawImage(Assets.heroFront, i * intMult - 10, j * intMult - 55, intMult + 14, intMult + 30, null);
 						}
-						
+
 					}
 				}
 			}
@@ -306,51 +306,42 @@ public class MapCreator extends JPanel implements MouseListener{
 		y = (int)tempY;
 
 
-		boolean isPlaceable = checkPlaceable();
+		System.out.println(activeChar + " " + heroWasCreated);
 
-		if(isPlaceable){
-			if(activeChar == 'H'){
-				game.gameLogic.hero.setX(x);
-				game.gameLogic.hero.setY(y);
-				heroWasCreated = true;
-			} else if (activeChar == 'O') {
-				
-				
-				if(ogreCounter < 5){
-					ogreCounter++;
-					map.place(x, y, ' ');
-					game.gameLogic.createOgre(y, x, slider.getValue(), slider.getValue());
-				
-				}
-			}
-			
-			else { 
-				map.checkOgre(game.gameLogic, x ,y);
-				map.place(x, y, activeChar);
+
+		if(activeChar == 'H'){
+			map.place(x, y, ' ');
+			game.gameLogic.hero.setX(x);
+			game.gameLogic.hero.setY(y);
+			heroWasCreated = true;
+		
+		}  else if (activeChar == 'O') {
+
+
+			if(ogreCounter < 5){
+				ogreCounter++;
+				if (x == game.gameLogic.hero.getX() && y == game.gameLogic.hero.getY())
+					heroWasCreated = false;
+				game.gameLogic.createOgre(y, x, slider.getValue(), slider.getValue());
+
 			}
 		}
 
+		else { 
+			map.checkOgre(game.gameLogic, x ,y);
+			map.place(x, y, activeChar);
+			if (x == game.gameLogic.hero.getX() && y == game.gameLogic.hero.getY())
+				heroWasCreated = false;	
+		}
+
 		game.gameLogic.currentMap.drawMap(game.gameLogic);
-		
+
 		System.out.println("");
 
 		panel.repaint(); 
 	}
 
-	private boolean checkPlaceable() {
 
-		if(activeChar == 'H' || activeChar == 'O' || activeChar == 'k' || activeChar == ' '){
-			if(map.getMap()[y][x] == 'X')
-				return false;
-		}
-
-		if(activeChar == 'H' || activeChar == 'O' || activeChar == 'k' || activeChar == 'X'){
-			if(map.getMap()[y][x] != ' ')
-				return false;
-		}
-
-		return true;
-	}
 
 	@Override
 	public void mouseReleased(MouseEvent arg0) {
