@@ -42,6 +42,17 @@ public abstract class GameMap {
 		return ' ';
 	}
 	
+	public void activateLever(GameLogic game) {
+		for (int i = 0; i < game.currentMap.getMap().length; i++) {
+			for (int j = 0; j < game.currentMap.getMap()[i].length; j++) {
+				if (game.currentMap.getMap()[i][j] == 'I') {
+					game.currentMap.getMap()[i][j] = 'S';
+				}
+			}
+		}
+	}
+	
+	
 	/** 
 	 * Draws the current game map
 	 * @param game This is an object of the GameLogic class

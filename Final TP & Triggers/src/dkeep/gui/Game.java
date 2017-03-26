@@ -75,7 +75,7 @@ public class Game extends JPanel implements KeyListener {
 			gameLogic.createCharacters(1, guardType, numMechas);
 
 		}
-		else
+		if (title == "Editor")
 			levelPositionArray = 0;
 
 		panelWidth =  mapWidth * mult + 12;
@@ -152,9 +152,9 @@ public class Game extends JPanel implements KeyListener {
 	 */
 
 	public void activateLever() {
-		
+
 	}
-	
+
 	private void moveEntities(char key){
 
 		char ogreMove;
@@ -216,7 +216,7 @@ public class Game extends JPanel implements KeyListener {
 		gameLogic.hero.move(gameLogic, key);
 
 		boolean lost = gameLogic.checkPresence();
-	
+
 		if(lost){
 			DialogBox box = new DialogBox("You Lost...", 400, 400, "GameLost");
 			box.setLocationRelativeTo(null);
@@ -227,6 +227,16 @@ public class Game extends JPanel implements KeyListener {
 		if (gameLogic.currentMap.checkWin(gameLogic)){
 			Assets.init();
 			levelPositionArray++;
+			if (levelPositionArray == 1) {
+				if (title != "Editor"){
+					if(guardType == null || numMechas == 0){
+						guardType = "Rookie";
+						numMechas = 1;
+					}
+					gameLogic.createCharacters(1, guardType, numMechas);
+				}
+			}
+			
 			gameLogic.createOgres(numMechas);
 
 			if (levelPositionArray == 3) {

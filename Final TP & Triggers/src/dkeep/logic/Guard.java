@@ -9,7 +9,7 @@ public class Guard {
 	 
 	protected char symbol;
 	protected char[] path = {'a', 's', 's', 's', 's', 'a', 'a', 'a', 'a', 'a', 'a', 's', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'w', 'w', 'w', 'w', 'w'};
-	protected int x, y, position;
+	public int x, y, position;
 	
 	public Guard(){}
 	

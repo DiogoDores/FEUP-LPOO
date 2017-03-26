@@ -143,7 +143,18 @@ public class Hero {
 				this.symbol = 'K';
 				game.currentMap.getMap()[1][3] = ' '; 
 			} else {
-				game.currentMap.activateLever(new Hero(x, y));
+				if (c == 'w') {
+					x--;
+				} else if (c == 'd') {
+					y++;
+				} else if (c == 'a') {
+					y--;
+				}
+				 else if (c == 's') {
+					x++;
+				}
+				game.currentMap.getMap()[x][y] = ' ';
+				game.currentMap.activateLever(game);
 			}
 
 		} else if(result == 'I'){
