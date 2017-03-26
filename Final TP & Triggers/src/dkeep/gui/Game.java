@@ -161,7 +161,6 @@ public class Game extends JPanel implements KeyListener {
 		char ogreMove;
 
 		char guardMove = gameLogic.guard.getGuardMove();
-		System.out.print(guardMove);
 		if(key == 'w'){
 			hero = Assets.heroBack;
 		} else if (key == 'a'){
