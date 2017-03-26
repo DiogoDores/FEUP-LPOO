@@ -73,15 +73,11 @@ public class Game extends JPanel implements KeyListener {
 				numMechas = 1;
 			}
 			gameLogic.createCharacters(1, guardType, numMechas);
-			System.out.println(guardType);
-			
+
 		}
 		else
 			levelPositionArray = 0;
-		
-		
 
-		
 		panelWidth =  mapWidth * mult + 12;
 		panelHeight = mapHeight * mult + 37;
 
@@ -155,6 +151,10 @@ public class Game extends JPanel implements KeyListener {
 	 * Moves all the components, hero based on key received, ogres and guards based on a random created value.
 	 */
 
+	public void activateLever() {
+		
+	}
+	
 	private void moveEntities(char key){
 
 		char ogreMove;
@@ -170,8 +170,8 @@ public class Game extends JPanel implements KeyListener {
 		} else if (key == 'd'){
 			hero = Assets.heroLeft;
 		}
-		
-		
+
+
 		if (levelPositionArray == 1) {
 			if(guardMove == 'w'){
 				guard = Assets.guardBack;
@@ -185,9 +185,9 @@ public class Game extends JPanel implements KeyListener {
 			gameLogic.guard.move();
 
 		}
-		
-		
-		
+
+
+
 		else if (levelPositionArray == 2 || levelPositionArray == 0) {			
 			for(int i = 0; i < gameLogic.ogres.size(); i++){
 				ogreMove = gameLogic.ogre.createRandomMove();
@@ -216,7 +216,7 @@ public class Game extends JPanel implements KeyListener {
 		gameLogic.hero.move(gameLogic, key);
 
 		boolean lost = gameLogic.checkPresence();
-
+	
 		if(lost){
 			DialogBox box = new DialogBox("You Lost...", 400, 400, "GameLost");
 			box.setLocationRelativeTo(null);
@@ -261,6 +261,13 @@ public class Game extends JPanel implements KeyListener {
 			for(int i = 0; i < gameLogic.ogres.size(); i++){
 				g.drawImage(Assets.club, gameLogic.ogres.get(i).getClubY()* 50, gameLogic.ogres.get(i).getClubX()* 50, 50, 50, null);
 				g.drawImage(ogresSprite[i], gameLogic.ogres.get(i).getY()* 49, gameLogic.ogres.get(i).getX()* 49 - 40, 54, 80, null);
+			}
+		}
+		for(int i = 0; i < gameLogic.currentMap.getMap().length; i++) {
+			for (int j = 0; j < gameLogic.currentMap.getMap()[i].length; j++) {
+				if (gameLogic.currentMap.getMap()[i][j] == 'k') {
+					g.drawImage(Assets.key,j * (int)mult, i * (int)mult , (int)mult, (int)mult , null);
+				}
 			}
 		}
 

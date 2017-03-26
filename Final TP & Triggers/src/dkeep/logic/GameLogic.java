@@ -124,7 +124,7 @@ public class GameLogic {
 			}
 		} 
 
-		else if(currentMap.getName() == "OgreMap"){
+		else {
 			for (int i = 0; i <= ogres.size()-1; i++) {
 				if(hero.getX() == ogres.get(i).getClubX() && hero.getY() == ogres.get(i).getClubY()){
 					return true;
@@ -140,7 +140,7 @@ public class GameLogic {
 			}
 		}
 
-		else {
+		/*else {
 			if(hero.getX() == guard.getX() && (hero.getY() == guard.getY() + 1 || hero.getY() == guard.getY() - 1)){
 				return true; 
 			} else if(hero.getY() == guard.getY() && (hero.getX() == guard.getX() + 1 || hero.getX() == guard.getX() - 1)){
@@ -153,7 +153,7 @@ public class GameLogic {
 
 			}
 
-		}
+		}*/
 		return false;
 
 	}

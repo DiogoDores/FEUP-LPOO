@@ -38,6 +38,8 @@ public class MapCreator extends JPanel implements MouseListener{
 		@Override
 		public void stateChanged(ChangeEvent e) {
 
+			heroWasCreated = false;
+			keyWasCreated = false;
 			map = new EditorMap(slider.getValue(), slider.getValue());
 			game = new Game("Editor");
 			game.levels[0] = map;
@@ -257,6 +259,7 @@ public class MapCreator extends JPanel implements MouseListener{
 		btnSave.setBounds(10, 512, 181, 23);
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				System.out.println("KEY " +  keyWasCreated + " HERO  " + heroWasCreated);
 				if (map.checkMap(game.gameLogic, slider.getValue(), slider.getValue()) && heroWasCreated && keyWasCreated) {
 					game.gameLogic.hero.setX(game.gameLogic.hero.getY());
 					game.gameLogic.hero.setY(game.gameLogic.hero.getX());
@@ -317,17 +320,17 @@ public class MapCreator extends JPanel implements MouseListener{
 			game.gameLogic.hero.setX(x);
 			game.gameLogic.hero.setY(y);
 			heroWasCreated = true;
-		
+			map.checkOgre(game.gameLogic, x ,y);
+
 		} 
 		else if(activeChar == 'k'){
-			
+			map.checkOgre(game.gameLogic, x ,y);
+
 			if (keyWasCreated) {
 				for(int i = 0; i < map.getMap().length; i++){
 					for(int j = 0; j < map.getMap().length; j++){
 						if (map.getMap()[i][j] == 'k') {
 							map.place(j, i, ' ');
-							System.out.println("ENCONTRADO " + i + " " + j);
-							System.out.println("Depois " + map.getMap()[i][j]);
 						}
 					}
 				}	
@@ -348,13 +351,13 @@ public class MapCreator extends JPanel implements MouseListener{
 		}
 		else { 
 			map.checkOgre(game.gameLogic, x ,y);
-			map.place(x, y, activeChar);
+
+				map.place(x, y, activeChar);
 			if (x == game.gameLogic.hero.getX() && y == game.gameLogic.hero.getY())
 				heroWasCreated = false;
 			if (map.checkKey(x, y, game.gameLogic))
 				keyWasCreated = false;
 		}
-
 
 		panel.repaint(); 
 		
