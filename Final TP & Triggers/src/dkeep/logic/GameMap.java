@@ -1,5 +1,9 @@
 package dkeep.logic;
 
+/**
+ * Abstract class that handles all the maps created for the game
+ */
+
 public abstract class GameMap { 
 	
 	public void activateLever(Hero hero) {}
@@ -12,6 +16,10 @@ public abstract class GameMap {
 	/**
 	 * Evaluates what char is present in those coordinates.
 	 * Is aware of other game components.
+	 * @param x This is the x coordinate
+	 * @param y This is the y coordinate
+	 * @param game This is an object of the GameLogic class
+	 * @return char This returns a char representative of a character's next move position
 	 */
 	
 	public char possibleMove(int x, int y, GameLogic game) {
@@ -33,6 +41,12 @@ public abstract class GameMap {
 			return 'D';
 		return ' ';
 	}
+	
+	/** 
+	 * Draws the current game map
+	 * @param game This is an object of the GameLogic class
+	 * @return String This returns the game map written in a string
+	 */
 	public String drawMap(GameLogic game) {
 		char[][] mapToDraw = game.currentMap.getMap();
 		String map = "";

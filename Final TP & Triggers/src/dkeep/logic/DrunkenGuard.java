@@ -2,16 +2,31 @@ package dkeep.logic;
 
 import java.util.Random;
 
+/**
+ * Handles the behavior of a Drunken Guard
+ * Extends the Guard class
+ * 
+ * @author Diogo Dores, Pedro Reis
+ */
+
 public class DrunkenGuard extends Guard {
 	
 	private boolean sleeping = false;
  
+	/**
+	 * Creates a new instance of a Drunken Guard
+	 * @param x This is the x coordinates
+	 * @param y This is the y coordinates
+	 */
 	public DrunkenGuard(int x, int y){
 		this.x = x;
 		this.y = y;
 		this.symbol = 'G';
 	}
 
+	/**
+	 * Handles the movement of a Drunken Guard
+	 */
 	public void move(){
 
 		Random random = new Random();
@@ -44,6 +59,9 @@ public class DrunkenGuard extends Guard {
 	
 	}
 
+	/**
+	 * Used when the guard falls asleep
+	 */
 	public void sleep(){
 		
 		this.symbol = 'g';

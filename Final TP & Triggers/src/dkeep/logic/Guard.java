@@ -1,5 +1,10 @@
 package dkeep.logic;
 
+/**
+ * Handles all the guards behaviors
+ * Mother class to DrunkenGuard, RookieGuard and SuspiciousGuard
+ */
+
 public class Guard {
 	 
 	protected char symbol;
@@ -8,18 +13,30 @@ public class Guard {
 	
 	public Guard(){}
 	
+	/**
+	 * Gets the guard's x coordinate
+	 */
 	public int getX(){
 		return x;
 	}
 	
+	/**
+	 * Gets the guard's y coordinate
+	 */
 	public int getY(){
 		return y;
 	}
 	
+	/**
+	 * Gets the guard's symbol
+	 */
 	public char getSymbol(){
 		return symbol;
 	}
 	
+	/**
+	 * Abstract function for all the child classes
+	 */
 	public void move(){
 		return;
 	}
@@ -45,6 +62,9 @@ public class Guard {
 		}
 	}
 	
+	/**
+	 * Follows inverse set Path.
+	 */
 	public void followInversePath(){
 		
 		if(position == 0){
@@ -64,6 +84,10 @@ public class Guard {
 		}
 	}
 	
+	/**
+	 * Gets the guards position
+	 * @return char This returns the current position of the guard
+	 */
 	public char getGuardMove(){
 		return path[position];
 	}

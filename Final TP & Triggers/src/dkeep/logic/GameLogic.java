@@ -3,6 +3,10 @@ package dkeep.logic;
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * Handles the basic game logic
+ */
+
 public class GameLogic {
 
 	Random random = new Random();
@@ -16,6 +20,8 @@ public class GameLogic {
 
 	/**
 	 * Starts a game, and handles the movements of all characters, and returns the state of the game (playing, lost, won).
+	 * @param key This is the character ('w', 'a', 's' or 'd') the user has inputed in the console
+	 * @return int This returns the state of the game (if the hero proceeds to the next level or if it loses)
 	 */
 
 	public int startGame(char key){
@@ -57,6 +63,7 @@ public class GameLogic {
 
 	/**
 	 * Checks whether player was won the specific map.
+	 * @return boolean This returns whether or not the hero has won the game
 	 */
 
 	public boolean checkWin() {
@@ -68,14 +75,30 @@ public class GameLogic {
 			return false;
 	}
 
+	/**
+	 * Changes the current level map
+	 * @param gameMap This is the map that will be in use
+	 */
 	public void changeCurrentMap(GameMap gameMap){
 		currentMap = gameMap;
 	}
 
+	
+	/**
+	 * Creates a new instance of the game's hero
+	 * @param x This is the x coordinates
+	 * @param y This is the y coordinates
+	 */
 	public void createHero(int x, int y){
 		hero = new Hero(x, y);
 	}
 
+	/**
+	 * Creates a new instance of the game's guard
+	 * @param x This is the x coordinates
+	 * @param y This is the y coordinates
+	 * @param typeOfGuard This is the guard's personality, selected by the user
+	 */
 	public void createGuard(int x, int y, String typeOfGuard){		
 		if(typeOfGuard == "Rookie"){
 			guard = new RookieGuard(x, y);
@@ -88,7 +111,7 @@ public class GameLogic {
 
 	/**
 	 * Checks surroundings of enemies and compares them to hero's.
-	 * Returns true if player lost, false if enemies aren't near hero.
+	 * @return boolean This returns whether or not the hero has lost the game.
 	 */
 
 	public boolean checkPresence() {
@@ -137,6 +160,7 @@ public class GameLogic {
 
 	/**
 	 * Player won first level.
+	 * @param numOgres This is the number of Ogres to be set up for the next level
 	 */
 
 	public void setLevelTwo(int numOgres){
@@ -148,6 +172,7 @@ public class GameLogic {
 
 	/**
 	 * Randomly creates Ogres in the scene.
+	 * @param numOgres This is the number of Ogres to be set up for the next level
 	 */
 
 	public void createOgres(int numOgres) {
@@ -174,6 +199,9 @@ public class GameLogic {
 
 	/**
 	 * Checks whether spawn isn't an insta-lose for the player.
+	 * @param x This is the x coordinate
+	 * @param y This is the y coordinate
+	 * @return boolean This returns whether or not the ogre can spawn in a certain position
 	 */
 	
 	public boolean checkSpawnCondition(int x, int y) {
@@ -184,11 +212,24 @@ public class GameLogic {
 		return condition;
 	}
 
+	/**
+	 * Creates one ogre and adds it to an ArrayList.
+	 * @param x This is the x coordinate
+	 * @param y This is the y coordinate
+	 * @param width This is the width of the map
+	 * @param height This is the height of the map
+	 */
 	public void createOgre(int x, int y, int width, int height) {
 		Ogre e = new Ogre(x,y, width, height);
 		ogres.add(e);
 	}
 
+	/**
+	 * Creates a new instance of the game's guard
+	 * @param x This is the x coordinates
+	 * @param y This is the y coordinates
+	 * @return char This is the guard's personality, that was randomly selected
+	 */
 	public char createGuard(int x, int y) {
 		String type = "DSG";
 		int r = random.nextInt(type.length());
@@ -205,6 +246,12 @@ public class GameLogic {
 		return typeOfGuard;
 	}
 
+	/**
+	 * Creates a new instance of every living character in the game
+	 * @param level This is the current level
+	 * @param typeOfGuard This is the guard's personality
+	 * @param i This is the number of ogres to be spawned
+	 */
 	public void createCharacters(int level, String typeOfGuard, int i) {
 		if(level == 1){
 			createHero(1,1);
