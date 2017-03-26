@@ -224,7 +224,7 @@ public class MapCreator extends JPanel implements MouseListener{
 
 		floor = new ImageIcon(imgFloor);
 
-		btnFloor.setIcon(floor);
+		btnFloor.setIcon(floor); 
 
 		btnFloor.setBounds(125, 360, 85, 100);
 		btnFloor.addActionListener(new ActionListener() {
