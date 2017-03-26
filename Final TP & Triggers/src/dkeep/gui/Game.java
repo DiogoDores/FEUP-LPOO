@@ -171,7 +171,6 @@ public class Game extends JPanel implements KeyListener {
 			hero = Assets.heroLeft;
 		}
 		
-		System.out.println(gameLogic.guard.getX());
 		
 		if (levelPositionArray == 1) {
 			if(guardMove == 'w'){
