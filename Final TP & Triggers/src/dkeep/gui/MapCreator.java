@@ -1,6 +1,5 @@
 package dkeep.gui;
 
-import dkeep.logic.*;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -15,6 +14,10 @@ import java.awt.Image;
 import java.awt.Font;
 
 public class MapCreator extends JPanel implements MouseListener{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private char activeChar;
 	private JPanel panel;
 	private JFrame frame = new JFrame();
@@ -26,7 +29,7 @@ public class MapCreator extends JPanel implements MouseListener{
 	private boolean heroWasCreated;
 	private float ogreCounter;
 	private JSlider slider;
-	
+
 	public int x, y;
 	double mult;
 	private int intMult;
@@ -41,7 +44,7 @@ public class MapCreator extends JPanel implements MouseListener{
 			game.levels[0] = map;
 			game.levelPositionArray = 0;
 			game.gameLogic.currentMap = map;
-			
+
 			mult = 500/slider.getValue();
 			intMult = (int)mult;
 
@@ -72,10 +75,15 @@ public class MapCreator extends JPanel implements MouseListener{
 
 		panel = new JPanel(){
 
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			public void paintComponent(Graphics g) {
 				super.paintComponent(g);
-				
+
 				game.drawStructures(g, mult);
 
 				for(int i = 0; i < map.getMap().length; i++){
@@ -101,7 +109,7 @@ public class MapCreator extends JPanel implements MouseListener{
 		lblMapArea.setBounds(12, 12, 109, 16);
 		add(lblMapArea);
 		panel.requestFocusInWindow();
-		
+
 		slider = new JSlider();
 		slider.addChangeListener(new Slider());
 		slider.setPaintLabels(true);
@@ -236,11 +244,15 @@ public class MapCreator extends JPanel implements MouseListener{
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (map.checkMap(game.gameLogic, slider.getValue(), slider.getValue()) && heroWasCreated) {
-					
+
 					Assets.init();
 					game.setVisible(true);
 					game.init();
-					
+
+				} else {
+					DialogBox box = new DialogBox("ERROR!", 300, 100, "MapNotValid");
+					box.setLocationRelativeTo(null);
+					box.setVisible(true);
 				}
 			}
 		});
@@ -286,23 +298,43 @@ public class MapCreator extends JPanel implements MouseListener{
 		y = (int)tempY;
 
 
-		if(activeChar == 'H'){
-			map.place(x, y, activeChar);
-			game.gameLogic.hero.setX(x);
-			game.gameLogic.hero.setY(y);
-			heroWasCreated = true;
-		} else if (activeChar == 'O') {
-			if(ogreCounter < 5){
-				ogreCounter++;
+		boolean isPlaceable = checkPlaceable();
+
+		if(isPlaceable){
+			if(activeChar == 'H'){
 				map.place(x, y, activeChar);
-				game.gameLogic.createOgre(x, y, slider.getValue(), slider.getValue());
+				game.gameLogic.hero.setX(x);
+				game.gameLogic.hero.setY(y);
+				heroWasCreated = true;
+			} else if (activeChar == 'O') {
+
+				if(ogreCounter < 5){
+					ogreCounter++;
+					map.place(x, y, activeChar);
+					game.gameLogic.createOgre(x, y, slider.getValue(), slider.getValue());
+				}
 			}
+			else
+				map.place(x, y, activeChar);
 		}
-		else
-			map.place(x, y, activeChar);
 
 
 		panel.repaint(); 
+	}
+
+	private boolean checkPlaceable() {
+
+		if(activeChar == 'H' || activeChar == 'O' || activeChar == 'k' || activeChar == ' '){
+			if(map.getMap()[y][x] == 'X')
+				return false;
+		}
+
+		if(activeChar == 'H' || activeChar == 'O' || activeChar == 'k' || activeChar == 'X'){
+			if(map.getMap()[y][x] != ' ')
+				return false;
+		}
+
+		return true;
 	}
 
 	@Override

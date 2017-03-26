@@ -41,8 +41,6 @@ public class Hero {
 	 */
 
 	public void move(GameLogic game, char c) {
-		boolean won = false;
-
 		char result;
 		if (c == 'w') {
 			result = game.currentMap.possibleMove(x - 1, y, game);

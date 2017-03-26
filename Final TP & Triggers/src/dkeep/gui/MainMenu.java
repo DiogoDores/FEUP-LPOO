@@ -87,7 +87,7 @@ public class MainMenu extends JPanel{
 			public void actionPerformed(ActionEvent arg0) {
 
 				if(!OptionsMenu.getWasSetUp()){
-					OptionsMenu options = new OptionsMenu("options", 100, 100);
+					OptionsMenu options = new OptionsMenu();
 				} 
 
 				Assets.init();
@@ -114,7 +114,7 @@ public class MainMenu extends JPanel{
 
 		btnSettings.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0){
-				options = new OptionsMenu("Settings", 300, 300);
+				options = new OptionsMenu();
 				options.setVisible(true);
 				options.init();
 			}

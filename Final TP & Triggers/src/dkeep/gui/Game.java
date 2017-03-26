@@ -16,6 +16,10 @@ import javax.swing.JPanel;
 import dkeep.logic.GameLogic;
 
 public class Game extends JPanel implements KeyListener {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	public GameMap[] levels;
 	public int levelPositionArray; 
 	public JPanel panel;
@@ -206,7 +210,7 @@ public class Game extends JPanel implements KeyListener {
 			DialogBox box = new DialogBox("You Lost...", 400, 400, "GameLost");
 			box.setLocationRelativeTo(null);
 			box.setVisible(true);
-			setVisible(false);
+			f.dispose();
 		}
 
 		if (gameLogic.currentMap.checkWin(gameLogic)){
@@ -218,7 +222,7 @@ public class Game extends JPanel implements KeyListener {
 				DialogBox box = new DialogBox("You Won!", 400, 400, "GameWon");
 				box.setLocationRelativeTo(null);
 				box.setVisible(true);
-				setVisible(false);
+				f.dispose();
 			}
 			else {
 				gameLogic.changeCurrentMap(levels[levelPositionArray]);

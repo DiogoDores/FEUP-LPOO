@@ -59,6 +59,8 @@ public class DialogBox extends JDialog{
 		} else if(typeOfDialog == "GameLost"){
 			add(new JLabel(new ImageIcon(ImageLoader.loadImage("/GameLost.png"))));
 			pack();
+		} else if(typeOfDialog == "MapNotValid"){
+			txtPleaseChangeYour.setText("Your Map is not valid!");
 		}
 		
 	}

@@ -3,14 +3,9 @@ package dkeep.test;
 import  static org.junit.Assert.*;
 import  org.junit.Test;
 
-import dkeep.cli.UserInterface;
-import dkeep.logic.DrunkenGuard;
 import dkeep.logic.GameLogic;
-import dkeep.logic.GameMap;
 import dkeep.logic.GuardMap;
 import dkeep.logic.OgreMap;
-import dkeep.logic.RookieGuard;
-import dkeep.logic.SuspiciousGuard;
  
 public class TestsJUnit {
 

@@ -8,13 +8,11 @@ public class Ogre {
 	protected int x, y, clubX, clubY;
 	protected char symbol, clubSymbol;
 	private boolean restoreSymbol = false;
-	private boolean restoreClubSymbol = false;
-
 	public Ogre(){}
 	
 	/**
 	 * Creates club on a position that is not on the walls. 
-	 * Can't be on player's position, but this is checked on another function.
+	 * Can't be on player's position, but this is checked in another function.
 	 */
 
 	public void createClub(int width, int height) {
@@ -150,11 +148,9 @@ public class Ogre {
 		} while(clubResult == 'X' || clubResult == 'I' || clubResult == 'S' || clubResult == 'N' || clubResult == 'O' || clubResult == '*');
 
 		if (game.currentMap.getMap()[x][y] == 'k'){
-			restoreClubSymbol = true;
 			this.clubSymbol = '$';
 		}
 		else {
-			restoreClubSymbol = false;
 			this.clubSymbol = '*';
 		}
 
@@ -185,7 +181,6 @@ public class Ogre {
 				clubX = x; 
 			}
 			clubSymbol = '$';
-			restoreClubSymbol = true;
 		}
 
 

@@ -14,25 +14,18 @@ import javax.swing.JButton;
 
 public class OptionsMenu extends JPanel{
 
-	private String title;
-	private int width, height;
 	private JFrame frame;
 	private JTextField textField;
 	private JLabel lblTypeOfGuard;
 	private JComboBox comboBox;
 	private JButton btnSaveChanges;
 	private JButton btnCancel;
-	private JLabel lblWarning;
 	
 	private static int numMechas;
 	private static String guardType;
 	public static boolean wasSetUp = false;
 
-	public OptionsMenu(String title, int width, int height){
-		this.title = title;
-		this.width = width;
-		this.height = height;
-
+	public OptionsMenu(){
 		numMechas = 1;
 		guardType = "Rookie";
 	}
@@ -42,10 +35,9 @@ public class OptionsMenu extends JPanel{
 	 */
 	
 	public void init(){
-
-		frame = new JFrame(title);     
+		frame = new JFrame("Settings");     
 		frame.setContentPane(this);
-		frame.setSize(width, height);
+		frame.setSize(300, 210);
 		frame.setVisible(true);
 		frame.setResizable(false);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -55,41 +47,36 @@ public class OptionsMenu extends JPanel{
 
 		JLabel lblNumberOfMechas = new JLabel("Number of Mechas");
 		lblNumberOfMechas.setFont(new Font("Lucida Sans Unicode", Font.PLAIN, 12));
-		lblNumberOfMechas.setBounds(27, 27, 109, 17);
+		lblNumberOfMechas.setBounds(30, 27, 109, 17);
 		add(lblNumberOfMechas);
 
 		textField = new JTextField();
 		textField.setFont(new Font("Lucida Sans Unicode", Font.PLAIN, 12));
-		textField.setBounds(146, 25, 55, 20);
+		textField.setBounds(150, 25, 55, 20);
 		add(textField);
 		textField.setColumns(10);
 
 		lblTypeOfGuard = new JLabel("Type of Guard");
 		lblTypeOfGuard.setFont(new Font("Lucida Sans Unicode", Font.PLAIN, 12));
-		lblTypeOfGuard.setBounds(27, 59, 109, 14);
+		lblTypeOfGuard.setBounds(30, 59, 109, 14);
 		add(lblTypeOfGuard);
 
 		comboBox = new JComboBox();
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Rookie", "Drunken", "Suspicious"}));
 		comboBox.setFont(new Font("Lucida Sans Unicode", Font.PLAIN, 12));
-		comboBox.setBounds(143, 56, 90, 20);
+		comboBox.setBounds(150, 56, 90, 20);
 		add(comboBox);
 
 		btnSaveChanges = new JButton("Save Changes");
 		btnSaveChanges.setFont(new Font("Lucida Sans Unicode", Font.PLAIN, 12));
-		btnSaveChanges.setBounds(27, 153, 111, 23);
+		btnSaveChanges.setBounds(30, 110, 130, 25);
 		add(btnSaveChanges);
 
 		btnCancel = new JButton("Cancel");
 		btnCancel.setFont(new Font("Lucida Sans Unicode", Font.PLAIN, 12));
-		btnCancel.setBounds(146, 153, 111, 23);
+		btnCancel.setBounds(30, 145, 130, 25);
 		add(btnCancel);
-
-		lblWarning = new JLabel("");
-		lblWarning.setFont(new Font("Lucida Sans Unicode", Font.PLAIN, 12));
-		lblWarning.setBounds(27, 101, 230, 33);
-		add(lblWarning);
-
+		
 		btnSaveChanges.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
@@ -116,6 +103,7 @@ public class OptionsMenu extends JPanel{
 				wasSetUp = true;
 			}
 		});
+		
 	}
 
 	/**
