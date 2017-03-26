@@ -2,6 +2,9 @@ package dkeep.gui;
 
 import dkeep.logic.*;
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,35 +16,50 @@ import java.awt.Font;
 
 public class MapCreator extends JPanel implements MouseListener{
 	private char activeChar;
-	private boolean hasSaved;
 	private JPanel panel;
 	private JFrame frame = new JFrame();
 	private String title;
 	private JButton btnOgre, btnKey, btnHero, btnWall, btnFloor, btnSave;
 	private JButton btnDoor;
 	private EditorMap map;
-	private GuardMap testMap;
 	private Game game;
 	private boolean heroWasCreated;
-	// O SLIDER TEM DE VIR PARA AQUI
-
+	private float ogreCounter;
+	private JSlider slider;
+	
 	public int x, y;
+	double mult;
+	private int intMult;
 
-	private int mult;
+	class Slider implements ChangeListener{
+
+		@Override
+		public void stateChanged(ChangeEvent e) {
+
+			map = new EditorMap(slider.getValue(), slider.getValue());
+			game = new Game("Editor");
+			game.levels[0] = map;
+			game.levelPositionArray = 0;
+			game.gameLogic.currentMap = map;
+			
+			mult = 500/slider.getValue();
+			intMult = (int)mult;
+
+			map.resetMap(game.gameLogic);
+			Assets.init();
+			repaint();
+		}
+	}
 
 	/**
 	 * Initializes a new Window with MapCreator components.
 	 */
-
 	public MapCreator(String string) {
 
-		// VALORES DO SLIDER AQUI
-		map = new EditorMap(10,10);
 		heroWasCreated = false;
 		activeChar = 0;
 		title = string;
-		mult = 500/10;
-		int intMult = (int)mult;
+		ogreCounter = 0;
 
 		frame = new JFrame(title);     
 		frame.setContentPane(this);
@@ -53,40 +71,51 @@ public class MapCreator extends JPanel implements MouseListener{
 		setLayout(null);
 
 		panel = new JPanel(){
+
 			@Override
 			public void paintComponent(Graphics g) {
-				game.gameLogic.currentMap = map;
-
-				super.paintComponent(g); 
+				super.paintComponent(g);
+				
 				game.drawStructures(g, mult);
 
 				for(int i = 0; i < map.getMap().length; i++){
 					for(int j = 0; j < map.getMap().length; j++){
 						if(map.getMap()[j][i] == 'H'){
-							g.drawImage(Assets.heroFront, x * intMult - 10 , y * intMult - intMult, intMult + 14, intMult + 40, null);
-						} for (int k = 0; k < game.gameLogic.ogres.size(); k++) {
-							if(game.gameLogic.ogres.get(k).getX() == i && game.gameLogic.ogres.get(k).getClubY() == j){
-								g.drawImage(Assets.ogreFront, i * intMult - 10, j * intMult - intMult, intMult + 14, intMult + 40, null);
-							}
-
+							g.drawImage(Assets.heroFront, game.gameLogic.hero.getX() * intMult - 10, game.gameLogic.hero.getY() * intMult - 55, intMult + 14, intMult + 30, null);
+						} else if(map.getMap()[j][i] == 'O'){
+							g.drawImage(Assets.ogreFront, i * intMult - 10, j * intMult - 55, intMult + 14, intMult + 30, null);
 						}
+
 					}
 				}
 			}
 		};
+
 		panel.addMouseListener(this);
 		panel.setBounds(250, 30, 500, 500);
 		frame.getContentPane().add(panel);
 		panel.setFocusable(true);
+
+		JLabel lblMapArea = new JLabel("Number of Tiles");
+		lblMapArea.setFont(new Font("Lucida Sans Unicode", Font.PLAIN, 12));
+		lblMapArea.setBounds(12, 12, 109, 16);
+		add(lblMapArea);
 		panel.requestFocusInWindow();
+		
+		slider = new JSlider();
+		slider.addChangeListener(new Slider());
+		slider.setPaintLabels(true);
+		slider.setMajorTickSpacing(1);
+		slider.setMinorTickSpacing(1);
+		slider.setPaintTicks(true);
+		slider.setFont(new Font("Lucida Sans Unicode", Font.PLAIN, 10));
+		slider.setMaximum(15);
+		slider.setMinimum(5);
+		slider.setValue(1);
+		slider.setBounds(12, 30, 226, 43);
+		add(slider);
 
 		Assets.init();
-
-		game = new Game("Editor");
-		game.levels[0] = map;
-		game.levelPositionArray = 0;
-
-		hasSaved = false;
 
 	}
 	/**
@@ -108,7 +137,7 @@ public class MapCreator extends JPanel implements MouseListener{
 				activeChar = 'O';
 			}
 		});
-		btnOgre.setBounds(40, 70, 85, 100);
+		btnOgre.setBounds(30, 80, 85, 100);
 		frame.getContentPane().add(btnOgre, BorderLayout.WEST);
 
 
@@ -120,7 +149,7 @@ public class MapCreator extends JPanel implements MouseListener{
 		key = new ImageIcon(imgKey);
 
 		btnKey.setIcon(key);
-		btnKey.setBounds(40, 210, 85, 100);
+		btnKey.setBounds(30, 220, 85, 100);
 		btnKey.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) { 
 				activeChar = 'k';
@@ -138,7 +167,7 @@ public class MapCreator extends JPanel implements MouseListener{
 
 		btnHero.setIcon(hero);
 
-		btnHero.setBounds(135, 70, 85, 100);
+		btnHero.setBounds(125, 80, 85, 100);
 		btnHero.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				activeChar = 'H';
@@ -157,7 +186,7 @@ public class MapCreator extends JPanel implements MouseListener{
 
 		btnWall.setIcon(wall);
 
-		btnWall.setBounds(40, 350, 85, 100);
+		btnWall.setBounds(30, 360, 85, 100);
 		btnWall.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				activeChar = 'X';
@@ -175,7 +204,7 @@ public class MapCreator extends JPanel implements MouseListener{
 
 		btnFloor.setIcon(floor);
 
-		btnFloor.setBounds(135, 350, 85, 100);
+		btnFloor.setBounds(125, 360, 85, 100);
 		btnFloor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				activeChar = ' ';
@@ -198,7 +227,7 @@ public class MapCreator extends JPanel implements MouseListener{
 				activeChar = 'I';
 			}
 		});
-		btnDoor.setBounds(135, 210, 85, 100);
+		btnDoor.setBounds(125, 220, 85, 100);
 		add(btnDoor);
 
 		btnSave = new JButton("Save Changes");
@@ -206,11 +235,12 @@ public class MapCreator extends JPanel implements MouseListener{
 		btnSave.setBounds(10, 512, 181, 23);
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if (map.checkMap(game.gameLogic, 10 ,10 ) && heroWasCreated) {
-					//INICIAR JOGO
-					hasSaved = true;
-					System.out.print("ENDED");
-					frame.getDefaultCloseOperation();
+				if (map.checkMap(game.gameLogic, slider.getValue(), slider.getValue()) && heroWasCreated) {
+					
+					Assets.init();
+					game.setVisible(true);
+					game.init();
+					
 				}
 			}
 		});
@@ -219,6 +249,7 @@ public class MapCreator extends JPanel implements MouseListener{
 		JButton btnCancel = new JButton("Cancel");
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				frame.dispose();
 			}
 		});
 		btnCancel.setFont(new Font("Lucida Sans Unicode", Font.PLAIN, 12));
@@ -248,26 +279,24 @@ public class MapCreator extends JPanel implements MouseListener{
 	public void mousePressed(MouseEvent e) {
 		double tempX, tempY;
 
-		tempX = Math.floor((e.getX())/(500/10));
-		tempY = Math.floor((e.getY())/(500/10));
+		tempX = Math.round((e.getX())/(500/slider.getValue()));
+		tempY = Math.round((e.getY())/(500/slider.getValue()));
 
 		x = (int)tempX;
 		y = (int)tempY;
 
 
 		if(activeChar == 'H'){
-			if (heroWasCreated ) {
-				game.gameLogic.hero.setX(x);
-				game.gameLogic.hero.setY(y);
-			}
-			else {
+			map.place(x, y, activeChar);
+			game.gameLogic.hero.setX(x);
+			game.gameLogic.hero.setY(y);
+			heroWasCreated = true;
+		} else if (activeChar == 'O') {
+			if(ogreCounter < 5){
+				ogreCounter++;
 				map.place(x, y, activeChar);
-				heroWasCreated = true;
+				game.gameLogic.createOgre(x, y, slider.getValue(), slider.getValue());
 			}
-		} 
-		else if (activeChar == 'O') {
-			//VALORES DO SLIDER AQUI, MUY IMPORTANTE PARA O MOVIMENTO
-			game.gameLogic.createOgre(x, y, 10, 10);
 		}
 		else
 			map.place(x, y, activeChar);

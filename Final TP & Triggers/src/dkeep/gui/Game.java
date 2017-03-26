@@ -35,7 +35,7 @@ public class Game extends JPanel implements KeyListener {
 	/**
 	 * Constructor for a new Game Instance.
 	 */
-	
+
 	public Game(String title2){
 
 		levelPositionArray = 1;
@@ -43,17 +43,17 @@ public class Game extends JPanel implements KeyListener {
 		levels[1] = new GuardMap();
 		levels[2] = new OgreMap();
 		title = title2;
-		
+
 		this.width = 500;
 		this.height = 500;
-		
+
 		gameLogic.currentMap = levels[levelPositionArray];
-		
+
 		this.mapWidth = gameLogic.currentMap.getMap().length;
 		this.mapHeight = gameLogic.currentMap.getMap().length;
-		
+
 		this.mult = Math.floor(width / mapWidth);
-		
+
 		Assets.init();
 
 	}
@@ -61,27 +61,26 @@ public class Game extends JPanel implements KeyListener {
 	/**
 	 * Initializes the map that is to be displayed, along with all its assets.
 	 */
-	
+
 	public void init(){
-
-		if(guardType == null || numMechas == 0){
-			guardType = "Rookie";
-			numMechas = 1;
-		}
-
-		if (title != "Editor")
+		if (title != "Editor"){
 			gameLogic.createCharacters(1, guardType, numMechas);
+			if(guardType == null || numMechas == 0){
+				guardType = "Rookie";
+				numMechas = 1;
+			}
+		}
 		panelWidth =  mapWidth * mult + 12;
 		panelHeight = mapHeight * mult + 37;
 
 		display();
 		repaint();
 	}
-	
+
 	/**
 	 * Displays the buttons inside a new JFrame, and adds its listeners.
 	 */
-	
+
 	public void display() { 
 		f = new JFrame("Prison Escape");     
 		f.setContentPane(this);
@@ -139,11 +138,11 @@ public class Game extends JPanel implements KeyListener {
 			}
 		});
 	}
-	
+
 	/**
 	 * Moves all the components, hero based on key received, ogres and guards based on a random created value.
 	 */
-	
+
 	private void moveEntities(char key){
 
 		char ogreMove;
@@ -153,6 +152,7 @@ public class Game extends JPanel implements KeyListener {
 		if(key == 'w'){
 			hero = Assets.heroBack;
 		} else if (key == 'a'){
+			hero = Assets.heroRight;
 		} else if (key == 's'){
 			hero = Assets.heroFront;
 		} else if (key == 'd'){
@@ -186,7 +186,7 @@ public class Game extends JPanel implements KeyListener {
 				} else if (ogreMove == 'd'){
 					ogresSprite[i] = Assets.ogreLeft;
 				}
-				
+
 				if((gameLogic.hero.getX() == gameLogic.ogres.get(i).getX() && gameLogic.hero.getY() == gameLogic.ogres.get(i).getY() + 1) || (gameLogic.hero.getX() == gameLogic.ogres.get(i).getX() && gameLogic.hero.getY() == gameLogic.ogres.get(i).getY() - 1)){
 					gameLogic.ogres.get(i).stunOgre();
 				} else if((gameLogic.hero.getY() == gameLogic.ogres.get(i).getY() && gameLogic.hero.getX() == gameLogic.ogres.get(i).getX() + 1) || (gameLogic.hero.getY() == gameLogic.ogres.get(i).getY() && gameLogic.hero.getX() == gameLogic.ogres.get(i).getX() - 1)){
@@ -213,7 +213,7 @@ public class Game extends JPanel implements KeyListener {
 			Assets.init();
 			levelPositionArray++;
 			gameLogic.createOgres(numMechas);
-			
+
 			if (levelPositionArray == 3) {
 				DialogBox box = new DialogBox("You Won!", 400, 400, "GameWon");
 				box.setLocationRelativeTo(null);
@@ -227,7 +227,7 @@ public class Game extends JPanel implements KeyListener {
 				mapHeight = gameLogic.currentMap.getMap()[0].length * 50 + 37;
 			}
 		}
-		
+
 		this.repaint();
 
 	}
@@ -254,11 +254,11 @@ public class Game extends JPanel implements KeyListener {
 	/**
 	 * Draws all the components that are in the map, such as walls, floors, levers and keypads.
 	 */
-	
+
 	public void drawStructures(Graphics g, double i) {
-		
+
 		int mult = (int)i;
-		
+
 		char[][] mapToDraw = gameLogic.currentMap.getMap();
 
 		for (int x = 0; x < mapToDraw.length; x++) {
@@ -341,7 +341,7 @@ public class Game extends JPanel implements KeyListener {
 	/**
 	 * Changes the settings to be saved in this class.
 	 */
-	
+
 	public static void changeSettings(OptionsMenu optionsMenu) {
 		numMechas = OptionsMenu.getNumMechas();
 		guardType = OptionsMenu.getGuardType();
