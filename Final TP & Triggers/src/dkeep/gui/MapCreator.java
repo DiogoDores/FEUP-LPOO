@@ -27,7 +27,6 @@ public class MapCreator extends JPanel implements MouseListener{
 	private EditorMap map;
 	private Game game;
 	private boolean heroWasCreated;
-	private float ogreCounter;
 	private JSlider slider;
 
 	public int x, y;
@@ -62,7 +61,6 @@ public class MapCreator extends JPanel implements MouseListener{
 		heroWasCreated = false;
 		activeChar = 0;
 		title = string;
-		ogreCounter = 0;
 
 		map = new EditorMap(4, 4);
 		game = new Game("Editor");
@@ -305,10 +303,6 @@ public class MapCreator extends JPanel implements MouseListener{
 		x = (int)tempX;
 		y = (int)tempY;
 
-
-		System.out.println(activeChar + " " + heroWasCreated);
-
-
 		if(activeChar == 'H'){
 			map.place(x, y, ' ');
 			game.gameLogic.hero.setX(x);
@@ -316,17 +310,10 @@ public class MapCreator extends JPanel implements MouseListener{
 			heroWasCreated = true;
 		
 		}  else if (activeChar == 'O') {
-
-
-			if(ogreCounter < 5){
-				ogreCounter++;
 				if (x == game.gameLogic.hero.getX() && y == game.gameLogic.hero.getY())
 					heroWasCreated = false;
 				game.gameLogic.createOgre(y, x, slider.getValue(), slider.getValue());
-
-			}
 		}
-
 		else { 
 			map.checkOgre(game.gameLogic, x ,y);
 			map.place(x, y, activeChar);
@@ -334,9 +321,6 @@ public class MapCreator extends JPanel implements MouseListener{
 				heroWasCreated = false;	
 		}
 
-		game.gameLogic.currentMap.drawMap(game.gameLogic);
-
-		System.out.println("");
 
 		panel.repaint(); 
 	}
