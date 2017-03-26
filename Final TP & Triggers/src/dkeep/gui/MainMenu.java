@@ -94,7 +94,7 @@ public class MainMenu extends JPanel{
 				frame.dispose();
 				game = new Game("Prison Escape");
 				game.setVisible(true);
-				game.init();
+				game.init(); 
 			}
 		});
 
