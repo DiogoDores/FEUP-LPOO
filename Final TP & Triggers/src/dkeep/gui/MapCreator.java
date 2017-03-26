@@ -93,16 +93,16 @@ public class MapCreator extends JPanel implements MouseListener{
 					for(int j = 0; j < map.getMap().length; j++){
 						for (int k = 0; k < game.gameLogic.ogres.size(); k++) {
 							if (game.gameLogic.ogres.get(k).getX() == j && game.gameLogic.ogres.get(k).getY() == i) {
-								System.out.println(i + " " + j);	
-								g.drawImage(Assets.ogreFront, i * intMult - 10, j * intMult - 55, intMult + 14, intMult + 30, null);
+								
+								g.drawImage(Assets.ogreFront, i * intMult, j * intMult, intMult , intMult, null);
 							}
 						}
 						if(i == game.gameLogic.hero.getX() && j == game.gameLogic.hero.getY() && heroWasCreated){
 							g.drawImage(Assets.heroFront, i * intMult - 10, j * intMult - 55, intMult + 14, intMult + 30, null);
 						}
-						else if (map.getMap()[i][j] == 'k')
-							
-							g.drawImage(Assets.key,j * intMult, j * intMult , intMult, intMult , null);
+						else if (map.getMap()[i][j] == 'k') {
+							g.drawImage(Assets.key,j * intMult, i * intMult , intMult, intMult , null);
+						}
 
 						
 
@@ -320,22 +320,19 @@ public class MapCreator extends JPanel implements MouseListener{
 		else if(activeChar == 'k'){
 			
 			if (keyWasCreated) {
-				System.out.println("KEY WAS PLACED AFTER BEING CREATED");
 				for(int i = 0; i < map.getMap().length; i++){
 					for(int j = 0; j < map.getMap().length; j++){
 						if (map.getMap()[i][j] == 'k') {
 							map.place(j, i, ' ');
 							System.out.println("ENCONTRADO " + i + " " + j);
 							System.out.println("Depois " + map.getMap()[i][j]);
-
 						}
-						System.out.print(" " + i + " " + j );
 					}
-				}				
-				map.place(y, x, 'k');
+				}	
+				map.place(x, y, 'k');
 			}
 			else {
-				map.place(y, x, 'k');
+				map.place(x, y, 'k');
 				keyWasCreated = true;
 			}
 		
