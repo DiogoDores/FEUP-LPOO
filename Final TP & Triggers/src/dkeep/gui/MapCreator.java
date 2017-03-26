@@ -302,7 +302,6 @@ public class MapCreator extends JPanel implements MouseListener{
 
 		if(isPlaceable){
 			if(activeChar == 'H'){
-				map.place(x, y, activeChar);
 				game.gameLogic.hero.setX(x);
 				game.gameLogic.hero.setY(y);
 				heroWasCreated = true;
@@ -310,12 +309,10 @@ public class MapCreator extends JPanel implements MouseListener{
 
 				if(ogreCounter < 5){
 					ogreCounter++;
-					map.place(x, y, activeChar);
 					game.gameLogic.createOgre(x, y, slider.getValue(), slider.getValue());
 				}
 			}
-			else
-				map.place(x, y, activeChar);
+			map.place(x, y, activeChar);
 		}
 
 
