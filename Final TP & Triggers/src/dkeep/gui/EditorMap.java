@@ -166,10 +166,12 @@ public class EditorMap extends GameMap {
 				if (game.currentMap.getMap()[i][j] == 'S') {
 					x = i; 
 					y = j;
+					if (game.hero.getX() == x && game.hero.getY() == y)
+						return true;
 				}
 					
 			}
 		}
-		return (game.hero.getX() == x && game.hero.getY() == y); 
+		return false; 
 	}
 }

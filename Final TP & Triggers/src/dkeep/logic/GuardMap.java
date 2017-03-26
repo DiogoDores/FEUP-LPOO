@@ -67,8 +67,6 @@ public class GuardMap extends GameMap {
 		return (game.hero.getY() == 0 && (game.hero.getX() == 5  || game.hero.getX() == 6));
 	}
 
-
-
 	@Override
 	public void resetPositions(GameLogic game) {
 		game.hero.setX(1);
