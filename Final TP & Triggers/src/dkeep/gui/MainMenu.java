@@ -101,7 +101,7 @@ public class MainMenu extends JPanel{
 		btnExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0){
 				System.exit(0);
-			}
+			}	
 		});
 
 		btnCreateMap.addActionListener(new ActionListener() {

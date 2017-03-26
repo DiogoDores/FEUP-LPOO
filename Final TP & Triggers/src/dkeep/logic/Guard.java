@@ -21,6 +21,7 @@ public class Guard {
 	}
 	
 	public void move(){
+		
 		return;
 	}
 	
