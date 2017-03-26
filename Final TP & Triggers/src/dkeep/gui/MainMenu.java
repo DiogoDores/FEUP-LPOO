@@ -89,7 +89,6 @@ public class MainMenu extends JPanel{
 				if(!OptionsMenu.getWasSetUp()){
 					OptionsMenu options = new OptionsMenu();
 				} 
-
 				Assets.init();
 				frame.dispose();
 				game = new Game("Prison Escape");

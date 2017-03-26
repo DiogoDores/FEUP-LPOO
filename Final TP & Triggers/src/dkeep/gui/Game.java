@@ -54,7 +54,7 @@ public class Game extends JPanel implements KeyListener {
 
 		gameLogic.currentMap = levels[levelPositionArray];
 
-		
+
 
 		Assets.init();
 
@@ -65,14 +65,13 @@ public class Game extends JPanel implements KeyListener {
 	 */
 
 	public void init(){
-		if (title != "Editor"){
-			if(guardType == null || numMechas == 0){
-				guardType = "Rookie";
-				numMechas = 1;
-			}
-			gameLogic.createCharacters(1, guardType, numMechas);
-			System.out.println(guardType);
+		if(guardType == null || numMechas == 0){
+			guardType = "Rookie";
+			numMechas = 1;
+		}
 
+		if (title != "Editor"){
+			gameLogic.createCharacters(1, guardType, numMechas);
 		}
 		else
 			levelPositionArray = 0;
@@ -155,12 +154,16 @@ public class Game extends JPanel implements KeyListener {
 	 * Moves all the components, hero based on key received, ogres and guards based on a random created value.
 	 */
 
+	public void activateLever() {
+
+	}
+
 	private void moveEntities(char key){
 
 		char ogreMove;
 
 		char guardMove = gameLogic.guard.getGuardMove();
-
+		System.out.print(guardMove);
 		if(key == 'w'){
 			hero = Assets.heroBack;
 		} else if (key == 'a'){
@@ -195,7 +198,7 @@ public class Game extends JPanel implements KeyListener {
 				boolean stunned = isStunned(i);
 
 				if(ogreMove == 'w'){
-						ogresSprite[i] = Assets.ogreBack;
+					ogresSprite[i] = Assets.ogreBack;
 				} else if (ogreMove == 'a'){
 					if(stunned)
 						ogresSprite[i] = Assets.sOgreRight;
@@ -232,6 +235,7 @@ public class Game extends JPanel implements KeyListener {
 		if (gameLogic.currentMap.checkWin(gameLogic)){
 			Assets.init();
 			levelPositionArray++;
+			//gameLogic.currentMap.resetPositions(gameLogic);
 			gameLogic.createOgres(numMechas);
 
 			if (levelPositionArray == 3) {
@@ -282,7 +286,6 @@ public class Game extends JPanel implements KeyListener {
 				g.drawImage(ogresSprite[i], gameLogic.ogres.get(i).getY()* a - a/4, gameLogic.ogres.get(i).getX()* a - a, size, size, null);
 			}
 		}
-
 	}
 
 	/**
@@ -322,9 +325,9 @@ public class Game extends JPanel implements KeyListener {
 				} else if (mapToDraw[y][x] == ' '){
 					g.drawImage(Assets.floor, x * mult, y * mult, mult, mult, null);
 				} else if (mapToDraw[y][x] == 'k'){
-					if(gameLogic.currentMap.getName() == "GuardMap")
+					if(gameLogic.currentMap.getName() == "GuardMap"){
 						g.drawImage(Assets.closedLever, x * mult, y * mult, mult, mult, null);
-					else if (gameLogic.currentMap.getName() == "OgreMap")
+					}else if (gameLogic.currentMap.getName() == "OgreMap" || gameLogic.currentMap.getName() == "Editor")
 						g.drawImage(Assets.key, x * mult, y * mult, mult, mult, null);
 				} else if (mapToDraw[y][x] == 'I'){
 					g.drawImage(Assets.door, x * mult, y * mult, mult, mult, null);

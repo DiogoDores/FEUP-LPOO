@@ -71,8 +71,11 @@ public class GuardMap extends GameMap {
 
 	@Override
 	public void resetPositions(GameLogic game) {
-		// TODO Auto-generated method stub
+		game.hero.setX(1);
+		game.hero.setY(1);
 		
+		game.guard.x = 1;
+		game.guard.y = 8;
 	}
 	
 }

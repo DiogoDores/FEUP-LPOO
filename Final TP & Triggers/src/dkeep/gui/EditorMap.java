@@ -63,7 +63,6 @@ public class EditorMap extends GameMap {
 			if (game.ogres.get(i).getX() == x && game.ogres.get(i).getY() == y)
 				return 'O';
 		}
-
 		if (game.currentMap.getMap()[x][y]  == 'X'){
 			return 'X';
 		} else if (game.currentMap.getMap()[x][y] == 'k') {
@@ -140,11 +139,6 @@ public class EditorMap extends GameMap {
 	}
 
 	@Override
-	public boolean checkWin(GameLogic game) {
-		return false;
-	}
-
-	@Override
 	public void resetPositions(GameLogic game) {
 
 
@@ -162,5 +156,20 @@ public class EditorMap extends GameMap {
 					level[i][j] = ' ';
 			}
 		}
+	}
+	
+	@Override
+	public boolean checkWin(GameLogic game) {
+		int x = 0, y = 0;
+		for (int i = 0; i < game.currentMap.getMap().length;i++) {
+			for (int j = 0 ; j< game.currentMap.getMap()[i].length; j++) {
+				if (game.currentMap.getMap()[i][j] == 'S') {
+					x = i; 
+					y = j;
+				}
+					
+			}
+		}
+		return (game.hero.getX() == x && game.hero.getY() == y); 
 	}
 }

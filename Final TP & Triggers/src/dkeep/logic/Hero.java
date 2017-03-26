@@ -113,12 +113,14 @@ public class Hero {
 		}
 
 		else if (result == 'S') {
-			if (c == 'a' && y > 1) {
-				y -= 2;
-			} else if (c == 'a' && y == 1) {
+			if (c == 'a') {
 				y--;
+			} else if (c == 's') {
+				x++;
 			} else if (c == 'd') {
-				y +=2;
+				y++;
+			} else if (c == 'w') {
+				x--;
 			}
 
 		} 
@@ -143,7 +145,18 @@ public class Hero {
 				this.symbol = 'K';
 				game.currentMap.getMap()[1][3] = ' '; 
 			} else {
-				game.currentMap.activateLever(new Hero(x, y));
+				if (c == 'w') {
+					x--;
+				} else if (c == 'd') {
+					y++;
+				} else if (c == 'a') {
+					y--;
+				}
+				 else if (c == 's') {
+					x++;
+				}
+				game.currentMap.getMap()[x][y] = ' ';
+				game.currentMap.activateLever(game);
 			}
 
 		} else if(result == 'I'){

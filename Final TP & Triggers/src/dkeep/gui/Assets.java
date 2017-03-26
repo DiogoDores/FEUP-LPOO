@@ -56,8 +56,8 @@ public class Assets {
 		ogreRight = mechaSheet.crop(heroWidth*2, 0, heroWidth, heroHeight);
 		
 		sOgreFront = sOgreSheet.crop(0, 0, heroWidth, heroHeight);
-		sOgreLeft = sOgreSheet.crop(0, heroHeight, heroWidth, heroHeight);
-		sOgreRight = sOgreSheet.crop(heroWidth, 0, heroWidth, heroHeight);
+		sOgreLeft = sOgreSheet.crop(heroWidth, 0, heroWidth, heroHeight);
+		sOgreRight = sOgreSheet.crop(heroWidth*2, 0, heroWidth, heroHeight);
 		
 		club = wallSheet.crop(wallWidth * 4, wallHeight, wallWidth, wallHeight);
 
