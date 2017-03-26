@@ -74,14 +74,11 @@ public class Game extends JPanel implements KeyListener {
 			}
 			gameLogic.createCharacters(1, guardType, numMechas);
 			System.out.println(guardType);
-			
+
 		}
 		else
 			levelPositionArray = 0;
-		
-		
 
-		
 		panelWidth =  mapWidth * mult + 12;
 		panelHeight = mapHeight * mult + 37;
 
@@ -96,7 +93,7 @@ public class Game extends JPanel implements KeyListener {
 	public void display() { 
 		f = new JFrame("Prison Escape");     
 		f.setContentPane(this);
-		f.setSize((int)panelWidth + 300, (int)panelHeight);
+		f.setSize((int)panelWidth, (int)panelHeight);
 		f.setVisible(true);
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		f.setResizable(false);
@@ -170,24 +167,35 @@ public class Game extends JPanel implements KeyListener {
 		} else if (key == 'd'){
 			hero = Assets.heroLeft;
 		}
-		
-		
+
 		if (levelPositionArray == 1) {
 			if(guardMove == 'w'){
-				guard = Assets.guardBack;
+				if(gameLogic.guard.getSymbol() == 'g')
+					guard = Assets.sGuardBack;
+				else
+					guard = Assets.guardBack;
 			} else if (guardMove == 'a'){
-				guard = Assets.guardRight;
+				if(gameLogic.guard.getSymbol() == 'g')
+					guard = Assets.sGuardRight;
+				else
+					guard = Assets.guardRight;
 			} else if (guardMove == 's'){
-				guard = Assets.guardFront;
+				if(gameLogic.guard.getSymbol() == 'g')
+					guard = Assets.sGuardFront;
+				else
+					guard = Assets.guardFront;
 			} else if (guardMove == 'd'){
-				guard = Assets.guardLeft;
+				if(gameLogic.guard.getSymbol() == 'g')
+					guard = Assets.sGuardLeft;
+				else
+					guard = Assets.guardLeft;
 			}
 			gameLogic.guard.move();
 
 		}
-		
-		
-		
+
+
+
 		else if (levelPositionArray == 2 || levelPositionArray == 0) {			
 			for(int i = 0; i < gameLogic.ogres.size(); i++){
 				ogreMove = gameLogic.ogre.createRandomMove();
