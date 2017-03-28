@@ -234,6 +234,8 @@ public class Game extends JPanel implements KeyListener {
 		if (gameLogic.currentMap.checkWin(gameLogic)){
 			Assets.init();
 			levelPositionArray++;
+			if(levelPositionArray == 1)
+				gameLogic.ogres.clear();
 			//gameLogic.currentMap.resetPositions(gameLogic);
 			gameLogic.createOgres(numMechas);
 
