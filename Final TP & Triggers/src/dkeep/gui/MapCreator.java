@@ -341,6 +341,7 @@ public class MapCreator extends JPanel implements MouseListener{
 			}
 		
 		} else if (activeChar == 'O') {
+			
 				if (x == game.gameLogic.hero.getX() && y == game.gameLogic.hero.getY())
 					heroWasCreated = false;
 				if (map.checkKey(x, y, game.gameLogic))

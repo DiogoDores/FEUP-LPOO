@@ -17,7 +17,7 @@ import dkeep.logic.GameLogic;
 
 public class Game extends JPanel implements KeyListener {
 	/**
-	 * 
+	 *   
 	 */
 	private static final long serialVersionUID = 1L;
 	public GameMap[] levels;
@@ -32,7 +32,7 @@ public class Game extends JPanel implements KeyListener {
 	public GameLogic gameLogic = new GameLogic();
 	public double width, height;
 	public double mult;
-	public String title;
+	public String title; 
 	private static String guardType;
 	private static int numMechas;
 
