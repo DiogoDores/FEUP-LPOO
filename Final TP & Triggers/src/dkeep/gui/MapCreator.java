@@ -91,6 +91,7 @@ public class MapCreator extends JPanel implements MouseListener{
 
 				game.drawStructures(g, mult);
 				
+				
 				for(int i = 0; i < map.getMap().length; i++){
 					for(int j = 0; j < map.getMap().length; j++){
 						for (int k = 0; k < game.gameLogic.ogres.size(); k++) {
