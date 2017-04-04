@@ -10,7 +10,7 @@ public class Game extends ApplicationAdapter {
 	SpriteBatch batch;
 	Texture img;
 	
-	@Override
+	@Override 
 	public void create () {
 		batch = new SpriteBatch();
 		img = new Texture("badlogic.jpg");
