@@ -13,14 +13,24 @@ public class Menu extends ScreenAdapter {
 	private String name;
 
 	public Menu(String string) {
-		name = string;
-	}
+        batch = new SpriteBatch();
+        img = new Texture("Face_Pixel.png");
+        name = string;
+    //    render(0);
+      }
 
 	@Override
 	public void render(float delta) {
-	// TODO Auto-generated method stub
-	super.render(delta);
-	}	
+        Gdx.gl.glClearColor(1, 0, 0, 1);
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		batch.begin();
+		batch.draw(img, 0, 0);
+		batch.end();
+        super.render(delta);
+	}
+
+
+
 	@Override
 	public void dispose () {
 		batch.dispose();

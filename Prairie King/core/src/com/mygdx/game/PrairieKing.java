@@ -2,19 +2,24 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
-public class PrairieKing  extends ApplicationAdapter {
-	
-	private Menu mainMenu;
-	
-	@Override
-	public void create () {
-		mainMenu = new Menu("MainMenu");
-	
-	}
-	
+public class PrairieKing  extends Game {
+    private Batch batch;
+    private Texture img;
+   private Menu mainMenu;
+
+    @Override
+    public void create () {
+        setScreen(new Menu("MainMenu"));
+    }
+
+
+
 }
