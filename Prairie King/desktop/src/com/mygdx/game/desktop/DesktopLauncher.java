@@ -6,6 +6,7 @@ import com.mygdx.game.PrairieKing;
 
 public class DesktopLauncher {
 	public static void main (String[] arg) {
+		System.out.print("WOW");
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		new LwjglApplication(new PrairieKing(), config);
 	}
