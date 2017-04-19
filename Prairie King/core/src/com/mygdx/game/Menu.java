@@ -16,7 +16,6 @@ public class Menu extends ScreenAdapter {
         batch = new SpriteBatch();
         img = new Texture("Face_Pixel.png");
         name = string;
-    //    render(0);
       }
 
 	@Override
