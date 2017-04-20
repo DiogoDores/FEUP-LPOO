@@ -1,6 +1,7 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
@@ -11,11 +12,18 @@ public class Menu extends ScreenAdapter {
 	SpriteBatch batch;
 	Texture img;
 	private String name;
+	private Game myGame;
 
 	public Menu(String string) {
         batch = new SpriteBatch();
         img = new Texture("Face_Pixel.png");
         name = string;
+		myGame = new Game() {
+			@Override
+			public void create() {
+
+			}
+		};
       }
 
 	@Override
