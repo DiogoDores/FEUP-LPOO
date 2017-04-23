@@ -1,63 +1,105 @@
 package com.mygdx.game;
 
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.PerspectiveCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.viewport.ExtendViewport;
+import com.badlogic.gdx.utils.viewport.FillViewport;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
-/**
- * Created by petre on 20/04/2017.
- */
-
-public class GameStage extends Stage {
-    static final int VIEWPORT_WIDTH = 4;
-    static final float PIXEL_TO_METER = 0.22f / 200;
-    private final World world;
-    Texture img;
+public class GameStage extends Stage implements Screen {
+    private OrthographicCamera camera;
+    private Stage stage;
+    private String name;
+    private PrairieKing game;
+    Sprite background;
+    Sprite hero;
     SpriteBatch batch;
-    String name;
-
-    GameStage(PrairieKing game) {
-        // Set the viewport
-        float ratio = ((float) Gdx.graphics.getHeight() / (float) Gdx.graphics.getWidth());
-        setViewport(new FitViewport(VIEWPORT_WIDTH / PIXEL_TO_METER, VIEWPORT_WIDTH / PIXEL_TO_METER * ratio));
-
-        // Load the textures
-        game.getAssetManager().load("Menus/Menu1.png", Texture.class);
+    FitViewport view;
+    GameLogic gameLogic;
 
 
-        img = new Texture("Menus/Menu1.png");
+
+    public GameStage(GameLogic gameLogic) {
+        this.name = name;
+        this.game = gameLogic.getMyGame();
         batch = new SpriteBatch();
+        stage = new Stage();
 
-        world = new World(new Vector2(0, -3), true);
+        view = new FitViewport(Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
+
+        game.getAssetManager().load("Mapas/MapaTeste1.png", Texture.class);
+        game.getAssetManager().load("Sprites/TestHero.png", Texture.class);
+        background = new Sprite(new Texture("Mapas/MapaTeste1.png"));
+        hero = new Sprite(new Texture("Sprites/TestHero.png"));
+
+        this.gameLogic = gameLogic;
 
     }
 
+
     @Override
-    public void draw() {
-        super.draw();
+    public void render(float delta) {
+
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        Gdx.gl.glClearColor(0, 0, 0, 1);
+
         batch.begin();
-        batch.draw(img,0,0);
+        background.setSize(view.getWorldWidth(),view.getWorldHeight());
+        hero.setSize(view.getWorldWidth()/32,view.getWorldHeight()/18);
+        hero.setX(gameLogic.getHero().getX());
+        hero.setY(gameLogic.getHero().getY());
+
+        background.draw(batch);
+        hero.draw(batch);
         batch.end();
 
     }
 
     @Override
-    public void act(float delta) {
-        super.act(delta);
+    public void resize(int width, int height) {
+        view.update(width,height);
+    }
 
-        // Update camera
+    @Override
+    public void dispose() {
+        batch.dispose();
+        stage.dispose();
+    }
 
-        // Step the world
-        world.step(delta, 6, 2);
+
+    @Override
+    public void pause() {
+
+    }
+
+    @Override
+    public void resume() {
+
+    }
+
+    @Override
+    public void hide() {
+
+    }
+
+    @Override
+    public void show() {
+
     }
 
 }
