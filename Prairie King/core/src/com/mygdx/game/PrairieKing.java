@@ -1,25 +1,37 @@
 package com.mygdx.game;
 
-import com.badlogic.gdx.Application;
-import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
 public class PrairieKing  extends Game {
-    private Batch batch;
-    private Texture img;
-   private Menu mainMenu;
+    Menu menu;
+    GameStage gameScreen;
+    public AssetManager myAssetManager;
 
-    @Override
-    public void create () {
-        setScreen(new Menu("MainMenu"));
+    public PrairieKing() {
+
+        //gameScreen = new GameScreen();
+        //setScreen(gameScreen);
+
     }
 
+    @Override
+    public void create() {
+       // setScreen(new Menu("MainMenu"));
+
+    }
+
+    @Override
+    public void resize(int width, int height) {
+        super.resize(width, height);
+    }
+
+    @Override
+    public void render() {
+        super.render();
+    }
 
 
 }
