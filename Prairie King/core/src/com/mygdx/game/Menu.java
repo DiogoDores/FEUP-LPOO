@@ -1,49 +1,68 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.ScreenAdapter;
-
-import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
-import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.PerspectiveCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.badlogic.gdx.utils.viewport.ExtendViewport;
+import com.badlogic.gdx.utils.viewport.FillViewport;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 
-public class Menu extends Stage {
-    SpriteBatch batch;
-    Texture img;
+public class Menu extends ScreenAdapter {
+    private OrthographicCamera camera;
+    private Stage stage;
     private String name;
-    private Game myGame;
+    private PrairieKing game;
+    Sprite img;
+    SpriteBatch batch;
+    FitViewport view;
+
+
+    public Menu(String name, PrairieKing game) {
+        this.name = name;
+        this.game = game;
+        batch = new SpriteBatch();
+
+        view = new FitViewport(Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
+
+        game.getAssetManager().load("Menus/Menu1.png", Texture.class);
+        img = new Sprite(new Texture("Menus/Menu1.png"));
+
+    }
 
     @Override
-    public void draw() {
-        Gdx.gl.glClearColor(1, 0, 0, 1);
+    public void render(float delta) {
+
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        batch = new SpriteBatch();
-        img = new Texture("Menus/Menu1.png");
+        Gdx.gl.glClearColor(0, 0, 0, 1);
 
         batch.begin();
-        batch.draw(img, 0, 0);
+        img.setSize(view.getWorldWidth(),view.getWorldHeight());
+        img.draw(batch);
         batch.end();
 
-        super.draw();
     }
-
-    public Menu(String string) {
-        name = string;
-    }
-
 
     @Override
-	public void dispose () {
-		batch.dispose();
-		img.dispose();
-	}
+    public void resize(int width, int height) {
+        view.update(width,height);
+    }
+
+    @Override
+    public void dispose() {
+        batch.dispose();
+        stage.dispose();
+    }
 
 }
