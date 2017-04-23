@@ -14,7 +14,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 
 public class Menu extends Stage {
     SpriteBatch batch;
