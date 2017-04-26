@@ -32,8 +32,6 @@ public class GameStage extends Stage implements Screen {
     FitViewport view;
     GameLogic gameLogic;
 
-
-
     public GameStage(GameLogic gameLogic) {
         this.name = name;
         this.game = gameLogic.getMyGame();
@@ -43,12 +41,11 @@ public class GameStage extends Stage implements Screen {
         view = new FitViewport(Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
 
         game.getAssetManager().load("Mapas/MapaTeste1.png", Texture.class);
-        game.getAssetManager().load("Sprites/TestHero.png", Texture.class);
+        game.getAssetManager().load("Sprites/MainSpriteSheet.png", Texture.class);
         background = new Sprite(new Texture("Mapas/MapaTeste1.png"));
-        hero = new Sprite(new Texture("Sprites/TestHero.png"));
+        hero = new Sprite(new Texture("Sprites/MainSpriteSheet.png"),367,96,16,16);
 
         this.gameLogic = gameLogic;
-
     }
 
 
