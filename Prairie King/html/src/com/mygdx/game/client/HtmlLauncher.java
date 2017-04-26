@@ -3,7 +3,7 @@ package com.mygdx.game.client;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.backends.gwt.GwtApplication;
 import com.badlogic.gdx.backends.gwt.GwtApplicationConfiguration;
-import com.mygdx.game.PrairieKing;
+import com.prairieKing.controller.PrairieKing;
 
 public class HtmlLauncher extends GwtApplication {
 

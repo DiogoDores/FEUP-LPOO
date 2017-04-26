@@ -1,9 +1,9 @@
-package com.mygdx.game;
+package com.prairieKing.model;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 
-class Hero {
+public class Hero {
     private int x, y, lives;
 
     public int getX() {

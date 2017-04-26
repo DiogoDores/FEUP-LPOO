@@ -1,8 +1,4 @@
-package com.mygdx.game;
-
-/**
- * Created by petre on 26/04/2017.
- */
+package com.prairieKing.model;
 
 public class Enemy {
 
