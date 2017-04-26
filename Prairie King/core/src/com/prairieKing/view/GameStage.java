@@ -32,7 +32,6 @@ public class GameStage extends ScreenAdapter {
 
         loadAssets();
 
-
         this.gameLogic = gameLogic;
     }
 
