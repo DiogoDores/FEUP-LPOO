@@ -19,7 +19,7 @@ public class GameLogic extends Stage {
         AI.spawn();
         myGame = game;
         hero = new Hero(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2);
-       // gameStage = new GameStage(this);
+        gameStage = new GameStage(this);
     }
 
     public Hero getHero() {
@@ -41,7 +41,7 @@ public class GameLogic extends Stage {
     @Override
     public void draw() {
         moveEntities();
-       //  gameStage.render(0);
+       gameStage.render(0);
     }
 
     public void moveEntities() {
