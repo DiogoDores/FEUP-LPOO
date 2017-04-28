@@ -1,6 +1,8 @@
 package com.prairieKing.model;
 
-public class Enemy {
+import com.badlogic.gdx.scenes.scene2d.Actor;
+
+public class Enemy extends Actor {
 
     private int x, y;
     private String type;
@@ -11,7 +13,8 @@ public class Enemy {
         this.type = type;
     }
 
-    public int getX() {
+    @Override
+    public float getX() {
         return x;
     }
 
@@ -19,7 +22,8 @@ public class Enemy {
         this.x = x;
     }
 
-    public int getY() {
+    @Override
+    public float getY() {
         return y;
     }
 

@@ -35,7 +35,6 @@ public class PrairieKing extends Game {
         gameStage = new GameStage(gameLogic);
     }
 
-
     public void loadAssets() {
         assetManager.load("Menus/LoseScreen.png", Texture.class);
         assetManager.load("Sprites/MainSpriteSheet.png", Texture.class);

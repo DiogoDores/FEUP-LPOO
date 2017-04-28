@@ -15,7 +15,6 @@ public class Menu extends ScreenAdapter {
     SpriteBatch batch;
     FitViewport view;
 
-
     public Menu(PrairieKing game) {
         this.game = game;
         batch = new SpriteBatch();

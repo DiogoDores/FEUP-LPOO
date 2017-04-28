@@ -2,15 +2,18 @@ package com.prairieKing.model;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 
-public class Hero {
+public class Hero extends Actor {
     private int x, y, lives;
 
-    public int getX() {
+    @Override
+    public float getX() {
         return x;
     }
 
-    public int getY() {
+    @Override
+    public float getY() {
         return y;
     }
 
@@ -21,8 +24,6 @@ public class Hero {
     public void move() {
 
         // TODO AVERIGUAR SE SE PODE MOVIMENTAR PARA ALGUM LADO
-
-        // Movimentação simples
 
         if (Gdx.input.isKeyPressed(Input.Keys.S))
             y= y-2;
