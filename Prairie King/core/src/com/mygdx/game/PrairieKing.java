@@ -19,6 +19,10 @@ public class PrairieKing extends Game {
     GameStage gameStage;
     int highScore;
     GameLogic gameLogic;
+    
+    public static final int V_WIDTH = 400;
+    public static final int V_HEIGHT = 220;
+    
 
     private AssetManager assetManager;
 
