@@ -1,24 +1,25 @@
-package com.mygdx.game;
+package com.prairieKing.model;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.ScreenAdapter;
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
+import com.prairieKing.controller.PrairieKing;
+import com.prairieKing.view.GameStage;
 
 public class GameLogic extends Stage {
 
+    private AIManager AI;
     PrairieKing myGame;
     Hero hero;
     GameStage gameStage;
 
     public GameLogic(PrairieKing game) {
+        AI = new AIManager(this);
+        AI.spawn();
         myGame = game;
         hero = new Hero(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2);
-        gameStage = new GameStage(this);
+       // gameStage = new GameStage(this);
     }
 
     public Hero getHero() {
@@ -29,14 +30,23 @@ public class GameLogic extends Stage {
         return myGame;
     }
 
+    public AIManager getAI() {
+        return AI;
+    }
+
+    public void resetValues() {
+        dispose();
+    }
+
     @Override
     public void draw() {
         moveEntities();
-        gameStage.render(0);
+       //  gameStage.render(0);
     }
 
     public void moveEntities() {
         hero.move();
+        AI.move();
     }
 
     @Override

@@ -1,16 +1,16 @@
-package com.mygdx.game;
+package com.prairieKing.controller;
+import com.prairieKing.view.*;
+import com.prairieKing.model.*;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.graphics.Camera;
-import com.badlogic.gdx.graphics.PerspectiveCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
+import com.prairieKing.model.GameLogic;
+import com.prairieKing.view.GameStage;
+import com.prairieKing.view.LoseScreen;
+import com.prairieKing.view.Menu;
 
 public class PrairieKing extends Game {
     int currentState;
@@ -19,24 +19,32 @@ public class PrairieKing extends Game {
     GameStage gameStage;
     int highScore;
     GameLogic gameLogic;
-    
-    public static final int V_WIDTH = 400;
-    public static final int V_HEIGHT = 220;
-    
 
     private AssetManager assetManager;
 
     @Override
     public void create() {
         assetManager = new AssetManager();
+        loadAssets();
+
         currentState = 0;
-        menu = new Menu("MainMenu",this);
+        menu = new Menu(this);
         setScreen(menu);
         loseScreen = new LoseScreen("LoseScreen", this);
-
         gameLogic = new GameLogic(this);
         gameStage = new GameStage(gameLogic);
     }
+
+
+    public void loadAssets() {
+        assetManager.load("Menus/LoseScreen.png", Texture.class);
+        assetManager.load("Sprites/MainSpriteSheet.png", Texture.class);
+        assetManager.load("Mapas/MapaTeste1.png", Texture.class);
+        assetManager.load("Menus/Menu1.png", Texture.class);
+        assetManager.finishLoading();
+        assetManager.update();
+    }
+
 
     public int getHighScore() {
         return highScore;
@@ -54,14 +62,18 @@ public class PrairieKing extends Game {
             }
         }
         else if (currentState == 1) { // Game Mode
+
             gameLogic.act();
-            gameLogic.draw();
+
+            setScreen(gameStage);
+
             if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
                 currentState = 2;
             }
         }
         else {  // Lose Screen
             setScreen(loseScreen);
+
             loseScreen.render(0);
             if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
                 currentState = 0;
@@ -70,7 +82,7 @@ public class PrairieKing extends Game {
 
     }
 
-    AssetManager getAssetManager() {
+    public AssetManager getAssetManager() {
         return assetManager;
     }
 }
