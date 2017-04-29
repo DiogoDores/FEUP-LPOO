@@ -41,7 +41,7 @@ public class GameLogic extends Stage {
     @Override
     public void draw() {
         moveEntities();
-       //  gameStage.render(0);
+        gameStage.render(0);
     }
 
     public void moveEntities() {

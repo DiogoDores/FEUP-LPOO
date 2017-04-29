@@ -1,7 +1,6 @@
 package com.prairieKing.controller;
 import com.prairieKing.view.*;
 import com.prairieKing.model.*;
-
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -44,7 +43,6 @@ public class PrairieKing extends Game {
         assetManager.update();
     }
 
-
     public int getHighScore() {
         return highScore;
     }
@@ -61,8 +59,9 @@ public class PrairieKing extends Game {
             }
         }
         else if (currentState == 1) { // Game Mode
-            gameLogic.act();
             setScreen(gameStage);
+            gameLogic.act();
+            gameLogic.draw();
 
             if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
                 currentState = 2;
@@ -82,4 +81,5 @@ public class PrairieKing extends Game {
     public AssetManager getAssetManager() {
         return assetManager;
     }
+
 }

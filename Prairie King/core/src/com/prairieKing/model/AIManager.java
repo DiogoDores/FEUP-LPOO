@@ -30,8 +30,8 @@ public class AIManager {
         if (enemies != null)
             for (int i = 0; i < enemies.length; i++) {
                 if (enemies[i] != null) {
-                    int x = enemies[i].getX();
-                    int y = enemies[i].getY();
+                    float x = enemies[i].getX();
+                    float y = enemies[i].getY();
                     if (x > gameLogic.getHero().getX())
                         enemies[i].setX(x - 1);
                     else if (x < gameLogic.getHero().getX())
