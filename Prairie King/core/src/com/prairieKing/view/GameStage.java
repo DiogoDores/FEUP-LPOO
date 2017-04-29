@@ -71,7 +71,6 @@ public class GameStage extends ScreenAdapter {
                 enemyToDraw.setX(enemies[i].getX());
                 enemyToDraw.setY(enemies[i].getY());
                 enemyToDraw.draw(batch);
-                System.out.println("GetX: " + enemies[i].getX() + " GetY: "+ enemies[i].getY());
             }
         }
     }
