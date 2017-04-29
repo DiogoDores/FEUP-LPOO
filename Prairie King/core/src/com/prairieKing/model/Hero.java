@@ -5,14 +5,12 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
 public class Hero extends Actor {
-    private int x, y, lives;
+    private float  x, y, lives;
 
-    @Override
     public float getX() {
         return x;
     }
 
-    @Override
     public float getY() {
         return y;
     }
