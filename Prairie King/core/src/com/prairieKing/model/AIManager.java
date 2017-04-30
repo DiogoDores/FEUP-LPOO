@@ -17,7 +17,7 @@ public class AIManager {
     }
 
     public void spawn() {
-        enemies[0] = (new Enemy(Gdx.graphics.getWidth() / 2, 16, "Basic_Walker"));
+        enemies[0] = (new BasicWalker(Gdx.graphics.getWidth() / 2, 16, "Basic_Walker"));
         //enemies[1] = (new Enemy(Gdx.graphics.getWidth() / 2, -16, "Basic_Walker"));
         //enemies[2] = (new Enemy(Gdx.graphics.getWidth() / 2, -16, "Basic_Walker"));
     }
@@ -27,22 +27,12 @@ public class AIManager {
     }
 
     public void move() {
+        Hero hero = gameLogic.getHero();
         if (enemies != null)
             for (int i = 0; i < enemies.length; i++) {
                 if (enemies[i] != null) {
-                    float x = enemies[i].getX();
-                    float y = enemies[i].getY();
-                    if (x > gameLogic.getHero().getX())
-                        enemies[i].setX(x - 1);
-                    else if (x < gameLogic.getHero().getX())
-                        enemies[i].setX(x + 1);
-                    if (y > gameLogic.getHero().getY())
-                        enemies[i].setY(y - 1);
-                    else if (y < gameLogic.getHero().getY())
-                        enemies[i].setY(y + 1);
-
+                    enemies[i].move(enemies[i], hero);
                 }
-
             }
 
     }
