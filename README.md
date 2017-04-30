@@ -37,11 +37,8 @@ Spawning – The enemies will appear from four different spawning positions, loc
 
 UML
 	Full UML
-	
 	![18216117_1110184042419835_1378945937_o](https://cloud.githubusercontent.com/assets/23073989/25567890/3e82b6dc-2def-11e7-8c41-9bb7ed7bc8ab.jpg)
-	
 	Dynamic UML Picture
-	
 	![18235919_1110016879103218_726938871_o](https://cloud.githubusercontent.com/assets/23073989/25567817/04258934-2dee-11e7-844b-d78ec0b21a01.png)
 	
 	
@@ -51,15 +48,9 @@ UML
 
 Mock Ups
 	The following screenshots are the files generated using Balsamiq. All the information regarding the visual aspect are present in the pictures themselves. It is interactable, so if you wish, you can open the Mock Up project in this branch with the software to test the gameflow.
-	
 	Main Menu 
-	
 	![1 - main menu](https://cloud.githubusercontent.com/assets/23073989/25567715/d1c889ca-2deb-11e7-8510-f09ec3943856.png)
-	
 	Game State
-	
 	![2 - game state](https://cloud.githubusercontent.com/assets/23073989/25567714/d1c55fa2-2deb-11e7-8db5-c0ba83e32004.png)
-	
 	Lose State
-	
 	![3 - lose screen](https://cloud.githubusercontent.com/assets/23073989/25567713/d1c44c84-2deb-11e7-9dee-d22455d35419.png)
