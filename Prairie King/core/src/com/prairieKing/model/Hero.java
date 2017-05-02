@@ -64,8 +64,6 @@ public class Hero extends Actor {
             setY(y+(100*Gdx.graphics.getDeltaTime())) ;
         if (down)
             setY(y-(100*Gdx.graphics.getDeltaTime())) ;
-
-
     }
 
     public int die() {

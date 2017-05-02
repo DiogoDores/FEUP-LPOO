@@ -1,20 +1,16 @@
 package com.prairieKing.model;
 
-/**
- * Created by petre on 30/04/2017.
- */
-
 public class BasicWalker extends Enemy {
 
     private Behaviour behaviour;
 
     @Override
-    public void setX(int x) {
+    public void setX(float x) {
         super.setX(x);
     }
 
     @Override
-    public void setY(int y) {
+    public void setY(float y) {
         super.setY(y);
     }
 
@@ -26,5 +22,10 @@ public class BasicWalker extends Enemy {
     @Override
     public void move(Enemy e, Hero h) {
         behaviour.move(this, h);
+    }
+
+    @Override
+    public void setCurrentDirection(char currentDirection) {
+        super.setCurrentDirection(currentDirection);
     }
 }

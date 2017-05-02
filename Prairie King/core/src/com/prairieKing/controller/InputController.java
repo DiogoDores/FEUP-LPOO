@@ -19,7 +19,6 @@ public class InputController implements InputProcessor {
         this.gameLogic = gameLogic;
     }
 
-
     @Override
     public boolean keyDown(int keycode) {
         Hero hero = gameLogic.getHero();
@@ -32,8 +31,6 @@ public class InputController implements InputProcessor {
             hero.setUp(true);
         if (keycode == (Input.Keys.D))
             hero.setRight(true);
-
-
 
         return true;
 
