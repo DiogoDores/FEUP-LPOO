@@ -5,7 +5,8 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
 public class Hero extends Actor {
-    private float  x, y, lives;
+    private float  x, y;
+    private int lives;
 
     public float getX() {
         return x;
