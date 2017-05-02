@@ -2,7 +2,7 @@ package com.prairieKing.model;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
-public class Enemy extends Actor {
+public class Enemy extends Actor implements Behaviour {
 
     private int x, y;
     private String type;
@@ -34,4 +34,16 @@ public class Enemy extends Actor {
     public String getType() {
         return type;
     }
+
+
+    @Override
+    public void move(Enemy e, Hero h) {
+
+    }
+
+    @Override
+    public void attack(Enemy e, Hero h) {
+
+    }
+
 }

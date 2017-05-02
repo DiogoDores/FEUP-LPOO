@@ -31,6 +31,7 @@ public class PrairieKing extends Game {
         setScreen(menu);
         loseScreen = new LoseScreen("LoseScreen", this);
         gameLogic = new GameLogic(this);
+
         gameStage = new GameStage(gameLogic);
     }
 

@@ -65,7 +65,7 @@ public class GameStage extends ScreenAdapter {
     public void drawEnemies() {
 
         for (int i = 0 ; i < enemies.length ; i++) {
-            if (enemies[i].getType() == "Basic_Walker") {
+            if (enemies[i].getType() == "basicWalker") {
                 enemyToDraw = new Sprite(game.getAssetManager().get("Sprites/MainSpriteSheet.png", Texture.class),304,80,16,16);
                 enemyToDraw.setSize(view.getWorldWidth()/32,view.getWorldHeight()/18);
                 enemyToDraw.setX(enemies[i].getX());

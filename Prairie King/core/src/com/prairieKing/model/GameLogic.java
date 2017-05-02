@@ -1,14 +1,18 @@
 package com.prairieKing.model;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
+import com.prairieKing.controller.InputController;
 import com.prairieKing.controller.PrairieKing;
 import com.prairieKing.view.GameStage;
 
 public class GameLogic extends Stage {
 
+    InputController input;
     private AIManager AI;
     PrairieKing myGame;
     Hero hero;
@@ -20,6 +24,9 @@ public class GameLogic extends Stage {
         myGame = game;
         hero = new Hero(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2);
         gameStage = new GameStage(this);
+        input = new InputController(this);
+        Gdx.input.setInputProcessor(input);
+
     }
 
     public Hero getHero() {
@@ -40,7 +47,7 @@ public class GameLogic extends Stage {
 
     @Override
     public void draw() {
-        moveEntities();
+       moveEntities();
        gameStage.render(0);
     }
 
