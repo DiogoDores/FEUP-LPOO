@@ -32,6 +32,15 @@ public class InputController implements InputProcessor {
         if (keycode == (Input.Keys.D))
             hero.setRight(true);
 
+        if (keycode == (Input.Keys.DOWN))
+            hero.setDownB(true);
+        if (keycode == (Input.Keys.LEFT))
+            hero.setLeftB(true);
+        if (keycode == (Input.Keys.UP))
+            hero.setUpB(true);
+        if (keycode == (Input.Keys.RIGHT))
+            hero.setRightB(true);
+
         return true;
 
     }
@@ -49,10 +58,17 @@ public class InputController implements InputProcessor {
         if (keycode == (Input.Keys.D))
             hero.setRight(false);
 
+        if (keycode == (Input.Keys.DOWN))
+            hero.setDownB(false);
+        if (keycode == (Input.Keys.LEFT))
+            hero.setLeftB(false);
+        if (keycode == (Input.Keys.UP))
+            hero.setUpB(false);
+        if (keycode == (Input.Keys.RIGHT))
+            hero.setRightB(false);
 
         return true;
-
-    }
+  }
 
     @Override
     public boolean keyTyped(char character) {

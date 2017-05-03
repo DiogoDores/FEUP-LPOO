@@ -15,7 +15,6 @@ public class Enemy extends Actor implements Behaviour {
         this.type = type;
     }
 
-
     @Override
     public void move(Enemy e, Hero h) {
 
@@ -25,7 +24,6 @@ public class Enemy extends Actor implements Behaviour {
     public void attack(Enemy e, Hero h) {
 
     }
-
 
     @Override
     public float getX() {

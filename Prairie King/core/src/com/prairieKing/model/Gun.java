@@ -12,11 +12,17 @@ public class Gun {
     private ArrayList<Projectile> projectiles = new ArrayList<Projectile>();
     Pool<Projectile> pool;
 
-    private void shoot(Vector2 position, Vector2 velocity) {
-        Projectile newBullet = new Projectile(position, velocity);
-        Projectile[] newList = new Projectile[projectiles.size()];
+    public Gun() {
+        //TODO Instanciar isto aqui, avançar com projecteis
+        //pool = Pool(100);
+    }
 
-        projectiles.toArray(newList);
+    public void shoot(Vector2 position, Vector2 velocity) {
+       /* Projectile p = pool.obtain();
+
+        p.setPosition(position);
+        p.setVelocity(velocity);
+        p.display();*/
     }
 
     public List<Projectile> getProjectiles() {
