@@ -82,8 +82,8 @@ public class GameStage extends ScreenAdapter {
         batch.begin();
         background.setSize(view.getWorldWidth(),view.getWorldHeight());
         hero.setSize(view.getWorldWidth()/32,view.getWorldHeight()/18);
-        hero.setX(gameLogic.getHero().getX());
-        hero.setY(gameLogic.getHero().getY());
+        hero.setX((int) gameLogic.getHero().getX());
+        hero.setY((int) gameLogic.getHero().getY());
 
         background.draw(batch);
         batch.draw((TextureRegion) animation.getKeyFrame(elapsedTime, true), 0, 0);
@@ -99,8 +99,8 @@ public class GameStage extends ScreenAdapter {
             if (enemies[i].getType() == "basicWalker") {
                 enemyToDraw = new Sprite(game.getAssetManager().get("Sprites/MainSpriteSheet.png", Texture.class),304,80,16,16);
                 enemyToDraw.setSize(view.getWorldWidth()/32,view.getWorldHeight()/18);
-                enemyToDraw.setX(enemies[i].getX());
-                enemyToDraw.setY(enemies[i].getY());
+                enemyToDraw.setX((int)enemies[i].getX());
+                enemyToDraw.setY((int)enemies[i].getY());
                 enemyToDraw.draw(batch);
             }
         }
