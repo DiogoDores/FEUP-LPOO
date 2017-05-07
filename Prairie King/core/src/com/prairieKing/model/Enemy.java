@@ -2,9 +2,11 @@ package com.prairieKing.model;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
-public class Enemy extends Actor {
+public class Enemy extends Actor implements Behaviour {
 
-    private int x, y;
+    private char currentDirection = 'n';
+
+    private float x, y;
     private String type;
 
     public Enemy(int x, int y, String type) {
@@ -14,12 +16,18 @@ public class Enemy extends Actor {
     }
 
     @Override
-    public float getX() {
-        return x;
+    public void move(Enemy e, Hero h) {
+
     }
 
-    public void setX(int x) {
-        this.x = x;
+    @Override
+    public void attack(Enemy e, Hero h) {
+
+    }
+
+    @Override
+    public float getX() {
+        return x;
     }
 
     @Override
@@ -27,11 +35,27 @@ public class Enemy extends Actor {
         return y;
     }
 
-    public void setY(int y) {
+    @Override
+    public void setY(float y) {
         this.y = y;
+    }
+
+    @Override
+    public void setX(float x) {
+        this.x = x;
     }
 
     public String getType() {
         return type;
     }
+
+    public char getCurrentDirection() {
+        return currentDirection;
+    }
+
+    public void setCurrentDirection(char currentDirection) {
+        this.currentDirection = currentDirection;
+    }
+
+
 }
