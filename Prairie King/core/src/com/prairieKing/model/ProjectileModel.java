@@ -23,6 +23,13 @@ public class ProjectileModel extends EntityModel {
         this.y = y;
     }
 
+    @Override
+    public float getX() {
+        return x;
+    }
 
-
+    @Override
+    public float getY() {
+        return y;
+    }
 }

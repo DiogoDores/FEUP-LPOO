@@ -19,11 +19,6 @@ public class HeroModel extends EntityModel {
     private boolean leftB, rightB, upB, downB; // Gun Methods
     private Gun gun;
 
-    private PolygonShape shape;
-    private FixtureDef fixtureDef;
-    private BodyDef bodyDef;
-    private Body body;
-
     public HeroModel(float x, float y) {
         super(x,y);
         this.x = x;
@@ -34,29 +29,7 @@ public class HeroModel extends EntityModel {
       //  setBody(world);
     }
 
-    private void setBody(World world) {
-        bodyDef = new BodyDef();
-        bodyDef.type = BodyDef.BodyType.DynamicBody;
-        bodyDef.position.set(this.x,this.y);
-        shape = new PolygonShape();
-        shape.setAsBox(10,10);
-        fixtureDef = new FixtureDef();
-        fixtureDef.shape = shape;
-        body = world.createBody(bodyDef);
-        body.createFixture(fixtureDef);
-
-    }
-
-    public FixtureDef getFixtureDef() {
-        return fixtureDef;
-    }
-
-    public BodyDef getBodyDef() {
-        return bodyDef;
-    }
-
     public void move() {
-        body.applyForce(100.0f, 0.0f, this.x, this.y, true);
         float x = this.x, y = this.y;
         if (left)
             x = (x-(100*Gdx.graphics.getDeltaTime())) ;

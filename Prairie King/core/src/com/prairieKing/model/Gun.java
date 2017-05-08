@@ -10,29 +10,29 @@ import java.util.List;
 
 public class Gun {
 
-    private ArrayList<Projectile> projectiles = new ArrayList<Projectile>();
-    private Pool<Projectile> pool;
+    private ArrayList<ProjectileModel> projectiles = new ArrayList<ProjectileModel>();
+    private Pool<ProjectileModel> pool;
     private World world;
 
 
     public Gun() {
         this.world = world;
         //TODO Instanciar isto aqui, avançar com projecteis
-        pool = new Pool<Projectile>() {
+        pool = new Pool<ProjectileModel>() {
             @Override
-            protected Projectile newObject() {
-                return new Projectile(world, new Vector2(10,10));
+            protected ProjectileModel newObject() {
+                return new ProjectileModel(-1,-1);
             }
         };
     }
 
     public void shoot(Vector2 position, Vector2 velocity) {
-        Projectile p = new Projectile(world, velocity);
+        ProjectileModel p = pool.obtain();
         p.setPosition(position.x, position.y);
         projectiles.add(p);
     }
 
-    public List<Projectile> getProjectiles() {
+    public List<ProjectileModel> getProjectiles() {
         return projectiles;
     }
 }

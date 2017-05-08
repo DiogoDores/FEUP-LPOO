@@ -17,10 +17,10 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.prairieKing.model.Enemy;
+import com.prairieKing.model.EnemyModel;
 import com.prairieKing.model.GameLogic;
 import com.prairieKing.model.Gun;
-import com.prairieKing.model.Projectile;
+import com.prairieKing.model.ProjectileModel;
 
 public class GameStage extends ScreenAdapter {
     private Stage stage;
@@ -30,7 +30,7 @@ public class GameStage extends ScreenAdapter {
     private SpriteBatch batch;
     private FitViewport view;
     private GameLogic gameLogic;
-    private Enemy[] enemies;
+    private EnemyModel[] enemies;
     private Gun gun;
     private AssetManager assetManager;
 
@@ -105,11 +105,11 @@ public class GameStage extends ScreenAdapter {
 
     public void drawBullets() {
         //System.out.println(gun.getProjectiles().size());
-        for (Projectile projectile : gun.getProjectiles()) {
+        for (ProjectileModel projectile : gun.getProjectiles()) {
             projectileToDraw = new Sprite(game.getAssetManager().get("Sprites/MainSpriteSheet.png", Texture.class),261,160,6,6);
             projectileToDraw.setSize(view.getWorldWidth()/100,view.getWorldHeight()/50);
-            projectileToDraw.setX(projectile.getPosition().x);
-            projectileToDraw.setY(projectile.getPosition().y);
+            projectileToDraw.setX(projectile.getX());
+            projectileToDraw.setY(projectile.getY());
             //System.out.println(projectile.getPosition().x + " " + projectile.getPosition().y);
             projectileToDraw.draw(batch);
         }

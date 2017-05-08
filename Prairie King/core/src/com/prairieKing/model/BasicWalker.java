@@ -1,26 +1,22 @@
 package com.prairieKing.model;
 
-public class BasicWalker extends Enemy {
+public class BasicWalker extends EnemyModel {
 
     private Behaviour behaviour;
 
     @Override
-    public void setX(float x) {
-        super.setX(x);
+    public void setPosition(float x, float y) {
+        super.setPosition(x, y);
     }
 
-    @Override
-    public void setY(float y) {
-        super.setY(y);
-    }
-
-    public BasicWalker(int x, int y, String type) {
-        super(x, y, "basicWalker");
+    public BasicWalker(int x, int y) {
+        super(x, y);
+        super.setType("basicWalker");
         behaviour = new ChasingBehaviour();
     }
 
     @Override
-    public void move(Enemy e, Hero h) {
+    public void move(EnemyModel e, HeroModel h) {
         behaviour.move(this, h);
     }
 
