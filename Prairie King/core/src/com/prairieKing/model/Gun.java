@@ -14,15 +14,20 @@ public class Gun {
 
     public Gun() {
         //TODO Instanciar isto aqui, avançar com projecteis
-        //pool = Pool(100);
+        pool = new Pool<Projectile>() {
+            @Override
+            protected Projectile newObject() {
+                return new Projectile();
+            }
+        };
     }
 
     public void shoot(Vector2 position, Vector2 velocity) {
-       /* Projectile p = pool.obtain();
+        Projectile p = pool.obtain();
 
         p.setPosition(position);
         p.setVelocity(velocity);
-        p.display();*/
+        projectiles.add(p);
     }
 
     public List<Projectile> getProjectiles() {

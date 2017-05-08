@@ -44,11 +44,15 @@ public class Hero extends Actor {
         if (downB)
             y = y-100;
 
-        if (x != 0 || y != 100) {
+        if ((x == 0 && y != 0) || (x!= 0 && y == 0) || (x != 0 && y != 0)) {
+
             Vector2 bulletDirection = new Vector2(x,y);
             Vector2 currPos = new Vector2(this.x, this.y);
             gun.shoot(currPos, bulletDirection);
         }
+        System.out.println("X " + x + " Y " + y);
+
+
     }
 
     public void setLeft(boolean left) {
@@ -100,6 +104,8 @@ public class Hero extends Actor {
     public float getY() {
         return y;
     }
+
+    public Gun getGun() { return gun; }
 
     public int getLives() {
         return lives;

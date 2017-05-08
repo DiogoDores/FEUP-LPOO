@@ -18,16 +18,19 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.prairieKing.model.Enemy;
 import com.prairieKing.model.GameLogic;
+import com.prairieKing.model.Gun;
+import com.prairieKing.model.Projectile;
 
 public class GameStage extends ScreenAdapter {
     private Stage stage;
     private PrairieKing game;
     private Sprite background;
-    private Sprite hero, enemyToDraw;
+    private Sprite hero, enemyToDraw, projectileToDraw;
     private SpriteBatch batch;
     private FitViewport view;
     private GameLogic gameLogic;
     private Enemy[] enemies;
+    private Gun gun;
     private AssetManager assetManager;
 
     private TiledMap map;
@@ -42,6 +45,7 @@ public class GameStage extends ScreenAdapter {
         this.game = gameLogic.getMyGame();
         batch = new SpriteBatch();
         stage = new Stage();
+        gun = gameLogic.getHero().getGun();
         enemies = gameLogic.getAI().getEnemies();
          view = new FitViewport(Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
 
@@ -89,8 +93,28 @@ public class GameStage extends ScreenAdapter {
         batch.draw((TextureRegion) animation.getKeyFrame(elapsedTime, true), 0, 0);
         hero.draw(batch);
         drawEnemies();
+        drawBullets();
         batch.end();
 
+    }
+
+    public void drawBullets() {
+        //System.out.println(gun.getProjectiles().size());
+        for (Projectile projectile : gun.getProjectiles()) {
+            projectileToDraw = new Sprite(game.getAssetManager().get("Sprites/MainSpriteSheet.png", Texture.class),261,160,6,6);
+            projectileToDraw.setSize(view.getWorldWidth()/100,view.getWorldHeight()/50);
+            projectileToDraw.setX(projectile.getPosition().x);
+            projectileToDraw.setY(projectile.getPosition().y);
+            //System.out.println(projectile.getPosition().x + " " + projectile.getPosition().y);
+            projectileToDraw.draw(batch);
+        }
+       /* projectileToDraw = new Sprite(game.getAssetManager().get("Sprites/MainSpriteSheet.png", Texture.class),261,160,6,6);
+        projectileToDraw.setSize(view.getWorldWidth()/100,view.getWorldHeight()/50);
+        projectileToDraw.setX(hero.getX());
+        projectileToDraw.setY(hero.getY());
+        //System.out.println(projectile.getPosition().x + " " + projectile.getPosition().y);
+        projectileToDraw.draw(batch);
+        */
     }
 
     public void drawEnemies() {

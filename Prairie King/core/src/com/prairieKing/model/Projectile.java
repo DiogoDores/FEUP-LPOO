@@ -2,6 +2,7 @@ package com.prairieKing.model;
 
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Box2D;
 
 public class Projectile {
 
@@ -9,11 +10,12 @@ public class Projectile {
 
     private Circle circle;
 
-    public Projectile(Vector2 position, Vector2 velocity) {
-        this.position = position;
-        this.velocity = velocity;
+    public Projectile() {
+        this.position = new Vector2();
+        this.velocity = new Vector2();
     }
 
+    public Vector2 getPosition() {return position;}
     public void setPosition(Vector2 position) {
         this.position = position;
     }
@@ -25,4 +27,6 @@ public class Projectile {
     public void setVelocity(Vector2 velocity) {
         this.velocity = velocity;
     }
+
+
 }

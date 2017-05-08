@@ -11,8 +11,6 @@ public class DesktopLauncher {
 		config.foregroundFPS = 60;
 
 		config.vSyncEnabled = true;
-		//config.fullscreen = true;
-		//config.useGL30 = true;
 		config.height = 720;
 		config.width = 1280;
 		new LwjglApplication(new PrairieKing(), config);

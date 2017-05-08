@@ -3,6 +3,7 @@ package com.prairieKing.model;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
@@ -10,7 +11,7 @@ import com.prairieKing.controller.InputController;
 import com.prairieKing.controller.PrairieKing;
 import com.prairieKing.view.GameStage;
 
-public class GameLogic extends Stage {
+public class GameLogic {
 
     InputController input;
     private AIManager AI;
@@ -18,6 +19,7 @@ public class GameLogic extends Stage {
     Hero hero;
     GameStage gameStage;
 
+    Box2
     public GameLogic(PrairieKing game) {
         AI = new AIManager(this);
         AI.spawn();
@@ -41,11 +43,9 @@ public class GameLogic extends Stage {
         return AI;
     }
 
-    public void resetValues() {
-        dispose();
-    }
 
-    @Override
+
+    //
     public void draw() {
        moveEntities();
        gameStage.render(0);
@@ -56,23 +56,5 @@ public class GameLogic extends Stage {
         AI.move();
     }
 
-    @Override
-    public void act() {
-        super.act();
-    }
 
-    @Override
-    public boolean keyDown(int keyCode) {
-        return super.keyDown(keyCode);
-    }
-
-    @Override
-    public void addActor(Actor actor) {
-        super.addActor(actor);
-    }
-
-    @Override
-    public Array<Actor> getActors() {
-        return super.getActors();
-    }
 }
