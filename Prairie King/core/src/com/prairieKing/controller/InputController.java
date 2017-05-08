@@ -9,11 +9,11 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.prairieKing.model.GameLogic;
-import com.prairieKing.model.Hero;
+import com.prairieKing.model.HeroModel;
 
 public class InputController implements InputProcessor {
 
-       private Hero hero;
+    private HeroModel hero;
 
     public InputController(GameLogic gameLogic) {
         this.hero = gameLogic.getHero();

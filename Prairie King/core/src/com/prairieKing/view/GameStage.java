@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.prairieKing.controller.PrairieKing;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
@@ -40,6 +41,8 @@ public class GameStage extends ScreenAdapter {
     private TextureAtlas textureAtlas;
     private Animation animation;
     private float elapsedTime = 0f;
+    public Box2DDebugRenderer debugRenderer;
+
 
     public GameStage(GameLogic gameLogic) {
         this.game = gameLogic.getMyGame();
@@ -47,10 +50,11 @@ public class GameStage extends ScreenAdapter {
         stage = new Stage();
         gun = gameLogic.getHero().getGun();
         enemies = gameLogic.getAI().getEnemies();
-         view = new FitViewport(Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
+        view = new FitViewport(Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
 
         //cam = new OrthographicCamera();
 
+        debugRenderer = new Box2DDebugRenderer();
         loadAssets();
 
         this.gameLogic = gameLogic;
@@ -94,6 +98,7 @@ public class GameStage extends ScreenAdapter {
         hero.draw(batch);
         drawEnemies();
         drawBullets();
+
         batch.end();
 
     }

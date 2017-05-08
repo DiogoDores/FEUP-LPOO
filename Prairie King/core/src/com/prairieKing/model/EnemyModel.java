@@ -2,26 +2,26 @@ package com.prairieKing.model;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
-public class Enemy extends Actor implements Behaviour {
+public class EnemyModel extends Actor implements Behaviour {
 
     private char currentDirection = 'n';
 
     private float x, y;
     private String type;
 
-    public Enemy(int x, int y, String type) {
+    public EnemyModel(int x, int y, String type) {
         this.x = x;
         this.y = y;
         this.type = type;
     }
 
     @Override
-    public void move(Enemy e, Hero h) {
+    public void move(EnemyModel e, Hero h) {
 
     }
 
     @Override
-    public void attack(Enemy e, Hero h) {
+    public void attack(EnemyModel e, Hero h) {
 
     }
 

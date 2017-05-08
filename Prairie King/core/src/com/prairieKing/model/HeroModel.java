@@ -3,33 +3,72 @@ package com.prairieKing.model;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
+import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.Pool;
 
-public class Hero extends Actor {
+import java.awt.geom.Rectangle2D;
+
+public class HeroModel extends EntityModel {
     private float  x, y;
     private int lives;
     private boolean left, right, up, down;
     private boolean leftB, rightB, upB, downB; // Gun Methods
     private Gun gun;
 
-    public Hero(int x, int y) {
+    private PolygonShape shape;
+    private FixtureDef fixtureDef;
+    private BodyDef bodyDef;
+    private Body body;
+
+    public HeroModel(float x, float y) {
+        super(x,y);
         this.x = x;
         this.y = y;
         left = false; right = false; up = false; down = false;
         this.lives = 3;
         gun = new Gun();
+      //  setBody(world);
     }
 
+    private void setBody(World world) {
+        bodyDef = new BodyDef();
+        bodyDef.type = BodyDef.BodyType.DynamicBody;
+        bodyDef.position.set(this.x,this.y);
+        shape = new PolygonShape();
+        shape.setAsBox(10,10);
+        fixtureDef = new FixtureDef();
+        fixtureDef.shape = shape;
+        body = world.createBody(bodyDef);
+        body.createFixture(fixtureDef);
+
+    }
+
+    public FixtureDef getFixtureDef() {
+        return fixtureDef;
+    }
+
+    public BodyDef getBodyDef() {
+        return bodyDef;
+    }
 
     public void move() {
+        body.applyForce(100.0f, 0.0f, this.x, this.y, true);
+        float x = this.x, y = this.y;
         if (left)
-            setX(x-(100*Gdx.graphics.getDeltaTime())) ;
+            x = (x-(100*Gdx.graphics.getDeltaTime())) ;
         if (right)
-            setX(x+(100*Gdx.graphics.getDeltaTime())) ;
+            x = (x+(100*Gdx.graphics.getDeltaTime())) ;
         if (up)
-            setY(y+(100*Gdx.graphics.getDeltaTime())) ;
+            y = (y+(100*Gdx.graphics.getDeltaTime())) ;
         if (down)
-            setY(y-(100*Gdx.graphics.getDeltaTime())) ;
+            y = (y-(100*Gdx.graphics.getDeltaTime())) ;
+
+        setPosition(x,y);
+
         shoot();
     }
 
@@ -45,14 +84,10 @@ public class Hero extends Actor {
             y = y-100;
 
         if ((x == 0 && y != 0) || (x!= 0 && y == 0) || (x != 0 && y != 0)) {
-
             Vector2 bulletDirection = new Vector2(x,y);
             Vector2 currPos = new Vector2(this.x, this.y);
             gun.shoot(currPos, bulletDirection);
         }
-        System.out.println("X " + x + " Y " + y);
-
-
     }
 
     public void setLeft(boolean left) {
@@ -87,20 +122,19 @@ public class Hero extends Actor {
         this.downB = downB;
     }
 
+    @Override
     public float getX() {
         return x;
     }
 
     @Override
-    public void setX(float x) {
+    public void setPosition(float x, float y) {
         this.x = x;
-    }
-
-    @Override
-    public void setY(float y) {
         this.y = y;
     }
 
+
+    @Override
     public float getY() {
         return y;
     }
