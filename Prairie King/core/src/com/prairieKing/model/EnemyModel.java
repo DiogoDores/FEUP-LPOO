@@ -1,7 +1,5 @@
 package com.prairieKing.model;
 
-import com.badlogic.gdx.scenes.scene2d.Actor;
-
 public class EnemyModel extends EntityModel implements Behaviour {
 
     private char currentDirection = 'n';
@@ -12,7 +10,6 @@ public class EnemyModel extends EntityModel implements Behaviour {
         super(x,y);
         this.x = x;
         this.y = y;
-
     }
 
     public void setType(String type) {

@@ -16,19 +16,22 @@ import com.prairieKing.view.GameStage;
 
 public class GameLogic {
 
-    InputController input;
+    private InputController input;
     private AIManager AI;
-    PrairieKing myGame;
-    HeroModel hero;
-    GameStage gameStage;
-    World world;
+    private PrairieKing myGame;
+    private HeroModel hero;
+    private GameStage gameStage;
+    private World world;
+    private Gun gun;
 
     public GameLogic(PrairieKing game) {
-        world = new World(new Vector2(0,100f), true);
+        world = new World(new Vector2(0,0), true);
+        gun = new Gun(world);
         AI = new AIManager(this);
         AI.spawn();
         myGame = game;
         hero = new HeroModel((float) Gdx.graphics.getWidth()/2, (float) Gdx.graphics.getHeight()/2);
+        hero.setGun(gun);
         gameStage = new GameStage(this);
         input = new InputController(this);
         Gdx.input.setInputProcessor(input);
@@ -47,10 +50,9 @@ public class GameLogic {
     }
 
     public void act() {
-        world.step(1/300f,6,2);
+        world.step(1/300f,0,2);
         Array<Body> bodies = new Array<Body>();
         world.getBodies(bodies);
-
         for(Body body : bodies){
             ((EntityModel) body.getUserData()).setPosition(body.getPosition().x, body.getPosition().y);
         }

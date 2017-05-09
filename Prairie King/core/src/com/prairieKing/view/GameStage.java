@@ -17,6 +17,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.prairieKing.controller.ProjectileBody;
 import com.prairieKing.model.EnemyModel;
 import com.prairieKing.model.GameLogic;
 import com.prairieKing.model.Gun;
@@ -33,6 +34,7 @@ public class GameStage extends ScreenAdapter {
     private EnemyModel[] enemies;
     private Gun gun;
     private AssetManager assetManager;
+    private float WIDTH = 16, HEIGHT = 9;
 
     private TiledMap map;
     private OrthogonalTiledMapRenderer renderer;
@@ -52,7 +54,9 @@ public class GameStage extends ScreenAdapter {
         enemies = gameLogic.getAI().getEnemies();
         view = new FitViewport(Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
 
-        //cam = new OrthographicCamera();
+        cam = new OrthographicCamera(WIDTH,HEIGHT);
+        cam.position.set(WIDTH/2, HEIGHT/2,0);
+        cam.update();
 
         debugRenderer = new Box2DDebugRenderer();
         loadAssets();
@@ -88,13 +92,15 @@ public class GameStage extends ScreenAdapter {
         renderer.render();*/
 
         batch.begin();
-        background.setSize(view.getWorldWidth(),view.getWorldHeight());
-        hero.setSize(view.getWorldWidth()/32,view.getWorldHeight()/18);
+        batch.getProjectionMatrix().set(cam.combined);
+
+        background.setSize(WIDTH,HEIGHT);
+        hero.setSize(WIDTH/32,HEIGHT/18);
         hero.setX((int) gameLogic.getHero().getX());
         hero.setY((int) gameLogic.getHero().getY());
 
         background.draw(batch);
-        batch.draw((TextureRegion) animation.getKeyFrame(elapsedTime, true), 0, 0);
+       // batch.draw((TextureRegion) animation.getKeyFrame(elapsedTime, true), 0, 0);
         hero.draw(batch);
         drawEnemies();
         drawBullets();
@@ -105,7 +111,7 @@ public class GameStage extends ScreenAdapter {
 
     public void drawBullets() {
         //System.out.println(gun.getProjectiles().size());
-        for (ProjectileModel projectile : gun.getProjectiles()) {
+        for (ProjectileBody projectile : gun.getProjectiles()) {
             projectileToDraw = new Sprite(game.getAssetManager().get("Sprites/MainSpriteSheet.png", Texture.class),261,160,6,6);
             projectileToDraw.setSize(view.getWorldWidth()/100,view.getWorldHeight()/50);
             projectileToDraw.setX(projectile.getX());
@@ -113,13 +119,6 @@ public class GameStage extends ScreenAdapter {
             //System.out.println(projectile.getPosition().x + " " + projectile.getPosition().y);
             projectileToDraw.draw(batch);
         }
-       /* projectileToDraw = new Sprite(game.getAssetManager().get("Sprites/MainSpriteSheet.png", Texture.class),261,160,6,6);
-        projectileToDraw.setSize(view.getWorldWidth()/100,view.getWorldHeight()/50);
-        projectileToDraw.setX(hero.getX());
-        projectileToDraw.setY(hero.getY());
-        //System.out.println(projectile.getPosition().x + " " + projectile.getPosition().y);
-        projectileToDraw.draw(batch);
-        */
     }
 
     public void drawEnemies() {
@@ -127,9 +126,9 @@ public class GameStage extends ScreenAdapter {
         for (int i = 0 ; i < enemies.length ; i++) {
             if (enemies[i].getType() == "basicWalker") {
                 enemyToDraw = new Sprite(game.getAssetManager().get("Sprites/MainSpriteSheet.png", Texture.class),304,80,16,16);
-                enemyToDraw.setSize(view.getWorldWidth()/32,view.getWorldHeight()/18);
-                enemyToDraw.setX((int)enemies[i].getX());
-                enemyToDraw.setY((int)enemies[i].getY());
+                enemyToDraw.setSize(WIDTH/32,HEIGHT/18);
+                enemyToDraw.setX((enemies[i].getX() * view.getWorldWidth())/WIDTH);
+                enemyToDraw.setY((enemies[i].getY() * view.getWorldHeight())/HEIGHT);
                 enemyToDraw.draw(batch);
             }
         }
@@ -137,9 +136,9 @@ public class GameStage extends ScreenAdapter {
 
     @Override
     public void resize(int width, int height) {
-        /*cam.viewportWidth = width;
-        cam.viewportHeight = height;
-        cam.update();*/
+
+        cam.viewportHeight = (WIDTH/width)*height;
+        cam.update();
         view.update(width,height);
     }
 

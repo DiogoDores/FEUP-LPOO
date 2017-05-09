@@ -17,7 +17,7 @@ public class EntityBody {
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
         bodyDef.position.set(model.getX(), model.getY());
-
+        bodyDef.linearDamping = 0.0f;
         body = world.createBody(bodyDef);
         body.setUserData(model);
     }
@@ -46,8 +46,7 @@ public class EntityBody {
         // Transform pixels into meters, center and invert the y-coordinate
 
         PolygonShape polygon = new PolygonShape();
-        polygon.setAsBox(width,height); // CUIDADO COM ESTES VALORES
-
+        polygon.setAsBox(width/2,height/2); // CUIDADO COM ESTES VALORES
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = polygon;
 

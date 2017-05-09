@@ -25,20 +25,25 @@ public class HeroModel extends EntityModel {
         this.y = y;
         left = false; right = false; up = false; down = false;
         this.lives = 3;
-        gun = new Gun();
+
       //  setBody(world);
     }
 
+    public void setGun(Gun gun) {
+        this.gun = gun;
+    }
+
     public void move() {
+        gun.update();
         float x = this.x, y = this.y;
         if (left)
-            x = (x-(100*Gdx.graphics.getDeltaTime())) ;
+            x = (x-(5*Gdx.graphics.getDeltaTime())) ;
         if (right)
-            x = (x+(100*Gdx.graphics.getDeltaTime())) ;
+            x = (x+(5*Gdx.graphics.getDeltaTime())) ;
         if (up)
-            y = (y+(100*Gdx.graphics.getDeltaTime())) ;
+            y = (y+(5*Gdx.graphics.getDeltaTime())) ;
         if (down)
-            y = (y-(100*Gdx.graphics.getDeltaTime())) ;
+            y = (y-(5*Gdx.graphics.getDeltaTime())) ;
 
         setPosition(x,y);
 
@@ -47,20 +52,34 @@ public class HeroModel extends EntityModel {
 
     public void shoot() {
         int x = 0, y = 0;
-        if(leftB)
-            x = x - 100;
-        if(rightB)
-            x = x + 100;
-        if (upB)
-            y = y + 100;
-        if (downB)
-            y = y-100;
-
-        if ((x == 0 && y != 0) || (x!= 0 && y == 0) || (x != 0 && y != 0)) {
-            Vector2 bulletDirection = new Vector2(x,y);
-            Vector2 currPos = new Vector2(this.x, this.y);
-            gun.shoot(currPos, bulletDirection);
+        if(leftB) {
+            if (left)
+                x = x - 5*1000;
+            else
+                x = x - 80*1000;
         }
+        if(rightB) {
+            if (right)
+                x = x + 5*1000;
+            else
+                x = x + 80*1000;
+        }
+        if (upB) {
+            if (up)
+                y = y + 5*1000;
+            else
+                y = y + 80*1000;
+        }
+        if (downB) {
+            if(down)
+                y = y - 5*1000;
+            else
+                y = y - 80*1000;
+        }
+
+        if ((x == 0 && y != 0) || (x!= 0 && y == 0) || (x != 0 && y != 0))
+              gun.shoot(this.x, this.y, x,y);
+
     }
 
     public void setLeft(boolean left) {

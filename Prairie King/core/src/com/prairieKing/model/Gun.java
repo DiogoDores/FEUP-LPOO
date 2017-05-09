@@ -1,8 +1,10 @@
 package com.prairieKing.model;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Pool;
+import com.prairieKing.controller.ProjectileBody;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,29 +12,44 @@ import java.util.List;
 
 public class Gun {
 
-    private ArrayList<ProjectileModel> projectiles = new ArrayList<ProjectileModel>();
-    private Pool<ProjectileModel> pool;
+    private ArrayList<ProjectileBody> projectiles = new ArrayList<ProjectileBody>();private Pool<ProjectileBody> pool;
     private World world;
+    private float timeToShoot;
 
 
-    public Gun() {
+    public Gun(World world) {
+        timeToShoot = 1;
         this.world = world;
+
         //TODO Instanciar isto aqui, avançar com projecteis
-        pool = new Pool<ProjectileModel>() {
+
+        pool = new Pool<ProjectileBody>() {
             @Override
-            protected ProjectileModel newObject() {
-                return new ProjectileModel(-1,-1);
+            protected ProjectileBody newObject() {
+                return new ProjectileBody(world, new ProjectileModel(-1,-1));
             }
         };
     }
 
-    public void shoot(Vector2 position, Vector2 velocity) {
-        ProjectileModel p = pool.obtain();
-        p.setPosition(position.x, position.y);
-        projectiles.add(p);
+    public void update() {
+        timeToShoot -= 0.4f/ (Gdx.graphics.getFramesPerSecond()/2);
     }
 
-    public List<ProjectileModel> getProjectiles() {
+    public void shoot(float posX, float posY, float vX, float vY) {
+
+        if (timeToShoot <= 0) {
+            ProjectileBody p = pool.obtain();
+
+            System.out.println(vX + " " + vY);
+            p.setTransform(posX, posY);
+            p.setLinearVelocity(vX, vY);
+
+            projectiles.add(p);
+            timeToShoot = 0.4f;
+        }
+    }
+
+    public List<ProjectileBody> getProjectiles() {
         return projectiles;
     }
 }
