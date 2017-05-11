@@ -6,7 +6,7 @@ import com.badlogic.gdx.math.MathUtils;
 public class ChasingBehaviour implements Behaviour {
 
     @Override
-    public void move(Enemy e, Hero h) {
+    public void move(EnemyModel e, HeroModel h) {
         float x = e.getX();
         float y = e.getY();
 
@@ -15,19 +15,19 @@ public class ChasingBehaviour implements Behaviour {
         if (Math.abs(x - h.getX()) < 3 && Math.abs(y - h.getY()) < 3) {  // Está próximo
 
             if (x > h.getX()) {
-                e.setX(x - (50*Gdx.graphics.getDeltaTime()));
+                e.setPosition(x - (50*Gdx.graphics.getDeltaTime()), y);
                 e.setCurrentDirection('a');
             }
             else if (x < h.getX()) {
-                e.setX(x + (50*Gdx.graphics.getDeltaTime()));
+                e.setPosition(x + (50*Gdx.graphics.getDeltaTime()),y);
                 e.setCurrentDirection('d');
             }
             if (y > h.getY()) {
-                e.setY(y - (50*Gdx.graphics.getDeltaTime()));
+                e.setPosition(x,y - (50*Gdx.graphics.getDeltaTime()));
                 e.setCurrentDirection('s');
             }
             else if (y < h.getY()) {
-                e.setY(y + (50*Gdx.graphics.getDeltaTime()));
+                e.setPosition(x,y + (50*Gdx.graphics.getDeltaTime()));
                 e.setCurrentDirection('w');
             }
         }
@@ -36,19 +36,19 @@ public class ChasingBehaviour implements Behaviour {
         else if (r == 2) {
 
             if (x > h.getX()) {
-                e.setX(x - (50*Gdx.graphics.getDeltaTime()));
+                e.setPosition(x - (50*Gdx.graphics.getDeltaTime()), y);
                 e.setCurrentDirection('a');
             }
             else if (x < h.getX()) {
-                e.setX(x + (50*Gdx.graphics.getDeltaTime()));
+                e.setPosition(x + (50*Gdx.graphics.getDeltaTime()),y);
                 e.setCurrentDirection('d');
             }
             if (y > h.getY()) {
-                e.setY(y - (50*Gdx.graphics.getDeltaTime()));
+                e.setPosition(x,y - (50*Gdx.graphics.getDeltaTime()));
                 e.setCurrentDirection('s');
             }
             else if (y < h.getY()) {
-                e.setY(y + (50*Gdx.graphics.getDeltaTime()));
+                e.setPosition(x,y + (50*Gdx.graphics.getDeltaTime()));
                 e.setCurrentDirection('w');
             }
         }
@@ -56,7 +56,7 @@ public class ChasingBehaviour implements Behaviour {
             continueMove(e, h);
     }
 
-    public void continueMove(Enemy e, Hero h) {
+    public void continueMove(EnemyModel e, HeroModel h) {
 
         float x = e.getX();
         float y = e.getY();
@@ -67,71 +67,71 @@ public class ChasingBehaviour implements Behaviour {
         if (c == 'a') {
             if (Math.abs(x - hx) < 5) {
                 if (y < hy) {
-                    e.setY(y + (50 * Gdx.graphics.getDeltaTime()));
+                    e.setPosition(x,y + (50 * Gdx.graphics.getDeltaTime()));
                     e.setCurrentDirection('w');
                 }
                 else {
-                    e.setY(y - (50 * Gdx.graphics.getDeltaTime()));
+                    e.setPosition(x,y - (50 * Gdx.graphics.getDeltaTime()));
                     e.setCurrentDirection('s');
                 }
             }
             else {
-                e.setX(x - (50 * Gdx.graphics.getDeltaTime()));
+                e.setPosition(x - (50 * Gdx.graphics.getDeltaTime()),y);
                 e.setCurrentDirection('a');
             }
         }
         else if (c == 'd') {
             if (Math.abs(x - hx) < 5) {
                 if (y < hy) {
-                    e.setY(y + (50 * Gdx.graphics.getDeltaTime()));
+                    e.setPosition(x,y + (50 * Gdx.graphics.getDeltaTime()));
                     e.setCurrentDirection('w');
                 }
                 else {
-                    e.setY(y - (50 * Gdx.graphics.getDeltaTime()));
+                    e.setPosition(x,y - (50 * Gdx.graphics.getDeltaTime()));
                     e.setCurrentDirection('s');
                 }
             }
             else {
-                e.setX(x + (50 * Gdx.graphics.getDeltaTime()));
+                e.setPosition(x + (50 * Gdx.graphics.getDeltaTime()),y);
                 e.setCurrentDirection('d');
             }
         }
         else if (c == 's') {
             if (Math.abs(y - hy) < 5) {
                 if (x < hx) {
-                    e.setX(x + (50 * Gdx.graphics.getDeltaTime()));
+                    e.setPosition(x + (50 * Gdx.graphics.getDeltaTime()),y);
                     e.setCurrentDirection('d');
                 }
                 else {
-                    e.setX(x - (50 * Gdx.graphics.getDeltaTime()));
+                    e.setPosition(x - (50 * Gdx.graphics.getDeltaTime()),y);
                     e.setCurrentDirection('a');
                 }
             }
             else {
-                e.setY(y - (50 * Gdx.graphics.getDeltaTime()));
+                e.setPosition(x,y - (50 * Gdx.graphics.getDeltaTime()));
                 e.setCurrentDirection('s');
             }
         }
         else if (c == 'w') {
             if (Math.abs(y - hy) < 5) {
                 if (x < hx) {
-                    e.setX(x + (50 * Gdx.graphics.getDeltaTime()));
+                    e.setPosition(x + (50 * Gdx.graphics.getDeltaTime()),y);
                     e.setCurrentDirection('d');
                 }
                 else {
-                    e.setX(x - (50 * Gdx.graphics.getDeltaTime()));
+                    e.setPosition(x - (50 * Gdx.graphics.getDeltaTime()),y);
                     e.setCurrentDirection('a');
                 }
             }
             else {
-                e.setY(y + (50 * Gdx.graphics.getDeltaTime()));
+                e.setPosition(x,y + (50 * Gdx.graphics.getDeltaTime()));
                 e.setCurrentDirection('w');
             }
         }
     }
 
     @Override
-    public void attack(Enemy e, Hero h) {
+    public void attack(EnemyModel e, HeroModel h) {
 
     }
 

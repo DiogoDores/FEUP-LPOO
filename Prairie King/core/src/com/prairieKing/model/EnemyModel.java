@@ -2,26 +2,34 @@ package com.prairieKing.model;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
-public class Enemy extends Actor implements Behaviour {
+public class EnemyModel extends EntityModel implements Behaviour {
 
     private char currentDirection = 'n';
-
+    private String type = null;
     private float x, y;
-    private String type;
 
-    public Enemy(int x, int y, String type) {
+    public EnemyModel(float x, float y) {
+        super(x,y);
         this.x = x;
         this.y = y;
+
+    }
+
+    public void setType(String type) {
         this.type = type;
     }
 
+    public String getType() {
+        return type;
+    }
+
     @Override
-    public void move(Enemy e, Hero h) {
+    public void move(EnemyModel e, HeroModel h) {
 
     }
 
     @Override
-    public void attack(Enemy e, Hero h) {
+    public void attack(EnemyModel e, HeroModel h) {
 
     }
 
@@ -36,17 +44,9 @@ public class Enemy extends Actor implements Behaviour {
     }
 
     @Override
-    public void setY(float y) {
-        this.y = y;
-    }
-
-    @Override
-    public void setX(float x) {
+    public void setPosition(float x, float y) {
         this.x = x;
-    }
-
-    public String getType() {
-        return type;
+        this.y = y;
     }
 
     public char getCurrentDirection() {

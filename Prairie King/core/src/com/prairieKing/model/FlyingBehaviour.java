@@ -9,25 +9,25 @@ import com.badlogic.gdx.math.MathUtils;
 
 public class FlyingBehaviour implements Behaviour {
     @Override
-    public void move(Enemy e, Hero h) {
+    public void move(EnemyModel e, HeroModel h) {
         float x = e.getX();
         float y = e.getY();
 
 
             if (x > h.getX()) {
-                e.setX(x - (40* Gdx.graphics.getDeltaTime()));
+                e.setPosition(x - (40* Gdx.graphics.getDeltaTime()),y);
                 e.setCurrentDirection('a');
             }
             else if (x < h.getX()) {
-                e.setX(x + (40*Gdx.graphics.getDeltaTime()));
+                e.setPosition(x + (40*Gdx.graphics.getDeltaTime()),y);
                 e.setCurrentDirection('d');
             }
             if (y > h.getY()) {
-                e.setY(y - (40*Gdx.graphics.getDeltaTime()));
+                e.setPosition(x, y - (40*Gdx.graphics.getDeltaTime()));
                 e.setCurrentDirection('s');
             }
             else if (y < h.getY()) {
-                e.setY(y + (40*Gdx.graphics.getDeltaTime()));
+                e.setPosition(x, y + (40*Gdx.graphics.getDeltaTime()));
                 e.setCurrentDirection('w');
             }
 
@@ -35,7 +35,7 @@ public class FlyingBehaviour implements Behaviour {
     }
 
     @Override
-    public void attack(Enemy e, Hero h) {
+    public void attack(EnemyModel e, HeroModel h) {
 
     }
 }

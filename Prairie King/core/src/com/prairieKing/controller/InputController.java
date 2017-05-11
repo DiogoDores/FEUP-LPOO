@@ -9,36 +9,35 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.prairieKing.model.GameLogic;
-import com.prairieKing.model.Hero;
+import com.prairieKing.model.HeroModel;
 
 public class InputController implements InputProcessor {
 
-    private GameLogic gameLogic;
+    private HeroModel hero;
 
     public InputController(GameLogic gameLogic) {
-        this.gameLogic = gameLogic;
+        this.hero = gameLogic.getHero();
     }
 
     @Override
     public boolean keyDown(int keycode) {
-        Hero hero = gameLogic.getHero();
 
         if (keycode == (Input.Keys.S))
             hero.setDown(true);
+        else if (keycode == (Input.Keys.W))
+            hero.setUp(true);
         if (keycode == (Input.Keys.A))
             hero.setLeft(true);
-        if (keycode == (Input.Keys.W))
-            hero.setUp(true);
-        if (keycode == (Input.Keys.D))
+        else if (keycode == (Input.Keys.D))
             hero.setRight(true);
 
         if (keycode == (Input.Keys.DOWN))
             hero.setDownB(true);
+        else if (keycode == (Input.Keys.UP))
+            hero.setUpB(true);
         if (keycode == (Input.Keys.LEFT))
             hero.setLeftB(true);
-        if (keycode == (Input.Keys.UP))
-            hero.setUpB(true);
-        if (keycode == (Input.Keys.RIGHT))
+       else if (keycode == (Input.Keys.RIGHT))
             hero.setRightB(true);
 
         return true;
@@ -47,25 +46,26 @@ public class InputController implements InputProcessor {
 
     @Override
     public boolean keyUp(int keycode) {
-        Hero hero = gameLogic.getHero();
 
         if (keycode == (Input.Keys.S))
             hero.setDown(false);
+        else if (keycode == (Input.Keys.W))
+            hero.setUp(false);
         if (keycode == (Input.Keys.A))
             hero.setLeft(false);
-        if (keycode == (Input.Keys.W))
-            hero.setUp(false);
-        if (keycode == (Input.Keys.D))
+        else if (keycode == (Input.Keys.D))
             hero.setRight(false);
+
 
         if (keycode == (Input.Keys.DOWN))
             hero.setDownB(false);
+        else if (keycode == (Input.Keys.UP))
+            hero.setUpB(false);
         if (keycode == (Input.Keys.LEFT))
             hero.setLeftB(false);
-        if (keycode == (Input.Keys.UP))
-            hero.setUpB(false);
-        if (keycode == (Input.Keys.RIGHT))
+        else if (keycode == (Input.Keys.RIGHT))
             hero.setRightB(false);
+
 
         return true;
   }

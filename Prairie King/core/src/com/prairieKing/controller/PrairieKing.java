@@ -66,9 +66,6 @@ public class PrairieKing extends Game {
         else if (currentState == 1) { // Game Mode
             setScreen(gameStage);
             gameLogic.act();
-            gameLogic.draw();
-
-            gameLogic.draw();
             if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
                 currentState = 2;
             }

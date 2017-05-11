@@ -4,37 +4,44 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.utils.Pool;
 
-public class Hero extends Actor {
+import java.awt.geom.Rectangle2D;
+
+public class HeroModel extends EntityModel {
     private float  x, y;
     private int lives;
     private boolean left, right, up, down;
     private boolean leftB, rightB, upB, downB; // Gun Methods
     private Gun gun;
-    public World world;
-    public Body b2body;
 
-    public Hero(int x, int y) {
+    public HeroModel(float x, float y) {
+        super(x,y);
         this.x = x;
         this.y = y;
         left = false; right = false; up = false; down = false;
         this.lives = 3;
         gun = new Gun();
-        this.world = world;
+      //  setBody(world);
     }
 
-
     public void move() {
+        float x = this.x, y = this.y;
         if (left)
-            setX(x-(100*Gdx.graphics.getDeltaTime())) ;
+            x = (x-(100*Gdx.graphics.getDeltaTime())) ;
         if (right)
-            setX(x+(100*Gdx.graphics.getDeltaTime())) ;
+            x = (x+(100*Gdx.graphics.getDeltaTime())) ;
         if (up)
-            setY(y+(100*Gdx.graphics.getDeltaTime())) ;
+            y = (y+(100*Gdx.graphics.getDeltaTime())) ;
         if (down)
-            setY(y-(100*Gdx.graphics.getDeltaTime())) ;
+            y = (y-(100*Gdx.graphics.getDeltaTime())) ;
+
+        setPosition(x,y);
+
         shoot();
     }
 
@@ -49,7 +56,7 @@ public class Hero extends Actor {
         if (downB)
             y = y-100;
 
-        if (x != 0 || y != 100) {
+        if ((x == 0 && y != 0) || (x!= 0 && y == 0) || (x != 0 && y != 0)) {
             Vector2 bulletDirection = new Vector2(x,y);
             Vector2 currPos = new Vector2(this.x, this.y);
             gun.shoot(currPos, bulletDirection);
@@ -88,23 +95,24 @@ public class Hero extends Actor {
         this.downB = downB;
     }
 
+    @Override
     public float getX() {
         return x;
     }
 
     @Override
-    public void setX(float x) {
+    public void setPosition(float x, float y) {
         this.x = x;
-    }
-
-    @Override
-    public void setY(float y) {
         this.y = y;
     }
 
+
+    @Override
     public float getY() {
         return y;
     }
+
+    public Gun getGun() { return gun; }
 
     public int getLives() {
         return lives;
