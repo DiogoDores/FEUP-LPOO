@@ -21,6 +21,8 @@ public class PrairieKing extends Game {
     int highScore;
     GameLogic gameLogic;
 
+    public static final float PPM = 100;
+
     private AssetManager assetManager;
 
     @Override
@@ -40,7 +42,7 @@ public class PrairieKing extends Game {
     public void loadAssets() {
         assetManager.load("Menus/LoseScreen.png", Texture.class);
         assetManager.load("Sprites/MainSpriteSheet.png", Texture.class);
-        assetManager.load("Mapas/MapaTeste1.png", Texture.class);
+        assetManager.load("Mapas/Map.png", Texture.class);
         assetManager.load("Menus/Menu1.png", Texture.class);
         assetManager.finishLoading();
         assetManager.update();

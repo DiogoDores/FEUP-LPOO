@@ -3,6 +3,8 @@ package com.prairieKing.model;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
 public class Hero extends Actor {
@@ -11,6 +13,8 @@ public class Hero extends Actor {
     private boolean left, right, up, down;
     private boolean leftB, rightB, upB, downB; // Gun Methods
     private Gun gun;
+    public World world;
+    public Body b2body;
 
     public Hero(int x, int y) {
         this.x = x;
@@ -18,6 +22,7 @@ public class Hero extends Actor {
         left = false; right = false; up = false; down = false;
         this.lives = 3;
         gun = new Gun();
+        this.world = world;
     }
 
 
