@@ -22,7 +22,6 @@ import com.prairieKing.controller.ProjectileBody;
 import com.prairieKing.model.EnemyModel;
 import com.prairieKing.model.GameLogic;
 import com.prairieKing.model.Gun;
-import com.prairieKing.model.ProjectileModel;
 
 public class GameStage extends ScreenAdapter {
     private Stage stage;
@@ -31,6 +30,7 @@ public class GameStage extends ScreenAdapter {
     private SpriteBatch batch;
     private FitViewport view;
     private GameLogic gameLogic;
+    private Sprite projectileToDraw;
     private EnemyModel[] enemies;
     private Gun gun;
     private AssetManager assetManager;
@@ -86,7 +86,7 @@ public class GameStage extends ScreenAdapter {
         renderer.render();
 
         batch.begin();
-        hero.setSize(view.getWorldWidth()/32,view.getWorldHeight()/18);
+        hero.setSize(view.getWorldWidth()*3, view.getWorldWidth()*3);
         hero.setX((int) gameLogic.getHero().getX());
         hero.setY((int) gameLogic.getHero().getY());
 
@@ -102,7 +102,7 @@ public class GameStage extends ScreenAdapter {
         //System.out.println(gun.getProjectiles().size());
         for (ProjectileBody projectile : gun.getProjectiles()) {
             projectileToDraw = new Sprite(game.getAssetManager().get("Sprites/MainSpriteSheet.png", Texture.class),261,160,6,6);
-            projectileToDraw.setSize(view.getWorldWidth()/100,view.getWorldHeight()/50);
+            projectileToDraw.setSize(view.getWorldWidth()*2,view.getWorldWidth()*2);
             projectileToDraw.setX(projectile.getX());
             projectileToDraw.setY(projectile.getY());
             //System.out.println(projectile.getPosition().x + " " + projectile.getPosition().y);
@@ -115,7 +115,7 @@ public class GameStage extends ScreenAdapter {
         for (int i = 0 ; i < enemies.length ; i++) {
             if (enemies[i].getType() == "basicWalker") {
                 enemyToDraw = new Sprite(game.getAssetManager().get("Sprites/MainSpriteSheet.png", Texture.class),304,80,16,16);
-                enemyToDraw.setSize(view.getWorldWidth()/32 / game.PPM,view.getWorldHeight()/18 / game.PPM);
+                enemyToDraw.setSize(view.getWorldWidth()*3,view.getWorldWidth()*3);
                 enemyToDraw.setX((int)enemies[i].getX());
                 enemyToDraw.setY((int)enemies[i].getY());
                 enemyToDraw.draw(batch);

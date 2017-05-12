@@ -52,30 +52,16 @@ public class HeroModel extends EntityModel {
 
     public void shoot() {
         int x = 0, y = 0;
-        if(leftB) {
-            if (left)
-                x = x - 5*1000;
-            else
-                x = x - 80*1000;
-        }
-        if(rightB) {
-            if (right)
-                x = x + 5*1000;
-            else
-                x = x + 80*1000;
-        }
-        if (upB) {
-            if (up)
-                y = y + 5*1000;
-            else
-                y = y + 80*1000;
-        }
-        if (downB) {
-            if(down)
-                y = y - 5*1000;
-            else
-                y = y - 80*1000;
-        }
+        if (leftB)
+            x = x - 80*1000;
+        if (rightB)
+            x = x + 80*1000;
+        if (upB)
+            y = y + 80*1000;
+        if(downB)
+            y = y - 80*1000;
+
+        System.out.println("X " + x + " Y "+ y);
 
         if ((x == 0 && y != 0) || (x!= 0 && y == 0) || (x != 0 && y != 0))
               gun.shoot(this.x, this.y, x,y);
