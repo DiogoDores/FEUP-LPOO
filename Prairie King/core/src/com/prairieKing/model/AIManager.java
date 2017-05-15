@@ -1,6 +1,7 @@
 package com.prairieKing.model;
 
 import com.badlogic.gdx.Gdx;
+import com.prairieKing.controller.PrairieKing;
 
 public class AIManager {
 
@@ -17,7 +18,7 @@ public class AIManager {
     }
 
     public void spawn() {
-        enemies[0] = (new BasicWalker(Gdx.graphics.getWidth() / 2, 16));
+        enemies[0] = (new BasicWalker((int) PrairieKing.PPM/2, -100));
         //enemies[1] = (new Enemy(Gdx.graphics.getWidth() / 2, -16, "Basic_Walker"));
         //enemies[2] = (new Enemy(Gdx.graphics.getWidth() / 2, -16, "Basic_Walker"));
     }

@@ -12,6 +12,6 @@ public class EnemyBody extends EntityBody {
     public EnemyBody(World world, EntityModel model) {
         super(world, model);
 
-        createFixture(body, Gdx.graphics.getWidth()/32, Gdx.graphics.getWidth()/18);
+        createFixture(body, (int)PrairieKing.PPM/32, (int)PrairieKing.PPM/32);
     }
 }

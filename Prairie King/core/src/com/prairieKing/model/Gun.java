@@ -40,7 +40,7 @@ public class Gun {
         if (timeToShoot <= 0) {
             ProjectileBody p = pool.obtain();
 
-            System.out.println(vX + " " + vY);
+          //  System.out.println(vX + " " + vY);
             p.setTransform(posX, posY);
             p.setLinearVelocity(vX, vY);
 

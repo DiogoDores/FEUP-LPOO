@@ -25,12 +25,12 @@ public class GameLogic {
     private Gun gun;
 
     public GameLogic(PrairieKing game) {
-        world = new World(new Vector2(0,0), true);
+        world = new World(new Vector2(0,10), true);
         gun = new Gun(world);
         AI = new AIManager(this);
         AI.spawn();
         myGame = game;
-        hero = new HeroModel((float) Gdx.graphics.getWidth()/2, (float) Gdx.graphics.getHeight()/2);
+        hero = new HeroModel(PrairieKing.PPM/2, PrairieKing.PPM/2);
         hero.setGun(gun);
         gameStage = new GameStage(this);
         input = new InputController(this);
