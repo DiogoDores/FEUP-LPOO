@@ -21,7 +21,7 @@ public class PrairieKing extends Game {
     int highScore;
     GameLogic gameLogic;
 
-    public static final float PPM = 1000f;
+    public static final float PPM = 100f;
 
     private AssetManager assetManager;
 

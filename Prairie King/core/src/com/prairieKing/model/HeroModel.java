@@ -44,13 +44,13 @@ public class HeroModel extends EntityModel {
     public void shoot() {
         int x = 0, y = 0;
         if (leftB)
-            x = x - (int) PrairieKing.PPM*1000;
+            x = x - (int) PrairieKing.PPM*100;
         if (rightB)
-            x = x + (int) PrairieKing.PPM*1000;
+            x = x + (int) PrairieKing.PPM*100;
         if (upB)
-            y = y + (int) PrairieKing.PPM*1000;
+            y = y + (int) PrairieKing.PPM*100;
         if(downB)
-            y = y - (int) PrairieKing.PPM*1000;
+            y = y - (int) PrairieKing.PPM*100;
 
         if ((x == 0 && y != 0) || (x!= 0 && y == 0) || (x != 0 && y != 0))
               gun.shoot(this.x, this.y, x,y);

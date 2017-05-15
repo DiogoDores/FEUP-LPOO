@@ -25,7 +25,7 @@ public class GameLogic {
     private Gun gun;
 
     public GameLogic(PrairieKing game) {
-        world = new World(new Vector2(0,10), true);
+        world = new World(new Vector2(0,0), true);
         gun = new Gun(world);
         AI = new AIManager(this);
         AI.spawn();

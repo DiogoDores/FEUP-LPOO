@@ -61,7 +61,7 @@ public class GameStage extends ScreenAdapter {
         cam.position.set(cam.viewportWidth/2,cam.viewportHeight/2,0);
         cam.setToOrtho(false, game.PPM,  game.PPM);
         view = new FitViewport(game.PPM, game.PPM, cam);
-        renderer = new OrthogonalTiledMapRenderer(map, 2.233f);
+        renderer = new OrthogonalTiledMapRenderer(map, .2234f);
         loadAssets();
 
         this.gameLogic = gameLogic;
