@@ -20,7 +20,7 @@ public class AIManager {
     }
 
     public void spawn() {
-        enemies[0] = (new BasicWalker((int) PrairieKing.PPM/2, -100));
+        enemies[0] = (new BasicWalker((int) PrairieKing.PPM/2, 40));
         enemyBodies[0] = new EnemyBody(gameLogic.getWorld(), enemies[0]);
 
     }
@@ -35,6 +35,7 @@ public class AIManager {
             for (int i = 0; i < enemies.length; i++) {
                 if (enemies[i] != null) {
                     enemies[i].move(enemies[i], hero);
+                    enemyBodies[i].setTransform(enemies[i].getX(), enemies[i].getY());
                 }
             }
 

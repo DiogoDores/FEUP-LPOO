@@ -45,16 +45,6 @@ public class GameStage extends ScreenAdapter {
     public static final float ENEMY_WIDTH = PrairieKing.PPM/15;
     public static final float PROJECTILE_WIDTH = PrairieKing.PPM/35;
 
-
-
-   /* private World world;
-    private Box2DDebugRenderer b2dr;
-    private TextureAtlas textureAtlas;
-    private Animation animation;
-    private float elapsedTime = 0f;
-    public Box2DDebugRenderer debugRenderer;*/
-
-
     public GameStage(GameLogic gameLogic) {
         this.game = gameLogic.getMyGame();
         batch = new SpriteBatch();
@@ -108,25 +98,22 @@ public class GameStage extends ScreenAdapter {
     }
 
     public void drawBullets() {
-        //System.out.println(gun.getProjectiles().size());
         for (ProjectileBody projectile : gun.getProjectiles()) {
             projectileToDraw = new Sprite(game.getAssetManager().get("Sprites/MainSpriteSheet.png", Texture.class),261,160,6,6);
             projectileToDraw.setSize(cam.viewportWidth/35,cam.viewportHeight/35);
             projectileToDraw.setX(projectile.getX());
             projectileToDraw.setY(projectile.getY());
-            //System.out.println(projectile.getPosition().x + " " + projectile.getPosition().y);
             projectileToDraw.draw(batch);
         }
     }
 
     public void drawEnemies() {
-
         for (int i = 0 ; i < enemies.length ; i++) {
             if (enemies[i].getType() == "basicWalker") {
                 enemyToDraw = new Sprite(game.getAssetManager().get("Sprites/MainSpriteSheet.png", Texture.class),304,80,16,16);
                 enemyToDraw.setSize(cam.viewportWidth/15,cam.viewportHeight/15);
-                enemyToDraw.setX((int)enemies[i].getX());
-                enemyToDraw.setY((int)enemies[i].getX());
+                enemyToDraw.setX(enemies[i].getX());
+                enemyToDraw.setY(enemies[i].getY());
                 enemyToDraw.draw(batch);
             }
         }

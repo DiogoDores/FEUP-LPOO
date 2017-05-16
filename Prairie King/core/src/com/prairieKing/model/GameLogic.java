@@ -17,6 +17,7 @@ import com.badlogic.gdx.utils.Array;
 import com.prairieKing.controller.InputController;
 import com.prairieKing.controller.ListenerClass;
 import com.prairieKing.controller.PrairieKing;
+import com.prairieKing.controller.ProjectileBody;
 import com.prairieKing.view.GameStage;
 
 import javax.annotation.processing.SupportedSourceVersion;

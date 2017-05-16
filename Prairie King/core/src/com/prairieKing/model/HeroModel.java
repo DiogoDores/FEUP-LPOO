@@ -20,8 +20,6 @@ public class HeroModel extends EntityModel {
         this.y = y;
         left = false; right = false; up = false; down = false;
         this.lives = 3;
-
-      //  setBody(world);
     }
 
     public void setGun(Gun gun) {
