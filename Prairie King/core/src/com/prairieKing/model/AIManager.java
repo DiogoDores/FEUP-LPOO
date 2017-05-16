@@ -10,9 +10,11 @@ public class AIManager {
     private int MAX_ENEMY_NUMBER = 1; // Can be changed as levels increase
     private EnemyModel[] enemies = new EnemyModel[MAX_ENEMY_NUMBER];
     private EnemyBody[] enemyBodies = new EnemyBody[MAX_ENEMY_NUMBER];
+    private int activeNumber;
 
     public AIManager(GameLogic gameLogic) {
         this.gameLogic = gameLogic;
+        activeNumber = 0;
     }
 
     public void increaseDifficulty() {
@@ -20,11 +22,23 @@ public class AIManager {
     }
 
     public void spawn() {
-        enemies[0] = (new BasicWalker((int) PrairieKing.PPM/2, 40));
-        enemyBodies[0] = new EnemyBody(gameLogic.getWorld(), enemies[0]);
+        if (activeNumber < MAX_ENEMY_NUMBER) {
+            enemies[0] = (new BasicWalker((int) PrairieKing.PPM / 2, 40));
+            enemyBodies[0] = new EnemyBody(gameLogic.getWorld(), enemies[0]);
+            activeNumber++;
+        }
 
     }
-
+/*
+    public void killedEnemy() {
+        for (int i = 0 ; i < enemies.length; i++) {
+            if (enemies[i].isFlaggedForDelete) {
+                enemies[i] = null;
+                enemyBodies[i] = null
+            }
+        }
+    }
+*/
     public EnemyModel[] getEnemies() {
         return enemies;
     }

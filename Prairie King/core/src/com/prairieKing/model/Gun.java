@@ -12,7 +12,8 @@ import java.util.List;
 
 public class Gun {
 
-    private ArrayList<ProjectileBody> projectiles = new ArrayList<ProjectileBody>();private Pool<ProjectileBody> pool;
+    private ArrayList<ProjectileBody> projectiles = new ArrayList<ProjectileBody>();
+    private Pool<ProjectileBody> pool;
     private World world;
     private float timeToShoot;
 

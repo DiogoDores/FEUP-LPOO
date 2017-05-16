@@ -22,6 +22,8 @@ import com.prairieKing.controller.PrairieKing;
 import com.prairieKing.controller.ProjectileBody;
 import com.prairieKing.view.GameStage;
 
+import java.util.Iterator;
+
 import javax.annotation.processing.SupportedSourceVersion;
 
 public class GameLogic {
@@ -87,5 +89,9 @@ public class GameLogic {
 
     public World getWorld() {
         return world;
+    }
+
+    public void sweepDeadBodies() {
+
     }
 }
