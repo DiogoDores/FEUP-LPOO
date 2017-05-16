@@ -1,6 +1,7 @@
 package com.prairieKing.model;
 
 import com.badlogic.gdx.Gdx;
+import com.prairieKing.controller.EnemyBody;
 import com.prairieKing.controller.PrairieKing;
 
 public class AIManager {
@@ -8,6 +9,7 @@ public class AIManager {
     private GameLogic gameLogic; // Precisa disto para saber as posições do herói
     private int MAX_ENEMY_NUMBER = 1; // Can be changed as levels increase
     private EnemyModel[] enemies = new EnemyModel[MAX_ENEMY_NUMBER];
+    private EnemyBody[] enemyBodies = new EnemyBody[MAX_ENEMY_NUMBER];
 
     public AIManager(GameLogic gameLogic) {
         this.gameLogic = gameLogic;
@@ -19,8 +21,8 @@ public class AIManager {
 
     public void spawn() {
         enemies[0] = (new BasicWalker((int) PrairieKing.PPM/2, -100));
-        //enemies[1] = (new Enemy(Gdx.graphics.getWidth() / 2, -16, "Basic_Walker"));
-        //enemies[2] = (new Enemy(Gdx.graphics.getWidth() / 2, -16, "Basic_Walker"));
+        enemyBodies[0] = new EnemyBody(gameLogic.getWorld(), enemies[0]);
+
     }
 
     public EnemyModel[] getEnemies() {

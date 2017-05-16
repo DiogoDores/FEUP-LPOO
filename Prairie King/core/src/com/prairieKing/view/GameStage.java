@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.prairieKing.controller.PrairieKing;
@@ -39,6 +40,12 @@ public class GameStage extends ScreenAdapter {
     private TiledMap map;
     private OrthogonalTiledMapRenderer renderer;
     private OrthographicCamera cam;
+
+ public static final float HERO_WIDTH = PrairieKing.PPM/15;
+    public static final float ENEMY_WIDTH = PrairieKing.PPM/15;
+    public static final float PROJECTILE_WIDTH = PrairieKing.PPM/35;
+
+
 
    /* private World world;
     private Box2DDebugRenderer b2dr;
@@ -76,7 +83,6 @@ public class GameStage extends ScreenAdapter {
     @Override
     public void render(float delta) {
 
-
         renderer.setView(cam);
 
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -105,7 +111,7 @@ public class GameStage extends ScreenAdapter {
         //System.out.println(gun.getProjectiles().size());
         for (ProjectileBody projectile : gun.getProjectiles()) {
             projectileToDraw = new Sprite(game.getAssetManager().get("Sprites/MainSpriteSheet.png", Texture.class),261,160,6,6);
-            projectileToDraw.setSize(cam.viewportWidth/20,cam.viewportHeight/20);
+            projectileToDraw.setSize(cam.viewportWidth/35,cam.viewportHeight/35);
             projectileToDraw.setX(projectile.getX());
             projectileToDraw.setY(projectile.getY());
             //System.out.println(projectile.getPosition().x + " " + projectile.getPosition().y);

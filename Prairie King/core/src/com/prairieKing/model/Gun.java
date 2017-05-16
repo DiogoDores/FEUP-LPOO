@@ -18,7 +18,7 @@ public class Gun {
 
 
     public Gun(World world) {
-        timeToShoot = 1;
+        timeToShoot = .2f;
         this.world = world;
 
         //TODO Instanciar isto aqui, avançar com projecteis
@@ -38,14 +38,15 @@ public class Gun {
     public void shoot(float posX, float posY, float vX, float vY) {
 
         if (timeToShoot <= 0) {
+
+            timeToShoot = 0.2f;
+
             ProjectileBody p = pool.obtain();
 
-          //  System.out.println(vX + " " + vY);
             p.setTransform(posX, posY);
             p.setLinearVelocity(vX, vY);
 
             projectiles.add(p);
-            timeToShoot = 0.4f;
         }
     }
 
