@@ -10,6 +10,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
+import com.prairieKing.controller.HeroBody;
 import com.prairieKing.controller.InputController;
 import com.prairieKing.controller.PrairieKing;
 import com.prairieKing.view.GameStage;
@@ -23,6 +24,7 @@ public class GameLogic {
     private GameStage gameStage;
     private World world;
     private Gun gun;
+    private HeroBody heroBody;
 
     public GameLogic(PrairieKing game) {
         world = new World(new Vector2(0,0), true);
@@ -35,10 +37,16 @@ public class GameLogic {
         gameStage = new GameStage(this);
         input = new InputController(this);
         Gdx.input.setInputProcessor(input);
+        heroBody = new HeroBody(world, hero);
+
     }
 
     public HeroModel getHero() {
         return hero;
+    }
+
+    public HeroBody getHeroBody() {
+        return heroBody;
     }
 
     public PrairieKing getMyGame() {
@@ -62,7 +70,8 @@ public class GameLogic {
 
 
     public void moveEntities() {
-        hero.move();
+        heroBody.move();
+        hero.shoot();
         AI.move();
     }
 

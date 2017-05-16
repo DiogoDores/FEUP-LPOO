@@ -7,8 +7,6 @@ import com.prairieKing.model.EntityModel;
 
 public class EnemyBody extends EntityBody {
 
-
-
     public EnemyBody(World world, EntityModel model) {
         super(world, model);
 

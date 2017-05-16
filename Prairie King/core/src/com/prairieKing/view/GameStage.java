@@ -9,6 +9,7 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
+import com.prairieKing.controller.HeroBody;
 import com.prairieKing.controller.PrairieKing;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
@@ -22,6 +23,7 @@ import com.prairieKing.controller.ProjectileBody;
 import com.prairieKing.model.EnemyModel;
 import com.prairieKing.model.GameLogic;
 import com.prairieKing.model.Gun;
+import com.prairieKing.model.HeroModel;
 
 public class GameStage extends ScreenAdapter {
     private Stage stage;
@@ -40,14 +42,6 @@ public class GameStage extends ScreenAdapter {
     private OrthogonalTiledMapRenderer renderer;
     private OrthographicCamera cam;
 
-   /* private World world;
-    private Box2DDebugRenderer b2dr;
-    private TextureAtlas textureAtlas;
-    private Animation animation;
-    private float elapsedTime = 0f;
-    public Box2DDebugRenderer debugRenderer;*/
-
-
     public GameStage(GameLogic gameLogic) {
         this.game = gameLogic.getMyGame();
         batch = new SpriteBatch();
@@ -63,6 +57,7 @@ public class GameStage extends ScreenAdapter {
         view = new FitViewport(game.PPM, game.PPM, cam);
         renderer = new OrthogonalTiledMapRenderer(map, .2234f);
         loadAssets();
+
 
         this.gameLogic = gameLogic;
     }
@@ -90,8 +85,8 @@ public class GameStage extends ScreenAdapter {
         batch.setProjectionMatrix(cam.combined);
 
         hero.setSize(game.PPM/15, cam.viewportHeight/15);
-        hero.setX(gameLogic.getHero().getX());
-        hero.setY(gameLogic.getHero().getY());
+        hero.setX(gameLogic.getHeroBody().getX());
+        hero.setY(gameLogic.getHeroBody().getY());
 
         hero.draw(batch);
         drawEnemies();

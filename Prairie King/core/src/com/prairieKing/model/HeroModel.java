@@ -1,47 +1,31 @@
 package com.prairieKing.model;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.math.Vector2;
+import com.prairieKing.controller.HeroBody;
 import com.prairieKing.controller.PrairieKing;
 
 public class HeroModel extends EntityModel {
-    private float  x, y;
+    private float x, y;
     private int lives;
-    private boolean left, right, up, down;
     private boolean leftB, rightB, upB, downB; // Gun Methods
     private Gun gun;
 
     public HeroModel(float x, float y) {
-        super(x,y);
+        super(x, y);
         this.x = x;
         this.y = y;
-        left = false; right = false; up = false; down = false;
         this.lives = 3;
 
-      //  setBody(world);
     }
 
     public void setGun(Gun gun) {
         this.gun = gun;
     }
 
-    public void move() {
-        gun.update();
-        float x = this.x, y = this.y;
-        if (left)
-            x = (x-(PrairieKing.PPM/50*Gdx.graphics.getDeltaTime())) ;
-        if (right)
-            x = (x+(PrairieKing.PPM/50*Gdx.graphics.getDeltaTime())) ;
-        if (up)
-            y = (y +(PrairieKing.PPM/50*Gdx.graphics.getDeltaTime())) ;
-        if (down)
-            y = (y - (PrairieKing.PPM/50*Gdx.graphics.getDeltaTime())) ;
-
-        setPosition(x,y);
-
-        shoot();
-    }
-
     public void shoot() {
+        gun.update();
+
         int x = 0, y = 0;
         if (leftB)
             x = x - (int) PrairieKing.PPM*100;
@@ -55,22 +39,6 @@ public class HeroModel extends EntityModel {
         if ((x == 0 && y != 0) || (x!= 0 && y == 0) || (x != 0 && y != 0))
               gun.shoot(this.x, this.y, x,y);
 
-    }
-
-    public void setLeft(boolean left) {
-        this.left = left;
-    }
-
-    public void setRight(boolean right) {
-        this.right = right;
-    }
-
-    public void setUp(boolean up) {
-        this.up = up;
-    }
-
-    public void setDown(boolean down) {
-        this.down = down;
     }
 
     public void setLeftB(boolean leftB) {
