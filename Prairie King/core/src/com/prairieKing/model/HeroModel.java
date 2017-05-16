@@ -13,16 +13,12 @@ public class HeroModel extends EntityModel {
     private Gun gun;
     private int speed;
 
-
     public HeroModel(float x, float y) {
         super(x, y);
         this.x = x;
         this.speed = 7;
         this.y = y;
-        left = false;
-        right = false;
-        up = false;
-        down = false;
+        left = false; right = false; up = false; down = false;
         this.lives = 3;
         setType("HERO");
     }
