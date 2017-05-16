@@ -10,6 +10,7 @@ public class EnemyModel extends EntityModel implements Behaviour {
         super(x,y);
         this.x = x;
         this.y = y;
+        setType("ENEMY");
     }
 
     public void setType(String type) {
@@ -46,6 +47,7 @@ public class EnemyModel extends EntityModel implements Behaviour {
         //System.out.println("Sou modificado com os valores de x e y "+ x + " , " +y);
         this.x = x;
         this.y = y;
+
         //System.out.println("Valores de agorade x e y "+ this.x + " , " +this.y);
     }
 

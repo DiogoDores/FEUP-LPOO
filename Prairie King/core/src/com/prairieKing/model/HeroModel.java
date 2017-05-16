@@ -6,20 +6,25 @@ import com.prairieKing.controller.PrairieKing;
 import com.prairieKing.view.GameStage;
 
 public class HeroModel extends EntityModel {
-    private float  x, y;
+    private float x, y;
     private int lives;
     private boolean left, right, up, down;
     private boolean leftB, rightB, upB, downB; // Gun Methods
     private Gun gun;
     private int speed;
 
+
     public HeroModel(float x, float y) {
-        super(x,y);
+        super(x, y);
         this.x = x;
         this.speed = 7;
         this.y = y;
-        left = false; right = false; up = false; down = false;
+        left = false;
+        right = false;
+        up = false;
+        down = false;
         this.lives = 3;
+        setType("HERO");
     }
 
     public void setGun(Gun gun) {
@@ -30,15 +35,15 @@ public class HeroModel extends EntityModel {
         gun.update();
         float x = this.x, y = this.y;
         if (left)
-            x = (x-(PrairieKing.PPM/speed*Gdx.graphics.getDeltaTime())) ;
+            x = (x - (PrairieKing.PPM / speed * Gdx.graphics.getDeltaTime()));
         if (right)
-            x = (x+(PrairieKing.PPM/speed*Gdx.graphics.getDeltaTime())) ;
+            x = (x + (PrairieKing.PPM / speed * Gdx.graphics.getDeltaTime()));
         if (up)
-            y = (y +(PrairieKing.PPM/speed*Gdx.graphics.getDeltaTime())) ;
+            y = (y + (PrairieKing.PPM / speed * Gdx.graphics.getDeltaTime()));
         if (down)
-            y = (y - (PrairieKing.PPM/speed*Gdx.graphics.getDeltaTime())) ;
+            y = (y - (PrairieKing.PPM / speed * Gdx.graphics.getDeltaTime()));
 
-        setPosition(x,y);
+        setPosition(x, y);
 
         shoot();
     }
@@ -46,37 +51,35 @@ public class HeroModel extends EntityModel {
     public void shoot() {
         int x = 0, y = 0;
         if (leftB)
-            x = x - (int) PrairieKing.PPM*2;
+            x = x - (int) PrairieKing.PPM * 2;
         if (rightB)
-            x = x + (int) PrairieKing.PPM*2;
+            x = x + (int) PrairieKing.PPM * 2;
         if (upB)
-            y = y + (int) PrairieKing.PPM*2;
-        if(downB)
-            y = y - (int) PrairieKing.PPM*2;
+            y = y + (int) PrairieKing.PPM * 2;
+        if (downB)
+            y = y - (int) PrairieKing.PPM * 2;
 
-        if ((x == 0 && y != 0) || (x!= 0 && y == 0) || (x != 0 && y != 0))
-            if(rightB) {
+        if ((x == 0 && y != 0) || (x != 0 && y == 0) || (x != 0 && y != 0)) {
+            if (rightB) {
                 if (upB)
-                    gun.shoot(this.x + GameStage.HERO_WIDTH - GameStage.PROJECTILE_WIDTH/2, this.y +GameStage.HERO_WIDTH - GameStage.PROJECTILE_WIDTH/2, x,y);
+                    gun.shoot(this.x + GameStage.HERO_WIDTH - GameStage.PROJECTILE_WIDTH / 2, this.y + GameStage.HERO_WIDTH - GameStage.PROJECTILE_WIDTH / 2, x, y);
                 else if (downB)
-                    gun.shoot(this.x + GameStage.HERO_WIDTH - GameStage.PROJECTILE_WIDTH/2, this.y - GameStage.PROJECTILE_WIDTH/2, x,y);
+                    gun.shoot(this.x + GameStage.HERO_WIDTH - GameStage.PROJECTILE_WIDTH / 2, this.y - GameStage.PROJECTILE_WIDTH / 2, x, y);
                 else
-                    gun.shoot(this.x + GameStage.HERO_WIDTH - GameStage.PROJECTILE_WIDTH/2, this.y +GameStage.HERO_WIDTH/2 - GameStage.PROJECTILE_WIDTH/2, x,y);
+                    gun.shoot(this.x + GameStage.HERO_WIDTH - GameStage.PROJECTILE_WIDTH / 2, this.y + GameStage.HERO_WIDTH / 2 - GameStage.PROJECTILE_WIDTH / 2, x, y);
             }
-            if(leftB) {
+            if (leftB) {
                 if (upB)
-                    gun.shoot(this.x  - GameStage.PROJECTILE_WIDTH/2, this.y +GameStage.HERO_WIDTH - GameStage.PROJECTILE_WIDTH/2, x,y);
+                    gun.shoot(this.x - GameStage.PROJECTILE_WIDTH / 2, this.y + GameStage.HERO_WIDTH - GameStage.PROJECTILE_WIDTH / 2, x, y);
                 else if (downB)
-                    gun.shoot(this.x  - GameStage.PROJECTILE_WIDTH/2, this.y - GameStage.PROJECTILE_WIDTH/2, x,y);
+                    gun.shoot(this.x - GameStage.PROJECTILE_WIDTH / 2, this.y - GameStage.PROJECTILE_WIDTH / 2, x, y);
                 else
-                    gun.shoot(this.x  - GameStage.PROJECTILE_WIDTH/2, this.y + GameStage.HERO_WIDTH/2 -GameStage.PROJECTILE_WIDTH/2, x,y);
-            }
-            else if (upB && !rightB && !leftB)
-                    gun.shoot(this.x + GameStage.HERO_WIDTH/2 - GameStage.PROJECTILE_WIDTH/2, this.y +GameStage.HERO_WIDTH -GameStage.PROJECTILE_WIDTH/2, x,y);
+                    gun.shoot(this.x - GameStage.PROJECTILE_WIDTH / 2, this.y + GameStage.HERO_WIDTH / 2 - GameStage.PROJECTILE_WIDTH / 2, x, y);
+            } else if (upB && !rightB && !leftB)
+                gun.shoot(this.x + GameStage.HERO_WIDTH / 2 - GameStage.PROJECTILE_WIDTH / 2, this.y + GameStage.HERO_WIDTH - GameStage.PROJECTILE_WIDTH / 2, x, y);
             else if (downB && !rightB && !leftB)
-                    gun.shoot(this.x + GameStage.HERO_WIDTH/2 - GameStage.PROJECTILE_WIDTH/2, this.y - GameStage.PROJECTILE_WIDTH/2, x,y);
-
-
+                gun.shoot(this.x + GameStage.HERO_WIDTH / 2 - GameStage.PROJECTILE_WIDTH / 2, this.y - GameStage.PROJECTILE_WIDTH / 2, x, y);
+        }
 
     }
 
@@ -129,7 +132,9 @@ public class HeroModel extends EntityModel {
         return y;
     }
 
-    public Gun getGun() { return gun; }
+    public Gun getGun() {
+        return gun;
+    }
 
     public int getLives() {
         return lives;

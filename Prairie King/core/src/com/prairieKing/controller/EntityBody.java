@@ -12,8 +12,11 @@ import com.prairieKing.model.EntityModel;
 public class EntityBody {
 
     final Body body;
+    private EntityModel model;
+    String type;
 
     EntityBody(World world, EntityModel model) {
+        this.model = model;
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
         bodyDef.position.set(model.getX(), model.getY());
@@ -42,11 +45,19 @@ public class EntityBody {
         return body.getUserData();
     }
 
+    public float getPositionX() {
+        return model.getX();
+    }
+
+    public float getPositionY() {
+        return model.getY();
+    }
+
     final void createFixture(Body body, int width, int height) {
         // Transform pixels into meters, center and invert the y-coordinate
 
         PolygonShape polygon = new PolygonShape();
-        polygon.setAsBox(width,height); // CUIDADO COM ESTES VALORES
+        polygon.setAsBox(width/2,height/2); // CUIDADO COM ESTES VALORES
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = polygon;
 

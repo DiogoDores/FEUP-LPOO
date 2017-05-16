@@ -3,6 +3,7 @@ package com.prairieKing.model;
 public class EntityModel {
 
     private float x, y;
+    String type;
 
     public EntityModel(float x, float y) {
         this.x = x;
@@ -22,5 +23,11 @@ public class EntityModel {
         this.y = y;
     }
 
+    public void setType(String type) {
+        this.type = type;
+    }
 
+    public String getType() {
+        return type;
+    }
 }

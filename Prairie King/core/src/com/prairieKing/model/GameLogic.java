@@ -14,6 +14,8 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
+import com.prairieKing.controller.EntityBody;
+import com.prairieKing.controller.HeroBody;
 import com.prairieKing.controller.InputController;
 import com.prairieKing.controller.ListenerClass;
 import com.prairieKing.controller.PrairieKing;
@@ -28,6 +30,7 @@ public class GameLogic {
     private AIManager AI;
     private PrairieKing myGame;
     private HeroModel hero;
+    private HeroBody heroBody;
     private GameStage gameStage;
     private World world;
     private Gun gun;
@@ -40,11 +43,13 @@ public class GameLogic {
         AI.spawn();
         myGame = game;
         hero = new HeroModel(PrairieKing.PPM/2, PrairieKing.PPM/2);
+
         hero.setGun(gun);
         gameStage = new GameStage(this);
         input = new InputController(this);
         Gdx.input.setInputProcessor(input);
         world.setContactListener(new ListenerClass());
+        heroBody = new HeroBody(world,hero);
     }
 
     public HeroModel getHero() {
@@ -64,7 +69,11 @@ public class GameLogic {
         Array<Body> bodies = new Array<Body>();
         world.getBodies(bodies);
         for(Body body : bodies){
-            ((EntityModel) body.getUserData()).setPosition(body.getPosition().x, body.getPosition().y);
+            EntityModel test = ((EntityModel) body.getUserData());//.setPosition(body.getPosition().x, body.getPosition().y);
+            if(test.getType() == "ENEMY" || test.getType() == "HERO")
+                body.setTransform(test.getX(),test.getY(), 0);
+            else
+                test.setPosition(body.getPosition().x, body.getPosition().y);
         }
         gameStage.render(0);
         moveEntities();
