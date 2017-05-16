@@ -41,10 +41,6 @@ public class EntityBody {
         body.setLinearVelocity(x, y);
     }
 
-    public void applyForce(float x, float y) {
-        body.applyForceToCenter(x,y,true);
-    }
-
     public Object getUserData() {
         return body.getUserData();
     }

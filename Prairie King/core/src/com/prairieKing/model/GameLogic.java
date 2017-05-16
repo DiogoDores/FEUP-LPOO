@@ -67,7 +67,7 @@ public class GameLogic {
     }
 
     public void act() {
-        world.step(1/300f,0,2);
+        world.step(1/300f,2,6);
         Array<Body> bodies = new Array<Body>();
         world.getBodies(bodies);
         for(Body body : bodies){

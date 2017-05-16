@@ -14,24 +14,22 @@ import com.prairieKing.model.HeroModel;
 public class InputController implements InputProcessor {
 
     private HeroModel hero;
-    private HeroBody heroBody;
 
     public InputController(GameLogic gameLogic) {
         this.hero = gameLogic.getHero();
-        this.heroBody = gameLogic.getHeroBody();
     }
 
     @Override
     public boolean keyDown(int keycode) {
 
         if (keycode == (Input.Keys.S))
-            heroBody.setDown(true);
+            hero.setDown(true);
         else if (keycode == (Input.Keys.W))
-            heroBody.setUp(true);
+            hero.setUp(true);
         if (keycode == (Input.Keys.A))
-            heroBody.setLeft(true);
+            hero.setLeft(true);
         else if (keycode == (Input.Keys.D))
-            heroBody.setRight(true);
+            hero.setRight(true);
 
         if (keycode == (Input.Keys.DOWN))
             hero.setDownB(true);
@@ -50,13 +48,13 @@ public class InputController implements InputProcessor {
     public boolean keyUp(int keycode) {
 
         if (keycode == (Input.Keys.S))
-            heroBody.setDown(false);
+            hero.setDown(false);
         else if (keycode == (Input.Keys.W))
-            heroBody.setUp(false);
+            hero.setUp(false);
         if (keycode == (Input.Keys.A))
-            heroBody.setLeft(false);
+            hero.setLeft(false);
         else if (keycode == (Input.Keys.D))
-            heroBody.setRight(false);
+            hero.setRight(false);
 
 
         if (keycode == (Input.Keys.DOWN))
