@@ -1,14 +1,9 @@
 package com.prairieKing.view;
-
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.prairieKing.controller.PrairieKing;
@@ -48,6 +43,13 @@ public class GameStage extends ScreenAdapter {
     public static final float ENEMY_WIDTH = PrairieKing.PPM / 15;
     public static final float PROJECTILE_WIDTH = PrairieKing.PPM / 35;
 
+    private World world;
+    private Box2DDebugRenderer b2dr;
+    //private TextureAtlas textureAtlas;
+    //private Animation animation;
+    //private float elapsedTime = 0f;
+
+
     public GameStage(GameLogic gameLogic) {
         this.game = gameLogic.getMyGame();
         batch = new SpriteBatch();
@@ -55,16 +57,18 @@ public class GameStage extends ScreenAdapter {
         gun = gameLogic.getHero().getGun();
         enemies = gameLogic.getAI().getEnemies();
         cam = new OrthographicCamera(game.PPM, game.PPM);
+        map = gameLogic.getMap();
 
-        mapLoader = new TmxMapLoader();
-        map = mapLoader.load("Mapas/Map.tmx");
-        cam.position.set(cam.viewportWidth / 2, cam.viewportHeight / 2, 0);
-        cam.setToOrtho(false, game.PPM, game.PPM);
+        cam.position.set(cam.viewportWidth/2,cam.viewportHeight/2,0);
+        cam.setToOrtho(false, game.PPM,  game.PPM);
         view = new FitViewport(game.PPM, game.PPM, cam);
         renderer = new OrthogonalTiledMapRenderer(map, .2234f);
         loadAssets();
 
         this.gameLogic = gameLogic;
+
+        world = gameLogic.getWorld();
+        b2dr = new Box2DDebugRenderer();
     }
 
 
@@ -82,6 +86,7 @@ public class GameStage extends ScreenAdapter {
         Gdx.gl.glClearColor(0, 0, 0, 1);
 
         renderer.render();
+        b2dr.render(world, cam.combined);
 
         batch.begin();
 
@@ -111,21 +116,21 @@ public class GameStage extends ScreenAdapter {
     }
 
     public void drawEnemies() {
-        for (EnemyModel e : enemies)
+        for (EnemyModel e : enemies) {
             if (e.getType() == "basicWalker") {
                 enemyToDraw = new Sprite(game.getAssetManager().get("Sprites/MainSpriteSheet.png", Texture.class), 304, 80, 16, 16);
                 enemyToDraw.setSize(cam.viewportWidth / 15, cam.viewportHeight / 15);
                 enemyToDraw.setX(e.getX());
                 enemyToDraw.setY(e.getY());
                 enemyToDraw.draw(batch);
-            }
-            else {
+            } else {
                 enemyToDraw = new Sprite(game.getAssetManager().get("Sprites/MainSpriteSheet.png", Texture.class), 352, 64, 16, 16);
                 enemyToDraw.setSize(cam.viewportWidth / 15, cam.viewportHeight / 15);
                 enemyToDraw.setX(e.getX());
                 enemyToDraw.setY(e.getY());
                 enemyToDraw.draw(batch);
             }
+        }
     }
 
     @Override
@@ -142,6 +147,10 @@ public class GameStage extends ScreenAdapter {
         renderer.dispose();
         batch.dispose();
         stage.dispose();
+    }
+
+    public TiledMap getMap(){
+        return this.map;
     }
 
 }

@@ -17,11 +17,10 @@ public class PrairieKing extends Game {
     int currentState;
     Menu menu;
     LoseScreen loseScreen;
-    GameStage gameStage;
     int highScore;
     GameLogic gameLogic;
 
-    public static final float PPM = 100f;
+    public static final float PPM = 100;
 
     private AssetManager assetManager;
 
@@ -35,9 +34,7 @@ public class PrairieKing extends Game {
         setScreen(menu);
         loseScreen = new LoseScreen("LoseScreen", this);
         gameLogic = new GameLogic(this);
-
-        gameStage = new GameStage(gameLogic);
-    }
+     }
 
     public void loadAssets() {
         assetManager.load("Menus/LoseScreen.png", Texture.class);
@@ -64,7 +61,7 @@ public class PrairieKing extends Game {
             }
         }
         else if (currentState == 1) { // Game Mode
-            setScreen(gameStage);
+            setScreen(gameLogic.getGameStage());
             gameLogic.act();
             if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
                 currentState = 2;
@@ -84,5 +81,4 @@ public class PrairieKing extends Game {
     public AssetManager getAssetManager() {
         return assetManager;
     }
-
 }
