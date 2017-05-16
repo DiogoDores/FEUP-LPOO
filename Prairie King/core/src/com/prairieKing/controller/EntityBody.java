@@ -12,8 +12,11 @@ import com.prairieKing.model.EntityModel;
 public class EntityBody {
 
     final Body body;
+    private EntityModel model;
+    String type;
 
     EntityBody(World world, EntityModel model) {
+        this.model = model;
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
         bodyDef.position.set(model.getX(), model.getY());
@@ -44,6 +47,14 @@ public class EntityBody {
 
     public Object getUserData() {
         return body.getUserData();
+    }
+
+    public float getPositionX() {
+        return model.getX();
+    }
+
+    public float getPositionY() {
+        return model.getY();
     }
 
     final void createFixture(Body body, int width, int height) {
