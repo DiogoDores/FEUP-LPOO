@@ -20,6 +20,10 @@ import com.prairieKing.controller.ListenerClass;
 import com.prairieKing.controller.PrairieKing;
 import com.prairieKing.view.GameStage;
 
+import java.util.Iterator;
+
+import javax.annotation.processing.SupportedSourceVersion;
+
 public class GameLogic {
 
     private InputController input;
@@ -103,7 +107,7 @@ public class GameLogic {
     }
 
     public void act() {
-        world.step(1/300f,6,2);
+        world.step(1/300f,0,2);
         Array<Body> bodies = new Array<Body>();
         world.getBodies(bodies);
         for(Body body : bodies){
@@ -128,6 +132,10 @@ public class GameLogic {
 
     public World getWorld() {
         return world;
+    }
+
+    public void sweepDeadBodies() {
+
     }
 
     public GameStage getGameStage() {

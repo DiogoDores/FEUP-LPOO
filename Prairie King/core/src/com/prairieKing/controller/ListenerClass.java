@@ -15,9 +15,6 @@ public class ListenerClass implements ContactListener {
     public void beginContact(Contact contact) {
         Fixture fixtureA = contact.getFixtureA();
         Fixture fixtureB = contact.getFixtureB();
-
-        System.out.println("beginContact between " + fixtureA.toString() + " and " + fixtureB.toString());
-
     }
 
     @Override
