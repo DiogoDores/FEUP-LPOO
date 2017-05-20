@@ -11,6 +11,7 @@ import com.prairieKing.model.EntityModel;
 
 public class EntityBody {
 
+    private float width, height;
     final Body body;
     private EntityModel model;
     String type;
@@ -19,7 +20,7 @@ public class EntityBody {
         this.model = model;
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
-        bodyDef.position.set(model.getX(), model.getY());
+        bodyDef.position.set(model.getX() + width/2, model.getY() + height/2);
         bodyDef.linearDamping = 0.0f;
         body = world.createBody(bodyDef);
         body.setUserData(model);
@@ -64,5 +65,21 @@ public class EntityBody {
         body.createFixture(fixtureDef);
 
         polygon.dispose();
+    }
+
+    public float getWidth() {
+        return width;
+    }
+
+    public void setWidth(float width) {
+        this.width = width;
+    }
+
+    public float getHeight() {
+        return height;
+    }
+
+    public void setHeight(float height) {
+        this.height = height;
     }
 }

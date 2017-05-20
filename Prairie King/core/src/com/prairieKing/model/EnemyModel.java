@@ -1,6 +1,9 @@
 package com.prairieKing.model;
 
+import com.prairieKing.view.GameStage;
+
 public class EnemyModel extends EntityModel implements Behaviour {
+
 
     private char currentDirection = 'n';
     private String type = null;
@@ -47,13 +50,13 @@ public class EnemyModel extends EntityModel implements Behaviour {
         //System.out.println("Sou modificado com os valores de x e y "+ x + " , " +y);
         this.x = x;
         this.y = y;
-
         //System.out.println("Valores de agorade x e y "+ this.x + " , " +this.y);
     }
 
     public char getCurrentDirection() {
         return currentDirection;
     }
+
 
     public void setCurrentDirection(char currentDirection) {
         this.currentDirection = currentDirection;

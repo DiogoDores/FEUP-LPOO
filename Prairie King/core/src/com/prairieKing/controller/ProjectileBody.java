@@ -16,7 +16,8 @@ public class ProjectileBody extends EntityBody {
 
     public ProjectileBody(World world, ProjectileModel model) {
         super(world, model);
-
+        setHeight(GameStage.PROJECTILE_WIDTH );
+        setWidth(GameStage.PROJECTILE_WIDTH );
         createFixture(body, (int) GameStage.PROJECTILE_WIDTH, (int) GameStage.PROJECTILE_WIDTH);
     }
 }

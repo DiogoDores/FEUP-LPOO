@@ -24,7 +24,8 @@ public class HeroBody extends EntityBody {
 
     public HeroBody(World world, EntityModel model) {
         super(world, model);
-
+        setHeight(GameStage.HERO_WIDTH );
+        setWidth(GameStage.HERO_WIDTH );
         createFixture(body, (int) GameStage.HERO_WIDTH , (int) GameStage.HERO_WIDTH);
     }
 }

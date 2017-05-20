@@ -20,6 +20,8 @@ import com.prairieKing.model.EnemyModel;
 import com.prairieKing.model.GameLogic;
 import com.prairieKing.model.Gun;
 
+import java.util.ArrayList;
+
 public class GameStage extends ScreenAdapter {
     private Stage stage;
     private PrairieKing game;
@@ -28,7 +30,7 @@ public class GameStage extends ScreenAdapter {
     private FitViewport view;
     private GameLogic gameLogic;
     private Sprite projectileToDraw;
-    private EnemyModel[] enemies;
+    private ArrayList<EnemyModel> enemies;
     private Gun gun;
     private AssetManager assetManager;
 
@@ -113,16 +115,23 @@ public class GameStage extends ScreenAdapter {
     }
 
     public void drawEnemies() {
-        for (int i = 0 ; i < enemies.length ; i++) {
-            if (enemies[i].getType() == "basicWalker") {
-                enemyToDraw = new Sprite(game.getAssetManager().get("Sprites/MainSpriteSheet.png", Texture.class),304,80,16,16);
-                enemyToDraw.setSize(cam.viewportWidth/15,cam.viewportHeight/15);
-                enemyToDraw.setX(enemies[i].getX());
-                enemyToDraw.setY(enemies[i].getY());
+        for (EnemyModel e : enemies)
+            if (e.getType() == "basicWalker") {
+                enemyToDraw = new Sprite(game.getAssetManager().get("Sprites/MainSpriteSheet.png", Texture.class), 304, 80, 16, 16);
+                enemyToDraw.setSize(cam.viewportWidth / 15, cam.viewportHeight / 15);
+                enemyToDraw.setX(e.getX());
+                enemyToDraw.setY(e.getY());
                 enemyToDraw.draw(batch);
             }
-        }
+            else {
+                enemyToDraw = new Sprite(game.getAssetManager().get("Sprites/MainSpriteSheet.png", Texture.class), 352, 64, 16, 16);
+                enemyToDraw.setSize(cam.viewportWidth / 15, cam.viewportHeight / 15);
+                enemyToDraw.setX(e.getX());
+                enemyToDraw.setY(e.getY());
+                enemyToDraw.draw(batch);
+            }
     }
+
 
     @Override
     public void resize(int width, int height){

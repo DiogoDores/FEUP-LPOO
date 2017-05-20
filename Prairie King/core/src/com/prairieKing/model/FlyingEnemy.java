@@ -1,8 +1,6 @@
 package com.prairieKing.model;
 
-import com.prairieKing.view.GameStage;
-
-public class BasicWalker extends EnemyModel {
+public class FlyingEnemy extends EnemyModel {
 
     private Behaviour behaviour;
 
@@ -11,10 +9,10 @@ public class BasicWalker extends EnemyModel {
         super.setPosition(x, y);
     }
 
-    public BasicWalker(int x, int y) {
+    public FlyingEnemy(int x, int y) {
         super(x, y);
-        super.setType("basicWalker");
-        behaviour = new ChasingBehaviour();
+        super.setType("flyingEnemy");
+        behaviour = new FlyingBehaviour();
     }
 
     @Override
