@@ -1,6 +1,7 @@
 package com.prairieKing.model;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Pool;
@@ -72,29 +73,39 @@ public class AIManager {
     public void spawn() {
         if (activeNumber < MAX_ENEMY_NUMBER) {
             EnemyModel e = enemyModelsPool.obtain();
-            if (e == null)
-                System.out.println("MERDA CRL");
+
             activeNumber++;
             enemies.add(e);
             enemiesBodies.add(new EnemyBody(gameLogic.getWorld(),e));
         }
 
     }
-/*
-    public void killedEnemy() {
-        for (int i = 0 ; i < enemies.length; i++) {
-            if (enemies[i].isFlaggedForDelete) {
-                enemies[i] = null;
-                enemyBodies[i] = null
+
+    public void checkEnemies() {
+        for (EnemyModel model : enemies) {
+            if (model.isFlaggedForDelete()) {
+                for (EnemyBody body : enemiesBodies) {
+                    if (body.getUserData() == model) {
+                        enemies.remove(model);
+                        enemiesBodies.remove(body);
+                    }
+                }
             }
         }
     }
-*/
+
     public ArrayList<EnemyModel> getEnemies() {
         return enemies;
     }
 
     public void move() {
+
+        if (Gdx.input.isKeyPressed(Input.Keys.H)) {
+            for (int j = enemies.size()-1; j >= 0; j--) {
+                enemies.remove(enemies.get(j));
+                enemiesBodies.remove(enemies.get(j));
+            }
+        }
         HeroModel hero = gameLogic.getHero();
         if (enemies != null)
             for (EnemyModel e : enemies) {

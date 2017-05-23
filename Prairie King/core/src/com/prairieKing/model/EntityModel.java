@@ -2,12 +2,15 @@ package com.prairieKing.model;
 
 public class EntityModel {
 
+    private boolean flaggedForDelete;
+
     private float x, y;
     String type;
 
     public EntityModel(float x, float y) {
         this.x = x;
         this.y = y;
+        flaggedForDelete = false;
     }
 
     public float getX() {
@@ -31,4 +34,11 @@ public class EntityModel {
         return type;
     }
 
+    public void kill() {
+        flaggedForDelete = true;
+    }
+
+    public boolean isFlaggedForDelete() {
+        return flaggedForDelete;
+    }
 }

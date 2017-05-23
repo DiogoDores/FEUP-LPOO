@@ -18,12 +18,11 @@ public class HeroBody extends EntityBody {
 
     @Override
     public Object getUserData() {
-        System.out.println("Informação sobre Enemy");
-        return super.getUserData();
+        return "HERO";
     }
 
     public HeroBody(World world, EntityModel model) {
-        super(world, model);
+        super(world, 0, model);
         setHeight(GameStage.HERO_WIDTH );
         setWidth(GameStage.HERO_WIDTH );
         createFixture(body, (int) GameStage.HERO_WIDTH , (int) GameStage.HERO_WIDTH);

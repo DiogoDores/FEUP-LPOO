@@ -14,6 +14,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
+import com.prairieKing.controller.EntityBody;
 import com.prairieKing.controller.HeroBody;
 import com.prairieKing.controller.InputController;
 import com.prairieKing.controller.ListenerClass;
@@ -40,13 +41,13 @@ public class GameLogic {
     private TiledMap map;
 
     public GameLogic(PrairieKing game) {
-        world = new World(new Vector2(0,0), true);
+        world = new World(new Vector2(0, 0), true);
         gun = new Gun(world);
         gun.update();
         AI = new AIManager(this);
         AI.spawn();
         myGame = game;
-        hero = new HeroModel(PrairieKing.PPM/2, PrairieKing.PPM/2);
+        hero = new HeroModel(PrairieKing.PPM / 2, PrairieKing.PPM / 2);
 
         mapLoader = new TmxMapLoader();
         map = mapLoader.load("Mapas/Map.tmx");
@@ -56,7 +57,7 @@ public class GameLogic {
         input = new InputController(this);
         Gdx.input.setInputProcessor(input);
         world.setContactListener(new ListenerClass());
-        heroBody = new HeroBody(world,hero);
+        heroBody = new HeroBody(world, hero);
 
         createBodies();
     }
@@ -67,11 +68,11 @@ public class GameLogic {
         FixtureDef fDef = new FixtureDef();
         Body bod;
 
-        for(MapObject object : map.getLayers().get(1).getObjects().getByType(RectangleMapObject.class)){
+        for (MapObject object : map.getLayers().get(1).getObjects().getByType(RectangleMapObject.class)) {
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
 
             bDef.type = BodyDef.BodyType.StaticBody;
-            bDef.position.set((rect.getX() + rect.getWidth() / 2) / myGame.PPM * 22.34f, (rect.getY() + rect.getHeight() / 2 ) / myGame.PPM * 22.34f);
+            bDef.position.set((rect.getX() + rect.getWidth() / 2) / myGame.PPM * 22.34f, (rect.getY() + rect.getHeight() / 2) / myGame.PPM * 22.34f);
 
             bod = world.createBody(bDef);
 
@@ -107,17 +108,19 @@ public class GameLogic {
     }
 
     public void act() {
-        world.step(1/300f,0,2);
+        world.step(1 / 300f, 0, 2);
+        AI.checkEnemies();
         Array<Body> bodies = new Array<Body>();
         world.getBodies(bodies);
-        for(Body body : bodies){
-            EntityModel test = ((EntityModel) body.getUserData());
+        for (Body body : bodies) {
+            EntityModel model = ((EntityModel) body.getUserData());
+            //sweepDeadBodies(model, body);
             //.setPosition(body.getPosition().x, body.getPosition().y);
-            if(test != null) {
-                if (test.getType() == "ENEMY" || test.getType() == "HERO")
-                    body.setTransform(test.getX(), test.getY(), 0);
+            if (model != null) {
+                if (model.getType() == "ENEMY" || model.getType() == "HERO")
+                    body.setTransform(model.getX(), model.getY(), 0);
                 else
-                    test.setPosition(body.getPosition().x, body.getPosition().y);
+                    model.setPosition(body.getPosition().x, body.getPosition().y);
             }
         }
         gameStage.render(0);
@@ -134,9 +137,16 @@ public class GameLogic {
         return world;
     }
 
-    public void sweepDeadBodies() {
 
+    public void sweepDeadBodies(EntityModel model, Body body) {
+        if (model.isFlaggedForDelete()) {
+            if (model.getType() == "HERO") {
+                PrairieKing.currentState = 2;
+                return;
+            }
+        }
     }
+
 
     public GameStage getGameStage() {
         return gameStage;

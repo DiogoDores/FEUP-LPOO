@@ -1,22 +1,30 @@
 package com.prairieKing.controller;
 
 
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
+import com.badlogic.gdx.physics.box2d.Transform;
 import com.badlogic.gdx.physics.box2d.World;
 import com.prairieKing.model.EntityModel;
 
-public class EntityBody {
+public class EntityBody extends Body{
 
     private float width, height;
     final Body body;
     private EntityModel model;
-    String type;
+    private FixtureDef fixtureDef;
+    public String wow = "MERDA";
 
-    EntityBody(World world, EntityModel model) {
+    public String getWow() {
+        return wow;
+    }
+
+    public EntityBody(World world, long addr, EntityModel model) {
+        super(world, addr);
         this.model = model;
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
@@ -24,6 +32,11 @@ public class EntityBody {
         bodyDef.linearDamping = 0.0f;
         body = world.createBody(bodyDef);
         body.setUserData(model);
+    }
+
+    @Override
+    public void setUserData(Object userData) {
+        super.setUserData(userData);
     }
 
     public float getX() {
@@ -42,30 +55,21 @@ public class EntityBody {
         body.setLinearVelocity(x, y);
     }
 
-    public Object getUserData() {
-        return body.getUserData();
-    }
-
-    public float getPositionX() {
-        return model.getX();
-    }
-
-    public float getPositionY() {
-        return model.getY();
-    }
-
     final void createFixture(Body body, int width, int height) {
         // Transform pixels into meters, center and invert the y-coordinate
 
         PolygonShape polygon = new PolygonShape();
         polygon.setAsBox(width/2,height/2); // CUIDADO COM ESTES VALORES
-        FixtureDef fixtureDef = new FixtureDef();
+        fixtureDef = new FixtureDef();
         fixtureDef.shape = polygon;
 
         body.createFixture(fixtureDef);
 
         polygon.dispose();
     }
+
+
+
 
     public float getWidth() {
         return width;
@@ -81,5 +85,9 @@ public class EntityBody {
 
     public void setHeight(float height) {
         this.height = height;
+    }
+
+    public FixtureDef getFixtureDef() {
+        return fixtureDef;
     }
 }

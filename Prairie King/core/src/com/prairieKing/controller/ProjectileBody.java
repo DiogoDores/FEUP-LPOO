@@ -11,11 +11,11 @@ public class ProjectileBody extends EntityBody {
 
     @Override
     public Object getUserData() {
-        return super.getUserData();
+        return "PROJECTILE";
     }
 
     public ProjectileBody(World world, ProjectileModel model) {
-        super(world, model);
+        super(world, 0, model);
         setHeight(GameStage.PROJECTILE_WIDTH );
         setWidth(GameStage.PROJECTILE_WIDTH );
         createFixture(body, (int) GameStage.PROJECTILE_WIDTH, (int) GameStage.PROJECTILE_WIDTH);

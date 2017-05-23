@@ -20,7 +20,7 @@ public class HeroModel extends EntityModel {
         this.y = y;
         left = false; right = false; up = false; down = false;
         this.lives = 3;
-        setType("HERO");
+        super.setType("HERO");
     }
 
     public void setGun(Gun gun) {

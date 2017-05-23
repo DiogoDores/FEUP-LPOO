@@ -16,6 +16,7 @@ public class ProjectileModel extends EntityModel {
 
     public ProjectileModel(float x, float y) {
         super(x, y);
+        super.setType("PROJECTILE");
         this.x = x; this.y = y;
     }
 

@@ -13,7 +13,7 @@ public class EnemyModel extends EntityModel implements Behaviour {
         super(x,y);
         this.x = x;
         this.y = y;
-        setType("ENEMY");
+        super.setType("ENEMY");
     }
 
     public void setType(String type) {
@@ -31,6 +31,11 @@ public class EnemyModel extends EntityModel implements Behaviour {
 
     @Override
     public void attack(EnemyModel e, HeroModel h) {
+
+    }
+
+    @Override
+    public void kill() {
 
     }
 

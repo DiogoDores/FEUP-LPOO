@@ -13,7 +13,6 @@ public class BasicWalker extends EnemyModel {
 
     public BasicWalker(int x, int y) {
         super(x, y);
-        super.setType("basicWalker");
         behaviour = new ChasingBehaviour();
     }
 

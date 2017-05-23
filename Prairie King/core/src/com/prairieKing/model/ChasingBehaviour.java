@@ -8,6 +8,8 @@ public class ChasingBehaviour implements Behaviour {
 
     private float enemySpeed = 400;
 
+    // TODO adicionar movimento inicial em que ele se dirige para o meio no move
+
     @Override
     public void move(EnemyModel e, HeroModel h) {
         float x = e.getX();

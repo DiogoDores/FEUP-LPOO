@@ -14,7 +14,7 @@ import com.prairieKing.view.LoseScreen;
 import com.prairieKing.view.Menu;
 
 public class PrairieKing extends Game {
-    int currentState;
+    public static int currentState;
     Menu menu;
     LoseScreen loseScreen;
     int highScore;
