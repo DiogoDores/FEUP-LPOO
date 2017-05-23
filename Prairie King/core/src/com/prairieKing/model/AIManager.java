@@ -2,25 +2,23 @@ package com.prairieKing.model;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Pool;
 import com.prairieKing.controller.EnemyBody;
 import com.prairieKing.controller.PrairieKing;
-import com.prairieKing.controller.ProjectileBody;
 
 import java.util.ArrayList;
 
 public class AIManager {
-    private GameLogic gameLogic; // Precisa disto para saber as posições do herói
 
+    private GameLogic gameLogic; // Precisa disto para saber as posições do herói
+    private int MAX_ENEMY_NUMBER = 1; // Can be changed as levels increase
     private ArrayList<EnemyModel> enemies = new ArrayList<>();
     private ArrayList<EnemyBody> enemiesBodies = new ArrayList<>();
 
     private Pool<EnemyModel> enemyModelsPool;
+
     private int activeNumber;
-
-
-    private int MAX_ENEMY_NUMBER = 1; // Can be changed as levels increase
-
 
     public AIManager(GameLogic gameLogic) {
         this.gameLogic = gameLogic;
@@ -66,6 +64,7 @@ public class AIManager {
 
     }
 
+
     public void increaseDifficulty() {
         MAX_ENEMY_NUMBER = MAX_ENEMY_NUMBER + 2;
     }
@@ -81,17 +80,16 @@ public class AIManager {
         }
 
     }
-
-    /*
-        public void killedEnemy() {
-            for (int i = 0 ; i < enemyModelsPool.length; i++) {
-                if (enemyModelsPool[i].isFlaggedForDelete) {
-                    enemyModelsPool[i] = null;
-                    enemyBodies[i] = null
-                }
+/*
+    public void killedEnemy() {
+        for (int i = 0 ; i < enemies.length; i++) {
+            if (enemies[i].isFlaggedForDelete) {
+                enemies[i] = null;
+                enemyBodies[i] = null
             }
         }
-    */
+    }
+*/
     public ArrayList<EnemyModel> getEnemies() {
         return enemies;
     }

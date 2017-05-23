@@ -30,4 +30,5 @@ public class EntityModel {
     public String getType() {
         return type;
     }
+
 }

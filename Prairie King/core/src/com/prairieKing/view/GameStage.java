@@ -39,9 +39,9 @@ public class GameStage extends ScreenAdapter {
     private OrthogonalTiledMapRenderer renderer;
     private OrthographicCamera cam;
 
-    public static final float HERO_WIDTH = PrairieKing.PPM / 15;
-    public static final float ENEMY_WIDTH = PrairieKing.PPM / 15;
-    public static final float PROJECTILE_WIDTH = PrairieKing.PPM / 35;
+ public static final float HERO_WIDTH = PrairieKing.PPM/15;
+    public static final float ENEMY_WIDTH = PrairieKing.PPM/15;
+    public static final float PROJECTILE_WIDTH = PrairieKing.PPM/35;
 
     private World world;
     private Box2DDebugRenderer b2dr;
@@ -74,12 +74,11 @@ public class GameStage extends ScreenAdapter {
 
     public void loadAssets() {
         Texture mainSprite = game.getAssetManager().get("Sprites/MainSpriteSheet.png", Texture.class);
-        hero = new Sprite(mainSprite, 367, 96, 16, 16);
+        hero = new Sprite(mainSprite,367,96,16,16);
     }
 
     @Override
-    public void render(float delta) {
-
+    public void render(float delta){
         renderer.setView(cam);
 
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -93,7 +92,7 @@ public class GameStage extends ScreenAdapter {
         cam.update();
         batch.setProjectionMatrix(cam.combined);
 
-        hero.setSize(game.PPM / 15, cam.viewportHeight / 15);
+        hero.setSize(game.PPM/15, cam.viewportHeight/15);
         hero.setX(gameLogic.getHero().getX());
         hero.setY(gameLogic.getHero().getY());
 
@@ -107,8 +106,8 @@ public class GameStage extends ScreenAdapter {
 
     public void drawBullets() {
         for (ProjectileBody projectile : gun.getProjectiles()) {
-            projectileToDraw = new Sprite(game.getAssetManager().get("Sprites/MainSpriteSheet.png", Texture.class), 261, 160, 6, 6);
-            projectileToDraw.setSize(cam.viewportWidth / 35, cam.viewportHeight / 35);
+            projectileToDraw = new Sprite(game.getAssetManager().get("Sprites/MainSpriteSheet.png", Texture.class),261,160,6,6);
+            projectileToDraw.setSize(cam.viewportWidth/35,cam.viewportHeight/35);
             projectileToDraw.setX(projectile.getX());
             projectileToDraw.setY(projectile.getY());
             projectileToDraw.draw(batch);
@@ -116,26 +115,27 @@ public class GameStage extends ScreenAdapter {
     }
 
     public void drawEnemies() {
-        for (EnemyModel e : enemies) {
+        for (EnemyModel e : enemies)
             if (e.getType() == "basicWalker") {
                 enemyToDraw = new Sprite(game.getAssetManager().get("Sprites/MainSpriteSheet.png", Texture.class), 304, 80, 16, 16);
                 enemyToDraw.setSize(cam.viewportWidth / 15, cam.viewportHeight / 15);
                 enemyToDraw.setX(e.getX());
                 enemyToDraw.setY(e.getY());
                 enemyToDraw.draw(batch);
-            } else {
+            }
+            else {
                 enemyToDraw = new Sprite(game.getAssetManager().get("Sprites/MainSpriteSheet.png", Texture.class), 352, 64, 16, 16);
                 enemyToDraw.setSize(cam.viewportWidth / 15, cam.viewportHeight / 15);
                 enemyToDraw.setX(e.getX());
                 enemyToDraw.setY(e.getY());
                 enemyToDraw.draw(batch);
             }
-        }
     }
 
+
     @Override
-    public void resize(int width, int height) {
-        cam.viewportWidth = game.PPM;
+    public void resize(int width, int height){
+        cam.viewportWidth =  game.PPM;
         cam.viewportHeight = game.PPM;
         view.update(width, height);
         cam.update();

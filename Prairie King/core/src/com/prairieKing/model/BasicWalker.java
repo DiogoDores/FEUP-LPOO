@@ -1,5 +1,7 @@
 package com.prairieKing.model;
 
+import com.prairieKing.view.GameStage;
+
 public class BasicWalker extends EnemyModel {
 
     private Behaviour behaviour;
