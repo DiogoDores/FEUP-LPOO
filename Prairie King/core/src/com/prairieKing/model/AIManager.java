@@ -28,15 +28,11 @@ public class AIManager {
             @Override
             protected EnemyModel newObject() {
                 int random = MathUtils.random(1);
-                System.out.println("Tentou obter  " + random);
 
                 int randomSpawn = MathUtils.random(3);
                 String spawnPlaces = "nsew"; // Possível posição
                 random = 0;
                 if (random == 0) {
-                    System.out.println("Tentou obter BasicWalker");
-                    System.out.println(spawnPlaces.charAt(randomSpawn));
-
                     if (spawnPlaces.charAt(randomSpawn) == 'n')
                         return new BasicWalker((int) PrairieKing.PPM / 2, (int) PrairieKing.PPM + 10);
                     else if (spawnPlaces.charAt(randomSpawn) == 's')
@@ -46,7 +42,6 @@ public class AIManager {
                     else
                         return new BasicWalker(-10, (int) PrairieKing.PPM / 2);
                 } else if (random == 1) {
-                    System.out.println("Tentou obter FlyingEnemy");
                     System.out.println(spawnPlaces.charAt(randomSpawn));
 
                     if (spawnPlaces.charAt(randomSpawn) == 'n')
@@ -61,8 +56,6 @@ public class AIManager {
                 return null;
             }
         };
-
-
     }
 
 
@@ -81,19 +74,6 @@ public class AIManager {
 
     }
 
-    public void checkEnemies() {
-        for (EnemyModel model : enemies) {
-            if (model.isFlaggedForDelete()) {
-                for (EnemyBody body : enemiesBodies) {
-                    if (body.getUserData() == model) {
-                        enemies.remove(model);
-                        enemiesBodies.remove(body);
-                    }
-                }
-            }
-        }
-    }
-
     public ArrayList<EnemyModel> getEnemies() {
         return enemies;
     }
@@ -106,15 +86,30 @@ public class AIManager {
                 enemiesBodies.remove(enemies.get(j));
             }
         }
+
         HeroModel hero = gameLogic.getHero();
         if (enemies != null)
             for (EnemyModel e : enemies) {
                 int index = enemies.indexOf(e);
                 e.move(e,hero);
                 enemiesBodies.get(index).setTransform(e.getX(),e.getY());
+        }
+    }
+
+    public void checkEnemies() {
+        for (int i = 0; i < enemies.size(); i++) {
+            if (enemies.get(i).isFlaggedForDelete()) {
+                for (EnemyBody body : enemiesBodies) {
+
+                    if (body.getUserData() == enemies.get(i)) {
+                        System.out.println("Tentou aceder aqui");
+                        enemiesBodies.remove(body);
+                    }
+                }
+                enemies.remove(enemies.get(i));
 
             }
-
+        }
     }
 
 }

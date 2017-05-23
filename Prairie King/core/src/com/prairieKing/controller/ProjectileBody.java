@@ -9,11 +9,6 @@ import com.prairieKing.view.GameStage;
 
 public class ProjectileBody extends EntityBody {
 
-    @Override
-    public Object getUserData() {
-        return "PROJECTILE";
-    }
-
     public ProjectileBody(World world, ProjectileModel model) {
         super(world, 0, model);
         setHeight(GameStage.PROJECTILE_WIDTH );

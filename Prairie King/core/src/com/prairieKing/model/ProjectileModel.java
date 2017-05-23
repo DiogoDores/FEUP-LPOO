@@ -34,4 +34,9 @@ public class ProjectileModel extends EntityModel {
     public float getY() {
         return y;
     }
+
+    @Override
+    public void kill() {
+        super.kill();
+    }
 }

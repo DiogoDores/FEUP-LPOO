@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Pool;
+import com.prairieKing.controller.EntityBody;
 import com.prairieKing.controller.ProjectileBody;
 
 import java.util.ArrayList;
@@ -12,8 +13,9 @@ import java.util.List;
 
 public class Gun {
 
-    private ArrayList<ProjectileBody> projectiles = new ArrayList<ProjectileBody>();
-    private Pool<ProjectileBody> pool;
+    private ArrayList<ProjectileBody> projectilesBodies = new ArrayList<ProjectileBody>();
+    private ArrayList<ProjectileModel> projectiles = new ArrayList<ProjectileModel>();
+    private Pool<ProjectileModel> pool;
     private World world;
     private float timeToShoot;
 
@@ -24,16 +26,16 @@ public class Gun {
 
         //TODO Instanciar isto aqui, avançar com projecteis
 
-        pool = new Pool<ProjectileBody>() {
+        pool = new Pool<ProjectileModel>() {
             @Override
-            protected ProjectileBody newObject() {
-                return new ProjectileBody(world, new ProjectileModel(-1,-1));
+            protected ProjectileModel newObject() {
+                return new ProjectileModel(-1, -1);
             }
         };
     }
 
     public void update() {
-        timeToShoot -= 0.4f/ (Gdx.graphics.getFramesPerSecond()/2);
+        timeToShoot -= 0.4f / (Gdx.graphics.getDeltaTime() * 1800);
     }
 
     public void shoot(float posX, float posY, float vX, float vY) {
@@ -42,16 +44,31 @@ public class Gun {
 
             timeToShoot = 0.2f;
 
-            ProjectileBody p = pool.obtain();
+            ProjectileModel p = pool.obtain();
+            ProjectileBody pb = new ProjectileBody(world ,p);
 
-            p.setTransform(posX, posY);
-            p.setLinearVelocity(vX, vY);
+            pb.setTransform(posX, posY);
+            pb.setLinearVelocity(vX, vY);
 
             projectiles.add(p);
+            projectilesBodies.add(pb);
+
         }
     }
 
-    public List<ProjectileBody> getProjectiles() {
+    public List<ProjectileModel> getProjectiles() {
         return projectiles;
+    }
+
+    public void checkBullets() {
+        for (ProjectileBody p : projectilesBodies) {
+            EntityModel model = (EntityModel) p.getUserData();
+            if (model != null) {
+                if (model.isFlaggedForDelete()) {
+                    projectiles.remove(p);
+                }
+            }
+        }
+
     }
 }

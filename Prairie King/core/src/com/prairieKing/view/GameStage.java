@@ -19,6 +19,7 @@ import com.prairieKing.controller.ProjectileBody;
 import com.prairieKing.model.EnemyModel;
 import com.prairieKing.model.GameLogic;
 import com.prairieKing.model.Gun;
+import com.prairieKing.model.ProjectileModel;
 
 import java.util.ArrayList;
 
@@ -105,7 +106,7 @@ public class GameStage extends ScreenAdapter {
     }
 
     public void drawBullets() {
-        for (ProjectileBody projectile : gun.getProjectiles()) {
+        for (ProjectileModel projectile : gun.getProjectiles()) {
             projectileToDraw = new Sprite(game.getAssetManager().get("Sprites/MainSpriteSheet.png", Texture.class),261,160,6,6);
             projectileToDraw.setSize(cam.viewportWidth/35,cam.viewportHeight/35);
             projectileToDraw.setX(projectile.getX());
@@ -116,7 +117,7 @@ public class GameStage extends ScreenAdapter {
 
     public void drawEnemies() {
         for (EnemyModel e : enemies)
-            if (e.getType() == "basicWalker") {
+            if (e.getEnemyType() == "BASIC") {
                 enemyToDraw = new Sprite(game.getAssetManager().get("Sprites/MainSpriteSheet.png", Texture.class), 304, 80, 16, 16);
                 enemyToDraw.setSize(cam.viewportWidth / 15, cam.viewportHeight / 15);
                 enemyToDraw.setX(e.getX());

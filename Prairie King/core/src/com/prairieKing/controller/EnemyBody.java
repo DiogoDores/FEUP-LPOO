@@ -9,10 +9,10 @@ import com.prairieKing.view.GameStage;
 
 public class EnemyBody extends EntityBody {
 
+
     @Override
     public Object getUserData() {
         setUserData("ENEMY");
-        System.out.println("Tentou aceder");
         return "ENEMY";
     }
 

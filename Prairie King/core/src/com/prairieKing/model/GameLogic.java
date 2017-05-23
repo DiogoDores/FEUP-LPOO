@@ -108,15 +108,19 @@ public class GameLogic {
 
     public void act() {
         world.step(1 / 300f, 0, 2);
-
-        AI.checkEnemies();
         Array<Body> bodies = new Array<Body>();
         world.getBodies(bodies);
+
+        AI.checkEnemies();
+        gun.checkBullets();
+
         for (Body body : bodies) {
+
             EntityModel model = ((EntityModel) body.getUserData());
+
             if (model != null && body != null)
                 sweepDeadBodies(model, body);
-            //.setPosition(body.getPosition().x, body.getPosition().y);
+
             if (model != null) {
                 if (model.getType() == "ENEMY" || model.getType() == "HERO")
                     body.setTransform(model.getX(), model.getY(), 0);
@@ -146,7 +150,9 @@ public class GameLogic {
                 PrairieKing.currentState = 2;
                 return;
             }
+
         }
+
     }
 
     public GameStage getGameStage() {

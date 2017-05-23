@@ -12,6 +12,7 @@ public class FlyingEnemy extends EnemyModel {
     public FlyingEnemy(int x, int y) {
         super(x, y);
         super.setType("ENEMY");
+        super.setEnemyType("FLYING");
         behaviour = new FlyingBehaviour();
     }
 

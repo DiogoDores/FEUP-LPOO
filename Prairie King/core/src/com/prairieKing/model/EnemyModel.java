@@ -4,6 +4,7 @@ import com.prairieKing.view.GameStage;
 
 public class EnemyModel extends EntityModel implements Behaviour {
 
+    private String enemyType;
 
     private char currentDirection = 'n';
     private String type = null;
@@ -14,6 +15,15 @@ public class EnemyModel extends EntityModel implements Behaviour {
         this.x = x;
         this.y = y;
         super.setType("ENEMY");
+    }
+
+
+    public void setEnemyType(String enemyType) {
+        this.enemyType = enemyType;
+    }
+
+    public String getEnemyType() {
+        return enemyType;
     }
 
     public void setType(String type) {
@@ -36,7 +46,7 @@ public class EnemyModel extends EntityModel implements Behaviour {
 
     @Override
     public void kill() {
-
+        super.kill();
     }
 
     @Override
