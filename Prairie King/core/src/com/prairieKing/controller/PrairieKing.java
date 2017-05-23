@@ -74,6 +74,9 @@ public class PrairieKing extends Game {
             if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
                 currentState = 0;
             }
+            if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
+                Gdx.app.exit();
+            }
         }
 
     }

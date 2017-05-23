@@ -111,9 +111,6 @@ public class GameLogic {
         Array<Body> bodies = new Array<Body>();
         world.getBodies(bodies);
 
-        AI.checkEnemies();
-        gun.checkBullets();
-
         for (Body body : bodies) {
 
             EntityModel model = ((EntityModel) body.getUserData());
@@ -128,6 +125,10 @@ public class GameLogic {
                     model.setPosition(body.getPosition().x, body.getPosition().y);
             }
         }
+
+        AI.checkEnemies();
+        gun.checkBullets();
+
         gameStage.render(0);
         moveEntities();
     }

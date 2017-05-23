@@ -24,8 +24,6 @@ public class Gun {
         timeToShoot = .2f;
         this.world = world;
 
-        //TODO Instanciar isto aqui, avançar com projecteis
-
         pool = new Pool<ProjectileModel>() {
             @Override
             protected ProjectileModel newObject() {
@@ -61,11 +59,14 @@ public class Gun {
     }
 
     public void checkBullets() {
-        for (ProjectileBody p : projectilesBodies) {
-            EntityModel model = (EntityModel) p.getUserData();
-            if (model != null) {
-                if (model.isFlaggedForDelete()) {
-                    projectiles.remove(p);
+        for (int i = 0; i < projectiles.size() ; i++) {
+            if (projectiles.get(i) != null) {
+                if (projectiles.get(i).isFlaggedForDelete()) {
+                    for (int j = 0 ; j < projectilesBodies.size() ; j++) {
+                        if (projectilesBodies.get(j).getUserData() == projectiles.get(i))
+                            projectilesBodies.remove(j);
+                    }
+                    projectiles.remove(i);
                 }
             }
         }
