@@ -22,6 +22,8 @@ public class Gun {
         timeToShoot = .2f;
         this.world = world;
 
+        //TODO Instanciar isto aqui, avançar com projecteis
+
         pool = new Pool<ProjectileBody>() {
             @Override
             protected ProjectileBody newObject() {
