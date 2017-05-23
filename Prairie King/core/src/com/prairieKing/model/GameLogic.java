@@ -14,10 +14,9 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
-import com.prairieKing.controller.EntityBody;
+import com.prairieKing.controller.CollisionHandler;
 import com.prairieKing.controller.HeroBody;
 import com.prairieKing.controller.InputController;
-import com.prairieKing.controller.ListenerClass;
 import com.prairieKing.controller.PrairieKing;
 import com.prairieKing.view.GameStage;
 
@@ -56,7 +55,7 @@ public class GameLogic {
         gameStage = new GameStage(this);
         input = new InputController(this);
         Gdx.input.setInputProcessor(input);
-        world.setContactListener(new ListenerClass());
+        world.setContactListener(new CollisionHandler());
         heroBody = new HeroBody(world, hero);
 
         createBodies();
@@ -109,12 +108,14 @@ public class GameLogic {
 
     public void act() {
         world.step(1 / 300f, 0, 2);
+
         AI.checkEnemies();
         Array<Body> bodies = new Array<Body>();
         world.getBodies(bodies);
         for (Body body : bodies) {
             EntityModel model = ((EntityModel) body.getUserData());
-            //sweepDeadBodies(model, body);
+            if (model != null && body != null)
+                sweepDeadBodies(model, body);
             //.setPosition(body.getPosition().x, body.getPosition().y);
             if (model != null) {
                 if (model.getType() == "ENEMY" || model.getType() == "HERO")
@@ -139,6 +140,7 @@ public class GameLogic {
 
 
     public void sweepDeadBodies(EntityModel model, Body body) {
+        //System.out.println("Flagged " + model.isFlaggedForDelete() + " Type "+ model.getType());
         if (model.isFlaggedForDelete()) {
             if (model.getType() == "HERO") {
                 PrairieKing.currentState = 2;
@@ -146,7 +148,6 @@ public class GameLogic {
             }
         }
     }
-
 
     public GameStage getGameStage() {
         return gameStage;
