@@ -99,11 +99,10 @@ public class AIManager {
     public void checkEnemies() {
         for (int i = 0; i < enemies.size(); i++) {
             if (enemies.get(i).isFlaggedForDelete()) {
-                for (EnemyBody body : enemiesBodies) {
+                for (int j = 0; j < enemiesBodies.size(); j++) {
 
-                    if (body.getUserData() == enemies.get(i)) {
-                        System.out.println("Tentou aceder aqui");
-                        enemiesBodies.remove(body);
+                    if (enemiesBodies.get(j).getUserData() == enemies.get(i)) {
+                        enemiesBodies.remove(enemiesBodies.get(j));
                     }
                 }
                 enemies.remove(enemies.get(i));

@@ -10,14 +10,11 @@ import com.prairieKing.view.GameStage;
 public class EnemyBody extends EntityBody {
 
 
-    @Override
-    public Object getUserData() {
-        setUserData("ENEMY");
-        return "ENEMY";
-    }
+
 
     public EnemyBody(World world, EntityModel model) {
         super(world, 0, model);
-        createFixture(body, (int) GameStage.ENEMY_WIDTH ,(int) GameStage.ENEMY_WIDTH);
+        super.setUserData(model);
+        createFixture(getBody(), (int) GameStage.ENEMY_WIDTH ,(int) GameStage.ENEMY_WIDTH);
     }
 }

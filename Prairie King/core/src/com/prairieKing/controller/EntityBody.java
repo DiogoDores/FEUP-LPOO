@@ -14,7 +14,7 @@ import com.prairieKing.model.EntityModel;
 public class EntityBody extends Body{
 
     private float width, height;
-    final Body body;
+    private Body body;
     private EntityModel model;
     private FixtureDef fixtureDef;
     public String wow = "MERDA";
@@ -69,6 +69,14 @@ public class EntityBody extends Body{
     }
 
 
+    public void destroy() {
+        body.setUserData(null);
+        body = null;
+        fixtureDef = null;
+//        if (!getWorld().isLocked())
+  //          getWorld().destroyBody(body);
+
+    }
 
 
     public float getWidth() {
@@ -85,6 +93,10 @@ public class EntityBody extends Body{
 
     public void setHeight(float height) {
         this.height = height;
+    }
+
+    public Body getBody() {
+        return body;
     }
 
     public FixtureDef getFixtureDef() {
