@@ -17,13 +17,19 @@ public class AIManager {
     private ArrayList<EnemyModel> enemies = new ArrayList<>();
     private ArrayList<EnemyBody> enemiesBodies = new ArrayList<>();
 
+    private int killCount;
+    private boolean hasIncreased;
+    private float timeToSpawn;
     private Pool<EnemyModel> enemyModelsPool;
 
     private int activeNumber;
 
     public AIManager(GameLogic gameLogic) {
         this.gameLogic = gameLogic;
+        killCount = 0;
+        hasIncreased = false;
         activeNumber = 0;
+        timeToSpawn = .2f;
         enemyModelsPool = new Pool<EnemyModel>() {
             @Override
             protected EnemyModel newObject() {
@@ -31,7 +37,6 @@ public class AIManager {
 
                 int randomSpawn = MathUtils.random(3);
                 String spawnPlaces = "nsew"; // Possível posição
-                random = 0;
                 if (random == 0) {
                     if (spawnPlaces.charAt(randomSpawn) == 'n')
                         return new BasicWalker((int) PrairieKing.PPM / 2, (int) PrairieKing.PPM + 10);
@@ -62,14 +67,23 @@ public class AIManager {
     }
 
     public void spawn() {
-        int random = MathUtils.random(100);
-        if (activeNumber < MAX_ENEMY_NUMBER && random < 30) {
+        /*if (killCount % 10 == 0 && killCount != 0) {
+            System.out.println("Aumentei com " + killCount + " e " + killCount % 10);
+            increaseDifficulty();
+        }*/
+
+        int random = MathUtils.random(20);
+        if (activeNumber < MAX_ENEMY_NUMBER && timeToSpawn <= 0.0f && random < 5) {
             EnemyModel e = enemyModelsPool.obtain();
+            System.out.println("Entrei");
 
             activeNumber++;
             enemies.add(e);
             enemiesBodies.add(new EnemyBody(gameLogic.getWorld(),e));
+            timeToSpawn = .2f;
         }
+       // System.out.println(timeToSpawn);
+        timeToSpawn -= 0.1f / (Gdx.graphics.getDeltaTime() * 2000);
 
     }
 
@@ -104,6 +118,7 @@ public class AIManager {
                         enemiesBodies.get(j).destroy();
                         enemiesBodies.remove(enemiesBodies.get(j));
                         activeNumber--;
+                        killCount++;
                     }
                 }
                 enemies.remove(enemies.get(i));

@@ -16,7 +16,7 @@ public class HeroModel extends EntityModel {
     public HeroModel(float x, float y) {
         super(x, y);
         this.x = x;
-        this.speed = 7;
+        this.speed = 8;
         this.y = y;
         left = false; right = false; up = false; down = false;
         this.lives = 3;
@@ -132,14 +132,10 @@ public class HeroModel extends EntityModel {
         return gun;
     }
 
-    public int getLives() {
-        return lives;
-    }
-
-    public int die() {
-        lives--;
-        if (lives < 0)
-            return -1; // Has Died
-        return 0;  // Is still alive
+    @Override
+    public void kill() {
+        --lives;
+        if (this.lives == 0)
+            super.kill();
     }
 }
