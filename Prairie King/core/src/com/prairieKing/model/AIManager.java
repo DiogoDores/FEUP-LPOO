@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class AIManager {
 
     private GameLogic gameLogic; // Precisa disto para saber as posições do herói
-    private int MAX_ENEMY_NUMBER = 1; // Can be changed as levels increase
+    private int MAX_ENEMY_NUMBER = 5; // Can be changed as levels increase
     private ArrayList<EnemyModel> enemies = new ArrayList<>();
     private ArrayList<EnemyBody> enemiesBodies = new ArrayList<>();
 
@@ -42,8 +42,6 @@ public class AIManager {
                     else
                         return new BasicWalker(-10, (int) PrairieKing.PPM / 2);
                 } else if (random == 1) {
-                    System.out.println(spawnPlaces.charAt(randomSpawn));
-
                     if (spawnPlaces.charAt(randomSpawn) == 'n')
                         return new FlyingEnemy((int) PrairieKing.PPM / 2, (int) PrairieKing.PPM + 10);
                     else if (spawnPlaces.charAt(randomSpawn) == 's')
@@ -64,7 +62,8 @@ public class AIManager {
     }
 
     public void spawn() {
-        if (activeNumber < MAX_ENEMY_NUMBER) {
+        int random = MathUtils.random(100);
+        if (activeNumber < MAX_ENEMY_NUMBER && random < 30) {
             EnemyModel e = enemyModelsPool.obtain();
 
             activeNumber++;
@@ -102,7 +101,9 @@ public class AIManager {
                 for (int j = 0; j < enemiesBodies.size(); j++) {
 
                     if (enemiesBodies.get(j).getUserData() == enemies.get(i)) {
+                        enemiesBodies.get(j).destroy();
                         enemiesBodies.remove(enemiesBodies.get(j));
+                        activeNumber--;
                     }
                 }
                 enemies.remove(enemies.get(i));

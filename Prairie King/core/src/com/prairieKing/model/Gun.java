@@ -65,9 +65,7 @@ public class Gun {
                     for (int j = 0 ; j < projectilesBodies.size() ; j++) {
                         if (projectilesBodies.get(j).getUserData() == projectiles.get(i)) {
                                 projectilesBodies.get(j).destroy();
-//                            projectilesBodies.set(j, null);
-
-                            //projectilesBodies.remove(j);
+                                projectilesBodies.remove(j);
                         }
                     }
                     projectiles.remove(i);

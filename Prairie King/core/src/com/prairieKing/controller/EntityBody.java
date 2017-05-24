@@ -17,11 +17,7 @@ public class EntityBody extends Body{
     private Body body;
     private EntityModel model;
     private FixtureDef fixtureDef;
-    public String wow = "MERDA";
-
-    public String getWow() {
-        return wow;
-    }
+    private Fixture fixture;
 
     public EntityBody(World world, long addr, EntityModel model) {
         super(world, addr);
@@ -63,19 +59,18 @@ public class EntityBody extends Body{
         fixtureDef = new FixtureDef();
         fixtureDef.shape = polygon;
 
-        body.createFixture(fixtureDef);
+        fixture = body.createFixture(fixtureDef);
 
         polygon.dispose();
     }
 
 
     public void destroy() {
+        body.destroyFixture(fixture);
         body.setUserData(null);
         body = null;
-        fixtureDef = null;
-//        if (!getWorld().isLocked())
-  //          getWorld().destroyBody(body);
 
+        fixtureDef = null;
     }
 
 

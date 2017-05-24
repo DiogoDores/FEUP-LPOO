@@ -44,7 +44,6 @@ public class GameLogic {
         gun = new Gun(world);
         gun.update();
         AI = new AIManager(this);
-        AI.spawn();
         myGame = game;
         hero = new HeroModel(PrairieKing.PPM / 2, PrairieKing.PPM / 2);
 
@@ -136,6 +135,7 @@ public class GameLogic {
 
     public void moveEntities() {
         hero.move();
+        AI.spawn();
         AI.move();
     }
 
