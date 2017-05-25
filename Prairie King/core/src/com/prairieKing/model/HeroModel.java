@@ -132,9 +132,13 @@ public class HeroModel extends EntityModel {
         return gun;
     }
 
+    public void isHit() {
+        --lives;
+    }
+
     @Override
     public void kill() {
-        --lives;
+        isHit();
         if (this.lives == 0)
             super.kill();
     }

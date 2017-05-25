@@ -1,6 +1,7 @@
 package com.prairieKing.model;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Pool;
@@ -15,15 +16,17 @@ public class Gun {
 
     private ArrayList<ProjectileBody> projectilesBodies = new ArrayList<ProjectileBody>();
     private ArrayList<ProjectileModel> projectiles = new ArrayList<ProjectileModel>();
+    private ArrayList<GunPowerups> powerups = new ArrayList<>();
     private Pool<ProjectileModel> pool;
     private World world;
     private float timeToShoot;
+    private float SPEED;
 
 
     public Gun(World world) {
         timeToShoot = .2f;
         this.world = world;
-
+        SPEED = 1;
         pool = new Pool<ProjectileModel>() {
             @Override
             protected ProjectileModel newObject() {
@@ -33,10 +36,18 @@ public class Gun {
     }
 
     public void update() {
-        timeToShoot -= 0.4f / (Gdx.graphics.getDeltaTime() * 1800);
+        timeToShoot -= SPEED * 0.4f / (Gdx.graphics.getDeltaTime() * 1800);
     }
 
     public void shoot(float posX, float posY, float vX, float vY) {
+
+        // TODO IMPLEMENTAR MANEIRA DE DAR ESTA TRETA
+
+        if (Gdx.input.isKeyJustPressed(Input.Keys.G)) {
+            GunPowerups test = new FireRateGunPowerup(this);
+            powerups.add(test);
+        }
+
 
         if (timeToShoot <= 0) {
 
@@ -59,6 +70,8 @@ public class Gun {
     }
 
     public void checkBullets() {
+
+
         for (int i = 0; i < projectiles.size() ; i++) {
             if (projectiles.get(i) != null) {
                 if (projectiles.get(i).isFlaggedForDelete()) {
@@ -73,5 +86,16 @@ public class Gun {
             }
         }
 
+    }
+
+    public void setSpeed(float speed) {
+        System.out.println("Gun");
+        SPEED = speed;
+    }
+
+
+
+    public void setShape() {
+        // TODO não sei como fazer bem isto por agora tbh
     }
 }

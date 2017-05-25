@@ -75,14 +75,12 @@ public class AIManager {
         int random = MathUtils.random(20);
         if (activeNumber < MAX_ENEMY_NUMBER && timeToSpawn <= 0.0f && random < 5) {
             EnemyModel e = enemyModelsPool.obtain();
-            System.out.println("Entrei");
 
             activeNumber++;
             enemies.add(e);
             enemiesBodies.add(new EnemyBody(gameLogic.getWorld(),e));
             timeToSpawn = .2f;
         }
-       // System.out.println(timeToSpawn);
         timeToSpawn -= 0.1f / (Gdx.graphics.getDeltaTime() * 2000);
 
     }

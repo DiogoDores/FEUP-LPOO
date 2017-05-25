@@ -1,6 +1,7 @@
 package com.prairieKing.model;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -60,6 +61,23 @@ public class GameLogic {
         createBodies();
     }
 
+    public void resetEverything() {
+        world = new World(new Vector2(0, 0), true);
+        gun = new Gun(world);
+        gun.update();
+        AI = new AIManager(this);
+        hero = new HeroModel(PrairieKing.PPM / 2, PrairieKing.PPM / 2);
+
+         hero.setGun(gun);
+        gameStage = new GameStage(this);
+        input = new InputController(this);
+        Gdx.input.setInputProcessor(input);
+        world.setContactListener(new CollisionHandler());
+        heroBody = new HeroBody(world, hero);
+
+        createBodies();
+    }
+
     private void createBodies() {
         BodyDef bDef = new BodyDef();
         PolygonShape shape = new PolygonShape();
@@ -107,6 +125,7 @@ public class GameLogic {
 
     public void act() {
         world.step(1 / 300f, 0, 2);
+
         Array<Body> bodies = new Array<Body>();
         world.getBodies(bodies);
 
@@ -145,10 +164,10 @@ public class GameLogic {
 
 
     public void sweepDeadBodies(EntityModel model, Body body) {
-        //System.out.println("Flagged " + model.isFlaggedForDelete() + " Type "+ model.getType());
         if (model.isFlaggedForDelete()) {
             if (model.getType() == "HERO") {
                 PrairieKing.currentState = 2;
+                resetEverything();
                 return;
             }
 
