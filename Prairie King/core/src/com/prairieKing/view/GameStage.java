@@ -40,7 +40,7 @@ public class GameStage extends ScreenAdapter {
     private OrthogonalTiledMapRenderer renderer;
     private OrthographicCamera cam;
 
- public static final float HERO_WIDTH = PrairieKing.PPM/15;
+    public static final float HERO_WIDTH = PrairieKing.PPM/15;
     public static final float ENEMY_WIDTH = PrairieKing.PPM/15;
     public static final float PROJECTILE_WIDTH = PrairieKing.PPM/35;
 

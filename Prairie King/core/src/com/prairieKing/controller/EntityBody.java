@@ -10,6 +10,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.Transform;
 import com.badlogic.gdx.physics.box2d.World;
 import com.prairieKing.model.EntityModel;
+import com.prairieKing.view.GameStage;
 
 public class EntityBody extends Body{
 
@@ -55,7 +56,7 @@ public class EntityBody extends Body{
         // Transform pixels into meters, center and invert the y-coordinate
 
         PolygonShape polygon = new PolygonShape();
-        polygon.setAsBox(width/2,height/2); // CUIDADO COM ESTES VALORES
+        polygon.setAsBox(width/1.9f,height/1.9f, new Vector2(width/2 + 0.5f, height/2 + 0.5f), 0);
         fixtureDef = new FixtureDef();
         fixtureDef.shape = polygon;
 

@@ -115,6 +115,10 @@ public class GameLogic {
         return hero;
     }
 
+    public HeroBody getHeroBody() {
+        return heroBody;
+    }
+
     public PrairieKing getMyGame() {
         return myGame;
     }
