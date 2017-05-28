@@ -11,7 +11,7 @@ public class Constants {
 
     public final static short MASK_PLAYER = CATEGORY_ENEMY | CATEGORY_POWERUP;
     public final static short MASK_ENEMY = CATEGORY_PLAYER | CATEGORY_PROJECTILE;
-    public final static short MASK_PROJECTILE = CATEGORY_ENEMY;
+    public final static short MASK_PROJECTILE = (short) 0xFFFF;//~(CATEGORY_PLAYER | CATEGORY_PROJECTILE);
     public final static short MASK_POWERUP = CATEGORY_PLAYER;
 
     public static final float HERO_WIDTH = PrairieKing.PPM/15;

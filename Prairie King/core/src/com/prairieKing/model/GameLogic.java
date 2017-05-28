@@ -40,12 +40,18 @@ public class GameLogic {
     private TmxMapLoader mapLoader;
     private TiledMap map;
 
+
+    private float highScore;
+    private float timeSinceBeginning;
+
     public GameLogic(PrairieKing game) {
         world = new World(new Vector2(0, 0), true);
         AI = new AIManager(this);
         myGame = game;
         hero = new HeroModel(PrairieKing.PPM / 2, PrairieKing.PPM / 2);
 
+        highScore = 0;
+        timeSinceBeginning = 0;
 
         mapLoader = new TmxMapLoader();
         map = mapLoader.load("Mapas/Map.tmx");
@@ -66,10 +72,14 @@ public class GameLogic {
 
     public void resetEverything() {
         world = new World(new Vector2(0, 0), true);
-        gun = new Gun(this);
         AI = new AIManager(this);
         hero = new HeroModel(PrairieKing.PPM / 2, PrairieKing.PPM / 2);
+        gun = new Gun(this);
+
         hero.setGun(gun);
+
+        timeSinceBeginning = 0;
+        highScore = 0;
 
         powerupSpawner = new PowerupSpawner(this);
 
@@ -136,6 +146,9 @@ public class GameLogic {
 
         gun.update();
 
+        timeSinceBeginning += Gdx.graphics.getDeltaTime();
+        highScore = AI.getKillCount() * 3 + timeSinceBeginning * 3;
+
         powerupSpawner.update();
 
         Array<Body> bodies = new Array<Body>();
@@ -197,5 +210,9 @@ public class GameLogic {
 
     public PowerupSpawner getPowerupSpawner() {
         return powerupSpawner;
+    }
+
+    public float getHighScore() {
+        return highScore;
     }
 }

@@ -16,11 +16,11 @@ public class ShotgunPowerup extends GunPowerups {
         super(gameLogic);
         this.gun = gameLogic.getHero().getGun();
         System.out.println("Cheguei ao construtor");
-        super.setType("SHOTGUN");
         setEffectTime(15);
+        shoot(10,10,0,0);
     }
 
-    @Override
+
     public void shoot(float posX, float posY, float vX, float vY) {
 
         System.out.println("Entrei");

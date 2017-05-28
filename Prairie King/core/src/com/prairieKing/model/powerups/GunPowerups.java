@@ -7,14 +7,11 @@ import com.prairieKing.model.Gun;
 
 public class GunPowerups extends Gun {
 
-    private Gun gun;
-    private String type;
 
     private float effectTime;
 
     public GunPowerups(GameLogic gameLogic) {
         super(gameLogic);
-        this.gun = gameLogic.getHero().getGun();
         effectTime = 7;
     }
 
@@ -23,9 +20,9 @@ public class GunPowerups extends Gun {
         super.setSpeed(speed);
     }
 
-    @Override
     public void shoot(float posX, float posY, float vX, float vY) {
-        System.out.println("Merda");
+        super.shoot(posX,posY,vX,vY);
+        System.out.println("merda");
     }
 
     @Override
@@ -43,10 +40,6 @@ public class GunPowerups extends Gun {
 
     public void removeEffect() {
 
-    }
-
-    public void setType(String type) {
-        this.type = type;
     }
 
     public void setEffectTime(float effectTime) {

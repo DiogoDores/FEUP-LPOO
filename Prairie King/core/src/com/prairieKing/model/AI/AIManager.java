@@ -16,7 +16,7 @@ import java.util.ArrayList;
 public class AIManager {
 
     private GameLogic gameLogic; // Precisa disto para saber as posições do herói
-    private int MAX_ENEMY_NUMBER = 5; // Can be changed as levels increase
+    private float MAX_ENEMY_NUMBER = 5; // Can be changed as levels increase
     private ArrayList<EnemyModel> enemies = new ArrayList<>();
     private ArrayList<EnemyBody> enemiesBodies = new ArrayList<>();
 
@@ -24,6 +24,7 @@ public class AIManager {
     private boolean hasIncreased;
     private float timeToSpawn;
     private Pool<EnemyModel> enemyModelsPool;
+
 
     private int activeNumber;
 
@@ -33,6 +34,7 @@ public class AIManager {
         hasIncreased = false;
         activeNumber = 0;
         timeToSpawn = .2f;
+
         enemyModelsPool = new Pool<EnemyModel>() {
             @Override
             protected EnemyModel newObject() {
@@ -64,27 +66,26 @@ public class AIManager {
         };
     }
 
-
     public void increaseDifficulty() {
         MAX_ENEMY_NUMBER = MAX_ENEMY_NUMBER + 2;
     }
 
     public void spawn() {
-        /*if (killCount % 10 == 0 && killCount != 0) {
+        if (killCount % 15 == 0 && killCount != 0 && !hasIncreased) {
             System.out.println("Aumentei com " + killCount + " e " + killCount % 10);
+            hasIncreased = true;
             increaseDifficulty();
-        }*/
+        }
 
-        int random = MathUtils.random(20);
-        if (activeNumber < MAX_ENEMY_NUMBER && timeToSpawn <= 0.0f && random < 5) {
+        if (activeNumber < MAX_ENEMY_NUMBER && timeToSpawn <= 0.0f) {
             EnemyModel e = enemyModelsPool.obtain();
 
             activeNumber++;
             enemies.add(e);
             enemiesBodies.add(new EnemyBody(gameLogic.getWorld(),e));
-            timeToSpawn = .2f;
+            timeToSpawn = MathUtils.random(5/MAX_ENEMY_NUMBER, 7/MAX_ENEMY_NUMBER);
         }
-        timeToSpawn -= 0.1f / (Gdx.graphics.getDeltaTime() * 2000);
+        timeToSpawn -= Gdx.graphics.getDeltaTime();
 
     }
 
@@ -113,12 +114,17 @@ public class AIManager {
                         enemiesBodies.remove(enemiesBodies.get(j));
                         activeNumber--;
                         killCount++;
+                        hasIncreased = false;
                     }
                 }
                 enemies.remove(enemies.get(i));
 
             }
         }
+    }
+
+    public float getKillCount() {
+        return killCount;
     }
 
 }

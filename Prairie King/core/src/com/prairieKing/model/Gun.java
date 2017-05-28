@@ -84,7 +84,7 @@ public class Gun {
             else if (downB && !rightB && !leftB)
                 shoot(hero.getX() + Constants.HERO_WIDTH / 2 - Constants.PROJECTILE_WIDTH / 2, hero.getY() - Constants.PROJECTILE_WIDTH / 2, x, y);
         }
-    }
+    }  // AQUI chamo o shoot com valores bonitos
 
     public void shoot(float posX, float posY, float vX, float vY) {
 

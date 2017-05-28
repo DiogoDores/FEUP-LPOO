@@ -16,10 +16,6 @@ import com.prairieKing.model.powerups.HeroPowerups;
 
 import java.util.ArrayList;
 
-/**
- * Created by petre on 28/05/2017.
- */
-
 public class PowerupSpawner {
 
     private ArrayList<PowerupModel> powerupModels;
