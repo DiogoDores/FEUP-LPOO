@@ -21,11 +21,13 @@ import com.prairieKing.controller.PrairieKing;
 import com.prairieKing.model.AI.AIManager;
 import com.prairieKing.model.entities.EntityModel;
 import com.prairieKing.model.entities.HeroModel;
+import com.prairieKing.model.powerups.PowerupSpawner;
 import com.prairieKing.view.GameStage;
 
 public class GameLogic {
 
     private InputController input;
+    private PowerupSpawner powerupSpawner;
     private AIManager AI;
     private PrairieKing myGame;
     private HeroModel hero;
@@ -41,10 +43,10 @@ public class GameLogic {
     public GameLogic(PrairieKing game) {
         world = new World(new Vector2(0, 0), true);
         gun = new Gun(world);
-        gun.update();
         AI = new AIManager(this);
         myGame = game;
         hero = new HeroModel(PrairieKing.PPM / 2, PrairieKing.PPM / 2);
+        powerupSpawner = new PowerupSpawner(world);
 
         mapLoader = new TmxMapLoader();
         map = mapLoader.load("Mapas/Map.tmx");
@@ -62,7 +64,6 @@ public class GameLogic {
     public void resetEverything() {
         world = new World(new Vector2(0, 0), true);
         gun = new Gun(world);
-        gun.update();
         AI = new AIManager(this);
         hero = new HeroModel(PrairieKing.PPM / 2, PrairieKing.PPM / 2);
 
@@ -128,6 +129,9 @@ public class GameLogic {
     public void act() {
         world.step(1 / 300f, 0, 2);
 
+        gun.update();
+        powerupSpawner.update();
+
         Array<Body> bodies = new Array<Body>();
         world.getBodies(bodies);
 
@@ -136,7 +140,7 @@ public class GameLogic {
             EntityModel model = ((EntityModel) body.getUserData());
 
             if (model != null && body != null)
-                sweepDeadBodies(model, body);
+                checkLose(model);
 
             if (model != null) {
                 if (model.getType() == "ENEMY" || model.getType() == "HERO")
@@ -147,6 +151,7 @@ public class GameLogic {
         }
 
         AI.checkEnemies();
+        powerupSpawner.checkPowerups();
         gun.checkBullets();
 
         gameStage.render(0);
@@ -160,12 +165,7 @@ public class GameLogic {
         AI.move();
     }
 
-    public World getWorld() {
-        return world;
-    }
-
-
-    public void sweepDeadBodies(EntityModel model, Body body) {
+    public void checkLose(EntityModel model) {
         if (model.isFlaggedForDelete()) {
             if (model.getType() == "HERO") {
                 PrairieKing.currentState = 2;
@@ -177,11 +177,19 @@ public class GameLogic {
 
     }
 
+    public World getWorld() {
+        return world;
+    }
+
     public GameStage getGameStage() {
         return gameStage;
     }
 
     public TiledMap getMap() {
         return map;
+    }
+
+    public PowerupSpawner getPowerupSpawner() {
+        return powerupSpawner;
     }
 }

@@ -27,7 +27,7 @@ public class Gun {
 
     public Gun(World world) {
         test = false;
-        timeToShoot = .2f;
+        timeToShoot = .5f;
         this.world = world;
         SPEED = 1;
         pool = new Pool<ProjectileModel>() {
@@ -39,12 +39,10 @@ public class Gun {
     }
 
     public void update() {
-        timeToShoot -= SPEED * 0.4f / (Gdx.graphics.getDeltaTime() * 1800);
+        timeToShoot -= SPEED * Gdx.graphics.getDeltaTime() / 2;
     }
 
     public void shoot(float posX, float posY, float vX, float vY) {
-
-        // TODO IMPLEMENTAR MANEIRA DE DAR ESTA TRETA
 
         checkPowerups();
 
@@ -54,7 +52,6 @@ public class Gun {
         }
 
         if (timeToShoot <= 0) {
-
             timeToShoot = 0.2f;
 
             ProjectileModel p = pool.obtain();
@@ -65,7 +62,6 @@ public class Gun {
 
             projectiles.add(p);
             projectilesBodies.add(pb);
-
         }
     }
 

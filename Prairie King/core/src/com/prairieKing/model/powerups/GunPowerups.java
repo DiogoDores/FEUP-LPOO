@@ -7,6 +7,7 @@ import com.prairieKing.model.Gun;
 public class GunPowerups extends Gun {
 
     private Gun gun;
+    private String type;
 
     private float effectTime;
 
@@ -38,4 +39,11 @@ public class GunPowerups extends Gun {
 
     }
 
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getType() {
+        return type;
+    }
 }

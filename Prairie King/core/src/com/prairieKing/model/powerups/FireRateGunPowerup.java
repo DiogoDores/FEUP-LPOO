@@ -19,6 +19,7 @@ public class FireRateGunPowerup extends GunPowerups {
         this.gun = gun;
         oldSpeed = gun.getSPEED();
         gun.setSpeed(newSpeed);
+        super.setType("SPEED");
     }
 
     @Override

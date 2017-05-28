@@ -8,8 +8,6 @@ import com.prairieKing.view.GameStage;
 public class EnemyBody extends EntityBody {
 
 
-
-
     public EnemyBody(World world, EntityModel model) {
         super(world, 0, model);
         super.setUserData(model);

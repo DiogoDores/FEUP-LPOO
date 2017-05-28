@@ -18,6 +18,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.prairieKing.model.entities.EnemyModel;
 import com.prairieKing.model.GameLogic;
 import com.prairieKing.model.Gun;
+import com.prairieKing.model.entities.PowerupModel;
 import com.prairieKing.model.entities.ProjectileModel;
 
 import java.util.ArrayList;
@@ -25,11 +26,11 @@ import java.util.ArrayList;
 public class GameStage extends ScreenAdapter {
     private Stage stage;
     private PrairieKing game;
-    private Sprite hero, enemyToDraw;
+    private Sprite hero, enemyToDraw, powerupToDraw, projectileToDraw;
     private SpriteBatch batch;
     private FitViewport view;
     private GameLogic gameLogic;
-    private Sprite projectileToDraw;
+
     private ArrayList<EnemyModel> enemies;
     private Gun gun;
     private AssetManager assetManager;
@@ -42,6 +43,7 @@ public class GameStage extends ScreenAdapter {
     public static final float HERO_WIDTH = PrairieKing.PPM/15;
     public static final float ENEMY_WIDTH = PrairieKing.PPM/15;
     public static final float PROJECTILE_WIDTH = PrairieKing.PPM/35;
+    public static final float POWERUP_WIDTH = PrairieKing.PPM/20;
 
     private World world;
     private Box2DDebugRenderer b2dr;
@@ -99,6 +101,7 @@ public class GameStage extends ScreenAdapter {
         hero.draw(batch);
         drawEnemies();
         drawBullets();
+        drawPowerups();
 
         batch.end();
 
@@ -113,6 +116,18 @@ public class GameStage extends ScreenAdapter {
             projectileToDraw.draw(batch);
         }
     }
+
+    public void drawPowerups() {
+        ArrayList<PowerupModel> powerups = gameLogic.getPowerupSpawner().getPowerupModels();
+        for (int i = 0; i <  powerups.size(); i++) {
+            powerupToDraw = new Sprite(game.getAssetManager().get("Sprites/MainSpriteSheet.png", Texture.class),192,160,16,16);
+            powerupToDraw.setSize(POWERUP_WIDTH, POWERUP_WIDTH);
+            powerupToDraw.setX(powerups.get(i).getX());
+            powerupToDraw.setY(powerups.get(i).getY());
+            powerupToDraw.draw(batch);
+        }
+    }
+
 
     public void drawEnemies() {
         for (EnemyModel e : enemies)

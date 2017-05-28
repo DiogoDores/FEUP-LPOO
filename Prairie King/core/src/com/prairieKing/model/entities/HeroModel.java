@@ -20,7 +20,7 @@ public class HeroModel extends EntityModel {
         this.speed = 8;
         this.y = y;
         left = false; right = false; up = false; down = false;
-        this.lives = 3;
+        this.lives = 1;
         super.setType("HERO");
     }
 
