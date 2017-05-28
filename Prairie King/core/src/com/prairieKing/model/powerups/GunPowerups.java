@@ -20,6 +20,7 @@ public class GunPowerups extends Gun {
         super.setSpeed(speed);
     }
 
+    @Override
     public void shoot(float posX, float posY, float vX, float vY) {
         super.shoot(posX,posY,vX,vY);
         System.out.println("merda");

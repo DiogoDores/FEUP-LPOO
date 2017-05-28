@@ -17,7 +17,7 @@ public class PrairieKing extends Game {
     public static int currentState;
     Menu menu;
     LoseScreen loseScreen;
-    int highScore;
+    int maxHighScore;
     GameLogic gameLogic;
 
     public static final float PPM = 100;
@@ -34,6 +34,7 @@ public class PrairieKing extends Game {
         setScreen(menu);
         loseScreen = new LoseScreen("LoseScreen", this);
         gameLogic = new GameLogic(this);
+        maxHighScore = 0;
      }
 
     public void loadAssets() {
@@ -43,10 +44,6 @@ public class PrairieKing extends Game {
         assetManager.load("Menus/Menu1.png", Texture.class);
         assetManager.finishLoading();
         assetManager.update();
-    }
-
-    public int getHighScore() {
-        return highScore;
     }
 
     // Utilizada para verficar sempre qual é o render que deve estar ativo.
@@ -83,5 +80,14 @@ public class PrairieKing extends Game {
 
     public AssetManager getAssetManager() {
         return assetManager;
+    }
+
+    public int getMaxHighScore() {
+        return maxHighScore;
+    }
+
+    public void setMaxHighScore(int maxHighScore) {
+        this.maxHighScore = maxHighScore;
+        loseScreen.updateHighScore(maxHighScore);
     }
 }

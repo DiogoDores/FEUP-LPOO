@@ -51,7 +51,8 @@ public class GameStage extends ScreenAdapter {
 
 
     public GameStage(GameLogic gameLogic) {
-        this.game = gameLogic.getMyGame();
+        this.game = gameLogic.getPrairieKing();
+        this.game = gameLogic.getPrairieKing();
         batch = new SpriteBatch();
         stage = new Stage();
         gun = gameLogic.getHero().getGun();

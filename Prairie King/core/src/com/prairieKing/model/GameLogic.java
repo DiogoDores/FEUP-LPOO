@@ -29,7 +29,7 @@ public class GameLogic {
     private InputController input;
     private PowerupSpawner powerupSpawner;
     private AIManager AI;
-    private PrairieKing myGame;
+    private PrairieKing prairieKing;
     private HeroModel hero;
     private HeroBody heroBody;
     private GameStage gameStage;
@@ -47,7 +47,7 @@ public class GameLogic {
     public GameLogic(PrairieKing game) {
         world = new World(new Vector2(0, 0), true);
         AI = new AIManager(this);
-        myGame = game;
+        prairieKing = game;
         hero = new HeroModel(PrairieKing.PPM / 2, PrairieKing.PPM / 2);
 
         highScore = 0;
@@ -102,11 +102,11 @@ public class GameLogic {
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
 
             bDef.type = BodyDef.BodyType.StaticBody;
-            bDef.position.set((rect.getX() + rect.getWidth() / 2) / myGame.PPM * 22.34f, (rect.getY() + rect.getHeight() / 2) / myGame.PPM * 22.34f);
+            bDef.position.set((rect.getX() + rect.getWidth() / 2) / PrairieKing.PPM * 22.34f, (rect.getY() + rect.getHeight() / 2) / PrairieKing.PPM * 22.34f);
 
             bod = world.createBody(bDef);
 
-            shape.setAsBox(rect.getWidth() / 2 / myGame.PPM * 22.34f, rect.getHeight() / 2 / myGame.PPM * 22.34f);
+            shape.setAsBox(rect.getWidth() / 2 / PrairieKing.PPM * 22.34f, rect.getHeight() / 2 / PrairieKing.PPM * 22.34f);
             fDef.shape = shape;
             bod.createFixture(fDef);
         }
@@ -115,11 +115,11 @@ public class GameLogic {
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
 
             bDef.type = BodyDef.BodyType.StaticBody;
-            bDef.position.set((rect.getX() + rect.getWidth() / 2) / myGame.PPM * 22.34f, (rect.getY() + rect.getHeight() / 2) / myGame.PPM * 22.34f);
+            bDef.position.set((rect.getX() + rect.getWidth() / 2) / PrairieKing.PPM * 22.34f, (rect.getY() + rect.getHeight() / 2) / PrairieKing.PPM * 22.34f);
 
             bod = world.createBody(bDef);
 
-            shape.setAsBox(rect.getWidth() / 2 / myGame.PPM * 22.34f, rect.getHeight() / 2 / myGame.PPM * 22.34f);
+            shape.setAsBox(rect.getWidth() / 2 / PrairieKing.PPM * 22.34f, rect.getHeight() / 2 / PrairieKing.PPM * 22.34f);
             fDef.shape = shape;
             bod.createFixture(fDef);
         }*/
@@ -133,8 +133,8 @@ public class GameLogic {
         return heroBody;
     }
 
-    public PrairieKing getMyGame() {
-        return myGame;
+    public PrairieKing getPrairieKing() {
+        return prairieKing;
     }
 
     public AIManager getAI() {
@@ -147,7 +147,7 @@ public class GameLogic {
         gun.update();
 
         timeSinceBeginning += Gdx.graphics.getDeltaTime();
-        highScore = AI.getKillCount() * 3 + timeSinceBeginning * 3;
+        highScore = AI.getKillCount() * 9 + timeSinceBeginning * 3;
 
         powerupSpawner.update();
 
@@ -188,6 +188,7 @@ public class GameLogic {
         if (model.isFlaggedForDelete()) {
             if (model.getType() == "HERO") {
                 PrairieKing.currentState = 2;
+                prairieKing.setMaxHighScore((int) highScore);
                 resetEverything();
                 return;
             }
@@ -212,7 +213,6 @@ public class GameLogic {
         return powerupSpawner;
     }
 
-    public float getHighScore() {
-        return highScore;
-    }
+
+
 }

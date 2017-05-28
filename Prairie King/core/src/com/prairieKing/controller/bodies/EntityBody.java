@@ -72,7 +72,6 @@ public class EntityBody extends Body{
         body.destroyFixture(fixture);
         body.setUserData(null);
         body = null;
-
         fixtureDef = null;
     }
 

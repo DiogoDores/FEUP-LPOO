@@ -19,10 +19,6 @@ public class FireRateGunPowerup extends GunPowerups {
         gun.setSpeed(newSpeed);
     }
 
-    @Override
-    public void directionShoot() {
-
-    }
 
     @Override
     public void removeEffect() {

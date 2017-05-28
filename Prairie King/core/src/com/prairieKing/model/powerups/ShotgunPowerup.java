@@ -21,6 +21,7 @@ public class ShotgunPowerup extends GunPowerups {
     }
 
 
+    @Override
     public void shoot(float posX, float posY, float vX, float vY) {
 
         System.out.println("Entrei");
