@@ -46,7 +46,7 @@ public class GameLogic {
         AI = new AIManager(this);
         myGame = game;
         hero = new HeroModel(PrairieKing.PPM / 2, PrairieKing.PPM / 2);
-        powerupSpawner = new PowerupSpawner(world);
+
 
         mapLoader = new TmxMapLoader();
         map = mapLoader.load("Mapas/Map.tmx");
@@ -58,6 +58,8 @@ public class GameLogic {
         world.setContactListener(new CollisionHandler());
         heroBody = new HeroBody(world, hero);
 
+        powerupSpawner = new PowerupSpawner(this);
+
         createBodies();
     }
 
@@ -66,8 +68,10 @@ public class GameLogic {
         gun = new Gun(world);
         AI = new AIManager(this);
         hero = new HeroModel(PrairieKing.PPM / 2, PrairieKing.PPM / 2);
+        hero.setGun(gun);
 
-         hero.setGun(gun);
+        powerupSpawner = new PowerupSpawner(this);
+
         gameStage = new GameStage(this);
         input = new InputController(this);
         Gdx.input.setInputProcessor(input);

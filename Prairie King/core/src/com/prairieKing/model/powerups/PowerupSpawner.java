@@ -24,20 +24,21 @@ public class PowerupSpawner {
 
     private ArrayList<PowerupModel> powerupModels;
     private ArrayList<PowerupBody> powerupBodies;
-   // private HeroModel hero;
-   // private Gun gun;
+
+    private GameLogic gameLogic;
     private float timeToSpawn;
     private World world;
 
-    public PowerupSpawner(World world) {
+    public PowerupSpawner(GameLogic gameLogic) {
         powerupModels = new ArrayList<>();
         powerupBodies = new ArrayList<>();
 
-        this.world = world;
+
+        this.gameLogic = gameLogic;
+        this.world = gameLogic.getWorld();
+
         timeToSpawn = 5;  // TODO Trocar este 5 por generateRandom(), só para testes
-        System.out.println(timeToSpawn);
-     //   this.hero = gameLogic.getHero();
-      //  this.gun = gameLogic.getHero().getGun();
+
     }
 
     public void update() {
@@ -62,15 +63,15 @@ public class PowerupSpawner {
 
         int r = MathUtils.random(3);
         Vector2 position = randomPos();
+
+        PowerupModel model = new PowerupModel(position.x,position.y, gameLogic);
+
         r = 0;
         if (r == 0) { // Speed
-            PowerupModel speed = new PowerupModel(position.x,position.y);
-            powerupModels.add(speed);
-            powerupBodies.add(new PowerupBody(world,0,speed));
-
-            System.out.println("Fez spawn na posição " + position.x + " " + position.y);
+            model.powerupType("GUN SPEED");
         }
-
+        powerupModels.add(model);
+        powerupBodies.add(new PowerupBody(world,model));
     }
 
     public Vector2 randomPos() {
@@ -87,10 +88,8 @@ public class PowerupSpawner {
         for (int i = 0; i < powerupModels.size(); i++) {
             powerupModels.get(i).update();
             if (powerupModels.get(i).isFlaggedForDelete()) {
-                System.out.println("Estou efetivamente morto.");
                 for (int j = 0; j < powerupBodies.size(); j++) {
                        if (powerupBodies.get(j).getUserData() == powerupModels.get(i)) {
-                           System.out.println("Estou a ser destruido");
                            powerupBodies.get(j).destroy();
                            powerupBodies.remove(powerupBodies.get(j));
                     }
@@ -104,4 +103,10 @@ public class PowerupSpawner {
     public ArrayList<PowerupModel> getPowerupModels() {
         return powerupModels;
     }
+
+    public void addPowerup(GunPowerups gun) {
+
+    }
+
+
 }

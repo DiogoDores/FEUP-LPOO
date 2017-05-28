@@ -48,7 +48,7 @@ public class Gun {
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.P) && !test) {
             GunPowerups test = new FireRateGunPowerup(this);
-            powerups.add(test);
+
         }
 
         if (timeToShoot <= 0) {
@@ -105,5 +105,9 @@ public class Gun {
                  powerups.remove(i);
             }
         }
+    }
+
+    public void addPowerup(GunPowerups powerup) {
+        powerups.add(powerup);
     }
 }

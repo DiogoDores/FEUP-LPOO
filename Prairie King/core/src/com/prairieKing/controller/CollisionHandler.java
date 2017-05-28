@@ -29,6 +29,13 @@ public class CollisionHandler implements ContactListener {
                 m1.kill();
                 m2.kill();
             }
+
+            if ((m1.getType() == "POWERUP" && m2.getType() == "HERO") || (m2.getType() == "POWERUP" && m1.getType() == "HERO")) {
+                if (m1.getType() == "POWERUP")
+                    m1.activate();
+                else
+                    m2.activate();
+            }
         }
 
         else if (m1 == null) {
@@ -42,6 +49,8 @@ public class CollisionHandler implements ContactListener {
                 m1.kill();
             }
         }
+
+
 
     }
 

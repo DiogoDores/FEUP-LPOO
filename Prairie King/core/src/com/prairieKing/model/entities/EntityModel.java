@@ -41,4 +41,6 @@ public class EntityModel {
     public boolean isFlaggedForDelete() {
         return flaggedForDelete;
     }
+
+    public void activate() { }
 }

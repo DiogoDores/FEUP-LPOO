@@ -2,7 +2,9 @@ package com.prairieKing.model.entities;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.MathUtils;
+import com.prairieKing.model.GameLogic;
 import com.prairieKing.model.Gun;
+import com.prairieKing.model.powerups.FireRateGunPowerup;
 
 public class PowerupModel extends EntityModel {
 
@@ -12,33 +14,32 @@ public class PowerupModel extends EntityModel {
 
     private float time;
 
-    public PowerupModel(float x, float y) {
+    public PowerupModel(float x, float y, GameLogic gameLogic) {
         super(x, y);
         super.setType("POWERUP");
+        hero = gameLogic.getHero();
+        gun = hero.getGun();
         time = MathUtils.random(10.0f, 13.0f);
-    }
-
-    public void setGun(Gun gun) {
-        this.gun = gun;
-    }
-
-    public void setHero(HeroModel hero) {
-        this.hero = hero;
     }
 
     public void update() {
         time -= Gdx.graphics.getDeltaTime();
-        if (time <= 0) {
+        if (time <= 0)
             super.kill();
-            System.out.println("Am I dead now?");
-        }
+
     }
 
-    public void setType(String type) {
+    public void powerupType(String type) {
         this.type = type;
     }
 
-    public String getType() {
-        return type;
+
+    @Override
+    public void activate() {
+        if (type == "GUN SPEED") {
+            gun.addPowerup( new FireRateGunPowerup(gun));
+        }
+
+        super.kill();
     }
 }
