@@ -1,7 +1,6 @@
 package com.prairieKing.model;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -16,14 +15,13 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.prairieKing.controller.CollisionHandler;
-import com.prairieKing.controller.HeroBody;
+import com.prairieKing.controller.bodies.HeroBody;
 import com.prairieKing.controller.InputController;
 import com.prairieKing.controller.PrairieKing;
+import com.prairieKing.model.AI.AIManager;
+import com.prairieKing.model.entities.EntityModel;
+import com.prairieKing.model.entities.HeroModel;
 import com.prairieKing.view.GameStage;
-
-import java.util.Iterator;
-
-import javax.annotation.processing.SupportedSourceVersion;
 
 public class GameLogic {
 

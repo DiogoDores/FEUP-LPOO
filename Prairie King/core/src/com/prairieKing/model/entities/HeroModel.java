@@ -1,8 +1,9 @@
-package com.prairieKing.model;
+package com.prairieKing.model.entities;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.prairieKing.controller.PrairieKing;
+import com.prairieKing.model.Gun;
+import com.prairieKing.model.entities.EntityModel;
 import com.prairieKing.view.GameStage;
 
 public class HeroModel extends EntityModel {
@@ -141,5 +142,9 @@ public class HeroModel extends EntityModel {
         isHit();
         if (this.lives == 0)
             super.kill();
+    }
+
+    public void setSpeed(int speed) {
+        this.speed = speed;
     }
 }

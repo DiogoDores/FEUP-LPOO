@@ -1,15 +1,9 @@
 package com.prairieKing.controller;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.scenes.scene2d.Event;
-import com.badlogic.gdx.scenes.scene2d.EventListener;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.prairieKing.model.GameLogic;
-import com.prairieKing.model.HeroModel;
+import com.prairieKing.model.entities.HeroModel;
 
 public class InputController implements InputProcessor {
 

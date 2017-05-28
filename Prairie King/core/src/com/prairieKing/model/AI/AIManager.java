@@ -1,12 +1,15 @@
-package com.prairieKing.model;
+package com.prairieKing.model.AI;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Pool;
-import com.prairieKing.controller.EnemyBody;
+import com.prairieKing.controller.bodies.EnemyBody;
 import com.prairieKing.controller.PrairieKing;
+import com.prairieKing.model.entities.BasicWalker;
+import com.prairieKing.model.entities.EnemyModel;
+import com.prairieKing.model.entities.FlyingEnemy;
+import com.prairieKing.model.GameLogic;
+import com.prairieKing.model.entities.HeroModel;
 
 import java.util.ArrayList;
 
@@ -90,13 +93,6 @@ public class AIManager {
     }
 
     public void move() {
-
-        if (Gdx.input.isKeyPressed(Input.Keys.H)) {
-            for (int j = enemies.size()-1; j >= 0; j--) {
-                enemies.remove(enemies.get(j));
-                enemiesBodies.remove(enemies.get(j));
-            }
-        }
 
         HeroModel hero = gameLogic.getHero();
         if (enemies != null)

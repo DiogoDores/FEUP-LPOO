@@ -1,6 +1,6 @@
-package com.prairieKing.model;
+package com.prairieKing.model.entities;
 
-import com.prairieKing.view.GameStage;
+import com.prairieKing.model.AI.Behaviour;
 
 public class EnemyModel extends EntityModel implements Behaviour {
 

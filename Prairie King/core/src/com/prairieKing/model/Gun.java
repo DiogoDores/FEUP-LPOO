@@ -2,11 +2,12 @@ package com.prairieKing.model;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Pool;
-import com.prairieKing.controller.EntityBody;
-import com.prairieKing.controller.ProjectileBody;
+import com.prairieKing.controller.bodies.ProjectileBody;
+import com.prairieKing.model.entities.ProjectileModel;
+import com.prairieKing.model.powerups.FireRateGunPowerup;
+import com.prairieKing.model.powerups.GunPowerups;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,9 +22,11 @@ public class Gun {
     private World world;
     private float timeToShoot;
     private float SPEED;
+    private boolean test;
 
 
     public Gun(World world) {
+        test = false;
         timeToShoot = .2f;
         this.world = world;
         SPEED = 1;
@@ -43,11 +46,12 @@ public class Gun {
 
         // TODO IMPLEMENTAR MANEIRA DE DAR ESTA TRETA
 
-        if (Gdx.input.isKeyJustPressed(Input.Keys.G)) {
+        checkPowerups();
+
+        if (Gdx.input.isKeyJustPressed(Input.Keys.P) && !test) {
             GunPowerups test = new FireRateGunPowerup(this);
             powerups.add(test);
         }
-
 
         if (timeToShoot <= 0) {
 
@@ -70,8 +74,6 @@ public class Gun {
     }
 
     public void checkBullets() {
-
-
         for (int i = 0; i < projectiles.size() ; i++) {
             if (projectiles.get(i) != null) {
                 if (projectiles.get(i).isFlaggedForDelete()) {
@@ -85,17 +87,27 @@ public class Gun {
                 }
             }
         }
-
     }
 
     public void setSpeed(float speed) {
-        System.out.println("Gun");
         SPEED = speed;
     }
 
-
+    public float getSPEED() {
+        return SPEED;
+    }
 
     public void setShape() {
         // TODO não sei como fazer bem isto por agora tbh
+    }
+
+    public void checkPowerups() {
+        for (int i = 0; i < powerups.size() ; i++) {
+            powerups.get(i).update();
+            if (powerups.get(i).getEffectTime() <= 0) {
+                powerups.get(i).removeEffect();
+                 powerups.remove(i);
+            }
+        }
     }
 }

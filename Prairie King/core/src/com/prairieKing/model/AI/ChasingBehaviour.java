@@ -1,8 +1,9 @@
-package com.prairieKing.model;
+package com.prairieKing.model.AI;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.MathUtils;
-import com.prairieKing.controller.PrairieKing;
+import com.prairieKing.model.entities.EnemyModel;
+import com.prairieKing.model.entities.HeroModel;
 
 public class ChasingBehaviour implements Behaviour {
 

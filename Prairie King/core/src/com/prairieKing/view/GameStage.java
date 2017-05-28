@@ -15,11 +15,10 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.prairieKing.controller.ProjectileBody;
-import com.prairieKing.model.EnemyModel;
+import com.prairieKing.model.entities.EnemyModel;
 import com.prairieKing.model.GameLogic;
 import com.prairieKing.model.Gun;
-import com.prairieKing.model.ProjectileModel;
+import com.prairieKing.model.entities.ProjectileModel;
 
 import java.util.ArrayList;
 

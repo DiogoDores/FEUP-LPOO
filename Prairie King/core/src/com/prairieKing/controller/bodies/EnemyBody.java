@@ -1,9 +1,7 @@
-package com.prairieKing.controller;
+package com.prairieKing.controller.bodies;
 
-import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.physics.box2d.World;
-import com.prairieKing.model.EntityModel;
+import com.prairieKing.model.entities.EntityModel;
 import com.prairieKing.view.GameStage;
 
 

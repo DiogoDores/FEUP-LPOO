@@ -1,7 +1,8 @@
-package com.prairieKing.model;
+package com.prairieKing.model.AI;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.math.MathUtils;
+import com.prairieKing.model.entities.EnemyModel;
+import com.prairieKing.model.entities.HeroModel;
 
 /**
  * Created by petre on 02/05/2017.
