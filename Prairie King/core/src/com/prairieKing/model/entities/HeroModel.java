@@ -1,6 +1,7 @@
 package com.prairieKing.model.entities;
 
 import com.badlogic.gdx.Gdx;
+import com.prairieKing.Constants;
 import com.prairieKing.controller.PrairieKing;
 import com.prairieKing.model.Gun;
 import com.prairieKing.model.entities.EntityModel;
@@ -10,7 +11,6 @@ public class HeroModel extends EntityModel {
     private float x, y;
     private int lives;
     private boolean left, right, up, down;
-    private boolean leftB, rightB, upB, downB; // Gun Methods
     private Gun gun;
     private int speed;
 
@@ -46,37 +46,7 @@ public class HeroModel extends EntityModel {
     }
 
     public void shoot() {
-        int x = 0, y = 0;
-        if (leftB)
-            x = x - (int) PrairieKing.PPM * 2;
-        if (rightB)
-            x = x + (int) PrairieKing.PPM * 2;
-        if (upB)
-            y = y + (int) PrairieKing.PPM * 2;
-        if (downB)
-            y = y - (int) PrairieKing.PPM * 2;
 
-        if ((x == 0 && y != 0) || (x != 0 && y == 0) || (x != 0 && y != 0)) {
-            if (rightB) {
-                if (upB)
-                    gun.shoot(this.x + GameStage.HERO_WIDTH - GameStage.PROJECTILE_WIDTH / 2, this.y + GameStage.HERO_WIDTH - GameStage.PROJECTILE_WIDTH / 2, x, y);
-                else if (downB)
-                    gun.shoot(this.x + GameStage.HERO_WIDTH - GameStage.PROJECTILE_WIDTH / 2, this.y - GameStage.PROJECTILE_WIDTH / 2, x, y);
-                else
-                    gun.shoot(this.x + GameStage.HERO_WIDTH - GameStage.PROJECTILE_WIDTH / 2, this.y + GameStage.HERO_WIDTH / 2 - GameStage.PROJECTILE_WIDTH / 2, x, y);
-            }
-            if (leftB) {
-                if (upB)
-                    gun.shoot(this.x - GameStage.PROJECTILE_WIDTH / 2, this.y + GameStage.HERO_WIDTH - GameStage.PROJECTILE_WIDTH / 2, x, y);
-                else if (downB)
-                    gun.shoot(this.x - GameStage.PROJECTILE_WIDTH / 2, this.y - GameStage.PROJECTILE_WIDTH / 2, x, y);
-                else
-                    gun.shoot(this.x - GameStage.PROJECTILE_WIDTH / 2, this.y + GameStage.HERO_WIDTH / 2 - GameStage.PROJECTILE_WIDTH / 2, x, y);
-            } else if (upB && !rightB && !leftB)
-                gun.shoot(this.x + GameStage.HERO_WIDTH / 2 - GameStage.PROJECTILE_WIDTH / 2, this.y + GameStage.HERO_WIDTH - GameStage.PROJECTILE_WIDTH / 2, x, y);
-            else if (downB && !rightB && !leftB)
-                gun.shoot(this.x + GameStage.HERO_WIDTH / 2 - GameStage.PROJECTILE_WIDTH / 2, this.y - GameStage.PROJECTILE_WIDTH / 2, x, y);
-        }
 
     }
 
@@ -94,22 +64,6 @@ public class HeroModel extends EntityModel {
 
     public void setDown(boolean down) {
         this.down = down;
-    }
-
-    public void setLeftB(boolean leftB) {
-        this.leftB = leftB;
-    }
-
-    public void setRightB(boolean rightB) {
-        this.rightB = rightB;
-    }
-
-    public void setUpB(boolean upB) {
-        this.upB = upB;
-    }
-
-    public void setDownB(boolean downB) {
-        this.downB = downB;
     }
 
     @Override

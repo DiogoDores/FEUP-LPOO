@@ -6,6 +6,7 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
+import com.prairieKing.Constants;
 import com.prairieKing.controller.PrairieKing;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
@@ -40,10 +41,7 @@ public class GameStage extends ScreenAdapter {
     private OrthogonalTiledMapRenderer renderer;
     private OrthographicCamera cam;
 
-    public static final float HERO_WIDTH = PrairieKing.PPM/15;
-    public static final float ENEMY_WIDTH = PrairieKing.PPM/15;
-    public static final float PROJECTILE_WIDTH = PrairieKing.PPM/35;
-    public static final float POWERUP_WIDTH = PrairieKing.PPM/20;
+
 
     private World world;
     private Box2DDebugRenderer b2dr;
@@ -94,7 +92,7 @@ public class GameStage extends ScreenAdapter {
         cam.update();
         batch.setProjectionMatrix(cam.combined);
 
-        hero.setSize(game.PPM/15, cam.viewportHeight/15);
+        hero.setSize(Constants.HERO_WIDTH, Constants.HERO_WIDTH);
         hero.setX(gameLogic.getHero().getX());
         hero.setY(gameLogic.getHero().getY());
 
@@ -110,7 +108,7 @@ public class GameStage extends ScreenAdapter {
     public void drawBullets() {
         for (ProjectileModel projectile : gun.getProjectiles()) {
             projectileToDraw = new Sprite(game.getAssetManager().get("Sprites/MainSpriteSheet.png", Texture.class),261,160,6,6);
-            projectileToDraw.setSize(cam.viewportWidth/35,cam.viewportHeight/35);
+            projectileToDraw.setSize(Constants.PROJECTILE_WIDTH, Constants.PROJECTILE_WIDTH);
             projectileToDraw.setX(projectile.getX());
             projectileToDraw.setY(projectile.getY());
             projectileToDraw.draw(batch);
@@ -120,8 +118,11 @@ public class GameStage extends ScreenAdapter {
     public void drawPowerups() {
         ArrayList<PowerupModel> powerups = gameLogic.getPowerupSpawner().getPowerupModels();
         for (int i = 0; i <  powerups.size(); i++) {
-            powerupToDraw = new Sprite(game.getAssetManager().get("Sprites/MainSpriteSheet.png", Texture.class),192,160,16,16);
-            powerupToDraw.setSize(POWERUP_WIDTH, POWERUP_WIDTH);
+            if (powerups.get(i).getPowerupType() == "GUN SPEED")
+                powerupToDraw = new Sprite(game.getAssetManager().get("Sprites/MainSpriteSheet.png", Texture.class),192,160,16,16);
+            else if (powerups.get(i).getPowerupType() == "GUN SHOTGUN")
+                powerupToDraw = new Sprite(game.getAssetManager().get("Sprites/MainSpriteSheet.png", Texture.class),256,160,16,16);
+            powerupToDraw.setSize(Constants.POWERUP_WIDTH, Constants.POWERUP_WIDTH);
             powerupToDraw.setX(powerups.get(i).getX());
             powerupToDraw.setY(powerups.get(i).getY());
             powerupToDraw.draw(batch);
@@ -130,21 +131,18 @@ public class GameStage extends ScreenAdapter {
 
 
     public void drawEnemies() {
-        for (EnemyModel e : enemies)
+        for (EnemyModel e : enemies) {
             if (e.getEnemyType() == "BASIC") {
                 enemyToDraw = new Sprite(game.getAssetManager().get("Sprites/MainSpriteSheet.png", Texture.class), 304, 80, 16, 16);
-                enemyToDraw.setSize(cam.viewportWidth / 15, cam.viewportHeight / 15);
-                enemyToDraw.setX(e.getX());
-                enemyToDraw.setY(e.getY());
-                enemyToDraw.draw(batch);
-            }
-            else {
+            } else {
                 enemyToDraw = new Sprite(game.getAssetManager().get("Sprites/MainSpriteSheet.png", Texture.class), 352, 64, 16, 16);
-                enemyToDraw.setSize(cam.viewportWidth / 15, cam.viewportHeight / 15);
-                enemyToDraw.setX(e.getX());
-                enemyToDraw.setY(e.getY());
-                enemyToDraw.draw(batch);
             }
+            enemyToDraw.setSize(Constants.ENEMY_WIDTH, Constants.ENEMY_WIDTH);
+            enemyToDraw.setX(e.getX());
+            enemyToDraw.setY(e.getY());
+            enemyToDraw.draw(batch);
+
+        }
     }
 
 

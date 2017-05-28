@@ -70,6 +70,8 @@ public class PowerupSpawner {
         if (r == 0) { // Speed
             model.powerupType("GUN SPEED");
         }
+        else if (r == 1)
+            model.powerupType("GUN SHOTGUN");
         powerupModels.add(model);
         powerupBodies.add(new PowerupBody(world,model));
     }

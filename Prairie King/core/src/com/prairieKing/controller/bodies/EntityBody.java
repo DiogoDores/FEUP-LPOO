@@ -50,13 +50,17 @@ public class EntityBody extends Body{
         body.setLinearVelocity(x, y);
     }
 
-    final void createFixture(Body body, int width, int height) {
+    final void createFixture(Body body, int width, int height , short category, short mask, short group) {
         // Transform pixels into meters, center and invert the y-coordinate
 
         PolygonShape polygon = new PolygonShape();
         polygon.setAsBox(width/1.9f,height/1.9f, new Vector2(width/2 + 0.5f, height/2 + 0.5f), 0);
         fixtureDef = new FixtureDef();
         fixtureDef.shape = polygon;
+
+        fixtureDef.filter.categoryBits = category;
+        fixtureDef.filter.maskBits = mask;
+        fixtureDef.filter.groupIndex = group;
 
         fixture = body.createFixture(fixtureDef);
 
@@ -73,16 +77,9 @@ public class EntityBody extends Body{
     }
 
 
-    public float getWidth() {
-        return width;
-    }
 
     public void setWidth(float width) {
         this.width = width;
-    }
-
-    public float getHeight() {
-        return height;
     }
 
     public void setHeight(float height) {
@@ -93,7 +90,7 @@ public class EntityBody extends Body{
         return body;
     }
 
-    public FixtureDef getFixtureDef() {
-        return fixtureDef;
-    }
+
+
+
 }

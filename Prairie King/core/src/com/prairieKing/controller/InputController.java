@@ -3,14 +3,17 @@ package com.prairieKing.controller;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.prairieKing.model.GameLogic;
+import com.prairieKing.model.Gun;
 import com.prairieKing.model.entities.HeroModel;
 
 public class InputController implements InputProcessor {
 
     private HeroModel hero;
+    private Gun gun;
 
     public InputController(GameLogic gameLogic) {
         this.hero = gameLogic.getHero();
+        this.gun = hero.getGun();
     }
 
     @Override
@@ -26,13 +29,13 @@ public class InputController implements InputProcessor {
             hero.setRight(true);
 
         if (keycode == (Input.Keys.DOWN))
-            hero.setDownB(true);
+            gun.setDownB(true);
         else if (keycode == (Input.Keys.UP))
-            hero.setUpB(true);
+            gun.setUpB(true);
         if (keycode == (Input.Keys.LEFT))
-            hero.setLeftB(true);
+            gun.setLeftB(true);
        else if (keycode == (Input.Keys.RIGHT))
-            hero.setRightB(true);
+            gun.setRightB(true);
 
         return true;
 
@@ -52,13 +55,13 @@ public class InputController implements InputProcessor {
 
 
         if (keycode == (Input.Keys.DOWN))
-            hero.setDownB(false);
+            gun.setDownB(false);
         else if (keycode == (Input.Keys.UP))
-            hero.setUpB(false);
+            gun.setUpB(false);
         if (keycode == (Input.Keys.LEFT))
-            hero.setLeftB(false);
+            gun.setLeftB(false);
         else if (keycode == (Input.Keys.RIGHT))
-            hero.setRightB(false);
+            gun.setRightB(false);
 
 
         return true;

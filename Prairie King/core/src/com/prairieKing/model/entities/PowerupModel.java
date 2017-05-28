@@ -5,12 +5,14 @@ import com.badlogic.gdx.math.MathUtils;
 import com.prairieKing.model.GameLogic;
 import com.prairieKing.model.Gun;
 import com.prairieKing.model.powerups.FireRateGunPowerup;
+import com.prairieKing.model.powerups.ShotgunPowerup;
 
 public class PowerupModel extends EntityModel {
 
     private String type;
     private Gun gun;
     private HeroModel hero;
+    private GameLogic gameLogic;
 
     private float time;
 
@@ -18,6 +20,7 @@ public class PowerupModel extends EntityModel {
         super(x, y);
         super.setType("POWERUP");
         hero = gameLogic.getHero();
+        this.gameLogic = gameLogic;
         gun = hero.getGun();
         time = MathUtils.random(10.0f, 13.0f);
     }
@@ -33,11 +36,18 @@ public class PowerupModel extends EntityModel {
         this.type = type;
     }
 
+    public String getPowerupType() {
+        return type;
+    }
 
     @Override
     public void activate() {
         if (type == "GUN SPEED") {
-            gun.addPowerup( new FireRateGunPowerup(gun));
+            gun.addPowerup(new FireRateGunPowerup(gameLogic));
+        }
+        else if(type == "GUN SHOTGUN") {
+            System.out.println("Tentei adicionar");
+            gun.addPowerup(new ShotgunPowerup(gameLogic));
         }
 
         super.kill();

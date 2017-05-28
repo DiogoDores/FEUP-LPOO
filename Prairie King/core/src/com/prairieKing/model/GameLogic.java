@@ -42,7 +42,6 @@ public class GameLogic {
 
     public GameLogic(PrairieKing game) {
         world = new World(new Vector2(0, 0), true);
-        gun = new Gun(world);
         AI = new AIManager(this);
         myGame = game;
         hero = new HeroModel(PrairieKing.PPM / 2, PrairieKing.PPM / 2);
@@ -50,6 +49,8 @@ public class GameLogic {
 
         mapLoader = new TmxMapLoader();
         map = mapLoader.load("Mapas/Map.tmx");
+
+        gun = new Gun(this);
 
         hero.setGun(gun);
         gameStage = new GameStage(this);
@@ -65,7 +66,7 @@ public class GameLogic {
 
     public void resetEverything() {
         world = new World(new Vector2(0, 0), true);
-        gun = new Gun(world);
+        gun = new Gun(this);
         AI = new AIManager(this);
         hero = new HeroModel(PrairieKing.PPM / 2, PrairieKing.PPM / 2);
         hero.setGun(gun);
@@ -134,6 +135,7 @@ public class GameLogic {
         world.step(1 / 300f, 0, 2);
 
         gun.update();
+
         powerupSpawner.update();
 
         Array<Body> bodies = new Array<Body>();

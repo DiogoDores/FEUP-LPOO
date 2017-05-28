@@ -1,10 +1,14 @@
 package com.prairieKing.model;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Pool;
+import com.prairieKing.Constants;
+import com.prairieKing.controller.PrairieKing;
 import com.prairieKing.controller.bodies.ProjectileBody;
+import com.prairieKing.model.entities.HeroModel;
 import com.prairieKing.model.entities.ProjectileModel;
 import com.prairieKing.model.powerups.FireRateGunPowerup;
 import com.prairieKing.model.powerups.GunPowerups;
@@ -23,12 +27,17 @@ public class Gun {
     private float timeToShoot;
     private float SPEED;
     private boolean test;
+    private HeroModel hero;
+
+    private boolean leftB, rightB, upB, downB; // Gun Methods
 
 
-    public Gun(World world) {
+
+    public Gun(GameLogic gameLogic) {
         test = false;
         timeToShoot = .5f;
-        this.world = world;
+        this.world = gameLogic.getWorld();
+        this.hero = gameLogic.getHero();
         SPEED = 1;
         pool = new Pool<ProjectileModel>() {
             @Override
@@ -40,16 +49,46 @@ public class Gun {
 
     public void update() {
         timeToShoot -= SPEED * Gdx.graphics.getDeltaTime() / 2;
+        directionShoot();
+    }
+
+    public void directionShoot() {
+        int x = 0, y = 0;
+        if (leftB)
+            x = x - (int) PrairieKing.PPM * 2;
+        if (rightB)
+            x = x + (int) PrairieKing.PPM * 2;
+        if (upB)
+            y = y + (int) PrairieKing.PPM * 2;
+        if (downB)
+            y = y - (int) PrairieKing.PPM * 2;
+
+        if ((x == 0 && y != 0) || (x != 0 && y == 0) || (x != 0 && y != 0)) {
+            if (rightB) {
+                if (upB)
+                    shoot(hero.getX() + Constants.HERO_WIDTH - Constants.PROJECTILE_WIDTH / 2, hero.getY() + Constants.HERO_WIDTH - Constants.PROJECTILE_WIDTH / 2, x, y);
+                else if (downB)
+                    shoot(hero.getX() + Constants.HERO_WIDTH - Constants.PROJECTILE_WIDTH / 2, hero.getY() - Constants.PROJECTILE_WIDTH / 2, x, y);
+                else
+                    shoot(hero.getX() + Constants.HERO_WIDTH - Constants.PROJECTILE_WIDTH / 2, hero.getY() + Constants.HERO_WIDTH / 2 - Constants.PROJECTILE_WIDTH / 2, x, y);
+            }
+            if (leftB) {
+                if (upB)
+                    shoot(hero.getX() - Constants.PROJECTILE_WIDTH / 2, hero.getY() + Constants.HERO_WIDTH - Constants.PROJECTILE_WIDTH / 2, x, y);
+                else if (downB)
+                    shoot(hero.getX() - Constants.PROJECTILE_WIDTH / 2, hero.getY() - Constants.PROJECTILE_WIDTH / 2, x, y);
+                else
+                    shoot(hero.getX() - Constants.PROJECTILE_WIDTH / 2, hero.getY() + Constants.HERO_WIDTH / 2 - Constants.PROJECTILE_WIDTH / 2, x, y);
+            } else if (upB && !rightB && !leftB)
+                shoot(hero.getX() + Constants.HERO_WIDTH / 2 - Constants.PROJECTILE_WIDTH / 2, hero.getY() + Constants.HERO_WIDTH - Constants.PROJECTILE_WIDTH / 2, x, y);
+            else if (downB && !rightB && !leftB)
+                shoot(hero.getX() + Constants.HERO_WIDTH / 2 - Constants.PROJECTILE_WIDTH / 2, hero.getY() - Constants.PROJECTILE_WIDTH / 2, x, y);
+        }
     }
 
     public void shoot(float posX, float posY, float vX, float vY) {
 
         checkPowerups();
-
-        if (Gdx.input.isKeyJustPressed(Input.Keys.P) && !test) {
-            GunPowerups test = new FireRateGunPowerup(this);
-
-        }
 
         if (timeToShoot <= 0) {
             timeToShoot = 0.2f;
@@ -109,5 +148,22 @@ public class Gun {
 
     public void addPowerup(GunPowerups powerup) {
         powerups.add(powerup);
+    }
+
+
+    public void setLeftB(boolean leftB) {
+        this.leftB = leftB;
+    }
+
+    public void setRightB(boolean rightB) {
+        this.rightB = rightB;
+    }
+
+    public void setUpB(boolean upB) {
+        this.upB = upB;
+    }
+
+    public void setDownB(boolean downB) {
+        this.downB = downB;
     }
 }

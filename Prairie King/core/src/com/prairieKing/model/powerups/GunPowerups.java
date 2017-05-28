@@ -2,6 +2,7 @@ package com.prairieKing.model.powerups;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.physics.box2d.World;
+import com.prairieKing.model.GameLogic;
 import com.prairieKing.model.Gun;
 
 public class GunPowerups extends Gun {
@@ -11,17 +12,22 @@ public class GunPowerups extends Gun {
 
     private float effectTime;
 
-    public GunPowerups(Gun gun) {
-        super(null);
-        this.gun = gun;
+    public GunPowerups(GameLogic gameLogic) {
+        super(gameLogic);
+        this.gun = gameLogic.getHero().getGun();
         effectTime = 7;
     }
 
-  /*  @Override
+    @Override
     public void setSpeed(float speed) {
-        gun.setSpeed(speed);
+        super.setSpeed(speed);
     }
-*/
+
+    @Override
+    public void shoot(float posX, float posY, float vX, float vY) {
+        System.out.println("Merda");
+    }
+
     @Override
     public void setShape() {
         super.setShape();
@@ -43,7 +49,7 @@ public class GunPowerups extends Gun {
         this.type = type;
     }
 
-    public String getType() {
-        return type;
+    public void setEffectTime(float effectTime) {
+        this.effectTime = effectTime;
     }
 }

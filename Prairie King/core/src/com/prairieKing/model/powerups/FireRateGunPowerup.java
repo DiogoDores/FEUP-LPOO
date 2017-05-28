@@ -1,11 +1,9 @@
 package com.prairieKing.model.powerups;
 
+import com.badlogic.gdx.Game;
+import com.prairieKing.model.GameLogic;
 import com.prairieKing.model.Gun;
 import com.prairieKing.model.powerups.GunPowerups;
-
-/**
- * Created by petre on 25/05/2017.
- */
 
 public class FireRateGunPowerup extends GunPowerups {
 
@@ -14,12 +12,12 @@ public class FireRateGunPowerup extends GunPowerups {
 
     private Gun gun;
 
-    public FireRateGunPowerup(Gun gun) {
-        super(gun);
-        this.gun = gun;
+    public FireRateGunPowerup(GameLogic gameLogic) {
+        super(gameLogic);
+        this.gun = gameLogic.getHero().getGun();
         oldSpeed = gun.getSPEED();
         gun.setSpeed(newSpeed);
-        super.setType("SPEED");
+        super.setType("GUN SPEED");
     }
 
     @Override
