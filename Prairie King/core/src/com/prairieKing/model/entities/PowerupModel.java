@@ -46,8 +46,9 @@ public class PowerupModel extends EntityModel {
             gun.addPowerup(new FireRateGunPowerup(gameLogic));
         }
         else if(type == "GUN SHOTGUN") {
-            System.out.println("Tentei adicionar");
-            gun.addPowerup(new ShotgunPowerup(gameLogic));
+            ShotgunPowerup test = new ShotgunPowerup(gameLogic);
+            gameLogic.getHero().setGun(test);
+            this.gun.addPowerup(new ShotgunPowerup(gameLogic));
         }
 
         super.kill();

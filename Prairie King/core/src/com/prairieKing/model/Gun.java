@@ -28,6 +28,7 @@ public class Gun {
     private float SPEED;
     private boolean test;
     private HeroModel hero;
+    private int shape;
 
     private boolean leftB, rightB, upB, downB; // Gun Methods
 
@@ -35,6 +36,7 @@ public class Gun {
 
     public Gun(GameLogic gameLogic) {
         test = false;
+        shape = 1;
         timeToShoot = .5f;
         this.world = gameLogic.getWorld();
         this.hero = gameLogic.getHero();
@@ -86,21 +88,29 @@ public class Gun {
         }
     }  // AQUI chamo o shoot com valores bonitos
 
-    public void shoot(float posX, float posY, float vX, float vY) {
+
+    public  void shoot(float posX, float posY, float vX, float vY) {
 
         checkPowerups();
 
         if (timeToShoot <= 0) {
-            timeToShoot = 0.2f;
+            if (shape == 1) {
+                timeToShoot = 0.2f;
 
-            ProjectileModel p = pool.obtain();
-            ProjectileBody pb = new ProjectileBody(world ,p);
+                ProjectileModel p = pool.obtain();
+                ProjectileBody pb = new ProjectileBody(world, p);
 
-            pb.setTransform(posX, posY);
-            pb.setLinearVelocity(vX, vY);
+                pb.setTransform(posX, posY);
+                pb.setLinearVelocity(vX, vY);
 
-            projectiles.add(p);
-            projectilesBodies.add(pb);
+                projectiles.add(p);
+                projectilesBodies.add(pb);
+            }
+            else {
+                for (int i = 0; i < shape; i++) {
+
+                }
+            }
         }
     }
 
@@ -114,8 +124,8 @@ public class Gun {
                 if (projectiles.get(i).isFlaggedForDelete()) {
                     for (int j = 0 ; j < projectilesBodies.size() ; j++) {
                         if (projectilesBodies.get(j).getUserData() == projectiles.get(i)) {
-                                projectilesBodies.get(j).destroy();
-                                projectilesBodies.remove(j);
+                            projectilesBodies.get(j).destroy();
+                            projectilesBodies.remove(j);
                         }
                     }
                     projectiles.remove(i);
@@ -141,7 +151,7 @@ public class Gun {
             powerups.get(i).update();
             if (powerups.get(i).getEffectTime() <= 0) {
                 powerups.get(i).removeEffect();
-                 powerups.remove(i);
+                powerups.remove(i);
             }
         }
     }

@@ -147,7 +147,7 @@ public class GameLogic {
         gun.update();
 
         timeSinceBeginning += Gdx.graphics.getDeltaTime();
-        highScore = AI.getKillCount() * 9 + timeSinceBeginning * 3;
+        highScore = AI.getKillCount() * 20 + timeSinceBeginning * 7;
 
         powerupSpawner.update();
 
@@ -211,6 +211,11 @@ public class GameLogic {
 
     public PowerupSpawner getPowerupSpawner() {
         return powerupSpawner;
+    }
+
+    public void changeGun(Gun gun) {
+        this.gun = gun;
+
     }
 
 

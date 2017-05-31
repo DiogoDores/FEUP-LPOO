@@ -12,11 +12,12 @@ public class BasicWalker extends EnemyModel {
         super.setPosition(x, y);
     }
 
-    public BasicWalker(int x, int y) {
-        super(x, y);
+    public BasicWalker(int x, int y, char initialDirection) {
+        super(x, y, initialDirection);
         super.setType("ENEMY");
         super.setEnemyType("BASIC");
         behaviour = new ChasingBehaviour();
+        behaviour.initialBehaviour(initialDirection);
     }
 
     @Override

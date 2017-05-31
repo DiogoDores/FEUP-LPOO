@@ -14,7 +14,6 @@ public class CollisionHandler implements ContactListener {
         EntityModel modelA = (EntityModel) contact.getFixtureA().getBody().getUserData();
         EntityModel modelB = (EntityModel) contact.getFixtureB().getBody().getUserData();
 
-       // System.out.println(contact.getFixtureA().getFilterData().toString() + " " + contact.getFixtureB().getFilterData().toString());
         handleCollisions(modelA, modelB);
     }
 
@@ -51,9 +50,6 @@ public class CollisionHandler implements ContactListener {
                 m1.kill();
             }
         }
-
-
-
     }
 
     @Override

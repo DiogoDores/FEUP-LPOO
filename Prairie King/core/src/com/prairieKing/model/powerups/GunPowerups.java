@@ -7,7 +7,6 @@ import com.prairieKing.model.Gun;
 
 public class GunPowerups extends Gun {
 
-
     private float effectTime;
 
     public GunPowerups(GameLogic gameLogic) {
@@ -22,8 +21,9 @@ public class GunPowerups extends Gun {
 
     @Override
     public void shoot(float posX, float posY, float vX, float vY) {
-        super.shoot(posX,posY,vX,vY);
         System.out.println("merda");
+
+        super.shoot(posX, posY, vX, vY);
     }
 
     @Override

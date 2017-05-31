@@ -41,25 +41,27 @@ public class AIManager {
                 int random = MathUtils.random(1);
 
                 int randomSpawn = MathUtils.random(3);
+                float placeRandom = MathUtils.random(-5.0f,5.0f);
+
                 String spawnPlaces = "nsew"; // Possível posição
                 if (random == 0) {
                     if (spawnPlaces.charAt(randomSpawn) == 'n')
-                        return new BasicWalker((int) PrairieKing.PPM / 2, (int) PrairieKing.PPM + 10);
+                        return new BasicWalker((int) (PrairieKing.PPM / 2 +placeRandom), (int) PrairieKing.PPM + 10, 'n');
                     else if (spawnPlaces.charAt(randomSpawn) == 's')
-                        return new BasicWalker((int) PrairieKing.PPM / 2, -10);
+                        return new BasicWalker((int) (PrairieKing.PPM / 2 +placeRandom), -10, 's');
                     else if (spawnPlaces.charAt(randomSpawn) == 'e')
-                        return new BasicWalker((int) PrairieKing.PPM + 10, (int) PrairieKing.PPM / 2);
+                        return new BasicWalker((int) PrairieKing.PPM + 10, (int) (PrairieKing.PPM / 2 +placeRandom), 'e');
                     else
-                        return new BasicWalker(-10, (int) PrairieKing.PPM / 2);
+                        return new BasicWalker(-10, (int) (PrairieKing.PPM / 2 +placeRandom),'w');
                 } else if (random == 1) {
                     if (spawnPlaces.charAt(randomSpawn) == 'n')
-                        return new FlyingEnemy((int) PrairieKing.PPM / 2, (int) PrairieKing.PPM + 10);
+                        return new FlyingEnemy((int) (PrairieKing.PPM / 2 +placeRandom), (int) PrairieKing.PPM + 10, 'n');
                     else if (spawnPlaces.charAt(randomSpawn) == 's')
-                        return new FlyingEnemy((int) PrairieKing.PPM / 2, -10);
+                        return new FlyingEnemy((int) (PrairieKing.PPM / 2 +placeRandom), -10,'s');
                     else if (spawnPlaces.charAt(randomSpawn) == 'e')
-                        return new FlyingEnemy((int) PrairieKing.PPM + 10, (int) PrairieKing.PPM / 2);
+                        return new FlyingEnemy((int) PrairieKing.PPM + 10,(int) (PrairieKing.PPM / 2 +placeRandom), 'e');
                     else
-                        return new FlyingEnemy(-10, (int) PrairieKing.PPM / 2);
+                        return new FlyingEnemy(-10, (int) (PrairieKing.PPM / 2 +placeRandom), 'w');
                 }
                 return null;
             }
@@ -71,7 +73,7 @@ public class AIManager {
     }
 
     public void spawn() {
-        if (killCount % 15 == 0 && killCount != 0 && !hasIncreased) {
+        if (killCount % 20 == 0 && killCount != 0 && !hasIncreased) {
             System.out.println("Aumentei com " + killCount + " e " + killCount % 10);
             hasIncreased = true;
             increaseDifficulty();

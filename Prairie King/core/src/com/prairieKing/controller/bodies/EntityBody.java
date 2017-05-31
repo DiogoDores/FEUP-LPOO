@@ -12,6 +12,7 @@ import com.prairieKing.model.entities.EntityModel;
 
 public class EntityBody extends Body{
 
+
     private float width, height;
     private Body body;
     private EntityModel model;

@@ -12,11 +12,13 @@ public class FlyingEnemy extends EnemyModel {
         super.setPosition(x, y);
     }
 
-    public FlyingEnemy(int x, int y) {
-        super(x, y);
+    public FlyingEnemy(int x, int y, char initialDirection) {
+        super(x, y, initialDirection);
         super.setType("ENEMY");
         super.setEnemyType("FLYING");
         behaviour = new FlyingBehaviour();
+        behaviour.initialBehaviour(initialDirection);
+
     }
 
     @Override

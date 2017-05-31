@@ -11,7 +11,7 @@ public class EnemyModel extends EntityModel implements Behaviour {
     private String type = null;
     private float x, y;
 
-    public EnemyModel(float x, float y) {
+    public EnemyModel(float x, float y, char initialDirection) {
         super(x,y);
         health = 1;
         this.x = x;
@@ -81,5 +81,8 @@ public class EnemyModel extends EntityModel implements Behaviour {
         this.currentDirection = currentDirection;
     }
 
+    @Override
+    public void initialBehaviour(char direction) {
 
+    }
 }

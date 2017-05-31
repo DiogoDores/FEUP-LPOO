@@ -57,12 +57,12 @@ public class PowerupSpawner {
 
         // TODO ADICIONAR AQUI POWERUPS FUTUROS
 
-        int r = MathUtils.random(3);
+        int r = MathUtils.random(1);
         Vector2 position = randomPos();
 
         PowerupModel model = new PowerupModel(position.x,position.y, gameLogic);
 
-        r = 0;
+        r = 1;
         if (r == 0) { // Speed
             model.powerupType("GUN SPEED");
         }
