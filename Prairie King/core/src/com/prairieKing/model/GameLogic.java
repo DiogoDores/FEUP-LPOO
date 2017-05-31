@@ -35,7 +35,6 @@ public class GameLogic {
     private HeroBody heroBody;
     private GameStage gameStage;
     private World world;
-    private Box2DDebugRenderer b2dr;
     private Gun gun;
 
     private TmxMapLoader mapLoader;
@@ -59,11 +58,12 @@ public class GameLogic {
 
         gun = new Gun(this);
 
-        gameStage = new GameStage(this);
         input = new InputController(this);
         Gdx.input.setInputProcessor(input);
         world.setContactListener(new CollisionHandler());
         heroBody = new HeroBody(world, hero);
+
+        gameStage = new GameStage(this);
 
         powerupSpawner = new PowerupSpawner(this);
 

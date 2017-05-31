@@ -1,9 +1,12 @@
 package com.prairieKing.view;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.maps.tiled.tiles.AnimatedTiledMapTile;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.prairieKing.Constants;
@@ -41,18 +44,17 @@ public class GameStage extends ScreenAdapter {
     private OrthogonalTiledMapRenderer renderer;
     private OrthographicCamera cam;
 
-
-
     private World world;
     private Box2DDebugRenderer b2dr;
-    //private TextureAtlas textureAtlas;
+    private TextureAtlas atlas;
     //private Animation animation;
     //private float elapsedTime = 0f;
 
+    private Animator animator;
 
     public GameStage(GameLogic gameLogic) {
         this.game = gameLogic.getPrairieKing();
-        this.game = gameLogic.getPrairieKing();
+        this.gameLogic = gameLogic;
         batch = new SpriteBatch();
         stage = new Stage();
         gun = gameLogic.getGun();
@@ -60,13 +62,14 @@ public class GameStage extends ScreenAdapter {
         cam = new OrthographicCamera(game.PPM, game.PPM);
         map = gameLogic.getMap();
 
-        cam.position.set(cam.viewportWidth/2,cam.viewportHeight/2,0);
-        cam.setToOrtho(false, game.PPM,  game.PPM);
+        cam.position.set(cam.viewportWidth / 2, cam.viewportHeight / 2, 0);
+        cam.setToOrtho(false, game.PPM, game.PPM);
         view = new FitViewport(game.PPM, game.PPM, cam);
         renderer = new OrthogonalTiledMapRenderer(map, .2234f);
         loadAssets();
 
-        this.gameLogic = gameLogic;
+        atlas = new TextureAtlas("Sprites/Entities.pack");
+        animator = new Animator(this);
 
         world = gameLogic.getWorld();
         b2dr = new Box2DDebugRenderer();
@@ -76,11 +79,13 @@ public class GameStage extends ScreenAdapter {
 
     public void loadAssets() {
         Texture mainSprite = game.getAssetManager().get("Sprites/MainSpriteSheet.png", Texture.class);
-        hero = new Sprite(mainSprite,367,96,16,16);
+        hero = new Sprite(mainSprite, 367, 96, 16, 16);
     }
 
     @Override
-    public void render(float delta){
+    public void render(float delta) {
+
+        animator.update(delta);
         renderer.setView(cam);
 
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -98,7 +103,8 @@ public class GameStage extends ScreenAdapter {
         hero.setX(gameLogic.getHero().getX());
         hero.setY(gameLogic.getHero().getY());
 
-        hero.draw(batch);
+        //hero.draw(batch);
+        animator.draw(batch);
         drawEnemies();
         drawBullets();
         drawPowerups();
@@ -109,7 +115,7 @@ public class GameStage extends ScreenAdapter {
 
     public void drawBullets() {
         for (ProjectileModel projectile : gun.getProjectiles()) {
-            projectileToDraw = new Sprite(game.getAssetManager().get("Sprites/MainSpriteSheet.png", Texture.class),261,160,6,6);
+            projectileToDraw = new Sprite(game.getAssetManager().get("Sprites/MainSpriteSheet.png", Texture.class), 261, 160, 6, 6);
             projectileToDraw.setSize(Constants.PROJECTILE_WIDTH, Constants.PROJECTILE_WIDTH);
             projectileToDraw.setX(projectile.getX());
             projectileToDraw.setY(projectile.getY());
@@ -119,11 +125,11 @@ public class GameStage extends ScreenAdapter {
 
     public void drawPowerups() {
         ArrayList<PowerupModel> powerups = gameLogic.getPowerupSpawner().getPowerupModels();
-        for (int i = 0; i <  powerups.size(); i++) {
+        for (int i = 0; i < powerups.size(); i++) {
             if (powerups.get(i).getPowerupType() == "GUN SPEED")
-                powerupToDraw = new Sprite(game.getAssetManager().get("Sprites/MainSpriteSheet.png", Texture.class),192,160,16,16);
+                powerupToDraw = new Sprite(game.getAssetManager().get("Sprites/MainSpriteSheet.png", Texture.class), 192, 160, 16, 16);
             else if (powerups.get(i).getPowerupType() == "GUN SHOTGUN")
-                powerupToDraw = new Sprite(game.getAssetManager().get("Sprites/MainSpriteSheet.png", Texture.class),256,160,16,16);
+                powerupToDraw = new Sprite(game.getAssetManager().get("Sprites/MainSpriteSheet.png", Texture.class), 256, 160, 16, 16);
             powerupToDraw.setSize(Constants.POWERUP_WIDTH, Constants.POWERUP_WIDTH);
             powerupToDraw.setX(powerups.get(i).getX());
             powerupToDraw.setY(powerups.get(i).getY());
@@ -149,8 +155,8 @@ public class GameStage extends ScreenAdapter {
 
 
     @Override
-    public void resize(int width, int height){
-        cam.viewportWidth =  game.PPM;
+    public void resize(int width, int height) {
+        cam.viewportWidth = game.PPM;
         cam.viewportHeight = game.PPM;
         view.update(width, height);
         cam.update();
@@ -164,8 +170,11 @@ public class GameStage extends ScreenAdapter {
         stage.dispose();
     }
 
-    public TiledMap getMap(){
-        return this.map;
+    public TextureAtlas getAtlas() {
+        return atlas;
     }
 
+    public GameLogic getGameLogic() {
+        return gameLogic;
+    }
 }

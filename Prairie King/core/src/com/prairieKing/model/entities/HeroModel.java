@@ -56,6 +56,22 @@ public class HeroModel extends EntityModel {
         this.down = down;
     }
 
+    public boolean getLeft() {
+        return this.left;
+    }
+
+    public boolean getRight() {
+        return this.right;
+    }
+
+    public boolean getUp() {
+        return this.up;
+    }
+
+    public boolean getDown() {
+        return this.down;
+    }
+
     @Override
     public float getX() {
         return x;

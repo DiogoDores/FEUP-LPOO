@@ -1,5 +1,6 @@
 package com.prairieKing.model.powerups;
 
+import com.prairieKing.model.GameLogic;
 import com.prairieKing.model.entities.HeroModel;
 
 /**
@@ -10,7 +11,7 @@ public class HeroPowerups extends HeroModel {
 
     public float x, y;
 
-    public HeroPowerups(float x, float y) {
+    public HeroPowerups(float x, float y, GameLogic game) {
         super(x, y);
     }
 

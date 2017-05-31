@@ -55,7 +55,7 @@ public class EntityBody extends Body{
         // Transform pixels into meters, center and invert the y-coordinate
 
         PolygonShape polygon = new PolygonShape();
-        polygon.setAsBox(width/1.9f,height/1.9f, new Vector2(width/2 + 0.5f, height/2 + 0.5f), 0);
+        polygon.setAsBox(width/1.5f,height/1.5f, new Vector2(width/2 + 1, height/2 + 1), 0);
         fixtureDef = new FixtureDef();
         fixtureDef.shape = polygon;
 
