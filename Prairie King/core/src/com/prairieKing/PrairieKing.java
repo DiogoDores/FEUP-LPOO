@@ -1,4 +1,4 @@
-package com.prairieKing.controller;
+package com.prairieKing;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.prairieKing.view.*;

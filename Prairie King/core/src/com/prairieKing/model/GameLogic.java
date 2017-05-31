@@ -1,6 +1,7 @@
 package com.prairieKing.model;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -17,7 +18,7 @@ import com.badlogic.gdx.utils.Array;
 import com.prairieKing.controller.CollisionHandler;
 import com.prairieKing.controller.bodies.HeroBody;
 import com.prairieKing.controller.InputController;
-import com.prairieKing.controller.PrairieKing;
+import com.prairieKing.PrairieKing;
 import com.prairieKing.model.AI.AIManager;
 import com.prairieKing.model.entities.EntityModel;
 import com.prairieKing.model.entities.HeroModel;
@@ -58,7 +59,6 @@ public class GameLogic {
 
         gun = new Gun(this);
 
-        hero.setGun(gun);
         gameStage = new GameStage(this);
         input = new InputController(this);
         Gdx.input.setInputProcessor(input);
@@ -75,8 +75,6 @@ public class GameLogic {
         AI = new AIManager(this);
         hero = new HeroModel(PrairieKing.PPM / 2, PrairieKing.PPM / 2);
         gun = new Gun(this);
-
-        hero.setGun(gun);
 
         timeSinceBeginning = 0;
         highScore = 0;
@@ -174,6 +172,7 @@ public class GameLogic {
         gun.checkBullets();
 
         gameStage.render(0);
+
         moveEntities();
     }
 
@@ -213,9 +212,12 @@ public class GameLogic {
         return powerupSpawner;
     }
 
-    public void changeGun(Gun gun) {
+    public void setGun(Gun gun) {
         this.gun = gun;
+    }
 
+    public Gun getGun() {
+        return gun;
     }
 
 

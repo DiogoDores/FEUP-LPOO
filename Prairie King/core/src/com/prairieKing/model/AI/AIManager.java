@@ -4,7 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Pool;
 import com.prairieKing.controller.bodies.EnemyBody;
-import com.prairieKing.controller.PrairieKing;
+import com.prairieKing.PrairieKing;
 import com.prairieKing.model.entities.BasicWalker;
 import com.prairieKing.model.entities.EnemyModel;
 import com.prairieKing.model.entities.FlyingEnemy;

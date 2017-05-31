@@ -7,7 +7,7 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.prairieKing.Constants;
-import com.prairieKing.controller.PrairieKing;
+import com.prairieKing.PrairieKing;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
@@ -55,7 +55,7 @@ public class GameStage extends ScreenAdapter {
         this.game = gameLogic.getPrairieKing();
         batch = new SpriteBatch();
         stage = new Stage();
-        gun = gameLogic.getHero().getGun();
+        gun = gameLogic.getGun();
         enemies = gameLogic.getAI().getEnemies();
         cam = new OrthographicCamera(game.PPM, game.PPM);
         map = gameLogic.getMap();
@@ -70,6 +70,7 @@ public class GameStage extends ScreenAdapter {
 
         world = gameLogic.getWorld();
         b2dr = new Box2DDebugRenderer();
+
     }
 
 

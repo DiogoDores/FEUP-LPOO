@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.prairieKing.controller.PrairieKing;
+import com.prairieKing.PrairieKing;
 
 
 public class LoseScreen extends ScreenAdapter {

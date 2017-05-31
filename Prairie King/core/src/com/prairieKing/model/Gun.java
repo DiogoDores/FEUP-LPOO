@@ -1,16 +1,14 @@
 package com.prairieKing.model;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Pool;
 import com.prairieKing.Constants;
-import com.prairieKing.controller.PrairieKing;
+import com.prairieKing.PrairieKing;
 import com.prairieKing.controller.bodies.ProjectileBody;
 import com.prairieKing.model.entities.HeroModel;
 import com.prairieKing.model.entities.ProjectileModel;
-import com.prairieKing.model.powerups.FireRateGunPowerup;
 import com.prairieKing.model.powerups.GunPowerups;
 
 import java.util.ArrayList;
@@ -24,20 +22,22 @@ public class Gun {
     private ArrayList<GunPowerups> powerups = new ArrayList<>();
     private Pool<ProjectileModel> pool;
     private World world;
-    private float timeToShoot;
+    private float timeLeftToShoot;
+    private float DELAY_TIME_SHOOT = 0.14f;
+
     private float SPEED;
     private boolean test;
     private HeroModel hero;
     private int shape;
+    private int BULLET_SPEED = 4;
 
     private boolean leftB, rightB, upB, downB; // Gun Methods
-
 
 
     public Gun(GameLogic gameLogic) {
         test = false;
         shape = 1;
-        timeToShoot = .5f;
+        timeLeftToShoot = .15f;
         this.world = gameLogic.getWorld();
         this.hero = gameLogic.getHero();
         SPEED = 1;
@@ -50,68 +50,76 @@ public class Gun {
     }
 
     public void update() {
-        timeToShoot -= SPEED * Gdx.graphics.getDeltaTime() / 2;
+        timeLeftToShoot -= SPEED * Gdx.graphics.getDeltaTime() / 2;
+        checkPowerups();
         directionShoot();
     }
 
     public void directionShoot() {
-        int x = 0, y = 0;
-        if (leftB)
-            x = x - (int) PrairieKing.PPM * 2;
-        if (rightB)
-            x = x + (int) PrairieKing.PPM * 2;
-        if (upB)
-            y = y + (int) PrairieKing.PPM * 2;
-        if (downB)
-            y = y - (int) PrairieKing.PPM * 2;
+        if (timeLeftToShoot <= 0) {
+            int x = 0, y = 0;
+            if (leftB)
+                x = x - (int) PrairieKing.PPM * BULLET_SPEED;
+            if (rightB)
+                x = x + (int) PrairieKing.PPM * BULLET_SPEED;
+            if (upB)
+                y = y + (int) PrairieKing.PPM * BULLET_SPEED;
+            if (downB)
+                y = y - (int) PrairieKing.PPM * BULLET_SPEED;
 
-        if ((x == 0 && y != 0) || (x != 0 && y == 0) || (x != 0 && y != 0)) {
-            if (rightB) {
-                if (upB)
-                    shoot(hero.getX() + Constants.HERO_WIDTH - Constants.PROJECTILE_WIDTH / 2, hero.getY() + Constants.HERO_WIDTH - Constants.PROJECTILE_WIDTH / 2, x, y);
-                else if (downB)
-                    shoot(hero.getX() + Constants.HERO_WIDTH - Constants.PROJECTILE_WIDTH / 2, hero.getY() - Constants.PROJECTILE_WIDTH / 2, x, y);
-                else
-                    shoot(hero.getX() + Constants.HERO_WIDTH - Constants.PROJECTILE_WIDTH / 2, hero.getY() + Constants.HERO_WIDTH / 2 - Constants.PROJECTILE_WIDTH / 2, x, y);
-            }
-            if (leftB) {
-                if (upB)
-                    shoot(hero.getX() - Constants.PROJECTILE_WIDTH / 2, hero.getY() + Constants.HERO_WIDTH - Constants.PROJECTILE_WIDTH / 2, x, y);
-                else if (downB)
-                    shoot(hero.getX() - Constants.PROJECTILE_WIDTH / 2, hero.getY() - Constants.PROJECTILE_WIDTH / 2, x, y);
-                else
-                    shoot(hero.getX() - Constants.PROJECTILE_WIDTH / 2, hero.getY() + Constants.HERO_WIDTH / 2 - Constants.PROJECTILE_WIDTH / 2, x, y);
-            } else if (upB && !rightB && !leftB)
-                shoot(hero.getX() + Constants.HERO_WIDTH / 2 - Constants.PROJECTILE_WIDTH / 2, hero.getY() + Constants.HERO_WIDTH - Constants.PROJECTILE_WIDTH / 2, x, y);
-            else if (downB && !rightB && !leftB)
-                shoot(hero.getX() + Constants.HERO_WIDTH / 2 - Constants.PROJECTILE_WIDTH / 2, hero.getY() - Constants.PROJECTILE_WIDTH / 2, x, y);
-        }
-    }  // AQUI chamo o shoot com valores bonitos
+            float posX = 0, posY = 0, vX = x, vY = y;
+            if ((x == 0 && y != 0) || (x != 0 && y == 0) || (x != 0 && y != 0)) {
+                if (rightB) {
+                    posX = hero.getX() + Constants.HERO_WIDTH - Constants.PROJECTILE_WIDTH / 2;
+                    if (upB) {
+                        posY = hero.getY() + Constants.HERO_WIDTH - Constants.PROJECTILE_WIDTH / 2;
+                    } else if (downB) {
+                        posY = hero.getY() - Constants.PROJECTILE_WIDTH / 2;
+                    } else {
+                        posY = hero.getY() + Constants.HERO_WIDTH / 2 - Constants.PROJECTILE_WIDTH / 2;
+                    }
+                }
+                if (leftB) {
+                    posX = hero.getX() - Constants.PROJECTILE_WIDTH / 2;
+                    if (upB) {
+                        posY = hero.getY() + Constants.HERO_WIDTH - Constants.PROJECTILE_WIDTH / 2;
+                    } else if (downB) {
+                        posY = hero.getY() - Constants.PROJECTILE_WIDTH / 2;
+                    } else {
+                        posY = hero.getY() + Constants.HERO_WIDTH / 2 - Constants.PROJECTILE_WIDTH / 2;
+                    }
+                } else if (upB && !rightB && !leftB) {
+                    posX = hero.getX() + Constants.HERO_WIDTH / 2 - Constants.PROJECTILE_WIDTH / 2;
+                    posY = hero.getY() + Constants.HERO_WIDTH - Constants.PROJECTILE_WIDTH / 2;
+                } else if (downB && !rightB && !leftB) {
+                    posX = hero.getX() + Constants.HERO_WIDTH / 2 - Constants.PROJECTILE_WIDTH / 2;
+                    posY = hero.getY() - Constants.PROJECTILE_WIDTH / 2;
+                }
 
 
-    public  void shoot(float posX, float posY, float vX, float vY) {
+                if (shape == 3) {
+                    shotgunShoot(posX,posY,vX,vY);
 
-        checkPowerups();
-
-        if (timeToShoot <= 0) {
-            if (shape == 1) {
-                timeToShoot = 0.2f;
-
-                ProjectileModel p = pool.obtain();
-                ProjectileBody pb = new ProjectileBody(world, p);
-
-                pb.setTransform(posX, posY);
-                pb.setLinearVelocity(vX, vY);
-
-                projectiles.add(p);
-                projectilesBodies.add(pb);
-            }
-            else {
-                for (int i = 0; i < shape; i++) {
-
+                } else {
+                    shoot(posX, posY, vX/1.4f, vY/1.4f);
+                    timeLeftToShoot = DELAY_TIME_SHOOT;
                 }
             }
         }
+    }  // AQUI chamo o shoot com valores bonitos
+
+    public void shoot(float posX, float posY, float vX, float vY) {
+
+        ProjectileModel p = pool.obtain();
+        ProjectileBody pb = new ProjectileBody(world, p);
+
+        pb.setTransform(posX, posY);
+        pb.setLinearVelocity(vX, vY);
+
+        projectiles.add(p);
+        projectilesBodies.add(pb);
+
+
     }
 
     public List<ProjectileModel> getProjectiles() {
@@ -119,10 +127,10 @@ public class Gun {
     }
 
     public void checkBullets() {
-        for (int i = 0; i < projectiles.size() ; i++) {
+        for (int i = 0; i < projectiles.size(); i++) {
             if (projectiles.get(i) != null) {
                 if (projectiles.get(i).isFlaggedForDelete()) {
-                    for (int j = 0 ; j < projectilesBodies.size() ; j++) {
+                    for (int j = 0; j < projectilesBodies.size(); j++) {
                         if (projectilesBodies.get(j).getUserData() == projectiles.get(i)) {
                             projectilesBodies.get(j).destroy();
                             projectilesBodies.remove(j);
@@ -142,12 +150,16 @@ public class Gun {
         return SPEED;
     }
 
-    public void setShape() {
-        // TODO não sei como fazer bem isto por agora tbh
+    public void setShape(int shape) {
+        this.shape = shape;
+    }
+
+    public int getShape() {
+        return shape;
     }
 
     public void checkPowerups() {
-        for (int i = 0; i < powerups.size() ; i++) {
+        for (int i = 0; i < powerups.size(); i++) {
             powerups.get(i).update();
             if (powerups.get(i).getEffectTime() <= 0) {
                 powerups.get(i).removeEffect();
@@ -175,5 +187,67 @@ public class Gun {
 
     public void setDownB(boolean downB) {
         this.downB = downB;
+    }
+
+    public void shotgunShoot(float posX, float posY, float vX, float vY) {
+        float vx1 = 0, vx2 = 0, vy1 = 0, vy2= 0;
+        if (vX > 0) {
+            if (vY > 0) {
+                vx1 = MathUtils.cosDeg(70) * (int) PrairieKing.PPM * BULLET_SPEED;
+                vy1 = MathUtils.sinDeg(70) * (int) PrairieKing.PPM * BULLET_SPEED;
+                vx2 = MathUtils.cosDeg(20) * (int) PrairieKing.PPM * BULLET_SPEED;
+                vy2 = MathUtils.sinDeg(20) * (int) PrairieKing.PPM * BULLET_SPEED;
+            }
+            else if (vY < 0) {
+                vx1 = MathUtils.cosDeg(-20) * (int) PrairieKing.PPM * BULLET_SPEED;
+                vy1 = MathUtils.sinDeg(-20) * (int) PrairieKing.PPM * BULLET_SPEED;
+                vx2 = MathUtils.cosDeg(-70) * (int) PrairieKing.PPM * BULLET_SPEED;
+                vy2 = MathUtils.sinDeg(-70) * (int) PrairieKing.PPM * BULLET_SPEED;
+            } else {
+                vx1 = MathUtils.cosDeg(25) * (int) PrairieKing.PPM * BULLET_SPEED;
+                vy1 = MathUtils.sinDeg(25) * (int) PrairieKing.PPM * BULLET_SPEED;
+                vx2 = MathUtils.cosDeg(-25) * (int) PrairieKing.PPM * BULLET_SPEED;
+                vy2 = MathUtils.sinDeg(-25) * (int) PrairieKing.PPM * BULLET_SPEED;
+            }
+        } else if (vX < 0) {
+            if (vY > 0) {
+                vx1 = MathUtils.cosDeg(180-70) * (int) PrairieKing.PPM * BULLET_SPEED;
+                vy1 = MathUtils.sinDeg(180-70) * (int) PrairieKing.PPM * BULLET_SPEED;
+                vx2 = MathUtils.cosDeg(180-20) * (int) PrairieKing.PPM * BULLET_SPEED;
+                vy2 = MathUtils.sinDeg(180-20) * (int) PrairieKing.PPM * BULLET_SPEED;
+            }
+            else if (vY < 0) {
+                vx1 = MathUtils.cosDeg(180+20) * (int) PrairieKing.PPM * BULLET_SPEED;
+                vy1 = MathUtils.sinDeg(180+20) * (int) PrairieKing.PPM * BULLET_SPEED;
+                vx2 = MathUtils.cosDeg(180+70) * (int) PrairieKing.PPM * BULLET_SPEED;
+                vy2 = MathUtils.sinDeg(180+70) * (int) PrairieKing.PPM * BULLET_SPEED;
+            } else {
+                vx1 = MathUtils.cosDeg(180-25) * (int) PrairieKing.PPM * BULLET_SPEED;
+                vy1 = MathUtils.sinDeg(180-25) * (int) PrairieKing.PPM * BULLET_SPEED;
+                vx2 = MathUtils.cosDeg(180+25) * (int) PrairieKing.PPM * BULLET_SPEED;
+                vy2 = MathUtils.sinDeg(180+25) * (int) PrairieKing.PPM * BULLET_SPEED;
+            }
+        } else {
+            if (vY > 0) {
+                vx1 = MathUtils.cosDeg(90+25) * (int) PrairieKing.PPM * BULLET_SPEED;
+                vy1 = MathUtils.sinDeg(90+25) * (int) PrairieKing.PPM * BULLET_SPEED;
+                vx2 = MathUtils.cosDeg(90-25) * (int) PrairieKing.PPM * BULLET_SPEED;
+                vy2 = MathUtils.sinDeg(90-25) * (int) PrairieKing.PPM * BULLET_SPEED;
+            }
+            else if (vY < 0) {
+                vx1 = MathUtils.cosDeg(270-25) * (int) PrairieKing.PPM * BULLET_SPEED;
+                vy1 = MathUtils.sinDeg(270-25) * (int) PrairieKing.PPM * BULLET_SPEED;
+                vx2 = MathUtils.cosDeg(270+25) * (int) PrairieKing.PPM * BULLET_SPEED;
+                vy2 = MathUtils.sinDeg(270+25) * (int) PrairieKing.PPM * BULLET_SPEED;
+            }
+        }
+
+        shoot(posX, posY, vx1, vy1);
+        shoot(posX, posY, vx2, vy2);
+        if (vX!=0 && vY!= 0)
+            shoot(posX, posY, vX/1.4f, vY/1.4f);
+        else
+            shoot(posX, posY, vX, vY);
+        timeLeftToShoot = DELAY_TIME_SHOOT;
     }
 }

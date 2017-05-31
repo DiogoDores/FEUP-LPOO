@@ -1,17 +1,12 @@
 package com.prairieKing.model.entities;
 
 import com.badlogic.gdx.Gdx;
-import com.prairieKing.Constants;
-import com.prairieKing.controller.PrairieKing;
-import com.prairieKing.model.Gun;
-import com.prairieKing.model.entities.EntityModel;
-import com.prairieKing.view.GameStage;
+import com.prairieKing.PrairieKing;
 
 public class HeroModel extends EntityModel {
     private float x, y;
     private int lives;
     private boolean left, right, up, down;
-    private Gun gun;
     private int speed;
 
     public HeroModel(float x, float y) {
@@ -24,12 +19,7 @@ public class HeroModel extends EntityModel {
         super.setType("HERO");
     }
 
-    public void setGun(Gun gun) {
-        this.gun = gun;
-    }
-
     public void move() {
-        gun.update();
         float x = this.x, y = this.y;
         if (left)
             x = (x - (PrairieKing.PPM / speed * Gdx.graphics.getDeltaTime()));
@@ -81,10 +71,6 @@ public class HeroModel extends EntityModel {
     @Override
     public float getY() {
         return y;
-    }
-
-    public Gun getGun() {
-        return gun;
     }
 
     public void isHit() {

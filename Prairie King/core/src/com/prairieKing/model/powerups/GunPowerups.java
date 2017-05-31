@@ -26,13 +26,16 @@ public class GunPowerups extends Gun {
         super.shoot(posX, posY, vX, vY);
     }
 
-    @Override
+    /*@Override
     public void setShape() {
-        super.setShape();
-    }
+        super.setShape(1);
+    }*/
 
+    @Override
     public void update() {
+        super.update();
         effectTime -= Gdx.graphics.getDeltaTime();
+        System.out.println(effectTime);
     }
 
     public float getEffectTime() {

@@ -21,8 +21,8 @@ public class PowerupModel extends EntityModel {
         super.setType("POWERUP");
         hero = gameLogic.getHero();
         this.gameLogic = gameLogic;
-        gun = hero.getGun();
-        time = MathUtils.random(10.0f, 13.0f);
+        gun = gameLogic.getGun();
+        time = MathUtils.random(13.0f, 16.0f);
     }
 
     public void update() {
@@ -46,9 +46,7 @@ public class PowerupModel extends EntityModel {
             gun.addPowerup(new FireRateGunPowerup(gameLogic));
         }
         else if(type == "GUN SHOTGUN") {
-            ShotgunPowerup test = new ShotgunPowerup(gameLogic);
-            gameLogic.getHero().setGun(test);
-            this.gun.addPowerup(new ShotgunPowerup(gameLogic));
+            gun.addPowerup(new ShotgunPowerup(gameLogic));
         }
 
         super.kill();

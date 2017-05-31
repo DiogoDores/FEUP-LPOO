@@ -1,18 +1,13 @@
 package com.prairieKing.model.powerups;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
-import com.prairieKing.controller.PrairieKing;
+import com.prairieKing.PrairieKing;
 import com.prairieKing.controller.bodies.PowerupBody;
 import com.prairieKing.model.GameLogic;
-import com.prairieKing.model.Gun;
-import com.prairieKing.model.entities.HeroModel;
 import com.prairieKing.model.entities.PowerupModel;
-import com.prairieKing.model.powerups.GunPowerups;
-import com.prairieKing.model.powerups.HeroPowerups;
 
 import java.util.ArrayList;
 
@@ -62,7 +57,7 @@ public class PowerupSpawner {
 
         PowerupModel model = new PowerupModel(position.x,position.y, gameLogic);
 
-        r = 1;
+
         if (r == 0) { // Speed
             model.powerupType("GUN SPEED");
         }

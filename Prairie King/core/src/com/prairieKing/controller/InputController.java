@@ -13,7 +13,7 @@ public class InputController implements InputProcessor {
 
     public InputController(GameLogic gameLogic) {
         this.hero = gameLogic.getHero();
-        this.gun = hero.getGun();
+        this.gun = gameLogic.getGun();
     }
 
     @Override

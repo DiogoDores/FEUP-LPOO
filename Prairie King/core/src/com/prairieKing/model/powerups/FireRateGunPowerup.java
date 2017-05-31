@@ -14,7 +14,7 @@ public class FireRateGunPowerup extends GunPowerups {
 
     public FireRateGunPowerup(GameLogic gameLogic) {
         super(gameLogic);
-        this.gun = gameLogic.getHero().getGun();
+        this.gun = gameLogic.getGun();
         oldSpeed = gun.getSPEED();
         gun.setSpeed(newSpeed);
     }
