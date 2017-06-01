@@ -1,5 +1,7 @@
 package com.prairieKing.controller;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
@@ -8,8 +10,13 @@ import com.prairieKing.controller.bodies.EntityBody;
 import com.prairieKing.model.entities.EntityModel;
 
 public class CollisionHandler implements ContactListener {
+
+    private Sound sound;
+
     @Override
     public void beginContact(Contact contact) {
+
+        sound = Gdx.audio.newSound(Gdx.files.internal("Sounds/start.mp3"));
 
         EntityModel modelA = (EntityModel) contact.getFixtureA().getBody().getUserData();
         EntityModel modelB = (EntityModel) contact.getFixtureB().getBody().getUserData();
@@ -32,9 +39,10 @@ public class CollisionHandler implements ContactListener {
             }
 
             if ((m1.getType() == "POWERUP" && m2.getType() == "HERO") || (m2.getType() == "POWERUP" && m1.getType() == "HERO")) {
-                if (m1.getType() == "POWERUP")
+                if (m1.getType() == "POWERUP") {
                     m1.activate();
-                else
+                } else
+                    sound.play();
                     m2.activate();
             }
         }

@@ -43,7 +43,7 @@ public class GameStage extends ScreenAdapter {
     private Box2DDebugRenderer b2dr;
     private TextureAtlas atlas;
 
-    private Animator animator;
+    private Animator animateHero, animateEnemy;
 
     private Sound sound;
 
@@ -64,7 +64,8 @@ public class GameStage extends ScreenAdapter {
         loadAssets();
 
         atlas = new TextureAtlas("Sprites/Entities.pack");
-        animator = new Animator(this);
+        animateHero = new HeroAnimator(this);
+        animateEnemy = new EnemyAnimator(this);
 
         world = gameLogic.getWorld();
         b2dr = new Box2DDebugRenderer();
@@ -81,7 +82,8 @@ public class GameStage extends ScreenAdapter {
     @Override
     public void render(float delta) {
 
-        animator.update(delta);
+        animateHero.update(delta);
+        //animateEnemy.update(delta);
         renderer.setView(cam);
 
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -95,7 +97,8 @@ public class GameStage extends ScreenAdapter {
         cam.update();
         batch.setProjectionMatrix(cam.combined);
 
-        animator.draw(batch);
+        animateHero.draw(batch);
+        //animateEnemy.draw(batch);
         drawEnemies();
         drawBullets();
         drawPowerups();
@@ -132,6 +135,7 @@ public class GameStage extends ScreenAdapter {
     public void drawEnemies() {
         for (EnemyModel e : enemies) {
             if (e.getEnemyType() == "BASIC") {
+                //animateEnemy.draw(batch);
                 enemyToDraw = new Sprite(game.getAssetManager().get("Sprites/MainSpriteSheet.png", Texture.class), 304, 80, 16, 16);
             } else if (e.getEnemyType() == "FLYING") {
                 enemyToDraw = new Sprite(game.getAssetManager().get("Sprites/MainSpriteSheet.png", Texture.class), 352, 64, 16, 16);

@@ -145,4 +145,8 @@ public class AIManager {
         return killCount;
     }
 
+    public ArrayList<EnemyBody> getEnemiesBodies() {
+        return enemiesBodies;
+    }
+
 }

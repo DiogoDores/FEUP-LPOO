@@ -71,12 +71,12 @@ public class PrairieKing extends Game {
             setScreen(gameLogic.getGameStage());
             gameLogic.act();
             if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
-                music.pause();
                 currentState = 2;
             }
         }
         else {  // Lose Screen
             setScreen(loseScreen);
+            music.pause();
 
             loseScreen.render(0);
             if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
