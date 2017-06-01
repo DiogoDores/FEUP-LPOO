@@ -1,6 +1,7 @@
 package com.prairieKing.model;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Pool;
@@ -33,6 +34,8 @@ public class Gun {
 
     private boolean leftB, rightB, upB, downB; // Gun Methods
 
+    private Sound sound;
+
 
     public Gun(GameLogic gameLogic) {
         test = false;
@@ -41,6 +44,7 @@ public class Gun {
         this.world = gameLogic.getWorld();
         this.hero = gameLogic.getHero();
         SPEED = 1;
+        sound = Gdx.audio.newSound(Gdx.files.internal("Sounds/pop.mp3"));
         pool = new Pool<ProjectileModel>() {
             @Override
             protected ProjectileModel newObject() {
@@ -109,6 +113,8 @@ public class Gun {
     }  // AQUI chamo o shoot com valores bonitos
 
     public void shoot(float posX, float posY, float vX, float vY) {
+
+        sound.play();
 
         ProjectileModel p = pool.obtain();
         ProjectileBody pb = new ProjectileBody(world, p);

@@ -1,12 +1,9 @@
 package com.prairieKing.view;
-import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.badlogic.gdx.maps.tiled.tiles.AnimatedTiledMapTile;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.prairieKing.Constants;
@@ -48,6 +45,8 @@ public class GameStage extends ScreenAdapter {
 
     private Animator animator;
 
+    private Sound sound;
+
     public GameStage(GameLogic gameLogic) {
         this.game = gameLogic.getPrairieKing();
         this.gameLogic = gameLogic;
@@ -74,6 +73,7 @@ public class GameStage extends ScreenAdapter {
 
 
     public void loadAssets() {
+        sound = Gdx.audio.newSound(Gdx.files.internal("Sounds/pop.mp3"));
         Texture mainSprite = game.getAssetManager().get("Sprites/MainSpriteSheet.png", Texture.class);
         hero = new Sprite(mainSprite, 367, 96, 16, 16);
     }
@@ -95,11 +95,6 @@ public class GameStage extends ScreenAdapter {
         cam.update();
         batch.setProjectionMatrix(cam.combined);
 
-        hero.setSize(Constants.HERO_WIDTH, Constants.HERO_WIDTH);
-        hero.setX(gameLogic.getHero().getX());
-        hero.setY(gameLogic.getHero().getY());
-
-        //hero.draw(batch);
         animator.draw(batch);
         drawEnemies();
         drawBullets();

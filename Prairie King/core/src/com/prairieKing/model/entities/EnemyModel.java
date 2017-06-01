@@ -1,5 +1,7 @@
 package com.prairieKing.model.entities;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.prairieKing.model.AI.Behaviour;
 
 public class EnemyModel extends EntityModel implements Behaviour {
@@ -11,11 +13,14 @@ public class EnemyModel extends EntityModel implements Behaviour {
     private String type = null;
     private float x, y;
 
+    private Sound sound;
+
     public EnemyModel(float x, float y, char initialDirection) {
         super(x,y);
         health = 1;
         this.x = x;
         this.y = y;
+        sound = Gdx.audio.newSound(Gdx.files.internal("Sounds/enemyDeath.mp3"));
         super.setType("ENEMY");
     }
 
@@ -50,6 +55,7 @@ public class EnemyModel extends EntityModel implements Behaviour {
     public void kill() {
         --health;
         if (health == 0)
+            sound.play();
             super.kill();
     }
 

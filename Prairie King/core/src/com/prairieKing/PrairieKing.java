@@ -43,7 +43,7 @@ public class PrairieKing extends Game {
 
     public void loadAssets() {
         music = Gdx.audio.newMusic(Gdx.files.internal("Sounds/mainTheme.mp3"));
-        //sound = Gdx.audio.newSound(Gdx.files.internal("Sounds/start.mp3"));
+        sound = Gdx.audio.newSound(Gdx.files.internal("Sounds/start.mp3"));
         music.setVolume(0.5f);
         music.setLooping(true);
         assetManager.load("Menus/LoseScreen.png", Texture.class);
@@ -62,7 +62,7 @@ public class PrairieKing extends Game {
             setScreen(menu);
             menu.render(0);
             if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
-                //sound.play();
+                sound.play();
                 currentState = 1;
             }
         }
@@ -104,6 +104,6 @@ public class PrairieKing extends Game {
 
     public void dispose(){
         music.dispose();
-        //sound.dispose();
+        sound.dispose();
     }
 }
