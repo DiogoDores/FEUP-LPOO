@@ -21,8 +21,6 @@ public class GunPowerups extends Gun {
 
     @Override
     public void shoot(float posX, float posY, float vX, float vY) {
-        System.out.println("merda");
-
         super.shoot(posX, posY, vX, vY);
     }
 
@@ -35,7 +33,6 @@ public class GunPowerups extends Gun {
     public void update() {
         super.update();
         effectTime -= Gdx.graphics.getDeltaTime();
-        System.out.println(effectTime);
     }
 
     public float getEffectTime() {

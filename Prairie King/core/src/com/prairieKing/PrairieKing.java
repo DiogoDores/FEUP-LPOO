@@ -1,4 +1,6 @@
 package com.prairieKing;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.prairieKing.view.*;
@@ -15,6 +17,8 @@ import com.prairieKing.view.Menu;
 
 public class PrairieKing extends Game {
     public static int currentState;
+    private Music music;
+    private Sound sound;
     Menu menu;
     LoseScreen loseScreen;
     int maxHighScore;
@@ -38,6 +42,10 @@ public class PrairieKing extends Game {
      }
 
     public void loadAssets() {
+        music = Gdx.audio.newMusic(Gdx.files.internal("Sounds/mainTheme.mp3"));
+        //sound = Gdx.audio.newSound(Gdx.files.internal("Sounds/start.mp3"));
+        music.setVolume(0.5f);
+        music.setLooping(true);
         assetManager.load("Menus/LoseScreen.png", Texture.class);
         assetManager.load("Sprites/MainSpriteSheet.png", Texture.class);
         assetManager.load("Mapas/Map.png", Texture.class);
@@ -54,13 +62,16 @@ public class PrairieKing extends Game {
             setScreen(menu);
             menu.render(0);
             if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+                //sound.play();
                 currentState = 1;
             }
         }
         else if (currentState == 1) { // Game Mode
+            music.play();
             setScreen(gameLogic.getGameStage());
             gameLogic.act();
             if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+                music.pause();
                 currentState = 2;
             }
         }
@@ -89,5 +100,10 @@ public class PrairieKing extends Game {
     public void setMaxHighScore(int maxHighScore) {
         this.maxHighScore = maxHighScore;
         loseScreen.updateHighScore(maxHighScore);
+    }
+
+    public void dispose(){
+        music.dispose();
+        //sound.dispose();
     }
 }

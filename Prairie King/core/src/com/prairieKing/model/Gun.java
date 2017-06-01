@@ -189,6 +189,22 @@ public class Gun {
         this.downB = downB;
     }
 
+    public boolean getLeftB() {
+        return this.leftB;
+    }
+
+    public boolean getRightB() {
+        return this.rightB;
+    }
+
+    public boolean getUpB() {
+        return this.upB;
+    }
+
+    public boolean getDownB() {
+       return this.downB;
+    }
+
     public void shotgunShoot(float posX, float posY, float vX, float vY) {
         float vx1 = 0, vx2 = 0, vy1 = 0, vy2= 0;
         if (vX > 0) {

@@ -1,0 +1,19 @@
+
+Entities.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+movement
+  rotate: false
+  xy: 1, 1
+  size: 272, 16
+  orig: 272, 16
+  offset: 0, 0
+  index: 1
+movement
+  rotate: false
+  xy: 275, 1
+  size: 96, 16
+  orig: 96, 16
+  offset: 0, 0
+  index: 2

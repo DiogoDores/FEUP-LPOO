@@ -37,9 +37,7 @@ public class GameStage extends ScreenAdapter {
 
     private ArrayList<EnemyModel> enemies;
     private Gun gun;
-    private AssetManager assetManager;
 
-    private TmxMapLoader mapLoader;
     private TiledMap map;
     private OrthogonalTiledMapRenderer renderer;
     private OrthographicCamera cam;
@@ -47,8 +45,6 @@ public class GameStage extends ScreenAdapter {
     private World world;
     private Box2DDebugRenderer b2dr;
     private TextureAtlas atlas;
-    //private Animation animation;
-    //private float elapsedTime = 0f;
 
     private Animator animator;
 
