@@ -2,18 +2,20 @@ package com.prairieKing.model.AI;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.math.Vector2;
 import com.prairieKing.model.entities.EnemyModel;
 import com.prairieKing.model.entities.HeroModel;
 
-public class ChasingBehaviour implements Behaviour {
+public class ToughBehaviour implements Behaviour {
 
     private float ENEMY_SPEED = 400;
 
     private float initialTime;
-    private boolean hasStarted = false;
     private char initialDirection;
+    private float timeToStop, totalStopTime;
 
+    public ToughBehaviour() {
+        timeToStop = 3;
+    }
 
     @Override
     public void move(EnemyModel e, HeroModel h) {
@@ -24,8 +26,14 @@ public class ChasingBehaviour implements Behaviour {
         float newY = y;
         int r = MathUtils.random(40);
 
-
-        if (initialTime >= 0) {
+        timeToStop-=Gdx.graphics.getDeltaTime();
+        if(timeToStop <=0 && totalStopTime <= 0) {
+            totalStopTime = MathUtils.random(1.0f,2.0f);
+            stop();
+        }
+        else if (totalStopTime > 0)
+            stop();
+        else if (initialTime >= 0) {
             if (initialDirection == 'n') {
                 newY = y - (1 / (ENEMY_SPEED * Gdx.graphics.getDeltaTime()));
                 e.setCurrentDirection('s');
@@ -47,7 +55,6 @@ public class ChasingBehaviour implements Behaviour {
             e.setPosition(newX, newY);
 
         }
-
         else if (Math.abs(x - h.getX()) < 3 && Math.abs(y - h.getY()) < 3) {  // Está próximo
 
             if (x > h.getX()) {
@@ -83,6 +90,13 @@ public class ChasingBehaviour implements Behaviour {
             }
         } else
             continueMove(e, h);
+    }
+
+    public void stop() {
+        totalStopTime-= Gdx.graphics.getDeltaTime();
+        if(totalStopTime<= 0) {
+            timeToStop = MathUtils.random(1.0f, 3.0f);
+        }
     }
 
     public void continueMove(EnemyModel e, HeroModel h) {

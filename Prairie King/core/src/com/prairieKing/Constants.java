@@ -7,7 +7,7 @@ public class Constants {
     public final static short CATEGORY_PROJECTILE = 0x0004; // 0000000000000100 in binary
     public final static short CATEGORY_POWERUP = 0x0008; // 0000000000000100 in binary
 
-    public final static short MASK_PLAYER = CATEGORY_ENEMY | CATEGORY_POWERUP;
+    public final static short MASK_PLAYER = ~(CATEGORY_PROJECTILE);
     public final static short MASK_ENEMY = CATEGORY_PLAYER | CATEGORY_PROJECTILE;
     public final static short MASK_PROJECTILE = (short) ~(CATEGORY_PROJECTILE);
     public final static short MASK_POWERUP = CATEGORY_PLAYER;

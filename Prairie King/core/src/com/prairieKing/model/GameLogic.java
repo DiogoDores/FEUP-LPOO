@@ -109,18 +109,6 @@ public class GameLogic {
             bod.createFixture(fDef);
         }
 
-        /*for(MapObject object : map.getLayers().get(2).getObjects().getByType(RectangleMapObject.class)) {
-            Rectangle rect = ((RectangleMapObject) object).getRectangle();
-
-            bDef.type = BodyDef.BodyType.StaticBody;
-            bDef.position.set((rect.getX() + rect.getWidth() / 2) / PrairieKing.PPM * 22.34f, (rect.getY() + rect.getHeight() / 2) / PrairieKing.PPM * 22.34f);
-
-            bod = world.createBody(bDef);
-
-            shape.setAsBox(rect.getWidth() / 2 / PrairieKing.PPM * 22.34f, rect.getHeight() / 2 / PrairieKing.PPM * 22.34f);
-            fDef.shape = shape;
-            bod.createFixture(fDef);
-        }*/
     }
 
     public HeroModel getHero() {

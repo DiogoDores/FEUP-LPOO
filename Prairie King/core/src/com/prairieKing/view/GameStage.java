@@ -133,9 +133,11 @@ public class GameStage extends ScreenAdapter {
         for (EnemyModel e : enemies) {
             if (e.getEnemyType() == "BASIC") {
                 enemyToDraw = new Sprite(game.getAssetManager().get("Sprites/MainSpriteSheet.png", Texture.class), 304, 80, 16, 16);
-            } else {
+            } else if (e.getEnemyType() == "FLYING") {
                 enemyToDraw = new Sprite(game.getAssetManager().get("Sprites/MainSpriteSheet.png", Texture.class), 352, 64, 16, 16);
             }
+                else if(e.getEnemyType() == "TOUGH")
+                enemyToDraw = new Sprite(game.getAssetManager().get("Sprites/MainSpriteSheet.png", Texture.class), 416, 64, 16, 16);
             enemyToDraw.setSize(Constants.ENEMY_WIDTH, Constants.ENEMY_WIDTH);
             enemyToDraw.setX(e.getX());
             enemyToDraw.setY(e.getY());
