@@ -6,6 +6,7 @@ import com.prairieKing.model.GameLogic;
 import com.prairieKing.model.Gun;
 import com.prairieKing.model.powerups.FireRateGunPowerup;
 import com.prairieKing.model.powerups.ShotgunPowerup;
+import com.prairieKing.model.powerups.WheelPowerup;
 
 public class PowerupModel extends EntityModel {
 
@@ -47,6 +48,9 @@ public class PowerupModel extends EntityModel {
         }
         else if(type == "GUN SHOTGUN") {
             gun.addPowerup(new ShotgunPowerup(gameLogic));
+        }
+        else if(type == "GUN WHEEL") {
+            gun.addPowerup(new WheelPowerup(gameLogic));
         }
 
         super.kill();

@@ -28,7 +28,7 @@ public class PowerupSpawner {
         this.gameLogic = gameLogic;
         this.world = gameLogic.getWorld();
 
-        timeToSpawn = 5;  // TODO Trocar este 5 por generateRandom(), só para testes
+        timeToSpawn = 4; //generateRandom();
 
     }
 
@@ -38,7 +38,6 @@ public class PowerupSpawner {
 
         if (timeToSpawn <= 0) {
             spawn();
-            timeToSpawn = generateRandom();
         }
 
     }
@@ -52,17 +51,23 @@ public class PowerupSpawner {
 
         // TODO ADICIONAR AQUI POWERUPS FUTUROS
 
-        int r = MathUtils.random(1);
+        int r = MathUtils.random(2);
         Vector2 position = randomPos();
 
         PowerupModel model = new PowerupModel(position.x,position.y, gameLogic);
 
-
         if (r == 0) { // Speed
             model.powerupType("GUN SPEED");
+            timeToSpawn = MathUtils.random(12.0f,22.0f);
         }
-        else if (r == 1)
+        else if (r == 1) {
             model.powerupType("GUN SHOTGUN");
+            timeToSpawn = MathUtils.random(17.0f,25.0f);
+        }
+        else if (r == 2) {
+            model.powerupType("GUN WHEEL");
+            timeToSpawn = MathUtils.random(12.0f,22.0f);
+        }
         powerupModels.add(model);
         powerupBodies.add(new PowerupBody(world,model));
     }

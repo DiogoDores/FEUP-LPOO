@@ -11,6 +11,7 @@ import com.prairieKing.controller.bodies.ProjectileBody;
 import com.prairieKing.model.entities.HeroModel;
 import com.prairieKing.model.entities.ProjectileModel;
 import com.prairieKing.model.powerups.GunPowerups;
+import com.prairieKing.view.GameStage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -102,10 +103,12 @@ public class Gun {
 
 
                 if (shape == 3) {
-                    shotgunShoot(posX,posY,vX,vY);
+                    shotgunShoot(posX, posY, vX, vY);
 
+                } else if (shape == 9) {
+                    wheelShoot(hero.getX(), hero.getY(), vX, vY);
                 } else {
-                    shoot(posX, posY, vX/1.4f, vY/1.4f);
+                    shoot(posX, posY, vX / 1.4f, vY / 1.4f);
                     timeLeftToShoot = DELAY_TIME_SHOOT;
                 }
             }
@@ -160,10 +163,6 @@ public class Gun {
         this.shape = shape;
     }
 
-    public int getShape() {
-        return shape;
-    }
-
     public void checkPowerups() {
         for (int i = 0; i < powerups.size(); i++) {
             powerups.get(i).update();
@@ -177,7 +176,6 @@ public class Gun {
     public void addPowerup(GunPowerups powerup) {
         powerups.add(powerup);
     }
-
 
     public void setLeftB(boolean leftB) {
         this.leftB = leftB;
@@ -208,19 +206,18 @@ public class Gun {
     }
 
     public boolean getDownB() {
-       return this.downB;
+        return this.downB;
     }
 
     public void shotgunShoot(float posX, float posY, float vX, float vY) {
-        float vx1 = 0, vx2 = 0, vy1 = 0, vy2= 0;
+        float vx1 = 0, vx2 = 0, vy1 = 0, vy2 = 0;
         if (vX > 0) {
             if (vY > 0) {
                 vx1 = MathUtils.cosDeg(70) * (int) PrairieKing.PPM * BULLET_SPEED;
                 vy1 = MathUtils.sinDeg(70) * (int) PrairieKing.PPM * BULLET_SPEED;
                 vx2 = MathUtils.cosDeg(20) * (int) PrairieKing.PPM * BULLET_SPEED;
                 vy2 = MathUtils.sinDeg(20) * (int) PrairieKing.PPM * BULLET_SPEED;
-            }
-            else if (vY < 0) {
+            } else if (vY < 0) {
                 vx1 = MathUtils.cosDeg(-20) * (int) PrairieKing.PPM * BULLET_SPEED;
                 vy1 = MathUtils.sinDeg(-20) * (int) PrairieKing.PPM * BULLET_SPEED;
                 vx2 = MathUtils.cosDeg(-70) * (int) PrairieKing.PPM * BULLET_SPEED;
@@ -233,43 +230,70 @@ public class Gun {
             }
         } else if (vX < 0) {
             if (vY > 0) {
-                vx1 = MathUtils.cosDeg(180-70) * (int) PrairieKing.PPM * BULLET_SPEED;
-                vy1 = MathUtils.sinDeg(180-70) * (int) PrairieKing.PPM * BULLET_SPEED;
-                vx2 = MathUtils.cosDeg(180-20) * (int) PrairieKing.PPM * BULLET_SPEED;
-                vy2 = MathUtils.sinDeg(180-20) * (int) PrairieKing.PPM * BULLET_SPEED;
-            }
-            else if (vY < 0) {
-                vx1 = MathUtils.cosDeg(180+20) * (int) PrairieKing.PPM * BULLET_SPEED;
-                vy1 = MathUtils.sinDeg(180+20) * (int) PrairieKing.PPM * BULLET_SPEED;
-                vx2 = MathUtils.cosDeg(180+70) * (int) PrairieKing.PPM * BULLET_SPEED;
-                vy2 = MathUtils.sinDeg(180+70) * (int) PrairieKing.PPM * BULLET_SPEED;
+                vx1 = MathUtils.cosDeg(180 - 70) * (int) PrairieKing.PPM * BULLET_SPEED;
+                vy1 = MathUtils.sinDeg(180 - 70) * (int) PrairieKing.PPM * BULLET_SPEED;
+                vx2 = MathUtils.cosDeg(180 - 20) * (int) PrairieKing.PPM * BULLET_SPEED;
+                vy2 = MathUtils.sinDeg(180 - 20) * (int) PrairieKing.PPM * BULLET_SPEED;
+            } else if (vY < 0) {
+                vx1 = MathUtils.cosDeg(180 + 20) * (int) PrairieKing.PPM * BULLET_SPEED;
+                vy1 = MathUtils.sinDeg(180 + 20) * (int) PrairieKing.PPM * BULLET_SPEED;
+                vx2 = MathUtils.cosDeg(180 + 70) * (int) PrairieKing.PPM * BULLET_SPEED;
+                vy2 = MathUtils.sinDeg(180 + 70) * (int) PrairieKing.PPM * BULLET_SPEED;
             } else {
-                vx1 = MathUtils.cosDeg(180-25) * (int) PrairieKing.PPM * BULLET_SPEED;
-                vy1 = MathUtils.sinDeg(180-25) * (int) PrairieKing.PPM * BULLET_SPEED;
-                vx2 = MathUtils.cosDeg(180+25) * (int) PrairieKing.PPM * BULLET_SPEED;
-                vy2 = MathUtils.sinDeg(180+25) * (int) PrairieKing.PPM * BULLET_SPEED;
+                vx1 = MathUtils.cosDeg(180 - 25) * (int) PrairieKing.PPM * BULLET_SPEED;
+                vy1 = MathUtils.sinDeg(180 - 25) * (int) PrairieKing.PPM * BULLET_SPEED;
+                vx2 = MathUtils.cosDeg(180 + 25) * (int) PrairieKing.PPM * BULLET_SPEED;
+                vy2 = MathUtils.sinDeg(180 + 25) * (int) PrairieKing.PPM * BULLET_SPEED;
             }
         } else {
             if (vY > 0) {
-                vx1 = MathUtils.cosDeg(90+25) * (int) PrairieKing.PPM * BULLET_SPEED;
-                vy1 = MathUtils.sinDeg(90+25) * (int) PrairieKing.PPM * BULLET_SPEED;
-                vx2 = MathUtils.cosDeg(90-25) * (int) PrairieKing.PPM * BULLET_SPEED;
-                vy2 = MathUtils.sinDeg(90-25) * (int) PrairieKing.PPM * BULLET_SPEED;
-            }
-            else if (vY < 0) {
-                vx1 = MathUtils.cosDeg(270-25) * (int) PrairieKing.PPM * BULLET_SPEED;
-                vy1 = MathUtils.sinDeg(270-25) * (int) PrairieKing.PPM * BULLET_SPEED;
-                vx2 = MathUtils.cosDeg(270+25) * (int) PrairieKing.PPM * BULLET_SPEED;
-                vy2 = MathUtils.sinDeg(270+25) * (int) PrairieKing.PPM * BULLET_SPEED;
+                vx1 = MathUtils.cosDeg(90 + 25) * (int) PrairieKing.PPM * BULLET_SPEED;
+                vy1 = MathUtils.sinDeg(90 + 25) * (int) PrairieKing.PPM * BULLET_SPEED;
+                vx2 = MathUtils.cosDeg(90 - 25) * (int) PrairieKing.PPM * BULLET_SPEED;
+                vy2 = MathUtils.sinDeg(90 - 25) * (int) PrairieKing.PPM * BULLET_SPEED;
+            } else if (vY < 0) {
+                vx1 = MathUtils.cosDeg(270 - 25) * (int) PrairieKing.PPM * BULLET_SPEED;
+                vy1 = MathUtils.sinDeg(270 - 25) * (int) PrairieKing.PPM * BULLET_SPEED;
+                vx2 = MathUtils.cosDeg(270 + 25) * (int) PrairieKing.PPM * BULLET_SPEED;
+                vy2 = MathUtils.sinDeg(270 + 25) * (int) PrairieKing.PPM * BULLET_SPEED;
             }
         }
 
         shoot(posX, posY, vx1, vy1);
         shoot(posX, posY, vx2, vy2);
-        if (vX!=0 && vY!= 0)
-            shoot(posX, posY, vX/1.4f, vY/1.4f);
+        if (vX != 0 && vY != 0)
+            shoot(posX, posY, vX / 1.4f, vY / 1.4f);
         else
             shoot(posX, posY, vX, vY);
         timeLeftToShoot = DELAY_TIME_SHOOT;
+
+    }
+
+    public void wheelShoot(float posX, float posY, float vX, float vY) {
+        float speed;
+        if (vX != 0)
+            speed = vX/1.5f;
+        else
+            speed = vY/1.5f;
+
+        speed = Math.abs(speed);
+
+        float xLeft = posX - Constants.PROJECTILE_WIDTH/2, xMiddle =  hero.getX() + Constants.HERO_WIDTH / 2 - Constants.PROJECTILE_WIDTH / 2, xRight = posX + Constants.HERO_WIDTH - Constants.PROJECTILE_WIDTH / 2;
+        float yBottom = posY - Constants.PROJECTILE_WIDTH / 2, yMiddle = posY + Constants.HERO_WIDTH / 2 - Constants.PROJECTILE_WIDTH / 2,
+                yTop =  posY + Constants.HERO_WIDTH - Constants.PROJECTILE_WIDTH / 2;
+
+        shoot(xRight, yMiddle, speed, 0);
+        shoot(xMiddle, yTop, 0, speed);
+        shoot(xLeft, yMiddle, -speed, 0);
+        shoot(xMiddle, yBottom, 0, -speed);
+        shoot(xRight, yTop, speed / 1.4f, speed / 1.4f);
+        shoot(xRight, yBottom, speed / 1.4f, -speed / 1.4f);
+        shoot(xLeft, yTop, -speed / 1.4f, speed / 1.4f);
+        shoot(xLeft, yBottom, -speed / 1.4f, -speed / 1.4f);
+
+
+        timeLeftToShoot = DELAY_TIME_SHOOT;
+
+
     }
 }
