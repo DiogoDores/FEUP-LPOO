@@ -91,4 +91,9 @@ public class EnemyModel extends EntityModel implements Behaviour {
     public void initialBehaviour(char direction) {
 
     }
+
+    public Behaviour getBehaviour() {
+        return null;
+    }
+
 }

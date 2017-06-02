@@ -29,4 +29,9 @@ public class BasicWalker extends EnemyModel {
     public void setCurrentDirection(char currentDirection) {
         super.setCurrentDirection(currentDirection);
     }
+
+    @Override
+    public Behaviour getBehaviour() {
+        return behaviour;
+    }
 }

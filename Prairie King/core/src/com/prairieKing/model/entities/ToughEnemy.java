@@ -37,4 +37,9 @@ public class ToughEnemy extends EnemyModel {
         if(lives <= 0)
             super.kill();
     }
+
+    @Override
+    public Behaviour getBehaviour() {
+        return behaviour;
+    }
 }
