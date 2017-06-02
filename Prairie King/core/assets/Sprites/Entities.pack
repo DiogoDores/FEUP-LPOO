@@ -3,17 +3,24 @@ Entities.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-movement
+heroMovement
   rotate: false
   xy: 1, 1
   size: 272, 16
   orig: 272, 16
   offset: 0, 0
-  index: 1
-movement
+  index: -1
+enemyMovement
   rotate: false
   xy: 275, 1
   size: 96, 16
   orig: 96, 16
   offset: 0, 0
-  index: 2
+  index: -1
+enemyDeath
+  rotate: false
+  xy: 373, 1
+  size: 80, 16
+  orig: 80, 16
+  offset: 0, 0
+  index: -1

@@ -173,4 +173,8 @@ public class ToughBehaviour implements Behaviour {
         initialDirection = direction;
         initialTime = 3;
     }
+
+    public float getTimeToStop() {
+        return timeToStop;
+    }
 }

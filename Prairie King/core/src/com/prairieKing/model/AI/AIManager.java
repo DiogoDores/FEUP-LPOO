@@ -76,7 +76,7 @@ public class AIManager {
                 else if (random == 1 && killCount < 250) {
                     return new FlyingEnemy(x, y, spawnPlaces.charAt(randomSpawn));
                 }
-                else if (random == 0 &&  killCount > 100 && killCount < 400) {
+                else if (random == 0 &&  killCount >= 100 && killCount < 400) {
                     return new ToughEnemy(x,y,spawnPlaces.charAt(randomSpawn));
                 }
                 return null;
@@ -126,6 +126,7 @@ public class AIManager {
     public void checkEnemies() {
         for (int i = 0; i < enemies.size(); i++) {
             if (enemies.get(i).isFlaggedForDelete()) {
+
                 for (int j = 0; j < enemiesBodies.size(); j++) {
 
                     if (enemiesBodies.get(j).getUserData() == enemies.get(i)) {

@@ -43,9 +43,12 @@ public class GameStage extends ScreenAdapter {
     private Box2DDebugRenderer b2dr;
     private TextureAtlas atlas;
 
-    private Animator animateHero, animateEnemy;
+    private HeroAnimator animateHero;
+    private EnemyAnimator animateEnemy;
 
     private Sound sound;
+
+    private int i = 0;
 
     public GameStage(GameLogic gameLogic) {
         this.game = gameLogic.getPrairieKing();
@@ -83,7 +86,6 @@ public class GameStage extends ScreenAdapter {
     public void render(float delta) {
 
         animateHero.update();
-        //animateEnemy.update(delta);
         renderer.setView(cam);
 
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -98,7 +100,6 @@ public class GameStage extends ScreenAdapter {
         batch.setProjectionMatrix(cam.combined);
 
         animateHero.draw(batch);
-        //animateEnemy.draw(batch);
         drawEnemies();
         drawBullets();
         drawPowerups();
@@ -135,10 +136,12 @@ public class GameStage extends ScreenAdapter {
     public void drawEnemies() {
         for (EnemyModel e : enemies) {
 
-            /*animateEnemy.update();
-            animateEnemy.draw(batch);*/
+            animateEnemy.update(i, e);
+            animateEnemy.draw(batch);
 
-            if (e.getEnemyType() == "BASIC") {
+            i++;
+
+            /*if (e.getEnemyType() == "BASIC") {
                 enemyToDraw = new Sprite(game.getAssetManager().get("Sprites/MainSpriteSheet.png", Texture.class), 304, 80, 16, 16);
             } else if (e.getEnemyType() == "FLYING") {
                 enemyToDraw = new Sprite(game.getAssetManager().get("Sprites/MainSpriteSheet.png", Texture.class), 352, 64, 16, 16);
@@ -147,9 +150,11 @@ public class GameStage extends ScreenAdapter {
             enemyToDraw.setSize(Constants.ENEMY_WIDTH, Constants.ENEMY_WIDTH);
             enemyToDraw.setX(e.getX());
             enemyToDraw.setY(e.getY());
-            enemyToDraw.draw(batch);
+            enemyToDraw.draw(batch);*/
 
         }
+
+        i = 0;
     }
 
 

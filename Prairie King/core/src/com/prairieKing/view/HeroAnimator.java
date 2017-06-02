@@ -2,6 +2,7 @@ package com.prairieKing.view;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.utils.Array;
@@ -12,7 +13,7 @@ import com.prairieKing.PrairieKing;
  * Created by Utilizador on 01/06/2017.
  */
 
-public class HeroAnimator extends Animator{
+public class HeroAnimator extends Sprite{
 
     private GameStage gameStage;
 
@@ -26,7 +27,7 @@ public class HeroAnimator extends Animator{
     private TextureRegion defPosition;
 
     public HeroAnimator(GameStage gameStage) {
-        super(gameStage, 1);
+        super(gameStage.getAtlas().findRegion("heroMovement"));
         this.body = gameStage.getGameLogic().getHeroBody().getBody();
 
         currentState = State.STANDING;
@@ -36,27 +37,27 @@ public class HeroAnimator extends Animator{
         Array<TextureRegion> frames = new Array<TextureRegion>();
 
         for (int i = 1; i < 4; i++)
-            frames.add(new TextureRegion(getTexture(), i * 16 + 1, 0, 16, 16));
+            frames.add(new TextureRegion(getTexture(), i * 16 + 1, 1, 16, 16));
 
-        walkDown = new Animation<TextureRegion>(0.1f, frames);
+        walkDown = new Animation<TextureRegion>(0.2f, frames);
         frames.clear();
 
         for (int i = 5; i < 9; i++)
-            frames.add(new TextureRegion(getTexture(), i * 16 + 1, 0, 16, 16));
+            frames.add(new TextureRegion(getTexture(), i * 16 + 1, 1, 16, 16));
 
-        walkRight = new Animation<TextureRegion>(0.1f, frames);
+        walkRight = new Animation<TextureRegion>(0.2f, frames);
         frames.clear();
 
         for (int i = 9; i < 13; i++)
-            frames.add(new TextureRegion(getTexture(), i * 16 + 1, 0, 16, 16));
+            frames.add(new TextureRegion(getTexture(), i * 16 + 1, 1, 16, 16));
 
-        walkLeft = new Animation<TextureRegion>(0.1f, frames);
+        walkLeft = new Animation<TextureRegion>(0.2f, frames);
         frames.clear();
 
         for (int i = 13; i < 17; i++)
-            frames.add(new TextureRegion(getTexture(), i * 16 + 1, 0, 16, 16));
+            frames.add(new TextureRegion(getTexture(), i * 16 + 1, 1, 16, 16));
 
-        walkUp = new Animation<TextureRegion>(0.1f, frames);
+        walkUp = new Animation<TextureRegion>(0.2f, frames);
 
         defPosition = new TextureRegion(getTexture(), 1, 1, 16, 16);
         setBounds(0, 0, 16 / (PrairieKing.PPM /40), 16 / (PrairieKing.PPM /40));
