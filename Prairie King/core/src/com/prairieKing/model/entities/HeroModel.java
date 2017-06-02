@@ -126,6 +126,9 @@ public class HeroModel extends EntityModel {
         powerups.add(powerup);
     }
 
+    public int getLives() {
+        return lives;
+    }
 
     public void setSpeed(int speed) {
         this.speed = speed;

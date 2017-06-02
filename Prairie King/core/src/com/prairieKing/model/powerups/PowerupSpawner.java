@@ -48,9 +48,6 @@ public class PowerupSpawner {
     }
 
     public void spawn() {
-
-        // TODO ADICIONAR AQUI POWERUPS FUTUROS
-
         int r = MathUtils.random(4);
         Vector2 position = randomPos();
 

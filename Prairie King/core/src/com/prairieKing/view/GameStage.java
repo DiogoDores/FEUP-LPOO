@@ -99,6 +99,7 @@ public class GameStage extends ScreenAdapter {
 
         animateHero.draw(batch);
         //animateEnemy.draw(batch);
+        drawLives();
         drawEnemies();
         drawBullets();
         drawPowerups();
@@ -114,6 +115,16 @@ public class GameStage extends ScreenAdapter {
             projectileToDraw.setX(projectile.getX());
             projectileToDraw.setY(projectile.getY());
             projectileToDraw.draw(batch);
+        }
+    }
+
+    public void drawLives() {
+        Sprite heartToDraw =new Sprite(game.getAssetManager().get("Sprites/MainSpriteSheet.png", Texture.class), 97, 162, 16, 16);
+        for (int i = 0; i < gameLogic.getHero().getLives(); i++) {
+            heartToDraw.setSize(Constants.HEART_WIDTH, Constants.HEART_WIDTH);
+            heartToDraw.setX(-10);
+            heartToDraw.setY(0);
+            heartToDraw.draw(batch);
         }
     }
 

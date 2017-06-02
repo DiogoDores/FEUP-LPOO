@@ -12,6 +12,7 @@ public class Constants {
     public final static short MASK_PROJECTILE = (short) ~(CATEGORY_PROJECTILE);
     public final static short MASK_POWERUP = CATEGORY_PLAYER;
 
+    public static final float HEART_WIDTH = PrairieKing.PPM/14;
     public static final float HERO_WIDTH = PrairieKing.PPM/17;
     public static final float ENEMY_WIDTH = PrairieKing.PPM/17;
     public static final float PROJECTILE_WIDTH = PrairieKing.PPM/36;
