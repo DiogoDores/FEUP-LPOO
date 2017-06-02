@@ -65,4 +65,9 @@ public class FlyingBehaviour implements Behaviour {
         initialDirection = direction;
         initialTime = 3;
     }
+
+    @Override
+    public float getTimeToStop() {
+        return 0;
+    }
 }

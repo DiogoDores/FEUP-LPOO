@@ -71,7 +71,10 @@ public class EnemyAnimator extends Sprite{
             else if (enemy.getEnemyType() == "FLYING")
                 setRegion(flying.getKeyFrame(stateTimer, true));
             else if (enemy.getEnemyType() == "TOUGH")
-                setRegion(tough.getKeyFrame(stateTimer, true));
+                if(enemy.getBehaviour().getTimeToStop() > 0)
+                    setRegion(tough.getKeyFrame(stateTimer, true));
+                else
+                    setRegion(tough.getKeyFrame(stateTimer));
         } else {
             setRegion(death.getKeyFrame(stateTimer));
         }

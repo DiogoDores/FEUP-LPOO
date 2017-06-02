@@ -92,6 +92,11 @@ public class EnemyModel extends EntityModel implements Behaviour {
 
     }
 
+    @Override
+    public float getTimeToStop() {
+        return 0;
+    }
+
     public Behaviour getBehaviour() {
         return null;
     }

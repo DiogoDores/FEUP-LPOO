@@ -9,4 +9,6 @@ public interface Behaviour {
     void initialBehaviour(char direction);
 
     //public void confused(Enemy e); // Random Movements
+
+    float getTimeToStop();
 }
