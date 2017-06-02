@@ -51,7 +51,7 @@ public class PowerupSpawner {
 
         // TODO ADICIONAR AQUI POWERUPS FUTUROS
 
-        int r = MathUtils.random(2);
+        int r = MathUtils.random(4);
         Vector2 position = randomPos();
 
         PowerupModel model = new PowerupModel(position.x,position.y, gameLogic);
@@ -66,6 +66,14 @@ public class PowerupSpawner {
         }
         else if (r == 2) {
             model.powerupType("GUN WHEEL");
+            timeToSpawn = MathUtils.random(12.0f,22.0f);
+        }
+        else if (r == 3) {
+            model.powerupType("HERO LIFE");
+            timeToSpawn = MathUtils.random(12.0f,22.0f);
+        }
+        else if (r == 4) {
+            model.powerupType("HERO SPEED");
             timeToSpawn = MathUtils.random(12.0f,22.0f);
         }
         powerupModels.add(model);

@@ -1,5 +1,7 @@
 package com.prairieKing.model.powerups;
 
+import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
 import com.prairieKing.model.GameLogic;
 import com.prairieKing.model.entities.HeroModel;
 
@@ -9,10 +11,19 @@ import com.prairieKing.model.entities.HeroModel;
 
 public class HeroPowerups extends HeroModel {
 
-    public float x, y;
+    private float effectTime;
 
-    public HeroPowerups(float x, float y, GameLogic game) {
-        super(x, y);
+    private GameLogic game;
+
+    public HeroPowerups(GameLogic game) {
+        super(0, 0);
+        this.game = game;
+        effectTime = 7;
+
+    }
+
+    public GameLogic getGame() {
+        return game;
     }
 
     @Override
@@ -20,8 +31,19 @@ public class HeroPowerups extends HeroModel {
         super.setSpeed(speed);
     }
 
-    public void spawn(float x, float y) {
-        this.x = x;
-        this.y = y;
+    public void removeEffect()  {
+
+    }
+
+    public void update() {
+        effectTime -= Gdx.graphics.getDeltaTime();
+    }
+
+    public void setEffectTime(float time) {
+        effectTime = time;
+    }
+
+    public float getEffectTime() {
+        return effectTime;
     }
 }

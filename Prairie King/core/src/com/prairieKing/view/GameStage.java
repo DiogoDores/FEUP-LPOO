@@ -126,6 +126,10 @@ public class GameStage extends ScreenAdapter {
                 powerupToDraw = new Sprite(game.getAssetManager().get("Sprites/MainSpriteSheet.png", Texture.class), 256, 160, 16, 16);
             else if (powerups.get(i).getPowerupType() == "GUN WHEEL")
                 powerupToDraw = new Sprite(game.getAssetManager().get("Sprites/MainSpriteSheet.png", Texture.class), 176, 160, 16, 16);
+            else if (powerups.get(i).getPowerupType() == "HERO LIFE")
+                powerupToDraw = new Sprite(game.getAssetManager().get("Sprites/MainSpriteSheet.png", Texture.class), 97, 162, 16, 16);
+            else if (powerups.get(i).getPowerupType() == "HERO SPEED")
+                powerupToDraw = new Sprite(game.getAssetManager().get("Sprites/MainSpriteSheet.png", Texture.class), 241, 129, 15, 15);
             powerupToDraw.setSize(Constants.POWERUP_WIDTH, Constants.POWERUP_WIDTH);
             powerupToDraw.setX(powerups.get(i).getX());
             powerupToDraw.setY(powerups.get(i).getY());
