@@ -32,7 +32,7 @@ public class AIManager {
 
     public AIManager(GameLogic gameLogic) {
         this.gameLogic = gameLogic;
-        killCount = 0;
+        killCount =0;
         hasIncreased = false;
         activeNumber = 0;
         timeToSpawn = .2f;
@@ -46,8 +46,10 @@ public class AIManager {
                 while ( spawnPlaces.charAt(randomSpawn) == lastSpawned && spawnPlaces.charAt(randomSpawn) == last2spawned) {
                     randomSpawn = MathUtils.random(3);
                 }
+
                 last2spawned = lastSpawned;
                 lastSpawned =  spawnPlaces.charAt(randomSpawn);
+
                 float placeRandom = MathUtils.random(-5.0f,5.0f);
                 int x, y;
                 if (spawnPlaces.charAt(randomSpawn) == 'n') {
@@ -66,7 +68,7 @@ public class AIManager {
                     x = -10;
                     y = (int) (PrairieKing.PPM / 2 +placeRandom);
                 }
-                random = 3;
+
 
                 if (random == 0 && killCount < 100) {
                     return new BasicWalker(x,y,spawnPlaces.charAt(randomSpawn));
@@ -83,7 +85,9 @@ public class AIManager {
     }
 
     public void increaseDifficulty() {
-        MAX_ENEMY_NUMBER = MAX_ENEMY_NUMBER + 1;
+        MAX_ENEMY_NUMBER = MAX_ENEMY_NUMBER + 1; if(killCount == 160) {
+            MAX_ENEMY_NUMBER -= 4;
+        }
     }
 
     public void spawn() {
@@ -95,7 +99,6 @@ public class AIManager {
 
         if (activeNumber < MAX_ENEMY_NUMBER && timeToSpawn <= 0.0f) {
             EnemyModel e = enemyModelsPool.obtain();
-            System.out.println("Spawned");
             activeNumber++;
             enemies.add(e);
             enemiesBodies.add(new EnemyBody(gameLogic.getWorld(), e));
