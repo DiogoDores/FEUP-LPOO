@@ -82,7 +82,7 @@ public class GameStage extends ScreenAdapter {
     @Override
     public void render(float delta) {
 
-        animateHero.update(delta);
+        animateHero.update();
         //animateEnemy.update(delta);
         renderer.setView(cam);
 
@@ -134,13 +134,15 @@ public class GameStage extends ScreenAdapter {
 
     public void drawEnemies() {
         for (EnemyModel e : enemies) {
+
+            /*animateEnemy.update();
+            animateEnemy.draw(batch);*/
+
             if (e.getEnemyType() == "BASIC") {
-                //animateEnemy.draw(batch);
                 enemyToDraw = new Sprite(game.getAssetManager().get("Sprites/MainSpriteSheet.png", Texture.class), 304, 80, 16, 16);
             } else if (e.getEnemyType() == "FLYING") {
                 enemyToDraw = new Sprite(game.getAssetManager().get("Sprites/MainSpriteSheet.png", Texture.class), 352, 64, 16, 16);
-            }
-                else if(e.getEnemyType() == "TOUGH")
+            } else if(e.getEnemyType() == "TOUGH")
                 enemyToDraw = new Sprite(game.getAssetManager().get("Sprites/MainSpriteSheet.png", Texture.class), 416, 64, 16, 16);
             enemyToDraw.setSize(Constants.ENEMY_WIDTH, Constants.ENEMY_WIDTH);
             enemyToDraw.setX(e.getX());

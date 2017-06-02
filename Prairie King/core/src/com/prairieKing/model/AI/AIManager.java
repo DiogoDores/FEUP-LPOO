@@ -98,7 +98,7 @@ public class AIManager {
             System.out.println("Spawned");
             activeNumber++;
             enemies.add(e);
-            enemiesBodies.add(new EnemyBody(gameLogic.getWorld(),e));
+            enemiesBodies.add(new EnemyBody(gameLogic.getWorld(), e));
             timeToSpawn = MathUtils.random(5.0f/MAX_ENEMY_NUMBER, 7.0f/MAX_ENEMY_NUMBER);
         }
         timeToSpawn -= Gdx.graphics.getDeltaTime();

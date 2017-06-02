@@ -12,6 +12,6 @@ public abstract class Animator extends Sprite {
         super(gameStage.getAtlas().findRegion("movement", index));
     }
 
-    public abstract void update(float delta);
+    public abstract void update();
 }
 
