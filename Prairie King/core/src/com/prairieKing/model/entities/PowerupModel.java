@@ -4,8 +4,11 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.MathUtils;
 import com.prairieKing.model.GameLogic;
 import com.prairieKing.model.Gun;
+import com.prairieKing.model.powerups.HeroExtraLife;
 import com.prairieKing.model.powerups.FireRateGunPowerup;
+import com.prairieKing.model.powerups.HeroSpeed;
 import com.prairieKing.model.powerups.ShotgunPowerup;
+import com.prairieKing.model.powerups.WheelPowerup;
 
 public class PowerupModel extends EntityModel {
 
@@ -48,6 +51,16 @@ public class PowerupModel extends EntityModel {
         else if(type == "GUN SHOTGUN") {
             gun.addPowerup(new ShotgunPowerup(gameLogic));
         }
+        else if(type == "GUN WHEEL") {
+            gun.addPowerup(new WheelPowerup(gameLogic));
+        }
+        else if(type == "HERO LIFE") {
+            hero.addPowerup(new HeroExtraLife(gameLogic));
+        }
+        else if(type == "HERO SPEED") {
+            hero.addPowerup(new HeroSpeed(gameLogic));
+        }
+
 
         super.kill();
     }

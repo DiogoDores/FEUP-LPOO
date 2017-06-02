@@ -2,12 +2,18 @@ package com.prairieKing.model.entities;
 
 import com.badlogic.gdx.Gdx;
 import com.prairieKing.PrairieKing;
+import com.prairieKing.model.powerups.HeroPowerups;
+
+import java.util.ArrayList;
 
 public class HeroModel extends EntityModel {
     private float x, y;
     private int lives;
     private boolean left, right, up, down;
     private int speed;
+
+    private ArrayList<HeroPowerups> powerups = new ArrayList<>();
+
 
     public HeroModel(float x, float y) {
         super(x, y);
@@ -20,6 +26,8 @@ public class HeroModel extends EntityModel {
     }
 
     public void move() {
+        checkPowerups();
+
         float x = this.x, y = this.y;
         if (left)
             x = (x - (PrairieKing.PPM / speed * Gdx.graphics.getDeltaTime()));
@@ -98,6 +106,28 @@ public class HeroModel extends EntityModel {
         isHit();
         if (this.lives == 0)
             super.kill();
+    }
+
+    public void addLife() {
+        this.lives++;
+    }
+
+    public void checkPowerups() {
+        for (int i = 0; i < powerups.size(); i++) {
+            powerups.get(i).update();
+            if (powerups.get(i).getEffectTime() <= 0) {
+                powerups.get(i).removeEffect();
+                powerups.remove(i);
+            }
+        }
+    }
+
+    public void addPowerup(HeroPowerups powerup) {
+        powerups.add(powerup);
+    }
+
+    public int getLives() {
+        return lives;
     }
 
     public void setSpeed(int speed) {
