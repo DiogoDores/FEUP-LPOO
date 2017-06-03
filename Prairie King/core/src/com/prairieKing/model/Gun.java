@@ -28,7 +28,7 @@ public class Gun {
     private float DELAY_TIME_SHOOT = 0.14f;
 
     private float SPEED;
-    private boolean test;
+    private String typeGun;
     private HeroModel hero;
     private int shape;
     private int BULLET_SPEED = 4;
@@ -39,7 +39,7 @@ public class Gun {
 
 
     public Gun(GameLogic gameLogic) {
-        test = false;
+        typeGun = "NORMAL";
         shape = 1;
         timeLeftToShoot = .15f;
         this.world = gameLogic.getWorld();
@@ -113,7 +113,7 @@ public class Gun {
                 }
             }
         }
-    }  // AQUI chamo o shoot com valores bonitos
+    }
 
     public void shoot(float posX, float posY, float vX, float vY) {
 
@@ -151,18 +151,6 @@ public class Gun {
         }
     }
 
-    public void setSpeed(float speed) {
-        SPEED = speed;
-    }
-
-    public float getSPEED() {
-        return SPEED;
-    }
-
-    public void setShape(int shape) {
-        this.shape = shape;
-    }
-
     public void checkPowerups() {
         for (int i = 0; i < powerups.size(); i++) {
             powerups.get(i).update();
@@ -175,38 +163,6 @@ public class Gun {
 
     public void addPowerup(GunPowerups powerup) {
         powerups.add(powerup);
-    }
-
-    public void setLeftB(boolean leftB) {
-        this.leftB = leftB;
-    }
-
-    public void setRightB(boolean rightB) {
-        this.rightB = rightB;
-    }
-
-    public void setUpB(boolean upB) {
-        this.upB = upB;
-    }
-
-    public void setDownB(boolean downB) {
-        this.downB = downB;
-    }
-
-    public boolean getLeftB() {
-        return this.leftB;
-    }
-
-    public boolean getRightB() {
-        return this.rightB;
-    }
-
-    public boolean getUpB() {
-        return this.upB;
-    }
-
-    public boolean getDownB() {
-        return this.downB;
     }
 
     public void shotgunShoot(float posX, float posY, float vX, float vY) {
@@ -294,6 +250,57 @@ public class Gun {
 
         timeLeftToShoot = DELAY_TIME_SHOOT;
 
+    }
 
+    public void setLeftB(boolean leftB) {
+        this.leftB = leftB;
+    }
+
+    public void setRightB(boolean rightB) {
+        this.rightB = rightB;
+    }
+
+    public void setUpB(boolean upB) {
+        this.upB = upB;
+    }
+
+    public void setDownB(boolean downB) {
+        this.downB = downB;
+    }
+
+    public boolean getLeftB() {
+        return this.leftB;
+    }
+
+    public boolean getRightB() {
+        return this.rightB;
+    }
+
+    public boolean getUpB() {
+        return this.upB;
+    }
+
+    public boolean getDownB() {
+        return this.downB;
+    }
+
+    public void setSpeed(float speed) {
+        SPEED = speed;
+    }
+
+    public float getSPEED() {
+        return SPEED;
+    }
+
+    public void setShape(int shape) {
+        this.shape = shape;
+    }
+
+    public String getTypeGun() {
+        return typeGun;
+    }
+
+    public void setTypeGun(String typeGun) {
+        this.typeGun = typeGun;
     }
 }

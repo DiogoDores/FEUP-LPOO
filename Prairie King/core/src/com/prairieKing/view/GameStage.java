@@ -1,4 +1,5 @@
 package com.prairieKing.view;
+
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -64,7 +65,7 @@ public class GameStage extends ScreenAdapter {
 
         cam.position.set(cam.viewportWidth / 2, cam.viewportHeight / 2, 0);
         cam.setToOrtho(false, game.PPM, game.PPM);
-        view = new FitViewport(game.PPM/ Constants.RATIO, game.PPM , cam);
+        view = new FitViewport(game.PPM / Constants.RATIO, game.PPM, cam);
         renderer = new OrthogonalTiledMapRenderer(map, .2234f);
         loadAssets();
 
@@ -96,7 +97,7 @@ public class GameStage extends ScreenAdapter {
         Gdx.gl.glClearColor(0, 0, 0, 1);
 
         renderer.render();
-        b2dr.render(world, cam.combined);
+        //b2dr.render(world, cam.combined);
 
         batch.begin();
 
@@ -104,20 +105,55 @@ public class GameStage extends ScreenAdapter {
         batch.setProjectionMatrix(cam.combined);
 
         animateHero.draw(batch);
-        drawLives();
         drawEnemies();
         drawBullets();
         drawPowerups();
 
         Sprite black = new Sprite(background);
-        black.setSize(90,40);
+        black.setSize(90, 40);
         black.setX(-90);
         black.setY(30);
         black.draw(batch);
         black.setX(100);
         black.setY(40);
         black.draw(batch);
+
+        drawHud();
         batch.end();
+
+    }
+
+    public void drawHud() {
+        Sprite gunHolder = new Sprite(game.getAssetManager().get("Sprites/MainSpriteSheet.png", Texture.class), 166, 134, 22, 22);
+        gunHolder.setSize(17, 17);
+        gunHolder.setX(-30);
+        gunHolder.setY(80);
+        gunHolder.draw(batch);
+
+        Sprite currentPowerUp;
+        if (gun.getTypeGun() != "NORMAL") {
+            if (gun.getTypeGun() == "SHOTGUN")
+                currentPowerUp = new Sprite(game.getAssetManager().get("Sprites/MainSpriteSheet.png", Texture.class), 256, 160, 16, 16);
+            else if (gun.getTypeGun() == "WHEEL")
+                currentPowerUp = new Sprite(game.getAssetManager().get("Sprites/MainSpriteSheet.png", Texture.class), 176, 160, 16, 16);
+            else
+                currentPowerUp = new Sprite(game.getAssetManager().get("Sprites/MainSpriteSheet.png", Texture.class), 192, 160, 16, 16);
+
+            currentPowerUp.setSize(9, 9);
+            currentPowerUp.setX(-26);
+            currentPowerUp.setY(84);
+
+            currentPowerUp.draw(batch);
+        }
+
+        Sprite heartToDraw = new Sprite(game.getAssetManager().get("Sprites/MainSpriteSheet.png", Texture.class), 97, 162, 16, 16);
+        for (int i = 0; i < gameLogic.getHero().getLives()-1; i++) {
+            float x = i%3;
+            heartToDraw.setSize(Constants.HEART_WIDTH, Constants.HEART_WIDTH);
+            heartToDraw.setX(-30 + x*Constants.HEART_WIDTH);
+            heartToDraw.setY(70 - (i/3 * Constants.HEART_WIDTH));
+            heartToDraw.draw(batch);
+        }
 
     }
 
@@ -128,16 +164,6 @@ public class GameStage extends ScreenAdapter {
             projectileToDraw.setX(projectile.getX());
             projectileToDraw.setY(projectile.getY());
             projectileToDraw.draw(batch);
-        }
-    }
-
-    public void drawLives() {
-        Sprite heartToDraw =new Sprite(game.getAssetManager().get("Sprites/MainSpriteSheet.png", Texture.class), 97, 162, 16, 16);
-        for (int i = 0; i < gameLogic.getHero().getLives(); i++) {
-            heartToDraw.setSize(Constants.HEART_WIDTH, Constants.HEART_WIDTH);
-            heartToDraw.setX(-10);
-            heartToDraw.setY(0);
-            heartToDraw.draw(batch);
         }
     }
 
@@ -161,7 +187,6 @@ public class GameStage extends ScreenAdapter {
         }
     }
 
-
     public void drawEnemies() {
         for (EnemyModel e : enemies) {
 
@@ -173,7 +198,6 @@ public class GameStage extends ScreenAdapter {
 
         i = 0;
     }
-
 
     @Override
     public void resize(int width, int height) {
@@ -198,4 +222,6 @@ public class GameStage extends ScreenAdapter {
     public GameLogic getGameLogic() {
         return gameLogic;
     }
+
+
 }

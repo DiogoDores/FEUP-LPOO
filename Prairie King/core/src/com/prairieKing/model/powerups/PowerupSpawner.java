@@ -53,6 +53,7 @@ public class PowerupSpawner {
 
         PowerupModel model = new PowerupModel(position.x,position.y, gameLogic);
 
+        r = 3;
         if (r == 0) { // Speed
             model.powerupType("GUN SPEED");
             timeToSpawn = MathUtils.random(12.0f,22.0f);

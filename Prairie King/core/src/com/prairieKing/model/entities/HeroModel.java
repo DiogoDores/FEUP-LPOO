@@ -12,6 +12,7 @@ public class HeroModel extends EntityModel {
     private boolean left, right, up, down;
     private int speed;
 
+
     private float MIN_WIDTH = 3.76f, MAX_WIDTH = 90;
     private float MIN_HEIGHT = 3.76f, MAX_HEIGHT = 90;
 
@@ -30,7 +31,6 @@ public class HeroModel extends EntityModel {
 
     public void move() {
         checkPowerups();
-        System.out.println("x " + x + " y " + y);
         float x = this.x, y = this.y;
         if (left && x > MIN_WIDTH)
             x = (x - (PrairieKing.PPM / speed * Gdx.graphics.getDeltaTime()));

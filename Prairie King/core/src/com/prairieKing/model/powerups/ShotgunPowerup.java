@@ -21,12 +21,14 @@ public class ShotgunPowerup extends GunPowerups {
         super.setEffectTime(20);
         this.gun = gameLogic.getGun();
         gun.setShape(newShape);
+        gun.setTypeGun("SHOTGUN");
     }
 
 
     @Override
     public void removeEffect() {
         gun.setShape(oldShape);
+        gun.setTypeGun("NORMAL");
     }
 
 

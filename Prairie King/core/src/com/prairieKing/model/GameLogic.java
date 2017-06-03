@@ -87,6 +87,8 @@ public class GameLogic {
         world.setContactListener(new CollisionHandler());
         heroBody = new HeroBody(world, hero);
 
+        gameStage = new GameStage(this);
+
         createBodies();
     }
 

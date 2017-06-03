@@ -16,12 +16,14 @@ public class WheelPowerup extends GunPowerups {
         super.setEffectTime(7);
         this.gun = gameLogic.getGun();
         gun.setShape(newShape);
+        gun.setTypeGun("WHEEL");
     }
 
 
     @Override
     public void removeEffect() {
         gun.setShape(oldShape);
+        gun.setTypeGun("NORMAL");
     }
 
 
