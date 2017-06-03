@@ -32,6 +32,7 @@ public class GameStage extends ScreenAdapter {
     private SpriteBatch batch;
     private FitViewport view;
     private GameLogic gameLogic;
+    private boolean hasWon;
 
     private ArrayList<EnemyModel> enemies;
     private Gun gun;
@@ -62,7 +63,7 @@ public class GameStage extends ScreenAdapter {
         enemies = gameLogic.getAI().getEnemies();
         cam = new OrthographicCamera(game.PPM, game.PPM);
         map = gameLogic.getMap();
-
+        hasWon = false;
         cam.position.set(cam.viewportWidth / 2, cam.viewportHeight / 2, 0);
         cam.setToOrtho(false, game.PPM, game.PPM);
         view = new FitViewport(game.PPM / Constants.RATIO, game.PPM, cam);
@@ -89,8 +90,6 @@ public class GameStage extends ScreenAdapter {
 
     @Override
     public void render(float delta) {
-
-        animateHero.update();
         renderer.setView(cam);
 
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -104,24 +103,67 @@ public class GameStage extends ScreenAdapter {
         cam.update();
         batch.setProjectionMatrix(cam.combined);
 
-        animateHero.draw(batch);
-        drawEnemies();
-        drawBullets();
-        drawPowerups();
+        if (hasWon) {
+            if (gameLogic.getHero().getState() == 0) {
+                animateHero.update();
+                animateHero.draw(batch);
+            }
 
-        Sprite black = new Sprite(background);
-        black.setSize(90, 40);
-        black.setX(-90);
-        black.setY(30);
-        black.draw(batch);
-        black.setX(100);
-        black.setY(40);
-        black.draw(batch);
+            else {
+                Sprite woman = new Sprite(game.getAssetManager().get("Sprites/MainSpriteSheet.png", Texture.class), 304, 96, 22, 22);
+                Sprite ending = new Sprite(game.getAssetManager().get("Sprites/Teste.png", Texture.class));
+                ending.setSize(PrairieKing.PPM / Constants.RATIO, PrairieKing.PPM);
 
-        drawHud();
+                if (gameLogic.getHero().getState() == 1) {
+                    ending.draw(batch);
+                    woman.draw(batch);
+
+                    animateHero.update();
+                    animateHero.draw(batch);
+                } else if (gameLogic.getHero().getState() == 2) {
+                    ending.draw(batch);
+                    woman.draw(batch);
+
+                    animateHero.update();
+                    animateHero.draw(batch);
+                } else if (gameLogic.getHero().getState() == 3) {
+                    ending.draw(batch);
+
+                }
+                else if (gameLogic.getHero().getState() == 4) {
+                    ending.draw(batch);
+
+                }
+                else if (gameLogic.getHero().getState() == 5) {
+
+                }
+
+            }
+
+        } else if (gameLogic.getHero().getState() == -1 || gameLogic.getHero().getState() == 0) {
+            animateHero.update();
+          //  System.out.println(gameLogic.getHero().getState());
+
+            animateHero.draw(batch);
+            drawEnemies();
+            drawBullets();
+            drawPowerups();
+
+            Sprite black = new Sprite(background);
+            black.setSize(90, 40);
+            black.setX(-90);
+            black.setY(30);
+            black.draw(batch);
+            black.setX(100);
+            black.setY(40);
+            black.draw(batch);
+
+            drawHud();
+
+        }
         batch.end();
-
     }
+
 
     public void drawHud() {
         Sprite gunHolder = new Sprite(game.getAssetManager().get("Sprites/MainSpriteSheet.png", Texture.class), 166, 134, 22, 22);
@@ -147,11 +189,11 @@ public class GameStage extends ScreenAdapter {
         }
 
         Sprite heartToDraw = new Sprite(game.getAssetManager().get("Sprites/MainSpriteSheet.png", Texture.class), 97, 162, 16, 16);
-        for (int i = 0; i < gameLogic.getHero().getLives()-1; i++) {
-            float x = i%3;
+        for (int i = 0; i < gameLogic.getHero().getLives() - 1; i++) {
+            float x = i % 3;
             heartToDraw.setSize(Constants.HEART_WIDTH, Constants.HEART_WIDTH);
-            heartToDraw.setX(-30 + x*Constants.HEART_WIDTH);
-            heartToDraw.setY(70 - (i/3 * Constants.HEART_WIDTH));
+            heartToDraw.setX(-30 + x * Constants.HEART_WIDTH);
+            heartToDraw.setY(70 - (i / 3 * Constants.HEART_WIDTH));
             heartToDraw.draw(batch);
         }
 
@@ -221,6 +263,11 @@ public class GameStage extends ScreenAdapter {
 
     public GameLogic getGameLogic() {
         return gameLogic;
+    }
+
+    public void hasWon() {
+        animateHero = new HeroAnimator(this);
+        hasWon = true;
     }
 
 

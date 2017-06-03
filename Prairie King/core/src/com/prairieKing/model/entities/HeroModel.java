@@ -2,6 +2,7 @@ package com.prairieKing.model.entities;
 
 import com.badlogic.gdx.Gdx;
 import com.prairieKing.PrairieKing;
+import com.prairieKing.model.AI.Behaviour;
 import com.prairieKing.model.powerups.HeroPowerups;
 
 import java.util.ArrayList;
@@ -11,6 +12,8 @@ public class HeroModel extends EntityModel {
     private int lives;
     private boolean left, right, up, down;
     private int speed;
+
+    private boolean hasWon = false;
 
 
     private float MIN_WIDTH = 3.76f, MAX_WIDTH = 90;
@@ -135,5 +138,9 @@ public class HeroModel extends EntityModel {
 
     public void setSpeed(int speed) {
         this.speed = speed;
+    }
+
+    public int getState() {
+        return -1;
     }
 }

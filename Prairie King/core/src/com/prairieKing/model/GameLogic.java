@@ -20,6 +20,7 @@ import com.prairieKing.controller.bodies.HeroBody;
 import com.prairieKing.controller.InputController;
 import com.prairieKing.PrairieKing;
 import com.prairieKing.model.AI.AIManager;
+import com.prairieKing.model.AI.HeroWin;
 import com.prairieKing.model.entities.EntityModel;
 import com.prairieKing.model.entities.HeroModel;
 import com.prairieKing.model.powerups.PowerupSpawner;
@@ -184,6 +185,12 @@ public class GameLogic {
 
         }
 
+    }
+
+    public void win() {
+        this.hero = new HeroWin(hero.getX(), hero.getY());
+        this.heroBody = new HeroBody(world, hero);
+        gameStage.hasWon();
     }
 
     public World getWorld() {

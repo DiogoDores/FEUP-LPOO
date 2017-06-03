@@ -47,6 +47,7 @@ public class PrairieKing extends Game {
         music.setVolume(0.5f);
         music.setLooping(true);
         assetManager.load("Menus/LoseScreen.png", Texture.class);
+        assetManager.load("Sprites/Teste.png", Texture.class);
         assetManager.load("Sprites/MainSpriteSheet.png", Texture.class);
         assetManager.load("Sprites/BlockBackground.png", Texture.class);
         assetManager.load("Mapas/Map.png", Texture.class);

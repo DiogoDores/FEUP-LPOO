@@ -27,6 +27,7 @@ public class AIManager {
     private Pool<EnemyModel> enemyModelsPool;
     private char lastSpawned = 'n', last2spawned = 's';
 
+    private boolean hasWon;
 
     private int activeNumber;
 
@@ -34,6 +35,7 @@ public class AIManager {
         this.gameLogic = gameLogic;
         killCount =0;
         hasIncreased = false;
+        hasWon = false;
         activeNumber = 0;
         timeToSpawn = .2f;
 
@@ -91,21 +93,29 @@ public class AIManager {
     }
 
     public void spawn() {
-        if (killCount % 20 == 0 && killCount != 0 && !hasIncreased) {
-            System.out.println("Aumentei com " + killCount + " e " + killCount % 10);
-            hasIncreased = true;
-            increaseDifficulty();
-        }
 
-        if (activeNumber < MAX_ENEMY_NUMBER && timeToSpawn <= 0.0f) {
-            EnemyModel e = enemyModelsPool.obtain();
-            activeNumber++;
-            enemies.add(e);
-            enemiesBodies.add(new EnemyBody(gameLogic.getWorld(), e));
-            timeToSpawn = MathUtils.random(5.0f/MAX_ENEMY_NUMBER, 7.0f/MAX_ENEMY_NUMBER);
+        if (killCount > 1  ) {
+            if (activeNumber == 0 && !hasWon) {
+                gameLogic.win();
+                hasWon = true;
+            }
         }
-        timeToSpawn -= Gdx.graphics.getDeltaTime();
+        else {
+            if (killCount % 20 == 0 && killCount != 0 && !hasIncreased) {
+                System.out.println("Aumentei com " + killCount + " e " + killCount % 10);
+                hasIncreased = true;
+                increaseDifficulty();
+            }
 
+            if (activeNumber < MAX_ENEMY_NUMBER && timeToSpawn <= 0.0f) {
+                EnemyModel e = enemyModelsPool.obtain();
+                activeNumber++;
+                enemies.add(e);
+                enemiesBodies.add(new EnemyBody(gameLogic.getWorld(), e));
+                timeToSpawn = MathUtils.random(5.0f / MAX_ENEMY_NUMBER, 7.0f / MAX_ENEMY_NUMBER);
+            }
+            timeToSpawn -= Gdx.graphics.getDeltaTime();
+        }
     }
 
     public ArrayList<EnemyModel> getEnemies() {
