@@ -43,6 +43,8 @@ public class GameStage extends ScreenAdapter {
     private Box2DDebugRenderer b2dr;
     private TextureAtlas atlas;
 
+    private Texture mainSprite, background;
+
     private HeroAnimator animateHero;
     private EnemyAnimator animateEnemy;
 
@@ -62,7 +64,7 @@ public class GameStage extends ScreenAdapter {
 
         cam.position.set(cam.viewportWidth / 2, cam.viewportHeight / 2, 0);
         cam.setToOrtho(false, game.PPM, game.PPM);
-        view = new FitViewport(game.PPM, game.PPM, cam);
+        view = new FitViewport(game.PPM/ Constants.RATIO, game.PPM , cam);
         renderer = new OrthogonalTiledMapRenderer(map, .2234f);
         loadAssets();
 
@@ -78,7 +80,9 @@ public class GameStage extends ScreenAdapter {
 
     public void loadAssets() {
         sound = Gdx.audio.newSound(Gdx.files.internal("Sounds/pop.mp3"));
-        Texture mainSprite = game.getAssetManager().get("Sprites/MainSpriteSheet.png", Texture.class);
+        mainSprite = game.getAssetManager().get("Sprites/MainSpriteSheet.png", Texture.class);
+        background = game.getAssetManager().get("Sprites/BlockBackground.png", Texture.class);
+
         hero = new Sprite(mainSprite, 367, 96, 16, 16);
     }
 
@@ -105,6 +109,14 @@ public class GameStage extends ScreenAdapter {
         drawBullets();
         drawPowerups();
 
+        Sprite black = new Sprite(background);
+        black.setSize(90,40);
+        black.setX(-90);
+        black.setY(30);
+        black.draw(batch);
+        black.setX(100);
+        black.setY(40);
+        black.draw(batch);
         batch.end();
 
     }
@@ -166,7 +178,7 @@ public class GameStage extends ScreenAdapter {
     @Override
     public void resize(int width, int height) {
         cam.viewportWidth = game.PPM;
-        cam.viewportHeight = game.PPM;
+        cam.viewportHeight = game.PPM * Constants.RATIO;
         view.update(width, height);
         cam.update();
     }

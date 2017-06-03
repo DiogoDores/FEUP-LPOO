@@ -12,6 +12,9 @@ public class HeroModel extends EntityModel {
     private boolean left, right, up, down;
     private int speed;
 
+    private float MIN_WIDTH = 3.76f, MAX_WIDTH = 90;
+    private float MIN_HEIGHT = 3.76f, MAX_HEIGHT = 90;
+
     private ArrayList<HeroPowerups> powerups = new ArrayList<>();
 
 
@@ -27,15 +30,15 @@ public class HeroModel extends EntityModel {
 
     public void move() {
         checkPowerups();
-
+        System.out.println("x " + x + " y " + y);
         float x = this.x, y = this.y;
-        if (left)
+        if (left && x > MIN_WIDTH)
             x = (x - (PrairieKing.PPM / speed * Gdx.graphics.getDeltaTime()));
-        if (right)
+        if (right && x < MAX_WIDTH)
             x = (x + (PrairieKing.PPM / speed * Gdx.graphics.getDeltaTime()));
-        if (up)
+        if (up && y < MAX_HEIGHT)
             y = (y + (PrairieKing.PPM / speed * Gdx.graphics.getDeltaTime()));
-        if (down)
+        if (down && y > MIN_HEIGHT)
             y = (y - (PrairieKing.PPM / speed * Gdx.graphics.getDeltaTime()));
 
         setPosition(x, y);
