@@ -22,6 +22,7 @@ import com.prairieKing.model.GameLogic;
 import com.prairieKing.model.Gun;
 import com.prairieKing.model.entities.PowerupModel;
 import com.prairieKing.model.entities.ProjectileModel;
+import com.sun.xml.internal.bind.v2.runtime.reflect.opt.Const;
 
 import java.util.ArrayList;
 
@@ -54,7 +55,10 @@ public class GameStage extends ScreenAdapter {
 
     private int i = 0;
 
+    private float animation;
+
     public GameStage(GameLogic gameLogic) {
+        animation = 0;
         this.game = gameLogic.getPrairieKing();
         this.gameLogic = gameLogic;
         batch = new SpriteBatch();
@@ -107,14 +111,16 @@ public class GameStage extends ScreenAdapter {
             if (gameLogic.getHero().getState() == 0) {
                 animateHero.update();
                 animateHero.draw(batch);
-            }
-
-            else {
-                Sprite woman = new Sprite(game.getAssetManager().get("Sprites/MainSpriteSheet.png", Texture.class), 304, 96, 22, 22);
-                Sprite ending = new Sprite(game.getAssetManager().get("Sprites/Teste.png", Texture.class));
+            } else {
+                Sprite woman = new Sprite(game.getAssetManager().get("Sprites/MainSpriteSheet.png", Texture.class), 304, 96, 16, 16);
+                woman.setSize(Constants.HERO_WIDTH * 1.2f, Constants.HERO_WIDTH * 1.2f);
+                woman.setX(PrairieKing.PPM / 2);
+                woman.setY(PrairieKing.PPM / 2 - 10);
+                Sprite ending = new Sprite(game.getAssetManager().get("Mapas/MapaFinal.png", Texture.class));
                 ending.setSize(PrairieKing.PPM / Constants.RATIO, PrairieKing.PPM);
+                ending.setX(-39);
 
-                if (gameLogic.getHero().getState() == 1) {
+                if (gameLogic.getHero().getState() == 1 || gameLogic.getHero().getState() == 1.5f) {
                     ending.draw(batch);
                     woman.draw(batch);
 
@@ -124,25 +130,41 @@ public class GameStage extends ScreenAdapter {
                     ending.draw(batch);
                     woman.draw(batch);
 
-                    animateHero.update();
-                    animateHero.draw(batch);
-                } else if (gameLogic.getHero().getState() == 3) {
+                    Sprite h = new Sprite(game.getAssetManager().get("Sprites/MainSpriteSheet.png", Texture.class), 352, 128, 16, 16);
+                    h.setSize(Constants.HERO_WIDTH * 1.1f, Constants.HERO_WIDTH * 1.1f);
+                    h.setX(gameLogic.getHero().getX());
+                    h.setY(gameLogic.getHero().getY());
+                    h.draw(batch);
+
+                } else if (gameLogic.getHero().getState() == 3 || gameLogic.getHero().getState() == 4 || gameLogic.getHero().getState() == 5) {
                     ending.draw(batch);
+                    Sprite kissing = new Sprite(game.getAssetManager().get("Sprites/MainSpriteSheet.png", Texture.class), 422, 155, 22, 21);
+                    kissing.setSize(1.7f * Constants.HERO_WIDTH, 1.6f * Constants.HERO_WIDTH);
+                    kissing.setX(gameLogic.getHero().getX());
+                    kissing.setY(gameLogic.getHero().getY());
+                    kissing.draw(batch);
+                    Sprite transition = new Sprite(game.getAssetManager().get("Sprites/TransitionToWin.png", Texture.class));
+                    transition.setSize(PrairieKing.PPM / Constants.RATIO, PrairieKing.PPM * 5);
+                    transition.setX(-39);
+                    if (gameLogic.getHero().getState() == 4) {
+                        //System.out.println(animation);
+                        animation -= 50.0f * Gdx.graphics.getDeltaTime();
+                        if (animation <= -400)
+                            animation = -400;
+                        transition.setY(animation);
+                        transition.draw(batch);
+                    }
+                    if (gameLogic.getHero().getState() == 5) {
+                        transition.draw(batch);
+                        PrairieKing.currentState = 3;
+                        gameLogic.resetEverything();
+                    }
 
                 }
-                else if (gameLogic.getHero().getState() == 4) {
-                    ending.draw(batch);
-
-                }
-                else if (gameLogic.getHero().getState() == 5) {
-
-                }
-
             }
-
         } else if (gameLogic.getHero().getState() == -1 || gameLogic.getHero().getState() == 0) {
             animateHero.update();
-          //  System.out.println(gameLogic.getHero().getState());
+            //  System.out.println(gameLogic.getHero().getState());
 
             animateHero.draw(batch);
             drawEnemies();

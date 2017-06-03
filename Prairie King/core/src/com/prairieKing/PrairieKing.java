@@ -21,6 +21,7 @@ public class PrairieKing extends Game {
     private Sound sound;
     Menu menu;
     LoseScreen loseScreen;
+    WinScreen winScreen;
     int maxHighScore;
     GameLogic gameLogic;
 
@@ -37,6 +38,7 @@ public class PrairieKing extends Game {
         menu = new Menu(this);
         setScreen(menu);
         loseScreen = new LoseScreen("LoseScreen", this);
+        winScreen = new WinScreen("WinScreen",this);
         gameLogic = new GameLogic(this);
         maxHighScore = 0;
      }
@@ -47,8 +49,10 @@ public class PrairieKing extends Game {
         music.setVolume(0.5f);
         music.setLooping(true);
         assetManager.load("Menus/LoseScreen.png", Texture.class);
-        assetManager.load("Sprites/Teste.png", Texture.class);
+        assetManager.load("Menus/WinScreen.png", Texture.class);
+        assetManager.load("Mapas/MapaFinal.png", Texture.class);
         assetManager.load("Sprites/MainSpriteSheet.png", Texture.class);
+        assetManager.load("Sprites/TransitionToWin.png", Texture.class);
         assetManager.load("Sprites/BlockBackground.png", Texture.class);
         assetManager.load("Mapas/Map.png", Texture.class);
         assetManager.load("Menus/Menu1.png", Texture.class);
@@ -76,11 +80,23 @@ public class PrairieKing extends Game {
                 currentState = 2;
             }
         }
-        else {  // Lose Screen
+        else if (currentState == 2){  // Lose Screen
             setScreen(loseScreen);
             music.pause();
 
             loseScreen.render(0);
+            if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+                currentState = 0;
+            }
+            if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
+                Gdx.app.exit();
+            }
+        }
+        else { // Win Screen
+            setScreen(winScreen);
+            //music.pause();
+
+            winScreen.render(0);
             if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
                 currentState = 0;
             }

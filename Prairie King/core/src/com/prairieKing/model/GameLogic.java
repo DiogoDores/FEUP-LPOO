@@ -1,7 +1,6 @@
 package com.prairieKing.model;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -10,7 +9,6 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
@@ -20,7 +18,7 @@ import com.prairieKing.controller.bodies.HeroBody;
 import com.prairieKing.controller.InputController;
 import com.prairieKing.PrairieKing;
 import com.prairieKing.model.AI.AIManager;
-import com.prairieKing.model.AI.HeroWin;
+import com.prairieKing.model.entities.HeroWin;
 import com.prairieKing.model.entities.EntityModel;
 import com.prairieKing.model.entities.HeroModel;
 import com.prairieKing.model.powerups.PowerupSpawner;
@@ -188,6 +186,7 @@ public class GameLogic {
     }
 
     public void win() {
+        prairieKing.setMaxHighScore((int) highScore);
         this.hero = new HeroWin(hero.getX(), hero.getY());
         this.heroBody = new HeroBody(world, hero);
         gameStage.hasWon();

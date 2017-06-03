@@ -1,4 +1,4 @@
-package com.prairieKing.model.AI;
+package com.prairieKing.model.entities;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.MathUtils;
@@ -15,7 +15,7 @@ public class HeroWin extends HeroModel {
     private boolean hasStarted = false;
     private char initialDirection;
     private float speed = 8;
-    private int state;
+    private float state;
 
     private float animationTime;
 
@@ -56,12 +56,32 @@ public class HeroWin extends HeroModel {
             }
        }
        else if (state == 1) { // Has reached the new zone
-            if (y > PrairieKing.PPM/2)
+
+            if (y > PrairieKing.PPM/1.25f) {
                 newY = (y - (PrairieKing.PPM / speed * Gdx.graphics.getDeltaTime()));
-           else {
-                state = 2;
-                animationTime = 0;
+                activeChar = 's';
             }
+            else if (x > (PrairieKing.PPM / 11 - 15)) {
+                newX = (x - (PrairieKing.PPM / speed * Gdx.graphics.getDeltaTime()));
+                activeChar = 'a';
+            }
+            else if (y > PrairieKing.PPM/2 -10) {
+                newY = (y - (PrairieKing.PPM / speed * Gdx.graphics.getDeltaTime()));
+                activeChar = 's';
+            }
+            else
+                state = 1.5f;
+
+       }
+       else if (state == 1.5f) {
+           if (x < PrairieKing.PPM/2 -5) {
+               newX = (x + (PrairieKing.PPM / speed * Gdx.graphics.getDeltaTime()));
+               activeChar = 'd';
+           }
+           else {
+               state = 2;
+               animationTime = 1;
+           }
        }
        else if (state == 2) { // Has reached wife
             animationTime -= Gdx.graphics.getDeltaTime();
@@ -75,21 +95,14 @@ public class HeroWin extends HeroModel {
            animationTime -= Gdx.graphics.getDeltaTime();
            if (animationTime <= 0) {
                state = 4;
-               animationTime = 2f;
-           }
-       }
-       else if (state == 4) { // Stops for a second then ends game
-           animationTime -= Gdx.graphics.getDeltaTime();
-           if (animationTime <= 0) {
-               state = 5;
-               animationTime = 4f;
+               animationTime = 9f;
            }
        }
 
-       else if (state == 5) {
+       else if (state == 4) {
            animationTime -= Gdx.graphics.getDeltaTime();
            if (animationTime <= 0) {
-               state = 6; // ends here
+               state = 5; // ends here
            }
        }
 
@@ -121,10 +134,6 @@ public class HeroWin extends HeroModel {
         this.y = y;
     }
 
-    @Override
-    public void shoot() {
-        super.shoot();
-    }
 
     @Override
     public void setLeft(boolean left) {
@@ -174,7 +183,8 @@ public class HeroWin extends HeroModel {
         return y;
     }
 
-    public int getState() {
+
+    public float getState() {
         return state;
     }
 }

@@ -46,13 +46,8 @@ public class HeroModel extends EntityModel {
 
         setPosition(x, y);
 
-        shoot();
     }
 
-    public void shoot() {
-
-
-    }
 
     public void setLeft(boolean left) {
         this.left = left;
@@ -140,7 +135,7 @@ public class HeroModel extends EntityModel {
         this.speed = speed;
     }
 
-    public int getState() {
+    public float getState() {
         return -1;
     }
 }
