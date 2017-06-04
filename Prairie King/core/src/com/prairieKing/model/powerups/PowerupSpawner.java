@@ -42,12 +42,8 @@ public class PowerupSpawner {
 
     }
 
-    public float generateRandom() {
-        float rand = MathUtils.random(10.0f, 20.0f);
-        return rand;
-    }
 
-    public void spawn() {
+    private void spawn() {
         int r = MathUtils.random(4);
         Vector2 position = randomPos();
 
@@ -77,14 +73,12 @@ public class PowerupSpawner {
         powerupBodies.add(new PowerupBody(world,model));
     }
 
-    public Vector2 randomPos() {
+    private Vector2 randomPos() {
 
         float x = MathUtils.random(10, PrairieKing.PPM -10);
         float y = MathUtils.random(10, PrairieKing.PPM -10);
 
-        Vector2 pos = new Vector2(x,y);
-
-        return pos;
+        return new Vector2(x,y);
     }
 
     public void checkPowerups() {
@@ -107,9 +101,6 @@ public class PowerupSpawner {
         return powerupModels;
     }
 
-    public void addPowerup(GunPowerups gun) {
-
-    }
 
 
 }

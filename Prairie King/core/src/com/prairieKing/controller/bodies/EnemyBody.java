@@ -3,7 +3,6 @@ package com.prairieKing.controller.bodies;
 import com.badlogic.gdx.physics.box2d.World;
 import com.prairieKing.Constants;
 import com.prairieKing.model.entities.EntityModel;
-import com.prairieKing.view.GameStage;
 
 
 public class EnemyBody extends EntityBody {

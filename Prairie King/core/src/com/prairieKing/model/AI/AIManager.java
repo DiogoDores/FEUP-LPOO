@@ -34,7 +34,7 @@ public class AIManager {
     /** Constructor for AIManager. All the responsabilites for difficulty, spawn,
      * and active enemies are here.
      *
-     * @param gameLogic
+     * @param gameLogic GameLogic is necessary to access hero's position.
      */
     public AIManager(GameLogic gameLogic) {
         this.gameLogic = gameLogic;
@@ -91,15 +91,20 @@ public class AIManager {
         };
     }
 
-    public void increaseDifficulty() {
+    /** Increases difficulty.
+     */
+    private void increaseDifficulty() {
         MAX_ENEMY_NUMBER = MAX_ENEMY_NUMBER + 1; if(killCount == 160) {
             MAX_ENEMY_NUMBER -= 4;
         }
     }
 
+    /**
+     * Spawns an enemy when it is necessary, and checks the Win condition.
+     */
     public void spawn() {
 
-        if (killCount > 1  ) {
+        if (killCount > 20  ) {
             if (activeNumber == 0 && !hasWon) {
                 gameLogic.win();
                 hasWon = true;
@@ -123,12 +128,18 @@ public class AIManager {
         }
     }
 
+    /**Returns the active Enemy list for the GameStage.
+     *
+     * @return Active Enemy list.
+     */
     public ArrayList<EnemyModel> getEnemies() {
         return enemies;
     }
 
+    /**
+     * Invokes all the move methods from all active Enemies.
+     */
     public void move() {
-
         HeroModel hero = gameLogic.getHero();
         if (enemies != null)
             for (EnemyModel e : enemies) {
@@ -138,6 +149,11 @@ public class AIManager {
         }
     }
 
+    /**
+     * Checks whether or not enemies are flagged for delete.
+     * If they are, it removes them from the active enemy list
+     * and destroys their body.
+     */
     public void checkEnemies() {
         for (int i = 0; i < enemies.size(); i++) {
             if (enemies.get(i).isFlaggedForDelete()) {
@@ -150,15 +166,25 @@ public class AIManager {
                         hasIncreased = false;
                     }
                 }
+
                 enemies.remove(enemies.get(i));
+                // enemyModelsPool.free(enemies.get(i)); TODO PRECISO DE ARRANJAR ISTO, SENAO POOL NAO ESTA IMPLEMENTADO!!!
              }
         }
     }
 
+    /** Gets player kill count.
+     *
+     * @return killCount, or the number of enemies the player has killed.
+     */
     public float getKillCount() {
         return killCount;
     }
 
+    /** Gets all the bodies.
+     *
+     * @return Active Enemy Bodies.
+     */
     public ArrayList<EnemyBody> getEnemiesBodies() {
         return enemiesBodies;
     }

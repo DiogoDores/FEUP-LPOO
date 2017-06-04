@@ -28,49 +28,41 @@ public class CollisionHandler implements ContactListener {
      * @param m1 Model 1 of collision.
      * @param m2 Model 2 of collision.
      */
-    public void handleCollisions(EntityModel m1, EntityModel m2) {
+    private void handleCollisions(EntityModel m1, EntityModel m2) {
         if (m1 != null && m2 != null) {
-            if ((m1.getType() == "PROJECTILE" && m2.getType() == "ENEMY") || (m1.getType() == "ENEMY" && m2.getType() == "PROJECTILE")
-                    || (m1.getType() == "HERO" && m2.getType() == "ENEMY") || (m1.getType() == "ENEMY" && m2.getType() == "HERO")) {
+            if ((m1.getType().equals("PROJECTILE") && m2.getType().equals("ENEMY")) || (m1.getType().equals("ENEMY") && m2.getType().equals("PROJECTILE"))
+                    || (m1.getType().equals("HERO") && m2.getType().equals("ENEMY")) || (m1.getType().equals("ENEMY") && m2.getType().equals("HERO"))) {
                 m1.kill();
                 m2.kill();
             }
-            if ((m1.getType() == "POWERUP" && m2.getType() == "HERO") || (m2.getType() == "POWERUP" && m1.getType() == "HERO")) {
-                if (m1.getType() == "POWERUP") {
+            if ((m1.getType().equals("POWERUP") && m2.getType().equals("HERO")) || (m2.getType().equals("POWERUP") && m1.getType().equals("HERO"))) {
+                if (m1.getType().equals("POWERUP")) {
                     m1.activate();
                 } else
                     m2.activate();
             }
         } else if (m1 == null) {
-            if (m2.getType() == "PROJECTILE") {
+            if (m2.getType().equals("PROJECTILE")) {
                 m2.kill();
             }
-        } else if (m2 == null) {
-            if (m1.getType() == "PROJECTILE") {
+        } else {
+            if (m1.getType().equals("PROJECTILE")) {
                 m1.kill();
             }
         }
     }
 
     /** Not necessary, but implemented.
-     *
-     * @param contact
      */
     @Override
     public void endContact(Contact contact) {}
 
     /** Not necessary, but implemented.
-     *
-     * @param contact
-     * @param oldManifold
      */
     @Override
     public void preSolve(Contact contact, Manifold oldManifold) {}
 
     /** Not necessary, but implemented.
-     *
-     * @param contact
-     * @param impulse
      */
     @Override
     public void postSolve(Contact contact, ContactImpulse impulse) {}

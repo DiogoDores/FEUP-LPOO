@@ -52,7 +52,7 @@ public class InputHandler implements InputProcessor {
      * @param value What is used to set variables on the respective
      *              classes.
      */
-    public void handleInput(int keycode, boolean value) {
+    private void handleInput(int keycode, boolean value) {
         if (keycode == (Input.Keys.S))
             hero.setDown(value);
         else if (keycode == (Input.Keys.W))
@@ -74,7 +74,7 @@ public class InputHandler implements InputProcessor {
 
     /**Is triggered when a key is typed, but is not needed.
      *
-     * @param keycode Keycode that was just typed.
+     * @param character Character that was just typed.
      * @return Return whether input was successfully handled.
      */
     @Override
@@ -85,11 +85,6 @@ public class InputHandler implements InputProcessor {
 
     /**
      *  Intended for mobile, not needed.
-     * @param screenX
-     * @param screenY
-     * @param pointer
-     * @param button
-     * @return
      */
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
@@ -98,11 +93,6 @@ public class InputHandler implements InputProcessor {
 
     /**
      * Intended for mobile, not needed.
-     * @param screenX
-     * @param screenY
-     * @param pointer
-     * @param button
-     * @return
      */
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
@@ -110,11 +100,6 @@ public class InputHandler implements InputProcessor {
     }
 
     /** Intended for mobile, not needed.
-     *
-     * @param screenX
-     * @param screenY
-     * @param pointer
-     * @return
      */
     @Override
     public boolean touchDragged(int screenX, int screenY, int pointer) {
@@ -122,9 +107,6 @@ public class InputHandler implements InputProcessor {
     }
 
     /** Not necessary, mouse is not a part of the game.
-     * @param screenX
-     * @param screenY
-     * @return
      */
     @Override
     public boolean mouseMoved(int screenX, int screenY) {
@@ -132,8 +114,6 @@ public class InputHandler implements InputProcessor {
     }
 
     /**Not necessary, mouse is not a part of the game.
-     * @param amount
-     * @return
      */
     @Override
     public boolean scrolled(int amount) {

@@ -11,6 +11,12 @@ public class FlyingBehavior implements Behavior {
     private float initialTime;
     private char initialDirection;
 
+
+    /** Moves an Enemy.
+     *
+     * @param e Enemy to move.
+     * @param h Current Hero.
+     */
     @Override
     public void move(EnemyModel e, HeroModel h) {
         float x = e.getX();
@@ -55,17 +61,19 @@ public class FlyingBehavior implements Behavior {
 
     }
 
-    @Override
-    public void attack(EnemyModel e, HeroModel h) {
 
-    }
-
+    /** Sets the initial movement in direction of the middle of the screen.
+     *
+     * @param direction Direction in which the enemy moves.
+     */
     @Override
     public void initialBehaviour(char direction) {
         initialDirection = direction;
         initialTime = 3;
     }
 
+    /** Important for animation.
+     */
     @Override
     public float getTimeToStop() {
         return 0;

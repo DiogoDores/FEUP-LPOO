@@ -8,15 +8,23 @@ import com.prairieKing.model.entities.HeroModel;
 public class ToughBehavior implements Behavior {
 
     private float ENEMY_SPEED = 400;
-
     private float initialTime;
     private char initialDirection;
     private float timeToStop, totalStopTime;
 
+    /** Important for animation.
+     *
+     */
     public ToughBehavior() {
         timeToStop = 3;
     }
 
+
+    /** Moves an Enemy.
+     *
+     * @param e Enemy to move.
+     * @param h Current Hero.
+     */
     @Override
     public void move(EnemyModel e, HeroModel h) {
         float x = e.getX();
@@ -92,14 +100,14 @@ public class ToughBehavior implements Behavior {
             continueMove(e, h);
     }
 
-    public void stop() {
+    private void stop() {
         totalStopTime-= Gdx.graphics.getDeltaTime();
         if(totalStopTime<= 0) {
             timeToStop = MathUtils.random(1.0f, 3.0f);
         }
     }
 
-    public void continueMove(EnemyModel e, HeroModel h) {
+    private void continueMove(EnemyModel e, HeroModel h) {
 
         float x = e.getX();
         float y = e.getY();
@@ -163,17 +171,17 @@ public class ToughBehavior implements Behavior {
 
     }
 
-    @Override
-    public void attack(EnemyModel e, HeroModel h) {
-
-    }
-
+    /** Sets the initial movement in direction of the middle of the screen.
+     *
+     * @param direction Direction in which the enemy moves.
+     */
     @Override
     public void initialBehaviour(char direction) {
         initialDirection = direction;
         initialTime = 3;
     }
-
+    /** Important for animation.
+     */
     public float getTimeToStop() {
         return timeToStop;
     }

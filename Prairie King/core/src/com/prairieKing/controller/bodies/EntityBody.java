@@ -1,6 +1,5 @@
 package com.prairieKing.controller.bodies;
 
-
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -12,9 +11,7 @@ import com.prairieKing.model.entities.EntityModel;
 
 public class EntityBody extends Body{
 
-    private float width, height;
     private Body body;
-    private EntityModel model;
     private FixtureDef fixtureDef;
     private Fixture fixture;
 
@@ -28,10 +25,9 @@ public class EntityBody extends Body{
     public EntityBody(World world, long addr, EntityModel model) {
         super(world, addr);
         super.setUserData(model);
-        this.model = model;
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
-        bodyDef.position.set(model.getX() + width/2, model.getY() + height/2);
+        bodyDef.position.set(model.getX(), model.getY());
         bodyDef.linearDamping = 0.0f;
         body = world.createBody(bodyDef);
         body.setUserData(model);

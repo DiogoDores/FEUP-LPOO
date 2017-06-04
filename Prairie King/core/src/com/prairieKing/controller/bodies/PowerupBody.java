@@ -3,13 +3,14 @@ package com.prairieKing.controller.bodies;
 import com.badlogic.gdx.physics.box2d.World;
 import com.prairieKing.Constants;
 import com.prairieKing.model.entities.EntityModel;
-import com.prairieKing.view.GameStage;
+
 
 public class PowerupBody extends EntityBody {
 
-    /** Invoked on CollisionHandler, used to get body type.
+    /**Creates a body for a Powerup, based on a Model, as well as it's fixture.
      *
-     * @return string of the body type.
+     * @param world needed for EntityBody's constructor.
+     * @param model Model with which the body is going to be associated with.
      */
     public PowerupBody(World world, EntityModel model) {
         super(world, 0, model);
