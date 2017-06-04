@@ -15,7 +15,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.prairieKing.controller.CollisionHandler;
 import com.prairieKing.controller.bodies.HeroBody;
-import com.prairieKing.controller.InputController;
+import com.prairieKing.controller.InputHandler;
 import com.prairieKing.PrairieKing;
 import com.prairieKing.model.AI.AIManager;
 import com.prairieKing.model.entities.HeroWin;
@@ -26,7 +26,7 @@ import com.prairieKing.view.GameStage;
 
 public class GameLogic {
 
-    private InputController input;
+    private InputHandler input;
     private PowerupSpawner powerupSpawner;
     private AIManager AI;
     private PrairieKing prairieKing;
@@ -57,7 +57,7 @@ public class GameLogic {
 
         gun = new Gun(this);
 
-        input = new InputController(this);
+        input = new InputHandler(this);
         Gdx.input.setInputProcessor(input);
         world.setContactListener(new CollisionHandler());
         heroBody = new HeroBody(world, hero);
@@ -81,7 +81,7 @@ public class GameLogic {
         powerupSpawner = new PowerupSpawner(this);
 
         gameStage = new GameStage(this);
-        input = new InputController(this);
+        input = new InputHandler(this);
         Gdx.input.setInputProcessor(input);
         world.setContactListener(new CollisionHandler());
         heroBody = new HeroBody(world, hero);
@@ -176,17 +176,16 @@ public class GameLogic {
         if (model.isFlaggedForDelete()) {
             if (model.getType() == "HERO") {
                 PrairieKing.currentState = 2;
-                prairieKing.setMaxHighScore((int) highScore);
+                prairieKing.setHighScore((int) highScore);
                 resetEverything();
                 return;
             }
-
         }
 
     }
 
     public void win() {
-        prairieKing.setMaxHighScore((int) highScore);
+        prairieKing.setHighScore((int) highScore);
         this.hero = new HeroWin(hero.getX(), hero.getY());
         this.heroBody = new HeroBody(world, hero);
         gameStage.hasWon();

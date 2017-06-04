@@ -2,9 +2,9 @@ package com.prairieKing.model.entities;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
-import com.prairieKing.model.AI.Behaviour;
+import com.prairieKing.model.AI.Behavior;
 
-public class EnemyModel extends EntityModel implements Behaviour {
+public class EnemyModel extends EntityModel implements Behavior {
 
     private String enemyType;
     private int health;
@@ -54,9 +54,10 @@ public class EnemyModel extends EntityModel implements Behaviour {
     @Override
     public void kill() {
         --health;
-        if (health == 0)
+        if (health == 0) {
             sound.play();
             super.kill();
+        }
     }
 
     @Override
@@ -97,7 +98,7 @@ public class EnemyModel extends EntityModel implements Behaviour {
         return 0;
     }
 
-    public Behaviour getBehaviour() {
+    public Behavior getBehaviour() {
         return null;
     }
 

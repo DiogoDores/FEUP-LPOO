@@ -1,11 +1,11 @@
 package com.prairieKing.model.entities;
 
-import com.prairieKing.model.AI.Behaviour;
-import com.prairieKing.model.AI.FlyingBehaviour;
+import com.prairieKing.model.AI.Behavior;
+import com.prairieKing.model.AI.FlyingBehavior;
 
 public class FlyingEnemy extends EnemyModel {
 
-    private Behaviour behaviour;
+    private Behavior behaviour;
 
     @Override
     public void setPosition(float x, float y) {
@@ -16,7 +16,7 @@ public class FlyingEnemy extends EnemyModel {
         super(x, y, initialDirection);
         super.setType("ENEMY");
         super.setEnemyType("FLYING");
-        behaviour = new FlyingBehaviour();
+        behaviour = new FlyingBehavior();
         behaviour.initialBehaviour(initialDirection);
 
     }
@@ -32,7 +32,7 @@ public class FlyingEnemy extends EnemyModel {
     }
 
     @Override
-    public Behaviour getBehaviour() {
+    public Behavior getBehaviour() {
         return behaviour;
     }
 }

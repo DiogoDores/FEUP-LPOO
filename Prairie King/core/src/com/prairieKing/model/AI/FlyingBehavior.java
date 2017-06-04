@@ -4,7 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.prairieKing.model.entities.EnemyModel;
 import com.prairieKing.model.entities.HeroModel;
 
-public class FlyingBehaviour implements Behaviour {
+public class FlyingBehavior implements Behavior {
 
     private float ENEMY_SPEED = 7;
 

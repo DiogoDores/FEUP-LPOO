@@ -5,7 +5,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.prairieKing.model.entities.EnemyModel;
 import com.prairieKing.model.entities.HeroModel;
 
-public class ToughBehaviour implements Behaviour {
+public class ToughBehavior implements Behavior {
 
     private float ENEMY_SPEED = 400;
 
@@ -13,7 +13,7 @@ public class ToughBehaviour implements Behaviour {
     private char initialDirection;
     private float timeToStop, totalStopTime;
 
-    public ToughBehaviour() {
+    public ToughBehavior() {
         timeToStop = 3;
     }
 

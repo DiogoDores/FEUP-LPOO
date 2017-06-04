@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.prairieKing.PrairieKing;
 
@@ -20,6 +21,8 @@ public class WinScreen extends ScreenAdapter {
     SpriteBatch batch;
     FitViewport view;
 
+    private BitmapFont font;
+
     private int highScore;
 
     public WinScreen(String name, PrairieKing game) {
@@ -28,7 +31,11 @@ public class WinScreen extends ScreenAdapter {
         batch = new SpriteBatch();
         view = new FitViewport(Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
         highScore = game.getMaxHighScore();
-
+        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("Pixeled.ttf"));
+        FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+        parameter.size = 37;
+        font = generator.generateFont(parameter);
+        generator.dispose();
         loadAssets();
     }
 
@@ -39,11 +46,6 @@ public class WinScreen extends ScreenAdapter {
 
     @Override
     public void render(float delta) {
-
-
-       // FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/timesBold.ttf"));
-        //FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        BitmapFont font = new BitmapFont();
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         Gdx.gl.glClearColor(0, 0, 0, 1);
         batch.begin();

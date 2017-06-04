@@ -1,12 +1,11 @@
 package com.prairieKing.model.entities;
 
-import com.prairieKing.model.AI.Behaviour;
-import com.prairieKing.model.AI.ChasingBehaviour;
-import com.prairieKing.model.AI.ToughBehaviour;
+import com.prairieKing.model.AI.Behavior;
+import com.prairieKing.model.AI.ToughBehavior;
 
 public class ToughEnemy extends EnemyModel {
 
-    private Behaviour behaviour;
+    private Behavior behaviour;
     private int lives = 3;
     @Override
     public void setPosition(float x, float y) {
@@ -17,7 +16,7 @@ public class ToughEnemy extends EnemyModel {
         super(x, y, initialDirection);
         super.setType("ENEMY");
         super.setEnemyType("TOUGH");
-        behaviour = new ToughBehaviour();
+        behaviour = new ToughBehavior();
         behaviour.initialBehaviour(initialDirection);
     }
 
@@ -39,7 +38,7 @@ public class ToughEnemy extends EnemyModel {
     }
 
     @Override
-    public Behaviour getBehaviour() {
+    public Behavior getBehaviour() {
         return behaviour;
     }
 }

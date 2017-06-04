@@ -16,8 +16,8 @@ import java.util.ArrayList;
 
 public class AIManager {
 
-    private GameLogic gameLogic; // Precisa disto para saber as posições do herói
-    private float MAX_ENEMY_NUMBER = 5; // Can be changed as levels increase
+    private GameLogic gameLogic;
+    private float MAX_ENEMY_NUMBER = 5;
     private ArrayList<EnemyModel> enemies = new ArrayList<>();
     private ArrayList<EnemyBody> enemiesBodies = new ArrayList<>();
 
@@ -31,6 +31,11 @@ public class AIManager {
 
     private int activeNumber;
 
+    /** Constructor for AIManager. All the responsabilites for difficulty, spawn,
+     * and active enemies are here.
+     *
+     * @param gameLogic
+     */
     public AIManager(GameLogic gameLogic) {
         this.gameLogic = gameLogic;
         killCount =0;
@@ -136,11 +141,8 @@ public class AIManager {
     public void checkEnemies() {
         for (int i = 0; i < enemies.size(); i++) {
             if (enemies.get(i).isFlaggedForDelete()) {
-
                 for (int j = 0; j < enemiesBodies.size(); j++) {
-
                     if (enemiesBodies.get(j).getUserData() == enemies.get(i)) {
-
                         enemiesBodies.get(j).destroy();
                         enemiesBodies.remove(enemiesBodies.get(j));
                         activeNumber--;
@@ -148,10 +150,8 @@ public class AIManager {
                         hasIncreased = false;
                     }
                 }
-               // enemyModelsPool.free(enemies.get(i));
                 enemies.remove(enemies.get(i));
-
-            }
+             }
         }
     }
 

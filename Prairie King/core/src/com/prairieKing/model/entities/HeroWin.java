@@ -8,21 +8,17 @@ import com.prairieKing.model.entities.EntityModel;
 import com.prairieKing.model.entities.HeroModel;
 
 public class HeroWin extends HeroModel {
-
-    private float ENEMY_SPEED = 400;
-
-    private float initialTime;
-    private boolean hasStarted = false;
-    private char initialDirection;
+    private float x, y;
     private float speed = 8;
     private float state;
-
     private float animationTime;
-
     private char activeChar;
 
-    private float x, y;
-
+    /** Hero that has a set Behavior when won.
+     *
+     * @param x
+     * @param y
+     */
     public HeroWin(float x, float y) {
         super(x, y);
         this.x = x;
@@ -32,10 +28,11 @@ public class HeroWin extends HeroModel {
         state = 0;
     }
 
+    /** Specific animation, regardless of where player wins.
+     */
     public void move() {
         float newX = x, newY = y;
        if (state == 0) { // Is leaving
-
             if (x - PrairieKing.PPM/2  > 1) {
                 newX = (x - (PrairieKing.PPM / speed * Gdx.graphics.getDeltaTime()));
                 activeChar = 'a';
@@ -108,11 +105,10 @@ public class HeroWin extends HeroModel {
 
        updateState();
        setPosition(newX, newY);
-
-       //System.out.println("x "+ x + " y " + y);
-
     }
 
+    /**Determines the current facing direction for the HeroAnimator.
+     */
     public void updateState() {
         setDown(false);
         setUp(false);
@@ -129,56 +125,100 @@ public class HeroWin extends HeroModel {
 
     }
 
+    /** Alters hero's position.
+     *
+     * @param x Alter X coordinate.
+     * @param y Alter Y coordinate.
+     */
     public void setPosition(float x, float y) {
         this.x = x;
         this.y = y;
     }
 
-
+    /** Boolean for left value.
+     *
+     * @param left
+     */
     @Override
     public void setLeft(boolean left) {
         super.setLeft(left);
     }
 
+    /** Boolean for right value.
+     *
+     * @param right
+     */
     @Override
     public void setRight(boolean right) {
         super.setRight(right);
     }
 
+    /** Boolean for up value.
+     *
+     * @param up
+     */
     @Override
     public void setUp(boolean up) {
         super.setUp(up);
     }
 
+    /** Boolean for down value.
+     *
+     * @param down
+     */
     @Override
     public void setDown(boolean down) {
         super.setDown(down);
     }
 
+    /** Returns left value.
+     *
+     * @return
+     */
     @Override
     public boolean getLeft() {
         return super.getLeft();
     }
 
+    /** Returns right value.
+     *
+     * @return
+     */
     @Override
     public boolean getRight() {
         return super.getRight();
     }
 
+    /** Returns up value.
+     *
+     * @return
+     */
     @Override
     public boolean getUp() {
         return super.getUp();
     }
 
+    /** Returns down value.
+     *
+     * @return
+     */
     @Override
     public boolean getDown() {
         return super.getDown();
     }
 
+    /** Returns X coordinate.
+     *
+     * @return
+     */
     public float getX() {
         return x;
     }
 
+    /** Returns Y coordinate.
+     *
+     * @return
+     */
     public float getY() {
         return y;
     }

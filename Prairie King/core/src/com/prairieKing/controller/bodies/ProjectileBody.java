@@ -10,10 +10,7 @@ public class ProjectileBody extends EntityBody {
 
     public ProjectileBody(World world, ProjectileModel model) {
         super(world, 0, model);
-        super.setUserData(model);
-        setHeight(Constants.PROJECTILE_WIDTH );
-        setWidth(Constants.PROJECTILE_WIDTH );
-        createFixture(getBody(), (int) Constants.PROJECTILE_WIDTH, (int) Constants.PROJECTILE_WIDTH, Constants.CATEGORY_PROJECTILE, Constants.MASK_PROJECTILE, (short) 0);
+        createFixture((int) Constants.PROJECTILE_WIDTH, (int) Constants.PROJECTILE_WIDTH, Constants.CATEGORY_PROJECTILE, Constants.MASK_PROJECTILE, (short) 0);
 
     }
 }

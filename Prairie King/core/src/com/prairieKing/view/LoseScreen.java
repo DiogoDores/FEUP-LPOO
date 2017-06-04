@@ -1,6 +1,7 @@
 package com.prairieKing.view;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -21,7 +22,7 @@ public class LoseScreen extends ScreenAdapter {
     SpriteBatch batch;
     FitViewport view;
 
-    BitmapFont font;
+    BitmapFont font, fontBack;
 
     private int highScore;
 
@@ -34,11 +35,15 @@ public class LoseScreen extends ScreenAdapter {
 
         loadAssets();
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("Pixeled.ttf"));
-        FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size = 32;
-        font = generator.generateFont(parameter);
+        FreeTypeFontGenerator.FreeTypeFontParameter parameterFront = new FreeTypeFontGenerator.FreeTypeFontParameter();
+        FreeTypeFontGenerator.FreeTypeFontParameter parameterBack = new FreeTypeFontGenerator.FreeTypeFontParameter();
+        parameterFront.size = 37;
+        parameterBack.size = 37;
+        Color backColor =  toRGB(85,85,178);
+        parameterBack.color = backColor;
+        font = generator.generateFont(parameterFront);
+        fontBack = generator.generateFont(parameterBack);
         generator.dispose();
-
     }
 
     private void loadAssets() {
@@ -47,8 +52,6 @@ public class LoseScreen extends ScreenAdapter {
 
     @Override
     public void render(float delta) {
-        // FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/timesBold.ttf"));
-        //FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         Gdx.gl.glClearColor(0, 0, 0, 1);
         batch.begin();
@@ -56,8 +59,8 @@ public class LoseScreen extends ScreenAdapter {
         menu.setSize(view.getWorldWidth(),view.getWorldHeight());
         menu.draw(batch);
 
-
-        //font.draw(batch, ""+ highScore, view.getScreenWidth()/2 + view.getScreenWidth()/10, view.getScreenHeight()/2);
+        fontBack.draw(batch, ""+ highScore, view.getScreenWidth()/2 + view.getScreenWidth()/10.5F, view.getScreenHeight()/2f - view.getScreenHeight()/700f);
+        font.draw(batch, ""+ highScore, view.getScreenWidth()/2 + view.getScreenWidth()/10, view.getScreenHeight()/2);
         batch.end();
 
     }
@@ -75,6 +78,13 @@ public class LoseScreen extends ScreenAdapter {
     public void dispose() {
         batch.dispose();
         game.dispose();
+    }
+
+    public Color toRGB(int r, int g, int b) {
+        float RED = r / 255.0f;
+        float GREEN = g / 255.0f;
+        float BLUE = b / 255.0f;
+        return new Color(RED, GREEN, BLUE, 1);
     }
 
 }

@@ -22,7 +22,7 @@ public class PrairieKing extends Game {
     Menu menu;
     LoseScreen loseScreen;
     WinScreen winScreen;
-    int maxHighScore;
+    int highScore;
     GameLogic gameLogic;
 
     public static final float PPM = 100;
@@ -40,7 +40,7 @@ public class PrairieKing extends Game {
         loseScreen = new LoseScreen("LoseScreen", this);
         winScreen = new WinScreen("WinScreen",this);
         gameLogic = new GameLogic(this);
-        maxHighScore = 0;
+        highScore = 0;
      }
 
     public void loadAssets() {
@@ -112,12 +112,13 @@ public class PrairieKing extends Game {
     }
 
     public int getMaxHighScore() {
-        return maxHighScore;
+        return highScore;
     }
 
-    public void setMaxHighScore(int maxHighScore) {
-        this.maxHighScore = maxHighScore;
-        loseScreen.updateHighScore(maxHighScore);
+    public void setHighScore(int HighScore) {
+        this.highScore = HighScore;
+        loseScreen.updateHighScore(HighScore);
+        winScreen.updateHighScore(HighScore);
     }
 
     public void dispose(){

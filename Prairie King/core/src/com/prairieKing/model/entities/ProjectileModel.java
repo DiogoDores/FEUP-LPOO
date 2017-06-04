@@ -1,5 +1,7 @@
 package com.prairieKing.model.entities;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.prairieKing.model.entities.EntityModel;
 
 public class ProjectileModel extends EntityModel {
@@ -10,6 +12,7 @@ public class ProjectileModel extends EntityModel {
         super(x, y);
         super.setType("PROJECTILE");
         this.x = x; this.y = y;
+
     }
 
     public void setPosition(float x, float y) {

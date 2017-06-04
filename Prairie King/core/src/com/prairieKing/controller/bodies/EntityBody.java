@@ -18,8 +18,16 @@ public class EntityBody extends Body{
     private FixtureDef fixtureDef;
     private Fixture fixture;
 
+    /**
+     * Generates an entire Body for a Model.
+     *
+     * @param world World to add bodies to.
+     * @param addr Address.
+     * @param model Model associated with the body, the model stores the game logic.
+     */
     public EntityBody(World world, long addr, EntityModel model) {
         super(world, addr);
+        super.setUserData(model);
         this.model = model;
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
@@ -29,29 +37,36 @@ public class EntityBody extends Body{
         body.setUserData(model);
     }
 
-    @Override
-    public void setUserData(Object userData) {
-        super.setUserData(userData);
-    }
-
-    public float getX() {
-        return body.getPosition().x;
-    }
-
-    public float getY() {
-        return body.getPosition().y;
-    }
-
+    /**
+     * Sets the current transform value of the body to match the model's.
+     *
+     * @param x X Position.
+     * @param y Y Position.
+     */
     public void setTransform(float x, float y) {
         body.setTransform(x, y, 0);
     }
 
+    /**
+     *  Adds a velocity to the body, used in projectiles.
+     * @param x Velocity in the X axis.
+     * @param y Velocity in the Y axis.
+     */
     public void setLinearVelocity(float x, float y) {
         body.setLinearVelocity(x, y);
     }
 
-    final void createFixture(Body body, int width, int height , short category, short mask, short group) {
-        // Transform pixels into meters, center and invert the y-coordinate
+    /**
+     * Creates the fixture with which the body will collide. It houses the characteristics of
+     * the body as well, such as the Collision Filter, to select which bodies this body can
+     * collide with.
+     * @param width Width of the Fixture.
+     * @param height Height of the Fixture.
+     * @param category Category Bit of Collision Filter
+     * @param mask Mask Bit of Collision Filter.
+     * @param group Group Bit of Collision Filter.
+     */
+    final void createFixture(int width, int height , short category, short mask, short group) {
 
         PolygonShape polygon = new PolygonShape();
         polygon.setAsBox(width/1.5f,height/1.5f, new Vector2(width/2 + 1, height/2 + 1), 0);
@@ -67,7 +82,9 @@ public class EntityBody extends Body{
         polygon.dispose();
     }
 
-
+    /** When a model is flagged for deletion, this method is invoked,
+     * destroying the body and it's associated fixture.
+     */
     public void destroy() {
         body.destroyFixture(fixture);
         body.setUserData(null);
@@ -75,21 +92,11 @@ public class EntityBody extends Body{
         fixtureDef = null;
     }
 
-
-
-    public void setWidth(float width) {
-        this.width = width;
-    }
-
-    public void setHeight(float height) {
-        this.height = height;
-    }
-
+    /**
+     * Returns body.
+     * @return Body in this class.
+     */
     public Body getBody() {
         return body;
     }
-
-
-
-
 }

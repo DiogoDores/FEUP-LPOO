@@ -1,6 +1,7 @@
 package com.prairieKing.model.entities;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.MathUtils;
 import com.prairieKing.model.GameLogic;
 import com.prairieKing.model.Gun;
@@ -16,6 +17,7 @@ public class PowerupModel extends EntityModel {
     private Gun gun;
     private HeroModel hero;
     private GameLogic gameLogic;
+    private Sound powerUp;
 
     private float time;
 
@@ -26,6 +28,8 @@ public class PowerupModel extends EntityModel {
         this.gameLogic = gameLogic;
         gun = gameLogic.getGun();
         time = MathUtils.random(13.0f, 16.0f);
+        powerUp = Gdx.audio.newSound(Gdx.files.internal("Sounds/start.mp3"));
+
     }
 
     public void update() {
@@ -45,6 +49,7 @@ public class PowerupModel extends EntityModel {
 
     @Override
     public void activate() {
+        powerUp.play();
         if (type == "GUN SPEED") {
             gun.addPowerup(new FireRateGunPowerup(gameLogic));
         }

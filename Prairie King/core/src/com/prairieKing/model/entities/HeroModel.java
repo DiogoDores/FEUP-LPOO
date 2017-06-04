@@ -2,7 +2,6 @@ package com.prairieKing.model.entities;
 
 import com.badlogic.gdx.Gdx;
 import com.prairieKing.PrairieKing;
-import com.prairieKing.model.AI.Behaviour;
 import com.prairieKing.model.powerups.HeroPowerups;
 
 import java.util.ArrayList;

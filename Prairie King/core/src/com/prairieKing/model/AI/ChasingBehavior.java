@@ -2,11 +2,10 @@ package com.prairieKing.model.AI;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.math.Vector2;
 import com.prairieKing.model.entities.EnemyModel;
 import com.prairieKing.model.entities.HeroModel;
 
-public class ChasingBehaviour implements Behaviour {
+public class ChasingBehavior implements Behavior {
 
     private float ENEMY_SPEED = 400;
 
