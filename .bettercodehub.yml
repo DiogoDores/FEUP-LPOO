@@ -1,0 +1,9 @@
+exclude:
+- /Final TP & Triggers/src/dkeep/.*
+- /Prairie King/desktop/src/com/mygdx/game/desktop/DesktopLauncher.java
+- /Prairie King/html/.*
+- /TP1/src/HelloWorld.java
+component_depth: 1
+languages:
+- java
+- javascript
