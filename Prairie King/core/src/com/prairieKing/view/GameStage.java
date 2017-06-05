@@ -159,7 +159,12 @@ public class GameStage extends ScreenAdapter {
                     if (gameLogic.getHero().getState() == 5) {
                         transition.draw(batch);
                         PrairieKing.currentState = 3;
-                        music.stop();
+                        float volume = gameLogic.getPrairieKing().decreaseVolume(music, 0.000001f);
+
+                        while(volume > 0){
+                            volume = gameLogic.getPrairieKing().decreaseVolume(music, 0.01f);
+                        }
+
                         gameLogic.resetEverything();
                     }
 

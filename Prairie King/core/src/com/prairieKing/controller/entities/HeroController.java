@@ -1,6 +1,7 @@
 package com.prairieKing.controller.entities;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.prairieKing.PrairieKing;
 import com.prairieKing.controller.HeroPowerups;
 
@@ -11,8 +12,13 @@ public class HeroController extends EntityController {
     private boolean left, right, up, down;
     private int speed;
 
+    private Sound sound;
+
     private float MIN_WIDTH = 3.76f, MAX_WIDTH = 90;
     private float MIN_HEIGHT = 3.76f, MAX_HEIGHT = 90;
+
+    private int timeToPlay = 15;
+
 
     private ArrayList<HeroPowerups> powerups = new ArrayList<>();
 
@@ -27,12 +33,14 @@ public class HeroController extends EntityController {
         this.speed = 8;
         left = false; right = false; up = false; down = false;
         this.lives = 1;
+        this.sound = Gdx.audio.newSound(Gdx.files.internal("Sounds/footstep.mp3"));
         super.setType("HERO");
     }
 
     /** Move based on current keys pressed.
      */
     public void move() {
+
         checkPowerups();
         float x = super.getX(), y = super.getY();
         if (left && x > MIN_WIDTH)
@@ -47,6 +55,15 @@ public class HeroController extends EntityController {
         setPosition(x, y);
 
     }
+
+    public void playSound() {
+        if(timeToPlay <= 0){
+            this.sound.setVolume(sound.play(), 0.02f);
+            timeToPlay = 15;
+        } else
+            timeToPlay -= Gdx.graphics.getDeltaTime();
+    }
+
 
     /** Sets boolean for key pressed.
      *
