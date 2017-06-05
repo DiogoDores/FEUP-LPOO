@@ -20,6 +20,6 @@ public class Constants {
     public static final float HERO_WIDTH = PrairieKing.PPM/17;
     public static final float ENEMY_WIDTH = PrairieKing.PPM/17;
     public static final float PROJECTILE_WIDTH = PrairieKing.PPM/36;
-    public static final float POWERUP_WIDTH = PrairieKing.PPM/22;
+    public static final float POWERUP_WIDTH = PrairieKing.PPM/15;
 
 }

@@ -1,5 +1,5 @@
 
-Entities.png
+entities.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
@@ -17,9 +17,16 @@ enemyMovement
   orig: 96, 16
   offset: 0, 0
   index: -1
-enemyDeath
+wife
   rotate: false
   xy: 373, 1
+  size: 96, 16
+  orig: 96, 16
+  offset: 0, 0
+  index: -1
+enemyDeath
+  rotate: false
+  xy: 471, 1
   size: 80, 16
   orig: 80, 16
   offset: 0, 0

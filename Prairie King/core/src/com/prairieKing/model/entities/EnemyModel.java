@@ -46,7 +46,7 @@ public class EnemyModel extends EntityModel implements Behavior {
 
     }
 
-    @Override
+    //@Override
     public void attack(EnemyModel e, HeroModel h) {
 
     }

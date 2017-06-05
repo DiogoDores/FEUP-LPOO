@@ -1,5 +1,6 @@
 package com.prairieKing.view;
 
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -33,6 +34,7 @@ public class GameStage extends ScreenAdapter {
     private SpriteBatch batch;
     private FitViewport view;
     private GameLogic gameLogic;
+
     private boolean hasWon;
 
     private ArrayList<EnemyModel> enemies;
@@ -51,11 +53,10 @@ public class GameStage extends ScreenAdapter {
     private HeroAnimator animateHero;
     private EnemyAnimator animateEnemy;
 
-    private Sound sound;
-
     private int i = 0;
 
     private float animation;
+    private Music music;
 
     public GameStage(GameLogic gameLogic) {
         animation = 0;
@@ -85,7 +86,7 @@ public class GameStage extends ScreenAdapter {
 
 
     public void loadAssets() {
-        sound = Gdx.audio.newSound(Gdx.files.internal("Sounds/pop.mp3"));
+        music = Gdx.audio.newMusic(Gdx.files.internal("Sounds/finalSong.mp3"));
         mainSprite = game.getAssetManager().get("Sprites/MainSpriteSheet.png", Texture.class);
         background = game.getAssetManager().get("Sprites/BlockBackground.png", Texture.class);
 
@@ -108,6 +109,7 @@ public class GameStage extends ScreenAdapter {
         batch.setProjectionMatrix(cam.combined);
 
         if (hasWon) {
+
             if (gameLogic.getHero().getState() == 0) {
                 animateHero.update();
                 animateHero.draw(batch);
@@ -121,6 +123,8 @@ public class GameStage extends ScreenAdapter {
                 ending.setX(-39);
 
                 if (gameLogic.getHero().getState() == 1 || gameLogic.getHero().getState() == 1.5f) {
+                    music.play();
+                    music.setVolume(0.5f);
                     ending.draw(batch);
                     woman.draw(batch);
 
@@ -241,9 +245,9 @@ public class GameStage extends ScreenAdapter {
             else if (powerups.get(i).getPowerupType() == "GUN WHEEL")
                 powerupToDraw = new Sprite(game.getAssetManager().get("Sprites/MainSpriteSheet.png", Texture.class), 176, 160, 16, 16);
             else if (powerups.get(i).getPowerupType() == "HERO LIFE")
-                powerupToDraw = new Sprite(game.getAssetManager().get("Sprites/MainSpriteSheet.png", Texture.class), 97, 162, 16, 16);
+                powerupToDraw = new Sprite(game.getAssetManager().get("Sprites/MainSpriteSheet.png", Texture.class), 272, 160, 16, 16);
             else if (powerups.get(i).getPowerupType() == "HERO SPEED")
-                powerupToDraw = new Sprite(game.getAssetManager().get("Sprites/MainSpriteSheet.png", Texture.class), 241, 129, 15, 15);
+                powerupToDraw = new Sprite(game.getAssetManager().get("Sprites/MainSpriteSheet.png", Texture.class), 240, 160, 15, 15);
             powerupToDraw.setSize(Constants.POWERUP_WIDTH, Constants.POWERUP_WIDTH);
             powerupToDraw.setX(powerups.get(i).getX());
             powerupToDraw.setY(powerups.get(i).getY());
@@ -290,6 +294,10 @@ public class GameStage extends ScreenAdapter {
     public void hasWon() {
         animateHero = new HeroAnimator(this);
         hasWon = true;
+    }
+
+    public boolean getHasWon() {
+        return hasWon;
     }
 
 

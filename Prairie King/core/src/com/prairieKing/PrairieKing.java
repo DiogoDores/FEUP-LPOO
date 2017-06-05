@@ -26,6 +26,7 @@ public class PrairieKing extends Game {
     GameLogic gameLogic;
 
     public static final float PPM = 100;
+    private int volume, factor = 2;
 
     private AssetManager assetManager;
 
@@ -64,6 +65,17 @@ public class PrairieKing extends Game {
 
     @Override
     public void render() {
+
+        if(gameLogic.getGameStage().getHasWon()) {
+            if (music.isPlaying()) {
+                volume -= 0.1;
+                if (volume > 0)
+                    music.setVolume(volume);
+                else
+                    music.stop();
+            }
+        }
+
         if (currentState == 0) { // Main Menu
             setScreen(menu);
             menu.render(0);

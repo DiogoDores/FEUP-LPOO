@@ -91,7 +91,7 @@ public class GameLogic {
         createBodies();
     }
 
-    private void createBodies() {
+    public void createBodies() {
         BodyDef bDef = new BodyDef();
         PolygonShape shape = new PolygonShape();
         FixtureDef fDef = new FixtureDef();
@@ -159,7 +159,6 @@ public class GameLogic {
         AI.checkEnemies();
         powerupSpawner.checkPowerups();
         gun.checkBullets();
-
         gameStage.render(0);
 
         moveEntities();
