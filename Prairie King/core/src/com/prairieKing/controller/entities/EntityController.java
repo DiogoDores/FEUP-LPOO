@@ -1,5 +1,9 @@
 package com.prairieKing.controller.entities;
 
+/** The Default Entity for all controllers. All controllers extend
+ * from this class, and all the bodies have some kind of extended
+ * EntityController as their Data.
+ */
 public class EntityController {
 
     private boolean flaggedForDelete;

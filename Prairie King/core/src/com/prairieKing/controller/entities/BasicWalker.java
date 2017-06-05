@@ -3,6 +3,8 @@ package com.prairieKing.controller.entities;
 import com.prairieKing.controller.AI.Behavior;
 import com.prairieKing.controller.AI.ChasingBehavior;
 
+/** Simple enemy, has a Chasing Behavior.
+ */
 public class BasicWalker extends EnemyController {
 
     private Behavior behaviour;
@@ -22,7 +24,7 @@ public class BasicWalker extends EnemyController {
 
     /**Triggers the behaviour movement.
      *
-     * @param e This Enemy.
+     * @param e The Enemy associated with this behaviour.
      * @param h The hero, needs its position.
      */
     @Override
@@ -31,9 +33,9 @@ public class BasicWalker extends EnemyController {
     }
 
 
-    /** Gets the direction of the enemy.
+    /** Gets the behavior of the enemy.
      *
-     * @return Direction of the enemy.
+     * @return Behavior of the enemy.
      */
     @Override
     public Behavior getBehaviour() {

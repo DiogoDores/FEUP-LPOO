@@ -3,10 +3,13 @@ package com.prairieKing.controller.entities;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.prairieKing.PrairieKing;
-import com.prairieKing.controller.HeroPowerups;
+import com.prairieKing.model.powerups.HeroPowerups;
 
 import java.util.ArrayList;
 
+/** The hero of the game. The player controls directly all the X and Y positions.
+ *
+ */
 public class HeroController extends EntityController {
     private int lives;
     private boolean left, right, up, down;

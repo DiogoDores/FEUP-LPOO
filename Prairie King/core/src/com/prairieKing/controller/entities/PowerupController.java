@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.MathUtils;
 import com.prairieKing.model.GameLogic;
-import com.prairieKing.model.Gun;
 import com.prairieKing.model.powerups.HeroExtraLife;
 import com.prairieKing.model.powerups.FireRateGunPowerup;
 import com.prairieKing.model.powerups.HeroSpeed;
@@ -42,14 +41,25 @@ public class PowerupController extends EntityController {
 
     }
 
+    /** Important for GameStage, that needs to know what type of powerup it is
+     * so it can display its sprite correctly.
+     *
+     * @param type Type of powerup.
+     */
     public void powerupType(String type) {
         this.type = type;
     }
 
+    /** Returns the type of powerup.
+     *
+     * @return type of powerup.
+     */
     public String getPowerupType() {
         return type;
     }
 
+    /** Activates the powerup.
+     */
     @Override
     public void activate() {
         powerUp.play();

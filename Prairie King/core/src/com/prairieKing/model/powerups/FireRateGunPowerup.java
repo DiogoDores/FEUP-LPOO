@@ -10,6 +10,10 @@ public class FireRateGunPowerup extends GunPowerups {
 
     private Gun gun;
 
+    /** Constructor for the increased Fire Rate Powerup.
+     *
+     * @param gameLogic Gets the gun from the gameLogic.
+     */
     public FireRateGunPowerup(GameLogic gameLogic) {
         super(gameLogic);
         this.gun = gameLogic.getGun();
@@ -18,7 +22,8 @@ public class FireRateGunPowerup extends GunPowerups {
         gun.setSpeed(newSpeed);
     }
 
-
+    /** Removed powerups effect from the gun.
+     */
     @Override
     public void removeEffect() {
         gun.setSpeed(oldSpeed);

@@ -3,6 +3,8 @@ package com.prairieKing.controller.AI;
 import com.prairieKing.controller.entities.EnemyController;
 import com.prairieKing.controller.entities.HeroController;
 
+/** Interface for the Strategy Design Pattern.
+ */
 public interface Behavior {
 
     /** Moves an Enemy.

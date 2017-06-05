@@ -5,6 +5,8 @@ import com.badlogic.gdx.math.MathUtils;
 import com.prairieKing.controller.entities.EnemyController;
 import com.prairieKing.controller.entities.HeroController;
 
+/** Chasing Behaviour for the Basic Walker.
+ */
 public class ChasingBehavior implements Behavior {
 
     private float ENEMY_SPEED = 400;

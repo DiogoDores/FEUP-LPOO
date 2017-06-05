@@ -1,4 +1,4 @@
-package com.prairieKing.controller;
+package com.prairieKing.model.powerups;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.MathUtils;
@@ -20,18 +20,23 @@ public class PowerupSpawner {
     private float timeToSpawn;
     private World world;
 
+    /** Constructor for a Powerup Spawner. This class is responsible for the
+     * appropriate creation and treatment of all the powerups.
+     *
+     * @param gameLogic Current GameLogic.
+     */
     public PowerupSpawner(GameLogic gameLogic) {
         powerupModels = new ArrayList<>();
         powerupBodies = new ArrayList<>();
 
-
         this.gameLogic = gameLogic;
         this.world = gameLogic.getWorld();
 
-        timeToSpawn = 4; //generateRandom();
-
+        timeToSpawn = MathUtils.random(10.0f, 17.0f);
     }
 
+    /** Regularly checks whether
+     */
     public void update() {
         timeToSpawn -= Gdx.graphics.getDeltaTime();
         checkPowerups();
@@ -48,6 +53,7 @@ public class PowerupSpawner {
         Vector2 position = randomPos();
 
         PowerupController model = new PowerupController(position.x,position.y, gameLogic);
+
 
         if (r == 0) { // Speed
             model.powerupType("GUN SPEED");

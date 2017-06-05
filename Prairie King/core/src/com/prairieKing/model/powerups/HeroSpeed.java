@@ -1,7 +1,6 @@
 package com.prairieKing.model.powerups;
 
 import com.prairieKing.model.GameLogic;
-import com.prairieKing.controller.HeroPowerups;
 
 
 public class HeroSpeed extends HeroPowerups {
@@ -10,7 +9,10 @@ public class HeroSpeed extends HeroPowerups {
     private int oldSpeed = 8;
     private GameLogic game;
 
-
+    /** Constructor for a new Hero Speed Powerup.
+     *
+     * @param game Current GameLogic.
+     */
     public HeroSpeed(GameLogic game) {
         super(game);
         this.game = game;
@@ -18,9 +20,10 @@ public class HeroSpeed extends HeroPowerups {
         setEffectTime(10);
     }
 
+    /** Resets hero's speed.
+     */
     @Override
     public void removeEffect() {
-        super.removeEffect();
         game.getHero().setSpeed(oldSpeed);
     }
 }

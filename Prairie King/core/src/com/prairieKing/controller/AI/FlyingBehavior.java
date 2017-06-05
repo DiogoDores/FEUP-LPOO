@@ -4,6 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.prairieKing.controller.entities.EnemyController;
 import com.prairieKing.controller.entities.HeroController;
 
+/** Flying Behaviour for the Flying Enemy.
+ */
 public class FlyingBehavior implements Behavior {
 
     private float ENEMY_SPEED = 7;
