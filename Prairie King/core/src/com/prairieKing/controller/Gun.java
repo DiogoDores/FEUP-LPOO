@@ -7,10 +7,9 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Pool;
 import com.prairieKing.Constants;
 import com.prairieKing.PrairieKing;
-import com.prairieKing.controller.GameLogic;
 import com.prairieKing.model.bodies.ProjectileBody;
-import com.prairieKing.controller.entities.HeroModel;
-import com.prairieKing.controller.entities.ProjectileModel;
+import com.prairieKing.controller.entities.HeroController;
+import com.prairieKing.controller.entities.ProjectileController;
 import com.prairieKing.model.powerups.GunPowerups;
 
 import java.util.ArrayList;
@@ -20,16 +19,16 @@ import java.util.List;
 public class Gun {
 
     private ArrayList<ProjectileBody> projectilesBodies = new ArrayList<ProjectileBody>();
-    private ArrayList<ProjectileModel> projectiles = new ArrayList<ProjectileModel>();
+    private ArrayList<ProjectileController> projectiles = new ArrayList<ProjectileController>();
     private ArrayList<GunPowerups> powerups = new ArrayList<>();
-    private Pool<ProjectileModel> pool;
+    private Pool<ProjectileController> pool;
     private World world;
     private float timeLeftToShoot;
     private float DELAY_TIME_SHOOT = 0.14f;
 
     private float SPEED;
     private String typeGun;
-    private HeroModel hero;
+    private HeroController hero;
     private int shape;
     private int BULLET_SPEED = 4;
 
@@ -46,10 +45,10 @@ public class Gun {
         this.hero = gameLogic.getHero();
         SPEED = 1;
         sound = Gdx.audio.newSound(Gdx.files.internal("Sounds/pop.mp3"));
-        pool = new Pool<ProjectileModel>() {
+        pool = new Pool<ProjectileController>() {
             @Override
-            protected ProjectileModel newObject() {
-                return new ProjectileModel(-1, -1);
+            protected ProjectileController newObject() {
+                return new ProjectileController(-1, -1);
             }
         };
     }
@@ -119,7 +118,7 @@ public class Gun {
 
         sound.play();
 
-        ProjectileModel p = pool.obtain();
+        ProjectileController p = pool.obtain();
         ProjectileBody pb = new ProjectileBody(world, p);
 
         pb.setTransform(posX, posY);
@@ -131,7 +130,7 @@ public class Gun {
 
     }
 
-    public List<ProjectileModel> getProjectiles() {
+    public List<ProjectileController> getProjectiles() {
         return projectiles;
     }
 

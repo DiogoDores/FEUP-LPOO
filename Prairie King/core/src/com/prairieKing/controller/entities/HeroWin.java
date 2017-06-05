@@ -3,7 +3,7 @@ package com.prairieKing.controller.entities;
 import com.badlogic.gdx.Gdx;
 import com.prairieKing.PrairieKing;
 
-public class HeroWin extends HeroModel {
+public class HeroWin extends HeroController {
     private float x, y;
     private float speed = 8;
     private float state;

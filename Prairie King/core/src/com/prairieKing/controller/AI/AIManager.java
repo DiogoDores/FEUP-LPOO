@@ -2,14 +2,15 @@ package com.prairieKing.controller.AI;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Pool;
 import com.prairieKing.model.bodies.EnemyBody;
 import com.prairieKing.PrairieKing;
 import com.prairieKing.controller.entities.BasicWalker;
-import com.prairieKing.controller.entities.EnemyModel;
+import com.prairieKing.controller.entities.EnemyController;
 import com.prairieKing.controller.entities.FlyingEnemy;
 import com.prairieKing.controller.GameLogic;
-import com.prairieKing.controller.entities.HeroModel;
+import com.prairieKing.controller.entities.HeroController;
 import com.prairieKing.controller.entities.ToughEnemy;
 
 import java.util.ArrayList;
@@ -18,13 +19,13 @@ public class AIManager {
 
     private GameLogic gameLogic;
     private float MAX_ENEMY_NUMBER = 5;
-    private ArrayList<EnemyModel> enemies = new ArrayList<>();
+    private ArrayList<EnemyController> enemies = new ArrayList<>();
     private ArrayList<EnemyBody> enemiesBodies = new ArrayList<>();
 
     private int killCount;
     private boolean hasIncreased;
     private float timeToSpawn;
-    private Pool<EnemyModel> enemyModelsPool;
+    private Pool<EnemyController> enemyModelsPool;
     private char lastSpawned = 'n', last2spawned = 's';
 
     private boolean hasWon;
@@ -44,9 +45,9 @@ public class AIManager {
         activeNumber = 0;
         timeToSpawn = .2f;
 
-        enemyModelsPool = new Pool<EnemyModel>() {
+        enemyModelsPool = new Pool<EnemyController>() {
             @Override
-            protected EnemyModel newObject() {
+            protected EnemyController newObject() {
                 int random = MathUtils.random(1);
                 String spawnPlaces = "nsew"; // Possível posição
                 int randomSpawn = MathUtils.random(3);
@@ -57,34 +58,16 @@ public class AIManager {
                 last2spawned = lastSpawned;
                 lastSpawned =  spawnPlaces.charAt(randomSpawn);
 
-                float placeRandom = MathUtils.random(-3.0f,3.0f);
-                int x, y;
-                if (spawnPlaces.charAt(randomSpawn) == 'n') {
-                    x = (int) (PrairieKing.PPM / 2 +placeRandom);
-                    y = (int) PrairieKing.PPM + 10;
-                }
-                else if (spawnPlaces.charAt(randomSpawn) == 's') {
-                    x = (int) (PrairieKing.PPM / 2 +placeRandom);
-                    y = -10;
-                }
-                else if (spawnPlaces.charAt(randomSpawn) == 'e') {
-                    x = (int) PrairieKing.PPM + 10;
-                    y = (int) (PrairieKing.PPM / 2 +placeRandom);
-                }
-                else {
-                    x = -10;
-                    y = (int) (PrairieKing.PPM / 2 +placeRandom);
-                }
-
+                Vector2 position = randomizeSpawn(spawnPlaces.charAt(randomSpawn));
 
                 if (random == 0 && killCount < 100) {
-                    return new BasicWalker(x,y,spawnPlaces.charAt(randomSpawn));
+                    return new BasicWalker(position.x, position.y,spawnPlaces.charAt(randomSpawn));
                 }
                 else if (random == 1 && killCount < 250) {
-                    return new FlyingEnemy(x, y, spawnPlaces.charAt(randomSpawn));
+                    return new FlyingEnemy(position.x, position.y, spawnPlaces.charAt(randomSpawn));
                 }
                 else if (random == 0 &&  killCount >= 100 && killCount < 400) {
-                    return new ToughEnemy(x,y,spawnPlaces.charAt(randomSpawn));
+                    return new ToughEnemy(position.x, position.y,spawnPlaces.charAt(randomSpawn));
                 }
                 return null;
             }
@@ -97,6 +80,37 @@ public class AIManager {
         MAX_ENEMY_NUMBER = MAX_ENEMY_NUMBER + 1; if(killCount == 160) {
             MAX_ENEMY_NUMBER -= 4;
         }
+    }
+
+    /**Returns a vector with random values holding the position
+     * to spawn.
+     *
+     * @param direction Initial direction the enemy will follow.
+     * @return Vector holding coordinates.
+     */
+    private Vector2 randomizeSpawn(char direction) {
+        float x, y;
+        float placeRandom = MathUtils.random(-3.0f,3.0f);
+
+        if (direction == 'n') {
+            x = (int) (PrairieKing.PPM / 2 +placeRandom);
+            y = (int) PrairieKing.PPM + 10;
+        }
+        else if (direction == 's') {
+            x = (int) (PrairieKing.PPM / 2 +placeRandom);
+            y = -10;
+        }
+        else if (direction == 'e') {
+            x = (int) PrairieKing.PPM + 10;
+            y = (int) (PrairieKing.PPM / 2 +placeRandom);
+        }
+        else {
+            x = -10;
+            y = (int) (PrairieKing.PPM / 2 +placeRandom);
+        }
+
+        return new Vector2(x,y);
+
     }
 
     /**
@@ -112,13 +126,13 @@ public class AIManager {
         }
         else {
             if (killCount % 20 == 0 && killCount != 0 && !hasIncreased) {
-                System.out.println("Aumentei com " + killCount + " e " + killCount % 10);
+               // System.out.println("Aumentei com " + killCount + " e " + killCount % 10);
                 hasIncreased = true;
                 increaseDifficulty();
             }
 
             if (activeNumber < MAX_ENEMY_NUMBER && timeToSpawn <= 0.0f) {
-                EnemyModel e = enemyModelsPool.obtain();
+                EnemyController e = enemyModelsPool.obtain();
                 activeNumber++;
                 enemies.add(e);
                 enemiesBodies.add(new EnemyBody(gameLogic.getWorld(), e));
@@ -132,7 +146,7 @@ public class AIManager {
      *
      * @return Active Enemy list.
      */
-    public ArrayList<EnemyModel> getEnemies() {
+    public ArrayList<EnemyController> getEnemies() {
         return enemies;
     }
 
@@ -140,9 +154,9 @@ public class AIManager {
      * Invokes all the move methods from all active Enemies.
      */
     public void move() {
-        HeroModel hero = gameLogic.getHero();
+        HeroController hero = gameLogic.getHero();
         if (enemies != null)
-            for (EnemyModel e : enemies) {
+            for (EnemyController e : enemies) {
                 int index = enemies.indexOf(e);
                 e.move(e,hero);
                 enemiesBodies.get(index).setTransform(e.getX(),e.getY());

@@ -1,8 +1,8 @@
 package com.prairieKing.controller.AI;
 
 import com.badlogic.gdx.Gdx;
-import com.prairieKing.controller.entities.EnemyModel;
-import com.prairieKing.controller.entities.HeroModel;
+import com.prairieKing.controller.entities.EnemyController;
+import com.prairieKing.controller.entities.HeroController;
 
 public class FlyingBehavior implements Behavior {
 
@@ -18,7 +18,7 @@ public class FlyingBehavior implements Behavior {
      * @param h Current Hero.
      */
     @Override
-    public void move(EnemyModel e, HeroModel h) {
+    public void move(EnemyController e, HeroController h) {
         float x = e.getX();
         float y = e.getY();
 
@@ -26,20 +26,8 @@ public class FlyingBehavior implements Behavior {
         float newY = y;
 
         if (initialTime >= 0) {
-            if (initialDirection == 'n')
-                newY -= (ENEMY_SPEED * Gdx.graphics.getDeltaTime());
-            else if (initialDirection == 's')
-                newY += (ENEMY_SPEED * Gdx.graphics.getDeltaTime());
-            else if (initialDirection == 'e')
-                newX -= (ENEMY_SPEED * Gdx.graphics.getDeltaTime());
-            else
-                newX += (ENEMY_SPEED * Gdx.graphics.getDeltaTime());
-
-            initialTime -= Gdx.graphics.getDeltaTime();
-            e.setPosition(newX, newY);
-
+            initialBehaviour(e, initialDirection);
         }
-
         else {
             if (Math.abs(x - h.getX()) > 3) {
                 if (x > h.getX()) {
@@ -55,21 +43,43 @@ public class FlyingBehavior implements Behavior {
                     newY += (ENEMY_SPEED * Gdx.graphics.getDeltaTime());
                 }
             }
+            e.setPosition(newX, newY);
         }
-        e.setPosition(newX, newY);
-
-
     }
 
-
-    /** Sets the initial movement in direction of the middle of the screen.
+    /**Sets the initial movement in direction of the middle of the screen.
      *
-     * @param direction Direction in which the enemy moves.
+     * @param e Enemy associated with this behaviour.
+     * @param direction Direction to the center of the screen.
      */
     @Override
-    public void initialBehaviour(EnemyModel e, char direction) {
+    public void initialBehaviour(EnemyController e, char direction) {
         initialDirection = direction;
-        initialTime = 3;
+        float x = e.getX();
+        float y = e.getY();
+
+        float newX = x;
+        float newY = y;
+
+        if (initialDirection == 'n') {
+            newY = y - (1 / (ENEMY_SPEED * Gdx.graphics.getDeltaTime()));
+            e.setCurrentDirection('s');
+        }
+        else if (initialDirection == 's') {
+            newY = y + (1 / (ENEMY_SPEED * Gdx.graphics.getDeltaTime()));
+            e.setCurrentDirection('w');
+        }
+        else if (initialDirection == 'e') {
+            newX = x - (1 / (ENEMY_SPEED * Gdx.graphics.getDeltaTime()));
+            e.setCurrentDirection('a');
+        }
+        else {
+            newX = x + (1 / (ENEMY_SPEED * Gdx.graphics.getDeltaTime()));
+            e.setCurrentDirection('d');
+        }
+
+        initialTime -= Gdx.graphics.getDeltaTime();
+        e.setPosition(newX, newY);
     }
 
     /** Important for animation.

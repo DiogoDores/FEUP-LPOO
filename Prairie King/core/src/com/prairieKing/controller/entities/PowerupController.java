@@ -11,17 +11,17 @@ import com.prairieKing.model.powerups.HeroSpeed;
 import com.prairieKing.model.powerups.ShotgunPowerup;
 import com.prairieKing.model.powerups.WheelPowerup;
 
-public class PowerupModel extends EntityModel {
+public class PowerupController extends EntityController {
 
     private String type;
     private Gun gun;
-    private HeroModel hero;
+    private HeroController hero;
     private GameLogic gameLogic;
     private Sound powerUp;
 
     private float time;
 
-    public PowerupModel(float x, float y, GameLogic gameLogic) {
+    public PowerupController(float x, float y, GameLogic gameLogic) {
         super(x, y);
         super.setType("POWERUP");
         hero = gameLogic.getHero();

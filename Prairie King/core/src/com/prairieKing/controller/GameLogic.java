@@ -17,8 +17,8 @@ import com.prairieKing.model.bodies.HeroBody;
 import com.prairieKing.PrairieKing;
 import com.prairieKing.controller.AI.AIManager;
 import com.prairieKing.controller.entities.HeroWin;
-import com.prairieKing.controller.entities.EntityModel;
-import com.prairieKing.controller.entities.HeroModel;
+import com.prairieKing.controller.entities.EntityController;
+import com.prairieKing.controller.entities.HeroController;
 import com.prairieKing.view.GameStage;
 
 public class GameLogic {
@@ -27,7 +27,7 @@ public class GameLogic {
     private PowerupSpawner powerupSpawner;
     private AIManager AI;
     private PrairieKing prairieKing;
-    private HeroModel hero;
+    private HeroController hero;
     private HeroBody heroBody;
     private GameStage gameStage;
     private World world;
@@ -44,7 +44,7 @@ public class GameLogic {
         world = new World(new Vector2(0, 0), true);
         AI = new AIManager(this);
         prairieKing = game;
-        hero = new HeroModel(PrairieKing.PPM / 2, PrairieKing.PPM / 2);
+        hero = new HeroController(PrairieKing.PPM / 2, PrairieKing.PPM / 2);
 
         highScore = 0;
         timeSinceBeginning = 0;
@@ -69,7 +69,7 @@ public class GameLogic {
     public void resetEverything() {
         world = new World(new Vector2(0, 0), true);
         AI = new AIManager(this);
-        hero = new HeroModel(PrairieKing.PPM / 2, PrairieKing.PPM / 2);
+        hero = new HeroController(PrairieKing.PPM / 2, PrairieKing.PPM / 2);
         gun = new Gun(this);
 
         timeSinceBeginning = 0;
@@ -109,7 +109,7 @@ public class GameLogic {
 
     }
 
-    public HeroModel getHero() {
+    public HeroController getHero() {
         return hero;
     }
 
@@ -140,7 +140,7 @@ public class GameLogic {
 
         for (Body body : bodies) {
 
-            EntityModel model = ((EntityModel) body.getUserData());
+            EntityController model = ((EntityController) body.getUserData());
 
             if (model != null && body != null)
                 checkLose(model);
@@ -169,7 +169,7 @@ public class GameLogic {
         AI.move();
     }
 
-    public void checkLose(EntityModel model) {
+    public void checkLose(EntityController model) {
         if (model.isFlaggedForDelete()) {
             if (model.getType() == "HERO") {
                 PrairieKing.currentState = 2;

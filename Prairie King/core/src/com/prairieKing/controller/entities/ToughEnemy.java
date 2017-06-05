@@ -3,31 +3,21 @@ package com.prairieKing.controller.entities;
 import com.prairieKing.controller.AI.Behavior;
 import com.prairieKing.controller.AI.ToughBehavior;
 
-public class ToughEnemy extends EnemyModel {
+public class ToughEnemy extends EnemyController {
 
     private Behavior behaviour;
     private int lives = 3;
-    @Override
-    public void setPosition(float x, float y) {
-        super.setPosition(x, y);
-    }
 
-    public ToughEnemy(int x, int y, char initialDirection) {
-        super(x, y, initialDirection);
-        super.setType("ENEMY");
+    public ToughEnemy(float x, float y, char initialDirection) {
+        super(x, y);
         super.setEnemyType("TOUGH");
         behaviour = new ToughBehavior();
         behaviour.initialBehaviour(this,initialDirection);
     }
 
     @Override
-    public void move(EnemyModel e, HeroModel h) {
+    public void move(EnemyController e, HeroController h) {
         behaviour.move(this, h);
-    }
-
-    @Override
-    public void setCurrentDirection(char currentDirection) {
-        super.setCurrentDirection(currentDirection);
     }
 
     @Override

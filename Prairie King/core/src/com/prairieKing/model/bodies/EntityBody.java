@@ -7,7 +7,7 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
-import com.prairieKing.controller.entities.EntityModel;
+import com.prairieKing.controller.entities.EntityController;
 
 public class EntityBody extends Body{
 
@@ -22,7 +22,7 @@ public class EntityBody extends Body{
      * @param addr Address.
      * @param model Model associated with the body, the model stores the game logic.
      */
-    public EntityBody(World world, long addr, EntityModel model) {
+    public EntityBody(World world, long addr, EntityController model) {
         super(world, addr);
         super.setUserData(model);
         BodyDef bodyDef = new BodyDef();

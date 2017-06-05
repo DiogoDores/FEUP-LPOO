@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
 import com.prairieKing.PrairieKing;
 import com.prairieKing.model.bodies.EnemyBody;
-import com.prairieKing.controller.entities.EnemyModel;
+import com.prairieKing.controller.entities.EnemyController;
 
 import java.util.ArrayList;
 
@@ -58,7 +58,7 @@ public class EnemyAnimator extends Sprite{
         this.gameStage = gameStage;
     }
 
-    public void update(int i, EnemyModel enemy){
+    public void update(int i, EnemyController enemy){
 
         stateTimer += Gdx.graphics.getDeltaTime();
 
