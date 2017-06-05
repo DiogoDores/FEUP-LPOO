@@ -1,7 +1,6 @@
 package com.prairieKing.model.powerups;
 
-import com.prairieKing.model.GameLogic;
-import com.prairieKing.model.Gun;
+import com.prairieKing.controller.GameLogic;
 
 
 public class HeroExtraLife extends HeroPowerups {

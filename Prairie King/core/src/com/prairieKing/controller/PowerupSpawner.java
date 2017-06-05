@@ -1,19 +1,18 @@
-package com.prairieKing.model.powerups;
+package com.prairieKing.controller;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.prairieKing.PrairieKing;
-import com.prairieKing.controller.bodies.PowerupBody;
-import com.prairieKing.model.GameLogic;
-import com.prairieKing.model.entities.PowerupModel;
+import com.prairieKing.model.bodies.PowerupBody;
+import com.prairieKing.controller.entities.PowerupController;
 
 import java.util.ArrayList;
 
 public class PowerupSpawner {
 
-    private ArrayList<PowerupModel> powerupModels;
+    private ArrayList<PowerupController> powerupModels;
     private ArrayList<PowerupBody> powerupBodies;
 
     private GameLogic gameLogic;
@@ -47,7 +46,7 @@ public class PowerupSpawner {
         int r = MathUtils.random(4);
         Vector2 position = randomPos();
 
-        PowerupModel model = new PowerupModel(position.x,position.y, gameLogic);
+        PowerupController model = new PowerupController(position.x,position.y, gameLogic);
 
         if (r == 0) { // Speed
             model.powerupType("GUN SPEED");
@@ -97,7 +96,7 @@ public class PowerupSpawner {
         }
     }
 
-    public ArrayList<PowerupModel> getPowerupModels() {
+    public ArrayList<PowerupController> getPowerupModels() {
         return powerupModels;
     }
 

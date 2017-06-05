@@ -1,13 +1,9 @@
-package com.prairieKing.model.entities;
+package com.prairieKing.controller.entities;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.math.MathUtils;
 import com.prairieKing.PrairieKing;
-import com.prairieKing.model.entities.EnemyModel;
-import com.prairieKing.model.entities.EntityModel;
-import com.prairieKing.model.entities.HeroModel;
 
-public class HeroWin extends HeroModel {
+public class HeroWin extends HeroController {
     private float x, y;
     private float speed = 8;
     private float state;

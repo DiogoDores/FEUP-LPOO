@@ -4,7 +4,7 @@ import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Manifold;
-import com.prairieKing.model.entities.EntityModel;
+import com.prairieKing.controller.entities.EntityController;
 
 public class CollisionHandler implements ContactListener {
 
@@ -15,8 +15,8 @@ public class CollisionHandler implements ContactListener {
      */
     @Override
     public void beginContact(Contact contact) {
-        EntityModel modelA = (EntityModel) contact.getFixtureA().getBody().getUserData();
-        EntityModel modelB = (EntityModel) contact.getFixtureB().getBody().getUserData();
+        EntityController modelA = (EntityController) contact.getFixtureA().getBody().getUserData();
+        EntityController modelB = (EntityController) contact.getFixtureB().getBody().getUserData();
 
         handleCollisions(modelA, modelB);
     }
@@ -28,7 +28,7 @@ public class CollisionHandler implements ContactListener {
      * @param m1 Model 1 of collision.
      * @param m2 Model 2 of collision.
      */
-    private void handleCollisions(EntityModel m1, EntityModel m2) {
+    private void handleCollisions(EntityController m1, EntityController m2) {
         if (m1 != null && m2 != null) {
             if ((m1.getType().equals("PROJECTILE") && m2.getType().equals("ENEMY")) || (m1.getType().equals("ENEMY") && m2.getType().equals("PROJECTILE"))
                     || (m1.getType().equals("HERO") && m2.getType().equals("ENEMY")) || (m1.getType().equals("ENEMY") && m2.getType().equals("HERO"))) {

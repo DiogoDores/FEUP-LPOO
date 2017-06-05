@@ -1,7 +1,7 @@
-package com.prairieKing.model.AI;
+package com.prairieKing.controller.AI;
 
-import com.prairieKing.model.entities.EnemyModel;
-import com.prairieKing.model.entities.HeroModel;
+import com.prairieKing.controller.entities.EnemyController;
+import com.prairieKing.controller.entities.HeroController;
 
 public interface Behavior {
 
@@ -10,13 +10,13 @@ public interface Behavior {
      * @param e Enemy to move.
      * @param h Current Hero.
      */
-    void move(EnemyModel e, HeroModel h); // Chases hero
+    void move(EnemyController e, HeroController h); // Chases hero
 
     /** Sets the initial movement in direction of the middle of the screen.
      *
      * @param direction Direction in which the enemy moves.
      */
-    void initialBehaviour(char direction);
+    void initialBehaviour(EnemyController e, char direction);
 
     /** Important for animation.
      */

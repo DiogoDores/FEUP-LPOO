@@ -1,24 +1,21 @@
-package com.prairieKing.model.entities;
+package com.prairieKing.controller.entities;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Sound;
-import com.prairieKing.model.entities.EntityModel;
-
-public class ProjectileModel extends EntityModel {
+public class ProjectileController extends EntityController {
 
     float x, y;
 
-    public ProjectileModel(float x, float y) {
+    public ProjectileController(float x, float y) {
         super(x, y);
-        super.setType("PROJECTILE");
         this.x = x; this.y = y;
-
+        super.setType("PROJECTILE");
     }
 
     public void setPosition(float x, float y) {
         this.x = x;
         this.y = y;
     }
+
+
 
     @Override
     public float getX() {

@@ -1,4 +1,4 @@
-package com.prairieKing.model.entities;
+package com.prairieKing.controller.entities;
 
 import com.badlogic.gdx.Gdx;
 import com.prairieKing.PrairieKing;
@@ -6,7 +6,7 @@ import com.prairieKing.model.powerups.HeroPowerups;
 
 import java.util.ArrayList;
 
-public class HeroModel extends EntityModel {
+public class HeroController extends EntityController {
     private float x, y;
     private int lives;
     private boolean left, right, up, down;
@@ -21,7 +21,7 @@ public class HeroModel extends EntityModel {
     private ArrayList<HeroPowerups> powerups = new ArrayList<>();
 
 
-    public HeroModel(float x, float y) {
+    public HeroController(float x, float y) {
         super(x, y);
         this.x = x;
         this.speed = 8;

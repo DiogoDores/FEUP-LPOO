@@ -18,12 +18,11 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.prairieKing.model.entities.EnemyModel;
-import com.prairieKing.model.GameLogic;
-import com.prairieKing.model.Gun;
-import com.prairieKing.model.entities.PowerupModel;
-import com.prairieKing.model.entities.ProjectileModel;
-import com.sun.xml.internal.bind.v2.runtime.reflect.opt.Const;
+import com.prairieKing.controller.entities.EnemyController;
+import com.prairieKing.controller.GameLogic;
+import com.prairieKing.controller.Gun;
+import com.prairieKing.controller.entities.PowerupController;
+import com.prairieKing.controller.entities.ProjectileController;
 
 import java.util.ArrayList;
 
@@ -37,7 +36,7 @@ public class GameStage extends ScreenAdapter {
 
     private boolean hasWon;
 
-    private ArrayList<EnemyModel> enemies;
+    private ArrayList<EnemyController> enemies;
     private Gun gun;
 
     private TiledMap map;
@@ -226,7 +225,7 @@ public class GameStage extends ScreenAdapter {
     }
 
     public void drawBullets() {
-        for (ProjectileModel projectile : gun.getProjectiles()) {
+        for (ProjectileController projectile : gun.getProjectiles()) {
             projectileToDraw = new Sprite(game.getAssetManager().get("Sprites/MainSpriteSheet.png", Texture.class), 261, 160, 6, 6);
             projectileToDraw.setSize(Constants.PROJECTILE_WIDTH, Constants.PROJECTILE_WIDTH);
             projectileToDraw.setX(projectile.getX());
@@ -236,7 +235,7 @@ public class GameStage extends ScreenAdapter {
     }
 
     public void drawPowerups() {
-        ArrayList<PowerupModel> powerups = gameLogic.getPowerupSpawner().getPowerupModels();
+        ArrayList<PowerupController> powerups = gameLogic.getPowerupSpawner().getPowerupModels();
         for (int i = 0; i < powerups.size(); i++) {
             if (powerups.get(i).getPowerupType() == "GUN SPEED")
                 powerupToDraw = new Sprite(game.getAssetManager().get("Sprites/MainSpriteSheet.png", Texture.class), 192, 160, 16, 16);
@@ -256,7 +255,7 @@ public class GameStage extends ScreenAdapter {
     }
 
     public void drawEnemies() {
-        for (EnemyModel e : enemies) {
+        for (EnemyController e : enemies) {
 
             animateEnemy.update(i, e);
             animateEnemy.draw(batch);

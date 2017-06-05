@@ -1,9 +1,8 @@
 package com.prairieKing.model.powerups;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.physics.box2d.World;
-import com.prairieKing.model.GameLogic;
-import com.prairieKing.model.Gun;
+import com.prairieKing.controller.GameLogic;
+import com.prairieKing.controller.Gun;
 
 public class GunPowerups extends Gun {
 
