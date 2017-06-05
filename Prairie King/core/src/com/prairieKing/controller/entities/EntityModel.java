@@ -1,4 +1,4 @@
-package com.prairieKing.model.entities;
+package com.prairieKing.controller.entities;
 
 public class EntityModel {
 

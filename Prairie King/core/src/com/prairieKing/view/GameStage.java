@@ -17,12 +17,11 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.prairieKing.model.entities.EnemyModel;
-import com.prairieKing.model.GameLogic;
-import com.prairieKing.model.Gun;
-import com.prairieKing.model.entities.PowerupModel;
-import com.prairieKing.model.entities.ProjectileModel;
-import com.sun.xml.internal.bind.v2.runtime.reflect.opt.Const;
+import com.prairieKing.controller.entities.EnemyModel;
+import com.prairieKing.controller.GameLogic;
+import com.prairieKing.controller.Gun;
+import com.prairieKing.controller.entities.PowerupModel;
+import com.prairieKing.controller.entities.ProjectileModel;
 
 import java.util.ArrayList;
 

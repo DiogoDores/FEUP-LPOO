@@ -1,10 +1,10 @@
-package com.prairieKing.model.entities;
+package com.prairieKing.controller.entities;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.MathUtils;
-import com.prairieKing.model.GameLogic;
-import com.prairieKing.model.Gun;
+import com.prairieKing.controller.GameLogic;
+import com.prairieKing.controller.Gun;
 import com.prairieKing.model.powerups.HeroExtraLife;
 import com.prairieKing.model.powerups.FireRateGunPowerup;
 import com.prairieKing.model.powerups.HeroSpeed;

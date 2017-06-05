@@ -1,9 +1,9 @@
-package com.prairieKing.model.entities;
+package com.prairieKing.controller.entities;
 
-import com.prairieKing.model.AI.Behavior;
-import com.prairieKing.model.AI.FlyingBehavior;
+import com.prairieKing.controller.AI.Behavior;
+import com.prairieKing.controller.AI.ChasingBehavior;
 
-public class FlyingEnemy extends EnemyModel {
+public class BasicWalker extends EnemyModel {
 
     private Behavior behaviour;
 
@@ -12,13 +12,12 @@ public class FlyingEnemy extends EnemyModel {
         super.setPosition(x, y);
     }
 
-    public FlyingEnemy(int x, int y, char initialDirection) {
+    public BasicWalker(int x, int y, char initialDirection) {
         super(x, y, initialDirection);
         super.setType("ENEMY");
-        super.setEnemyType("FLYING");
-        behaviour = new FlyingBehavior();
-        behaviour.initialBehaviour(initialDirection);
-
+        super.setEnemyType("BASIC");
+        behaviour = new ChasingBehavior();
+        behaviour.initialBehaviour(this, initialDirection);
     }
 
     @Override

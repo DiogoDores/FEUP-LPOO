@@ -1,8 +1,8 @@
-package com.prairieKing.model.entities;
+package com.prairieKing.controller.entities;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
-import com.prairieKing.model.AI.Behavior;
+import com.prairieKing.controller.AI.Behavior;
 
 public class EnemyModel extends EntityModel implements Behavior {
 
@@ -47,11 +47,6 @@ public class EnemyModel extends EntityModel implements Behavior {
     }
 
     @Override
-    public void attack(EnemyModel e, HeroModel h) {
-
-    }
-
-    @Override
     public void kill() {
         --health;
         if (health == 0) {
@@ -89,7 +84,7 @@ public class EnemyModel extends EntityModel implements Behavior {
     }
 
     @Override
-    public void initialBehaviour(char direction) {
+    public void initialBehaviour(EnemyModel e, char direction) {
 
     }
 

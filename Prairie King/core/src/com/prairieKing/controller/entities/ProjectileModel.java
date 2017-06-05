@@ -1,8 +1,4 @@
-package com.prairieKing.model.entities;
-
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Sound;
-import com.prairieKing.model.entities.EntityModel;
+package com.prairieKing.controller.entities;
 
 public class ProjectileModel extends EntityModel {
 

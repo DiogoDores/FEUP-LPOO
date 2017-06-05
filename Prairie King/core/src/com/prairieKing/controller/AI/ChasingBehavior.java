@@ -1,23 +1,15 @@
-package com.prairieKing.model.AI;
+package com.prairieKing.controller.AI;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.MathUtils;
-import com.prairieKing.model.entities.EnemyModel;
-import com.prairieKing.model.entities.HeroModel;
+import com.prairieKing.controller.entities.EnemyModel;
+import com.prairieKing.controller.entities.HeroModel;
 
-public class ToughBehavior implements Behavior {
+public class ChasingBehavior implements Behavior {
 
     private float ENEMY_SPEED = 400;
     private float initialTime;
     private char initialDirection;
-    private float timeToStop, totalStopTime;
-
-    /** Important for animation.
-     *
-     */
-    public ToughBehavior() {
-        timeToStop = 3;
-    }
 
 
     /** Moves an Enemy.
@@ -34,14 +26,8 @@ public class ToughBehavior implements Behavior {
         float newY = y;
         int r = MathUtils.random(40);
 
-        timeToStop-=Gdx.graphics.getDeltaTime();
-        if(timeToStop <=0 && totalStopTime <= 0) {
-            totalStopTime = MathUtils.random(1.0f,2.0f);
-            stop();
-        }
-        else if (totalStopTime > 0)
-            stop();
-        else if (initialTime >= 0) {
+
+        if (initialTime >= 0) {
             if (initialDirection == 'n') {
                 newY = y - (1 / (ENEMY_SPEED * Gdx.graphics.getDeltaTime()));
                 e.setCurrentDirection('s');
@@ -63,6 +49,7 @@ public class ToughBehavior implements Behavior {
             e.setPosition(newX, newY);
 
         }
+
         else if (Math.abs(x - h.getX()) < 3 && Math.abs(y - h.getY()) < 3) {  // Está próximo
 
             if (x > h.getX()) {
@@ -98,13 +85,6 @@ public class ToughBehavior implements Behavior {
             }
         } else
             continueMove(e, h);
-    }
-
-    private void stop() {
-        totalStopTime-= Gdx.graphics.getDeltaTime();
-        if(totalStopTime<= 0) {
-            timeToStop = MathUtils.random(1.0f, 3.0f);
-        }
     }
 
     private void continueMove(EnemyModel e, HeroModel h) {
@@ -171,18 +151,21 @@ public class ToughBehavior implements Behavior {
 
     }
 
+
     /** Sets the initial movement in direction of the middle of the screen.
      *
      * @param direction Direction in which the enemy moves.
      */
     @Override
-    public void initialBehaviour(char direction) {
+    public void initialBehaviour(EnemyModel e, char direction) {
         initialDirection = direction;
         initialTime = 3;
     }
+
     /** Important for animation.
      */
+    @Override
     public float getTimeToStop() {
-        return timeToStop;
+        return 0;
     }
 }

@@ -2,9 +2,7 @@ package com.prairieKing.controller;
 
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
-import com.prairieKing.model.GameLogic;
-import com.prairieKing.model.Gun;
-import com.prairieKing.model.entities.HeroModel;
+import com.prairieKing.controller.entities.HeroModel;
 
 public class InputHandler implements InputProcessor {
 

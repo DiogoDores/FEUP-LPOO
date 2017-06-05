@@ -1,16 +1,16 @@
-package com.prairieKing.model.AI;
+package com.prairieKing.controller.AI;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Pool;
-import com.prairieKing.controller.bodies.EnemyBody;
+import com.prairieKing.model.bodies.EnemyBody;
 import com.prairieKing.PrairieKing;
-import com.prairieKing.model.entities.BasicWalker;
-import com.prairieKing.model.entities.EnemyModel;
-import com.prairieKing.model.entities.FlyingEnemy;
-import com.prairieKing.model.GameLogic;
-import com.prairieKing.model.entities.HeroModel;
-import com.prairieKing.model.entities.ToughEnemy;
+import com.prairieKing.controller.entities.BasicWalker;
+import com.prairieKing.controller.entities.EnemyModel;
+import com.prairieKing.controller.entities.FlyingEnemy;
+import com.prairieKing.controller.GameLogic;
+import com.prairieKing.controller.entities.HeroModel;
+import com.prairieKing.controller.entities.ToughEnemy;
 
 import java.util.ArrayList;
 
@@ -57,7 +57,7 @@ public class AIManager {
                 last2spawned = lastSpawned;
                 lastSpawned =  spawnPlaces.charAt(randomSpawn);
 
-                float placeRandom = MathUtils.random(-5.0f,5.0f);
+                float placeRandom = MathUtils.random(-3.0f,3.0f);
                 int x, y;
                 if (spawnPlaces.charAt(randomSpawn) == 'n') {
                     x = (int) (PrairieKing.PPM / 2 +placeRandom);
@@ -104,7 +104,7 @@ public class AIManager {
      */
     public void spawn() {
 
-        if (killCount > 20  ) {
+        if (killCount > 1  ) {
             if (activeNumber == 0 && !hasWon) {
                 gameLogic.win();
                 hasWon = true;

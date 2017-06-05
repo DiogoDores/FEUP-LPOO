@@ -1,8 +1,8 @@
-package com.prairieKing.model.AI;
+package com.prairieKing.controller.AI;
 
 import com.badlogic.gdx.Gdx;
-import com.prairieKing.model.entities.EnemyModel;
-import com.prairieKing.model.entities.HeroModel;
+import com.prairieKing.controller.entities.EnemyModel;
+import com.prairieKing.controller.entities.HeroModel;
 
 public class FlyingBehavior implements Behavior {
 
@@ -67,7 +67,7 @@ public class FlyingBehavior implements Behavior {
      * @param direction Direction in which the enemy moves.
      */
     @Override
-    public void initialBehaviour(char direction) {
+    public void initialBehaviour(EnemyModel e, char direction) {
         initialDirection = direction;
         initialTime = 3;
     }

@@ -1,15 +1,23 @@
-package com.prairieKing.model.AI;
+package com.prairieKing.controller.AI;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.MathUtils;
-import com.prairieKing.model.entities.EnemyModel;
-import com.prairieKing.model.entities.HeroModel;
+import com.prairieKing.controller.entities.EnemyModel;
+import com.prairieKing.controller.entities.HeroModel;
 
-public class ChasingBehavior implements Behavior {
+public class ToughBehavior implements Behavior {
 
     private float ENEMY_SPEED = 400;
     private float initialTime;
     private char initialDirection;
+    private float timeToStop, totalStopTime;
+
+    /** Important for animation.
+     *
+     */
+    public ToughBehavior() {
+        timeToStop = 3;
+    }
 
 
     /** Moves an Enemy.
@@ -26,8 +34,14 @@ public class ChasingBehavior implements Behavior {
         float newY = y;
         int r = MathUtils.random(40);
 
-
-        if (initialTime >= 0) {
+        timeToStop-=Gdx.graphics.getDeltaTime();
+        if(timeToStop <=0 && totalStopTime <= 0) {
+            totalStopTime = MathUtils.random(1.0f,2.0f);
+            stop();
+        }
+        else if (totalStopTime > 0)
+            stop();
+        else if (initialTime >= 0) {
             if (initialDirection == 'n') {
                 newY = y - (1 / (ENEMY_SPEED * Gdx.graphics.getDeltaTime()));
                 e.setCurrentDirection('s');
@@ -49,7 +63,6 @@ public class ChasingBehavior implements Behavior {
             e.setPosition(newX, newY);
 
         }
-
         else if (Math.abs(x - h.getX()) < 3 && Math.abs(y - h.getY()) < 3) {  // Está próximo
 
             if (x > h.getX()) {
@@ -85,6 +98,13 @@ public class ChasingBehavior implements Behavior {
             }
         } else
             continueMove(e, h);
+    }
+
+    private void stop() {
+        totalStopTime-= Gdx.graphics.getDeltaTime();
+        if(totalStopTime<= 0) {
+            timeToStop = MathUtils.random(1.0f, 3.0f);
+        }
     }
 
     private void continueMove(EnemyModel e, HeroModel h) {
@@ -151,21 +171,18 @@ public class ChasingBehavior implements Behavior {
 
     }
 
-
     /** Sets the initial movement in direction of the middle of the screen.
      *
      * @param direction Direction in which the enemy moves.
      */
     @Override
-    public void initialBehaviour(char direction) {
+    public void initialBehaviour(EnemyModel e, char direction) {
         initialDirection = direction;
         initialTime = 3;
     }
-
     /** Important for animation.
      */
-    @Override
     public float getTimeToStop() {
-        return 0;
+        return timeToStop;
     }
 }

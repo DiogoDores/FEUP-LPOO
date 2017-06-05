@@ -1,9 +1,8 @@
 package com.prairieKing.model.powerups;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.prairieKing.model.GameLogic;
-import com.prairieKing.model.entities.HeroModel;
+import com.prairieKing.controller.GameLogic;
+import com.prairieKing.controller.entities.HeroModel;
 
 /**
  * Created by petre on 28/05/2017.

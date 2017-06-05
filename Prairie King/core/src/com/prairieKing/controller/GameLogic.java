@@ -1,4 +1,4 @@
-package com.prairieKing.model;
+package com.prairieKing.controller;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.maps.MapObject;
@@ -13,15 +13,12 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
-import com.prairieKing.controller.CollisionHandler;
-import com.prairieKing.controller.bodies.HeroBody;
-import com.prairieKing.controller.InputHandler;
+import com.prairieKing.model.bodies.HeroBody;
 import com.prairieKing.PrairieKing;
-import com.prairieKing.model.AI.AIManager;
-import com.prairieKing.model.entities.HeroWin;
-import com.prairieKing.model.entities.EntityModel;
-import com.prairieKing.model.entities.HeroModel;
-import com.prairieKing.model.powerups.PowerupSpawner;
+import com.prairieKing.controller.AI.AIManager;
+import com.prairieKing.controller.entities.HeroWin;
+import com.prairieKing.controller.entities.EntityModel;
+import com.prairieKing.controller.entities.HeroModel;
 import com.prairieKing.view.GameStage;
 
 public class GameLogic {

@@ -1,7 +1,7 @@
-package com.prairieKing.model.entities;
+package com.prairieKing.controller.entities;
 
-import com.prairieKing.model.AI.Behavior;
-import com.prairieKing.model.AI.ToughBehavior;
+import com.prairieKing.controller.AI.Behavior;
+import com.prairieKing.controller.AI.ToughBehavior;
 
 public class ToughEnemy extends EnemyModel {
 
@@ -17,7 +17,7 @@ public class ToughEnemy extends EnemyModel {
         super.setType("ENEMY");
         super.setEnemyType("TOUGH");
         behaviour = new ToughBehavior();
-        behaviour.initialBehaviour(initialDirection);
+        behaviour.initialBehaviour(this,initialDirection);
     }
 
     @Override

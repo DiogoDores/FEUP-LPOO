@@ -1,10 +1,7 @@
 package com.prairieKing.model.powerups;
 
-import com.prairieKing.controller.bodies.ProjectileBody;
-import com.prairieKing.model.GameLogic;
-import com.prairieKing.model.Gun;
-import com.prairieKing.model.entities.ProjectileModel;
-
+import com.prairieKing.controller.GameLogic;
+import com.prairieKing.controller.Gun;
 
 
 public class ShotgunPowerup extends GunPowerups {

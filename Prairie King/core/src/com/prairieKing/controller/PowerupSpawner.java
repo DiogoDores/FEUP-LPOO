@@ -1,13 +1,13 @@
-package com.prairieKing.model.powerups;
+package com.prairieKing.controller;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.prairieKing.PrairieKing;
-import com.prairieKing.controller.bodies.PowerupBody;
-import com.prairieKing.model.GameLogic;
-import com.prairieKing.model.entities.PowerupModel;
+import com.prairieKing.model.bodies.PowerupBody;
+import com.prairieKing.controller.GameLogic;
+import com.prairieKing.controller.entities.PowerupModel;
 
 import java.util.ArrayList;
 

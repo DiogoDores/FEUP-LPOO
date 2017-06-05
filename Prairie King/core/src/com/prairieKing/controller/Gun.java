@@ -1,4 +1,4 @@
-package com.prairieKing.model;
+package com.prairieKing.controller;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
@@ -7,11 +7,11 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Pool;
 import com.prairieKing.Constants;
 import com.prairieKing.PrairieKing;
-import com.prairieKing.controller.bodies.ProjectileBody;
-import com.prairieKing.model.entities.HeroModel;
-import com.prairieKing.model.entities.ProjectileModel;
+import com.prairieKing.controller.GameLogic;
+import com.prairieKing.model.bodies.ProjectileBody;
+import com.prairieKing.controller.entities.HeroModel;
+import com.prairieKing.controller.entities.ProjectileModel;
 import com.prairieKing.model.powerups.GunPowerups;
-import com.prairieKing.view.GameStage;
 
 import java.util.ArrayList;
 import java.util.List;

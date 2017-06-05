@@ -4,11 +4,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.utils.Array;
 import com.prairieKing.PrairieKing;
-import com.prairieKing.controller.bodies.EnemyBody;
-import com.prairieKing.model.entities.EnemyModel;
+import com.prairieKing.model.bodies.EnemyBody;
+import com.prairieKing.controller.entities.EnemyModel;
 
 import java.util.ArrayList;
 
