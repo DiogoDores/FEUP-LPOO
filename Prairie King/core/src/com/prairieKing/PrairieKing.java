@@ -81,9 +81,9 @@ public class PrairieKing extends Game {
             }
         }
         else if (currentState == 1) { // Game Mode
-            music.play();
             setScreen(gameLogic.getGameStage());
             gameLogic.act();
+            music.play();
             if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
                 currentState = 2;
             }
@@ -101,6 +101,7 @@ public class PrairieKing extends Game {
             }
         }
         else { // Win Screen
+            music.pause();
             setScreen(winScreen);
             //music.pause();
 

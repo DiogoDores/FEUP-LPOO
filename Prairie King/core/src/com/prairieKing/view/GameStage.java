@@ -160,6 +160,7 @@ public class GameStage extends ScreenAdapter {
                     if (gameLogic.getHero().getState() == 5) {
                         transition.draw(batch);
                         PrairieKing.currentState = 3;
+                        music.stop();
                         gameLogic.resetEverything();
                     }
 

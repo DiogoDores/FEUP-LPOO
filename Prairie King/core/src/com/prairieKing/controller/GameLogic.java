@@ -67,6 +67,7 @@ public class GameLogic {
     }
 
     public void resetEverything() {
+        gameStage = new GameStage(this);
         world = new World(new Vector2(0, 0), true);
         AI = new AIManager(this);
         hero = new HeroController(PrairieKing.PPM / 2, PrairieKing.PPM / 2);
@@ -82,8 +83,6 @@ public class GameLogic {
         Gdx.input.setInputProcessor(input);
         world.setContactListener(new CollisionHandler());
         heroBody = new HeroBody(world, hero);
-
-        gameStage = new GameStage(this);
 
         createBodies();
     }
