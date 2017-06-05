@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.prairieKing.PrairieKing;
 
 public class HeroWin extends HeroController {
-    private float x, y;
     private float speed = 8;
     private float state;
     private float animationTime;
@@ -12,13 +11,11 @@ public class HeroWin extends HeroController {
 
     /** Hero that has a set Behavior when won.
      *
-     * @param x
-     * @param y
+     * @param x HeroController's X.
+     * @param y HeroController's Y.
      */
     public HeroWin(float x, float y) {
         super(x, y);
-        this.x = x;
-        this.y = y;
         activeChar = 's';
         animationTime = 0;
         state = 0;
@@ -27,80 +24,121 @@ public class HeroWin extends HeroController {
     /** Specific animation, regardless of where player wins.
      */
     public void move() {
-        float newX = x, newY = y;
-       if (state == 0) { // Is leaving
-            if (x - PrairieKing.PPM/2  > 1) {
-                newX = (x - (PrairieKing.PPM / speed * Gdx.graphics.getDeltaTime()));
-                activeChar = 'a';
-            }
-            else if (x - PrairieKing.PPM/2  < -1) {
-                newX = (x + (PrairieKing.PPM / speed * Gdx.graphics.getDeltaTime()));
-                activeChar = 'd';
-            }
-            else {
-               if (y < -10) {
-                   state =1;
-                   newY = PrairieKing.PPM;
-               }
-               else {
-                   newY = (y - (PrairieKing.PPM / speed * Gdx.graphics.getDeltaTime()));
-                   activeChar = 's';
-               }
-            }
-       }
-       else if (state == 1) { // Has reached the new zone
+       if (state == 0)
+           isLeavingTheZone();
 
-            if (y > PrairieKing.PPM/1.25f) {
-                newY = (y - (PrairieKing.PPM / speed * Gdx.graphics.getDeltaTime()));
-                activeChar = 's';
-            }
-            else if (x > (PrairieKing.PPM / 11 - 15)) {
-                newX = (x - (PrairieKing.PPM / speed * Gdx.graphics.getDeltaTime()));
-                activeChar = 'a';
-            }
-            else if (y > PrairieKing.PPM/2 -10) {
-                newY = (y - (PrairieKing.PPM / speed * Gdx.graphics.getDeltaTime()));
-                activeChar = 's';
-            }
-            else
-                state = 1.5f;
+       else if (state == 1)
+            headsToBridge();
 
-       }
-       else if (state == 1.5f) {
-           if (x < PrairieKing.PPM/2 -5) {
-               newX = (x + (PrairieKing.PPM / speed * Gdx.graphics.getDeltaTime()));
-               activeChar = 'd';
-           }
-           else {
-               state = 2;
-               animationTime = 1;
-           }
-       }
-       else if (state == 2) { // Has reached wife
-            animationTime -= Gdx.graphics.getDeltaTime();
-           if (animationTime <= 0) {
-               state = 3;
-               animationTime = 1.5f;
-           }
-       }
+       else if (state == 1.5f)
+           goesToWife();
 
-       else if (state == 3) { // Is kissing her
-           animationTime -= Gdx.graphics.getDeltaTime();
-           if (animationTime <= 0) {
-               state = 4;
-               animationTime = 9f;
-           }
-       }
+       else if (state == 2)
+           waitsForKiss();
 
-       else if (state == 4) {
-           animationTime -= Gdx.graphics.getDeltaTime();
-           if (animationTime <= 0) {
-               state = 5; // ends here
-           }
-       }
+       else if (state == 3)
+          kisses();
+
+       else if (state == 4)
+          ends();
 
        updateState();
-       setPosition(newX, newY);
+    }
+
+    /** Starts heading down the map.
+     */
+    private void isLeavingTheZone() {
+        float newX = super.getX(), newY = super.getY();
+        float x = newX, y = newY;
+        if (x - PrairieKing.PPM/2  > 1) {
+            newX = (x - (PrairieKing.PPM / speed * Gdx.graphics.getDeltaTime()));
+            activeChar = 'a';
+        }
+        else if (x - PrairieKing.PPM/2  < -1) {
+            newX = (x + (PrairieKing.PPM / speed * Gdx.graphics.getDeltaTime()));
+            activeChar = 'd';
+        }
+        else {
+            if (y < -10) {
+                state =1;
+                newY = PrairieKing.PPM;
+            }
+            else {
+                newY = (y - (PrairieKing.PPM / speed * Gdx.graphics.getDeltaTime()));
+                activeChar = 's';
+            }
+        }
+        System.out.println("X antes " + x + " Y antes " + y);
+        super.setPosition(newX,newY);
+        System.out.println("X depois " + x + " Y depois " + y);
+    }
+
+    /** Heads to bridge of the new zone.
+     */
+    private void headsToBridge() {
+        float newX = super.getX(), newY = super.getY();
+        float x = newX, y = newY;
+        if (y > PrairieKing.PPM/1.25f) {
+            newY = (y - (PrairieKing.PPM / speed * Gdx.graphics.getDeltaTime()));
+            activeChar = 's';
+        }
+        else if (x > (PrairieKing.PPM / 11 - 15)) {
+            newX = (x - (PrairieKing.PPM / speed * Gdx.graphics.getDeltaTime()));
+            activeChar = 'a';
+        }
+        else if (y > PrairieKing.PPM/2 -10) {
+            newY = (y - (PrairieKing.PPM / speed * Gdx.graphics.getDeltaTime()));
+            activeChar = 's';
+        }
+        else
+            state = 1.5f;
+        super.setPosition(newX,newY);
+    }
+
+    /** Path to see his wife.
+     */
+    private void goesToWife() {
+        float newX = super.getX(), newY = super.getY();
+        float x = newX, y = newY;
+        if (x < PrairieKing.PPM/2 -5) {
+            newX = (x + (PrairieKing.PPM / speed * Gdx.graphics.getDeltaTime()));
+            activeChar = 'd';
+        }
+        else {
+            state = 2;
+            animationTime = 1;
+        }
+        super.setPosition(newX,newY);
+    }
+
+    /** Waits a bit for a kiss.
+     */
+    private void waitsForKiss() {
+        animationTime -= Gdx.graphics.getDeltaTime();
+        if (animationTime <= 0) {
+            state = 3;
+            animationTime = 1.5f;
+        }
+    }
+
+    /** Smooch, cute kiss!
+     *  In the GameStage transition to the end state.
+     */
+    private void kisses() {
+        animationTime -= Gdx.graphics.getDeltaTime();
+        if (animationTime <= 0) {
+            state = 4;
+            animationTime = 9f;
+        }
+    }
+
+    /** Reached the end of the animation.
+     */
+    private void ends() {
+        animationTime -= Gdx.graphics.getDeltaTime();
+        if (animationTime <= 0) {
+            state = 5;
+        }
     }
 
     /**Determines the current facing direction for the HeroAnimator.
@@ -121,105 +159,10 @@ public class HeroWin extends HeroController {
 
     }
 
-    /** Alters hero's position.
+    /** Returns the state of the animation.
      *
-     * @param x Alter X coordinate.
-     * @param y Alter Y coordinate.
+     * @return state of the animation.
      */
-    public void setPosition(float x, float y) {
-        this.x = x;
-        this.y = y;
-    }
-
-    /** Boolean for left value.
-     *
-     * @param left
-     */
-    @Override
-    public void setLeft(boolean left) {
-        super.setLeft(left);
-    }
-
-    /** Boolean for right value.
-     *
-     * @param right
-     */
-    @Override
-    public void setRight(boolean right) {
-        super.setRight(right);
-    }
-
-    /** Boolean for up value.
-     *
-     * @param up
-     */
-    @Override
-    public void setUp(boolean up) {
-        super.setUp(up);
-    }
-
-    /** Boolean for down value.
-     *
-     * @param down
-     */
-    @Override
-    public void setDown(boolean down) {
-        super.setDown(down);
-    }
-
-    /** Returns left value.
-     *
-     * @return
-     */
-    @Override
-    public boolean getLeft() {
-        return super.getLeft();
-    }
-
-    /** Returns right value.
-     *
-     * @return
-     */
-    @Override
-    public boolean getRight() {
-        return super.getRight();
-    }
-
-    /** Returns up value.
-     *
-     * @return
-     */
-    @Override
-    public boolean getUp() {
-        return super.getUp();
-    }
-
-    /** Returns down value.
-     *
-     * @return
-     */
-    @Override
-    public boolean getDown() {
-        return super.getDown();
-    }
-
-    /** Returns X coordinate.
-     *
-     * @return
-     */
-    public float getX() {
-        return x;
-    }
-
-    /** Returns Y coordinate.
-     *
-     * @return
-     */
-    public float getY() {
-        return y;
-    }
-
-
     public float getState() {
         return state;
     }

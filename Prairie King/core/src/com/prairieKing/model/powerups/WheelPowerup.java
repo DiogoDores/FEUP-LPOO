@@ -1,7 +1,7 @@
 package com.prairieKing.model.powerups;
 
-import com.prairieKing.controller.GameLogic;
-import com.prairieKing.controller.Gun;
+import com.prairieKing.model.GameLogic;
+import com.prairieKing.model.Gun;
 
 
 public class WheelPowerup extends GunPowerups {

@@ -2,6 +2,7 @@ package com.prairieKing.controller;
 
 import com.prairieKing.PrairieKing;
 import com.prairieKing.controller.entities.EntityController;
+import com.prairieKing.model.GameLogic;
 
 import org.junit.Test;
 

@@ -1,7 +1,6 @@
 package com.prairieKing.view;
 
 import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -19,8 +18,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.prairieKing.controller.entities.EnemyController;
-import com.prairieKing.controller.GameLogic;
-import com.prairieKing.controller.Gun;
+import com.prairieKing.model.GameLogic;
+import com.prairieKing.model.Gun;
 import com.prairieKing.controller.entities.PowerupController;
 import com.prairieKing.controller.entities.ProjectileController;
 

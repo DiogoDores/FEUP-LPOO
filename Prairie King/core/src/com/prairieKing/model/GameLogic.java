@@ -1,4 +1,4 @@
-package com.prairieKing.controller;
+package com.prairieKing.model;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.maps.MapObject;
@@ -13,6 +13,10 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
+import com.prairieKing.controller.CollisionHandler;
+import com.prairieKing.controller.InputHandler;
+import com.prairieKing.controller.PowerupSpawner;
+import com.prairieKing.model.Gun;
 import com.prairieKing.model.bodies.HeroBody;
 import com.prairieKing.PrairieKing;
 import com.prairieKing.controller.AI.AIManager;
@@ -67,22 +71,26 @@ public class GameLogic {
     }
 
     public void resetEverything() {
-        gameStage = new GameStage(this);
         world = new World(new Vector2(0, 0), true);
         AI = new AIManager(this);
         hero = new HeroController(PrairieKing.PPM / 2, PrairieKing.PPM / 2);
+
+        highScore = 0;
+        timeSinceBeginning = 0;
+
+        mapLoader = new TmxMapLoader();
+        map = mapLoader.load("Mapas/Map.tmx");
+
         gun = new Gun(this);
 
-        timeSinceBeginning = 0;
-        highScore = 0;
-
-        powerupSpawner = new PowerupSpawner(this);
-
-        gameStage = new GameStage(this);
         input = new InputHandler(this);
         Gdx.input.setInputProcessor(input);
         world.setContactListener(new CollisionHandler());
         heroBody = new HeroBody(world, hero);
+
+        gameStage = new GameStage(this);
+
+        powerupSpawner = new PowerupSpawner(this);
 
         createBodies();
     }

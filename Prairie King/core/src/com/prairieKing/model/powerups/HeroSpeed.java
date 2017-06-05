@@ -1,6 +1,7 @@
 package com.prairieKing.model.powerups;
 
-import com.prairieKing.controller.GameLogic;
+import com.prairieKing.model.GameLogic;
+import com.prairieKing.controller.HeroPowerups;
 
 
 public class HeroSpeed extends HeroPowerups {

@@ -1,12 +1,8 @@
-package com.prairieKing.model.powerups;
+package com.prairieKing.controller;
 
 import com.badlogic.gdx.Gdx;
-import com.prairieKing.controller.GameLogic;
+import com.prairieKing.model.GameLogic;
 import com.prairieKing.controller.entities.HeroController;
-
-/**
- * Created by petre on 28/05/2017.
- */
 
 public class HeroPowerups extends HeroController {
 

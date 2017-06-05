@@ -9,7 +9,7 @@ import com.prairieKing.PrairieKing;
 import com.prairieKing.controller.entities.BasicWalker;
 import com.prairieKing.controller.entities.EnemyController;
 import com.prairieKing.controller.entities.FlyingEnemy;
-import com.prairieKing.controller.GameLogic;
+import com.prairieKing.model.GameLogic;
 import com.prairieKing.controller.entities.HeroController;
 import com.prairieKing.controller.entities.ToughEnemy;
 

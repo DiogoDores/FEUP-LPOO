@@ -7,7 +7,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
-import com.prairieKing.controller.GameLogic;
+import com.prairieKing.model.GameLogic;
 import com.prairieKing.view.LoseScreen;
 import com.prairieKing.view.Menu;
 
