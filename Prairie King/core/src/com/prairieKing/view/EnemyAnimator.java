@@ -16,6 +16,7 @@ import java.util.ArrayList;
 public class EnemyAnimator extends Sprite{
 
     private Animation<TextureRegion> basic, flying, tough, death;
+    private Animation<TextureRegion> wife;
     private float stateTimer;
     private GameStage gameStage;
 
@@ -66,6 +67,12 @@ public class EnemyAnimator extends Sprite{
             frames.add(new TextureRegion(gameStage.getAtlas().findRegion("enemyDeath"), i * 16, 0, 16, 16));
 
         death = new Animation<>(0.9f, frames);
+        frames.clear();
+
+        for (int i = 0; i < 5; i++)
+            frames.add(new TextureRegion(gameStage.getAtlas().findRegion("wife"), i * 16, 0, 16, 16));
+
+        wife = new Animation<>(0.7f, frames);
     }
 
     /** Updates the enemy's body position and the sprite to use.
@@ -89,5 +96,15 @@ public class EnemyAnimator extends Sprite{
         } else {
             setRegion(death.getKeyFrame(stateTimer));
         }
+    }
+
+    public void updateWife(boolean isKissing){
+        stateTimer += Gdx.graphics.getDeltaTime();
+        if(isKissing)
+            setRegion(wife.getKeyFrame(stateTimer));
+        else
+            setRegion(wife.getKeyFrame(stateTimer, true));
+        setX(PrairieKing.PPM / 2);
+        setY(PrairieKing.PPM / 2 - 10);
     }
 }
