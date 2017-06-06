@@ -1,4 +1,4 @@
-package com.prairieKing.controller;
+package com.prairieKing.test;
 
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.ApplicationListener;

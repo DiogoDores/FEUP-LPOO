@@ -108,7 +108,7 @@ public class Gun {
     /** Checks whether projectile is flagged for deletion, if so
      *  remove it and destroy its associated body.
      */
-    private void checkBullets() {
+    public void checkBullets() {
         for (int i = 0; i < projectiles.size(); i++) {
             if (projectiles.get(i) != null) {
                 if (projectiles.get(i).isFlaggedForDelete()) {
@@ -152,7 +152,7 @@ public class Gun {
      * @param vX X coordinate of velocity.
      * @param vY Y coordinate of velocity.
      */
-    private void shoot(float posX, float posY, float vX, float vY) {
+    public void shoot(float posX, float posY, float vX, float vY) {
         sound.play();
 
         ProjectileController p = pool.obtain();
