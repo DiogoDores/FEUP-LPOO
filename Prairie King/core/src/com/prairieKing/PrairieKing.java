@@ -41,8 +41,8 @@ public class PrairieKing extends Game {
         assetManager = new AssetManager();
         loadAssets();
         menu = new Menu(this);
-        loseScreen = new LoseScreen("LoseScreen", this);
-        winScreen = new WinScreen("WinScreen",this);
+        loseScreen = new LoseScreen( this);
+        winScreen = new WinScreen(this);
         gameLogic = new GameLogic(this, false);
         setScreen(menu);
     }

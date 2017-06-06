@@ -58,6 +58,10 @@ public class GameStage extends ScreenAdapter {
     private float animation;
     private Music music;
 
+    /** Constructor for the main screen.
+     *
+     * @param gameLogic Current active game.
+     */
     public GameStage(GameLogic gameLogic) {
         animation = 0;
         this.game = gameLogic.getPrairieKing();
@@ -83,7 +87,8 @@ public class GameStage extends ScreenAdapter {
 
     }
 
-
+    /** Loads all necessary game assets.
+     */
     public void loadAssets() {
         music = Gdx.audio.newMusic(Gdx.files.internal("Sounds/finalSong.mp3"));
         mainSprite = game.getAssetManager().get("Sprites/MainSpriteSheet.png", Texture.class);
@@ -92,6 +97,8 @@ public class GameStage extends ScreenAdapter {
         loadEndAssets();
     }
 
+    /** Loads all necessary ending assets.
+     */
     private void loadEndAssets() {
         woman = new Sprite(game.getAssetManager().get("Sprites/MainSpriteSheet.png", Texture.class), 304, 96, 16, 16);
         woman.setSize(Constants.HERO_WIDTH * 1.2f, Constants.HERO_WIDTH * 1.2f);
@@ -108,6 +115,10 @@ public class GameStage extends ScreenAdapter {
         transition.setX(-42);
     }
 
+    /** Render every frame.
+     *
+     * @param delta Time since last render.
+     */
     @Override
     public void render(float delta) {
         renderer.setView(cam);
@@ -178,6 +189,8 @@ public class GameStage extends ScreenAdapter {
         batch.end();
     }
 
+    /** Assets to draw when hero is going to wife (ENDING).
+     */
     private void isGoingToWife() {
         music.play();
         music.setVolume(0.5f);
@@ -188,6 +201,8 @@ public class GameStage extends ScreenAdapter {
         animateHero.draw(batch);
     }
 
+    /** Assets to draw when hero is kissing wife (ENDING).
+     */
     private void isKissing() {
         ending.draw(batch);
         kissing.setX(gameLogic.getHero().getX());
@@ -195,6 +210,8 @@ public class GameStage extends ScreenAdapter {
         kissing.draw(batch);
     }
 
+    /** Assets to draw when hero is waiting for wife's kiss.
+     */
     private void waitsForKiss() {
         ending.draw(batch);
         woman.draw(batch);
@@ -206,6 +223,8 @@ public class GameStage extends ScreenAdapter {
         h.draw(batch);
     }
 
+    /** Draws all the elements of the hud, including lives and active powerup.
+     */
     private void drawHud() {
         Sprite gunHolder = new Sprite(game.getAssetManager().get("Sprites/MainSpriteSheet.png", Texture.class), 166, 134, 22, 22);
         gunHolder.setSize(17, 17);
@@ -233,13 +252,15 @@ public class GameStage extends ScreenAdapter {
         for (int i = 0; i < gameLogic.getHero().getLives() - 1; i++) {
             float x = i % 3;
             heartToDraw.setSize(Constants.HEART_WIDTH, Constants.HEART_WIDTH);
-            heartToDraw.setX(-30 + x * Constants.HEART_WIDTH);
-            heartToDraw.setY(70 - (i / 3 * Constants.HEART_WIDTH));
+            heartToDraw.setX( 110 + x * Constants.HEART_WIDTH);
+            heartToDraw.setY(10 + (i / 3 * Constants.HEART_WIDTH));
             heartToDraw.draw(batch);
         }
 
     }
 
+    /** Displays all active Projectiles.
+     */
     private void drawBullets() {
         for (ProjectileController projectile : gun.getProjectiles()) {
             projectileToDraw = new Sprite(game.getAssetManager().get("Sprites/MainSpriteSheet.png", Texture.class), 261, 160, 6, 6);
@@ -250,6 +271,8 @@ public class GameStage extends ScreenAdapter {
         }
     }
 
+    /** Displays all powerups scattered across the map.
+     */
     private void drawPowerups() {
         ArrayList<PowerupController> powerups = gameLogic.getPowerupSpawner().getPowerupModels();
         for (int i = 0; i < powerups.size(); i++) {
@@ -270,6 +293,8 @@ public class GameStage extends ScreenAdapter {
         }
     }
 
+    /** Draw all enemies on the screen.
+     */
     private void drawEnemies() {
         for (EnemyController e : enemies) {
             animateEnemy.update(i, e);
@@ -277,10 +302,14 @@ public class GameStage extends ScreenAdapter {
 
             i++;
         }
-
         i = 0;
     }
 
+    /** In case the windows is resized.
+     *
+     * @param width New width.
+     * @param height New height.
+     */
     @Override
     public void resize(int width, int height) {
         cam.viewportWidth = PrairieKing.PPM;
@@ -289,6 +318,8 @@ public class GameStage extends ScreenAdapter {
         cam.update();
     }
 
+    /** On program exit.
+     */
     @Override
     public void dispose() {
         map.dispose();
@@ -297,19 +328,34 @@ public class GameStage extends ScreenAdapter {
         stage.dispose();
     }
 
+    /** Returns TextureAtlas.
+     *
+     * @return atlas.
+     */
     public TextureAtlas getAtlas() {
         return atlas;
     }
 
+    /** Gets the current GameLogic instance.
+     *
+     * @return gameLogic.
+     */
     public GameLogic getGameLogic() {
         return gameLogic;
     }
 
+    /** If player has won, important to read new Hero's state.
+     */
     public void hasWon() {
         animateHero = new HeroAnimator(this);
         hasWon = true;
     }
 
+    /** Returns whether or not player has won, used for volume decrease
+     * on PrairieKing.
+     *
+     * @return hasWon.
+     */
     public boolean getHasWon() {
         return hasWon;
     }

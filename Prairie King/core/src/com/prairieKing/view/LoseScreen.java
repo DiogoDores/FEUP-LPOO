@@ -12,7 +12,8 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.prairieKing.PrairieKing;
 
-
+/** Class responsible for the display of the losing screen.
+ */
 public class LoseScreen extends ScreenAdapter {
 
     private PrairieKing game;
@@ -23,7 +24,8 @@ public class LoseScreen extends ScreenAdapter {
 
     private int highScore;
 
-    public LoseScreen(String name, PrairieKing game) {
+
+    public LoseScreen(PrairieKing game) {
         this.game = game;
         batch = new SpriteBatch();
         view = new FitViewport(Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
