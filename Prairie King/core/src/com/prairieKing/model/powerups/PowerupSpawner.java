@@ -47,14 +47,13 @@ public class PowerupSpawner {
 
     }
 
-
-    private void spawn() {
+    public void spawn() {
         int r = MathUtils.random(4);
         Vector2 position = randomPos();
 
         PowerupController model = new PowerupController(position.x,position.y, gameLogic);
 
-        if (r == 0) { // Speed
+        if (r == 0) {
             model.powerupType("GUN SPEED");
             timeToSpawn = MathUtils.random(12.0f,22.0f);
         }
@@ -105,7 +104,4 @@ public class PowerupSpawner {
     public ArrayList<PowerupController> getPowerupModels() {
         return powerupModels;
     }
-
-
-
 }

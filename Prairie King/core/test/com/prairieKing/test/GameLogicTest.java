@@ -7,6 +7,7 @@ import com.prairieKing.controller.entities.EntityController;
 import com.prairieKing.controller.entities.HeroController;
 import com.prairieKing.model.GameLogic;
 import com.prairieKing.model.Gun;
+import com.prairieKing.model.powerups.PowerupSpawner;
 
 import org.junit.Test;
 
@@ -136,5 +137,29 @@ public class GameLogicTest extends GameTest{
         }
 
         assertNotEquals(size, enemy.getEnemies().size());
+    }
+
+    @Test
+    public void createPowerUp() {
+        PrairieKing prairieKing = new PrairieKing();
+        GameLogic game = new GameLogic(prairieKing, true);
+        PowerupSpawner powerup = game.getPowerupSpawner();
+
+        powerup.spawn();
+
+        assertNotNull(powerup.getPowerupModels().get(0));
+    }
+
+    @Test
+    public void deletePowerUp() {
+        PrairieKing prairieKing = new PrairieKing();
+        GameLogic game = new GameLogic(prairieKing, true);
+        PowerupSpawner powerup = game.getPowerupSpawner();
+
+        powerup.spawn();
+        powerup.getPowerupModels().get(0).kill();
+        powerup.checkPowerups();
+
+        assertTrue(powerup.getPowerupModels().isEmpty());
     }
 }
