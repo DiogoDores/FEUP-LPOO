@@ -28,7 +28,7 @@ public class HeroWin extends HeroController {
            isLeavingTheZone();
 
        else if (state == 1)
-            headsToBridge();
+           headsToBridge();
 
        else if (state == 1.5f)
            goesToWife();
@@ -68,9 +68,7 @@ public class HeroWin extends HeroController {
                 activeChar = 's';
             }
         }
-        System.out.println("X antes " + x + " Y antes " + y);
         super.setPosition(newX,newY);
-        System.out.println("X depois " + x + " Y depois " + y);
     }
 
     /** Heads to bridge of the new zone.

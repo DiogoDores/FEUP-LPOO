@@ -5,6 +5,8 @@ import com.badlogic.gdx.math.MathUtils;
 import com.prairieKing.controller.entities.EnemyController;
 import com.prairieKing.controller.entities.HeroController;
 
+/** Tough Behaviour for the Tough Enemy.
+ */
 public class ToughBehavior implements Behavior {
 
     private float ENEMY_SPEED = 400;
@@ -18,7 +20,6 @@ public class ToughBehavior implements Behavior {
     public ToughBehavior() {
         timeToStop = 3;
     }
-
 
     /**
      * Moves an Enemy.
@@ -49,6 +50,8 @@ public class ToughBehavior implements Behavior {
             continueMove(e, h);
     }
 
+    /** Enemy stops for a little while, just to avoid overpowering the hero.
+     */
     private void stop() {
         totalStopTime -= Gdx.graphics.getDeltaTime();
         if (totalStopTime <= 0) {

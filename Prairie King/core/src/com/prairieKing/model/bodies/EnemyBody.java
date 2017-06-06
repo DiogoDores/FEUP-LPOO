@@ -14,7 +14,6 @@ public class EnemyBody extends EntityBody {
      */
     public EnemyBody(World world, EntityController model) {
         super(world, 0, model);
-        //super.setUserData(model);
         createFixture((int) Constants.ENEMY_WIDTH ,(int) Constants.ENEMY_WIDTH, Constants.CATEGORY_ENEMY, Constants.MASK_ENEMY,(short) 0 );
 
     }

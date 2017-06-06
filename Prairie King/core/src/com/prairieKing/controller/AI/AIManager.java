@@ -15,6 +15,9 @@ import com.prairieKing.controller.entities.ToughEnemy;
 
 import java.util.ArrayList;
 
+/** All the responsabilites for difficulty, spawn,
+ * and active enemies are here.
+ */
 public class AIManager {
 
     private GameLogic gameLogic;
@@ -32,8 +35,7 @@ public class AIManager {
 
     private int activeNumber;
 
-    /** Constructor for AIManager. All the responsabilites for difficulty, spawn,
-     * and active enemies are here.
+    /** Constructor for AIManager.
      *
      * @param gameLogic GameLogic is necessary to access hero's position.
      */

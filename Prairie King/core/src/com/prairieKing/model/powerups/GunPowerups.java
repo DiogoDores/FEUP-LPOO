@@ -8,40 +8,37 @@ public class GunPowerups extends Gun {
 
     private float effectTime;
 
+    /** Creates a default Powerup for the gun.
+     *
+     * @param gameLogic Current game.
+     */
     public GunPowerups(GameLogic gameLogic) {
         super(gameLogic);
         effectTime = 7;
     }
 
-    @Override
-    public void setSpeed(float speed) {
-        super.setSpeed(speed);
-    }
-
-    @Override
-    public void shoot(float posX, float posY, float vX, float vY) {
-        super.shoot(posX, posY, vX, vY);
-    }
-
-    /*@Override
-    public void setShape() {
-        super.setShape(1);
-    }*/
-
-    @Override
+    /** Decreases effect time as time passes so powerup can wear off.
+     */
     public void update() {
-        super.update();
         effectTime -= Gdx.graphics.getDeltaTime();
     }
 
+    /** Declares a method that is implemented by the powerups.
+     */
+    public void removeEffect() {}
+
+    /** Returns the current effect time.
+     *
+     * @return Effect time.
+     */
     public float getEffectTime() {
         return effectTime;
     }
 
-    public void removeEffect() {
-
-    }
-
+    /** Sets effect time to value.
+     *
+     * @param effectTime New effect time.
+     */
     public void setEffectTime(float effectTime) {
         this.effectTime = effectTime;
     }
