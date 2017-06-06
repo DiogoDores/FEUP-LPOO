@@ -4,6 +4,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.prairieKing.controller.AI.Behavior;
 
+/** Creates a default Enemy, to be fully implemented by
+ * the methods of the specific enemy types.
+ */
 public class EnemyController extends EntityController implements Behavior {
 
     private String enemyType;

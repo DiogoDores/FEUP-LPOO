@@ -3,6 +3,8 @@ package com.prairieKing.model.powerups;
 import com.prairieKing.model.GameLogic;
 import com.prairieKing.model.Gun;
 
+/** FireRate Powerup, increases gun speed.
+ */
 public class FireRateGunPowerup extends GunPowerups {
 
     private float newSpeed = 2;

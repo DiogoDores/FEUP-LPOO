@@ -9,6 +9,8 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.prairieKing.controller.entities.EntityController;
 
+/** Default body type for all controllers.
+ */
 public class EntityBody extends Body{
 
     private Body body;

@@ -3,7 +3,9 @@ package com.prairieKing.model.powerups;
 import com.prairieKing.model.GameLogic;
 import com.prairieKing.model.Gun;
 
-
+/** Wheel powerup, makes the gun fire in all directions.
+ *  Smaller effect time compared the shotgun.
+ */
 public class WheelPowerup extends GunPowerups {
 
     private int oldShape = 1;

@@ -3,6 +3,8 @@ package com.prairieKing.controller.entities;
 import com.badlogic.gdx.Gdx;
 import com.prairieKing.PrairieKing;
 
+/** Custom hero, created only when the player wins.
+ */
 public class HeroWin extends HeroController {
     private float speed = 8;
     private float state;

@@ -4,6 +4,8 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.prairieKing.Constants;
 import com.prairieKing.controller.entities.EntityController;
 
+/** Extrends EntityBody, creates the Hero's fixture and sets it's collision filters.
+ */
 public class HeroBody extends EntityBody {
 
     /**Creates a body for a Hero, based on a Model, as well as it's fixture.

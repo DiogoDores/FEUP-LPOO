@@ -66,36 +66,30 @@ public class PrairieKing extends Game {
         assetManager.update();
     }
 
-    // Utilizada para verficar sempre qual é o render que deve estar ativo.
 
     @Override
     public void render() {
-
         if(gameLogic.getGameStage().getHasWon()) {
             decreaseVolume(music, 0.005f);
         }
 
-        if (currentState == 0) { // Main Menu
-            setScreen(menu);
-            menu.render(0);
-            if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+        if (currentState == 0) {
+           setScreen(menu);
+           if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
                 sound.play();
                 currentState = 1;
             }
         }
-        else if (currentState == 1) { // Game Mode
+        else if (currentState == 1) {
             setScreen(gameLogic.getGameStage());
             gameLogic.act();
             music.play();
-            if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
-                currentState = 2;
-            }
+
         }
-        else if (currentState == 2){  // Lose Screen
+        else if (currentState == 2){
             setScreen(loseScreen);
             music.pause();
 
-            loseScreen.render(0);
             if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
                 currentState = 0;
             }
@@ -103,12 +97,10 @@ public class PrairieKing extends Game {
                 Gdx.app.exit();
             }
         }
-        else { // Win Screen
+        else {
             music.pause();
             setScreen(winScreen);
-            //music.pause();
 
-            winScreen.render(0);
             if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
                 currentState = 0;
             }
@@ -116,6 +108,7 @@ public class PrairieKing extends Game {
                 Gdx.app.exit();
             }
         }
+        super.render();
 
     }
 
@@ -152,4 +145,6 @@ public class PrairieKing extends Game {
         music.dispose();
         sound.dispose();
     }
+
+
 }

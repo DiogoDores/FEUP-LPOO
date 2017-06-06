@@ -4,7 +4,8 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.prairieKing.Constants;
 import com.prairieKing.controller.entities.EntityController;
 
-
+/** Extrends EntityBody, creates the Powerup's fixture and sets it's collision filters.
+ */
 public class PowerupBody extends EntityBody {
 
     /**Creates a body for a Powerup, based on a Model, as well as it's fixture.

@@ -3,7 +3,7 @@ package com.prairieKing.controller.entities;
 import com.prairieKing.controller.AI.Behavior;
 import com.prairieKing.controller.AI.ToughBehavior;
 
-/** tough enemy, extends from a default Enemy, has a
+/** Tough enemy, extends from a default Enemy, has a
  * tough behavior associated.
  */
 public class ToughEnemy extends EnemyController {

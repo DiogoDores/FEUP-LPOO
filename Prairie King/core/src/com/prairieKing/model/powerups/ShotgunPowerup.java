@@ -3,7 +3,8 @@ package com.prairieKing.model.powerups;
 import com.prairieKing.model.GameLogic;
 import com.prairieKing.model.Gun;
 
-
+/** Shotgun Powerup, changes gun bullet shape.
+ */
 public class ShotgunPowerup extends GunPowerups {
 
     private float newSpeed = 2;

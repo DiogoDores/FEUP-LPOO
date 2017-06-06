@@ -2,7 +2,8 @@ package com.prairieKing.model.powerups;
 
 import com.prairieKing.model.GameLogic;
 
-
+/** Increases the speed hero walks/runs.
+ */
 public class HeroSpeed extends HeroPowerups {
 
     private int newSpeed = 5;

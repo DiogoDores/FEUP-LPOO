@@ -10,6 +10,9 @@ import com.prairieKing.model.powerups.HeroSpeed;
 import com.prairieKing.model.powerups.ShotgunPowerup;
 import com.prairieKing.model.powerups.WheelPowerup;
 
+/** The controller for the powerup to be spawned, houses all the different
+ * powerup types.
+ */
 public class PowerupController extends EntityController {
 
     private String type;

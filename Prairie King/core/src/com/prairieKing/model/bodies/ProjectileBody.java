@@ -4,6 +4,8 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.prairieKing.Constants;
 import com.prairieKing.controller.entities.ProjectileController;
 
+/** Extrends EntityBody, creates the Projectile's fixture and sets it's collision filters.
+ */
 public class ProjectileBody extends EntityBody {
 
     /**Creates a body for a Projectile, based on a Model, as well as it's fixture.

@@ -6,6 +6,9 @@ import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import com.prairieKing.controller.entities.EntityController;
 
+/** Receives all the information regarding collisions and handles
+ * specific types of collision.
+ */
 public class CollisionHandler implements ContactListener {
 
     /**

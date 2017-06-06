@@ -4,6 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.prairieKing.model.GameLogic;
 import com.prairieKing.model.Gun;
 
+/** Default powerup, specific powerups extend this class.
+ */
 public class GunPowerups extends Gun {
 
     private float effectTime;

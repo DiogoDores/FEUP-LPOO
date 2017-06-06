@@ -9,9 +9,6 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-/**
- * Created by Diogo on 05/06/2017.
- */
 public class GameLogicTest extends GameTest{
 
     @Test

@@ -6,6 +6,9 @@ import com.prairieKing.controller.entities.HeroController;
 import com.prairieKing.model.GameLogic;
 import com.prairieKing.model.Gun;
 
+/** Class that receives all the inputs and invokes the appropriate
+ * methods to handle that information.
+ */
 public class InputHandler implements InputProcessor {
 
     private HeroController hero;
