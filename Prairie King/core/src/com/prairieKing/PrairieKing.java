@@ -1,6 +1,8 @@
 package com.prairieKing;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.prairieKing.view.*;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -20,6 +22,9 @@ public class PrairieKing extends Game {
     WinScreen winScreen;
     int highScore;
     GameLogic gameLogic;
+
+    private TmxMapLoader mapLoader;
+    private TiledMap map;
 
     public static final float PPM = 100;
     private float volume = 0.5f;
@@ -41,10 +46,14 @@ public class PrairieKing extends Game {
      }
 
     public void loadAssets() {
+        mapLoader = new TmxMapLoader();
+        map = mapLoader.load("Mapas/Map.tmx");
+
         music = Gdx.audio.newMusic(Gdx.files.internal("Sounds/mainTheme.mp3"));
         sound = Gdx.audio.newSound(Gdx.files.internal("Sounds/start.mp3"));
         music.setVolume(0.5f);
         music.setLooping(true);
+
         assetManager.load("Menus/LoseScreen.png", Texture.class);
         assetManager.load("Menus/WinScreen.png", Texture.class);
         assetManager.load("Mapas/MapaFinal.png", Texture.class);
@@ -133,6 +142,10 @@ public class PrairieKing extends Game {
         this.highScore = HighScore;
         loseScreen.updateHighScore(HighScore);
         winScreen.updateHighScore(HighScore);
+    }
+
+    public TiledMap getMap() {
+        return map;
     }
 
     public void dispose(){

@@ -37,10 +37,6 @@ public class GameLogic {
     private World world;
     private Gun gun;
 
-    private TmxMapLoader mapLoader;
-    private TiledMap map;
-
-
     private float highScore;
     private float timeSinceBeginning;
 
@@ -52,9 +48,6 @@ public class GameLogic {
 
         highScore = 0;
         timeSinceBeginning = 0;
-
-        mapLoader = new TmxMapLoader();
-        map = mapLoader.load("Mapas/Map.tmx");
 
         gun = new Gun(this);
 
@@ -78,21 +71,18 @@ public class GameLogic {
         highScore = 0;
         timeSinceBeginning = 0;
 
-        mapLoader = new TmxMapLoader();
-        map = mapLoader.load("Mapas/Map.tmx");
-
         gun = new Gun(this);
 
         input = new InputHandler(this);
         Gdx.input.setInputProcessor(input);
         world.setContactListener(new CollisionHandler());
         heroBody = new HeroBody(world, hero);
-
+        createBodies();
         gameStage = new GameStage(this);
 
         powerupSpawner = new PowerupSpawner(this);
 
-        createBodies();
+
     }
 
     public void createBodies() {
@@ -101,7 +91,7 @@ public class GameLogic {
         FixtureDef fDef = new FixtureDef();
         Body bod;
 
-        for (MapObject object : map.getLayers().get(1).getObjects().getByType(RectangleMapObject.class)) {
+        for (MapObject object : prairieKing.getMap().getLayers().get(1).getObjects().getByType(RectangleMapObject.class)) {
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
 
             bDef.type = BodyDef.BodyType.StaticBody;
@@ -200,10 +190,6 @@ public class GameLogic {
 
     public GameStage getGameStage() {
         return gameStage;
-    }
-
-    public TiledMap getMap() {
-        return map;
     }
 
     public PowerupSpawner getPowerupSpawner() {

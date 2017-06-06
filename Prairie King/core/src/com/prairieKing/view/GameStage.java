@@ -65,7 +65,7 @@ public class GameStage extends ScreenAdapter {
         gun = gameLogic.getGun();
         enemies = gameLogic.getAI().getEnemies();
         cam = new OrthographicCamera(game.PPM, game.PPM);
-        map = gameLogic.getMap();
+        map = gameLogic.getPrairieKing().getMap();
         hasWon = false;
         cam.position.set(cam.viewportWidth / 2, cam.viewportHeight / 2, 0);
         cam.setToOrtho(false, game.PPM, game.PPM);
