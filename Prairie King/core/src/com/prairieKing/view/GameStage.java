@@ -360,5 +360,4 @@ public class GameStage extends ScreenAdapter {
         return hasWon;
     }
 
-
 }

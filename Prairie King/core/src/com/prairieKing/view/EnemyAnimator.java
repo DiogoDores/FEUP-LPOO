@@ -11,19 +11,38 @@ import com.prairieKing.controller.entities.EnemyController;
 
 import java.util.ArrayList;
 
+/** Class responsible for all of the enemy's animations.
+ */
 public class EnemyAnimator extends Sprite{
 
     private Animation<TextureRegion> basic, flying, tough, death;
     private float stateTimer;
+    private GameStage gameStage;
 
     private ArrayList<EnemyBody> bodyList;
 
+    /**
+     * Constructor of the Enemy Animator. It needs a GameStage instance for accessing the enemy's body.
+     *
+     * @param gameStage GameStage instance.
+     */
     public EnemyAnimator(GameStage gameStage) {
+        this.gameStage = gameStage;
         this.bodyList = gameStage.getGameLogic().getAI().getEnemiesBodies();
 
         stateTimer = 0;
 
-        Array<TextureRegion> frames = new Array<TextureRegion>();
+        loadAnimations();
+
+        setBounds(1, 1, 16 / (PrairieKing.PPM /40), 16 / (PrairieKing.PPM /40));
+    }
+
+    /**
+     * Loads every frame into an array list
+     */
+    private void loadAnimations() {
+
+        Array<TextureRegion> frames = new Array<>();
 
         for (int i = 0; i < 2; i++)
             frames.add(new TextureRegion(gameStage.getAtlas().findRegion("enemyMovement"), i * 16, 0, 16, 16));
@@ -47,10 +66,10 @@ public class EnemyAnimator extends Sprite{
             frames.add(new TextureRegion(gameStage.getAtlas().findRegion("enemyDeath"), i * 16, 0, 16, 16));
 
         death = new Animation<>(0.9f, frames);
-
-        setBounds(1, 1, 16 / (PrairieKing.PPM /40), 16 / (PrairieKing.PPM /40));
     }
 
+    /** Updates the enemy's body position and the sprite to use.
+     */
     public void update(int i, EnemyController enemy){
 
         stateTimer += Gdx.graphics.getDeltaTime();
