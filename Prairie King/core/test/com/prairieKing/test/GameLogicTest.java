@@ -21,10 +21,11 @@ public class GameLogicTest extends GameTest{
         assertEquals(0, PrairieKing.currentState);
         GameLogic game = new GameLogic(prairieKing, true);
 
-        EntityController entity = game.getHero();
+        HeroController entity = game.getHero();
+        int lives = entity.getLives();
         entity.kill();
 
-        assertEquals(0, game.getHero().getLives());
+        assertEquals(lives, entity.getLives() + 1);
     }
 
     @Test
