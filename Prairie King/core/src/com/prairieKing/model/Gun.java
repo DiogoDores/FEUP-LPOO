@@ -15,7 +15,6 @@ import com.prairieKing.model.powerups.GunPowerups;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class Gun {
 
     private ArrayList<ProjectileBody> projectilesBodies = new ArrayList<ProjectileBody>();

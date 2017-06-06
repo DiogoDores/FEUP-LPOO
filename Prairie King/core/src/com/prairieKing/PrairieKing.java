@@ -31,19 +31,21 @@ public class PrairieKing extends Game {
 
     private AssetManager assetManager;
 
+    public PrairieKing() {
+        currentState = 0;
+        highScore = 0;
+    }
+
     @Override
     public void create() {
         assetManager = new AssetManager();
         loadAssets();
-
-        currentState = 0;
         menu = new Menu(this);
-        setScreen(menu);
         loseScreen = new LoseScreen("LoseScreen", this);
         winScreen = new WinScreen("WinScreen",this);
-        gameLogic = new GameLogic(this);
-        highScore = 0;
-     }
+        gameLogic = new GameLogic(this, false);
+        setScreen(menu);
+    }
 
     public void loadAssets() {
         mapLoader = new TmxMapLoader();

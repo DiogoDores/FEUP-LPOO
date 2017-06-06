@@ -11,12 +11,8 @@ public class HeroSpeed extends HeroPowerups {
     private GameLogic game;
 
     /** Constructor for a new Hero Speed Powerup.
-     *
-     * @param game Current GameLogic.
      */
-    public HeroSpeed(GameLogic game) {
-        super(game);
-        this.game = game;
+    public HeroSpeed() {
         game.getHero().setSpeed(newSpeed);
         setEffectTime(10);
     }

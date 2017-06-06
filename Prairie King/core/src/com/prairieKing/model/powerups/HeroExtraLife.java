@@ -8,11 +8,9 @@ public class HeroExtraLife extends HeroPowerups {
 
     /** Creates powerup and addsLife to Hero.
      *
-     * @param game Current GameLogic.
      */
-    public HeroExtraLife(GameLogic game) {
-        super(game);
-        game.getHero().addLife();
+    public HeroExtraLife() {
+        super.addLife();
         setEffectTime(10);
     }
 

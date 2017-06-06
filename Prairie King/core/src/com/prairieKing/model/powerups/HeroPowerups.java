@@ -4,19 +4,17 @@ import com.badlogic.gdx.Gdx;
 import com.prairieKing.model.GameLogic;
 import com.prairieKing.controller.entities.HeroController;
 
+/** Default Powerup for a hero.
+ */
 public class HeroPowerups extends HeroController {
 
     private float effectTime;
 
-    private GameLogic game;
 
     /** Creates a default Powerup for the hero.
-     *
-     * @param game Current game.
      */
-    public HeroPowerups(GameLogic game) {
+    public HeroPowerups() {
         super(0, 0);
-        this.game = game;
         effectTime = 7;
 
     }

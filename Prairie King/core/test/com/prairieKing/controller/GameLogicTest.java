@@ -12,16 +12,16 @@ import static org.junit.Assert.*;
 public class GameLogicTest extends GameTest{
 
     @Test
-    public void testGameLost() {
+    public void testNewPrairieKing() {
         PrairieKing prairieKing = new PrairieKing();
-//        GameLogic game = new GameLogic(prairieKing);
+        assertEquals(0, prairieKing.currentState);
+        GameLogic game = new GameLogic(prairieKing, true);
 
-        EntityController entity = new EntityController(50, 50);
+        EntityController entity = game.getHero();
         entity.kill();
-/*
-        game.checkLose(entity);
 
-        assertEquals(2, prairieKing.currentState);*/
+        assertEquals(0, game.getHero().getLives());
+
     }
 
 

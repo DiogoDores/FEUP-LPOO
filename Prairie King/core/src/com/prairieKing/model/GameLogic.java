@@ -25,6 +25,7 @@ import com.prairieKing.view.GameStage;
 /** The main game class. Here the main methods of almost all other functions are called.
  */
 public class GameLogic {
+    private boolean isForTest;
 
     private InputHandler input;
     private PowerupSpawner powerupSpawner;
@@ -39,11 +40,13 @@ public class GameLogic {
     private float highScore;
     private float timeSinceBeginning;
 
-    /** Creates a new Game, and stores the Prairie King instance.
-     *
+    /** /** Creates a new Game, and stores the Prairie King instance.
+
      * @param game Prairie King instance.
+     * @param forTest Used for separate View from testing.
      */
-    public GameLogic(PrairieKing game) {
+    public GameLogic(PrairieKing game, boolean forTest) {
+        isForTest = forTest;
         world = new World(new Vector2(0, 0), true);
         AI = new AIManager(this);
         prairieKing = game;
@@ -59,11 +62,14 @@ public class GameLogic {
         world.setContactListener(new CollisionHandler());
         heroBody = new HeroBody(world, hero);
 
-        gameStage = new GameStage(this);
+        if(!forTest) {
+            gameStage = new GameStage(this);
+            createMapBodies();
+        }
 
         powerupSpawner = new PowerupSpawner(this);
 
-        createMapBodies();
+
     }
 
     /** When the player is either killed, or wins and wants to start a new game, this
@@ -84,8 +90,10 @@ public class GameLogic {
         Gdx.input.setInputProcessor(input);
         world.setContactListener(new CollisionHandler());
         heroBody = new HeroBody(world, hero);
-        createMapBodies();
-        gameStage = new GameStage(this);
+        if (!isForTest) {
+            createMapBodies();
+            gameStage = new GameStage(this);
+        }
 
         powerupSpawner = new PowerupSpawner(this);
     }
@@ -166,7 +174,7 @@ public class GameLogic {
     /** Checks whether the hero has been killed. If so, lose.
      * @param model Possibly HeroModel.
      */
-    private void checkLose(EntityController model) {
+    public void checkLose(EntityController model) {
         if (model.isFlaggedForDelete()) {
             if (model.getType().equals("HERO")) {
                 PrairieKing.currentState = 2;

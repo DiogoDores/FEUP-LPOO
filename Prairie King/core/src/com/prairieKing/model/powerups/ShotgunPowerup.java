@@ -7,7 +7,6 @@ import com.prairieKing.model.Gun;
  */
 public class ShotgunPowerup extends GunPowerups {
 
-    private float newSpeed = 2;
     private int oldShape = 1;
     private int newShape = 3;
 
