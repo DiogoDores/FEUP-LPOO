@@ -32,7 +32,7 @@ public class PowerupSpawner {
         this.gameLogic = gameLogic;
         this.world = gameLogic.getWorld();
 
-        timeToSpawn = MathUtils.random(10.0f, 17.0f);
+        timeToSpawn = 4; // TODO MathUtils.random(10.0f, 17.0f);
     }
 
     /** Regularly checks whether
@@ -53,7 +53,6 @@ public class PowerupSpawner {
         Vector2 position = randomPos();
 
         PowerupController model = new PowerupController(position.x,position.y, gameLogic);
-
 
         if (r == 0) { // Speed
             model.powerupType("GUN SPEED");

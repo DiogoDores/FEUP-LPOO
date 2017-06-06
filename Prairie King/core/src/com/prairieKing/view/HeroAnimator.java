@@ -10,11 +10,6 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.utils.Array;
 import com.prairieKing.PrairieKing;
 
-
-/**
- * Created by Utilizador on 01/06/2017.
- */
-
 public class HeroAnimator extends Sprite{
 
     private GameStage gameStage;

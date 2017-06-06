@@ -17,11 +17,11 @@ public class PrairieKing extends Game {
     public static int currentState;
     private Music music;
     private Sound sound;
-    Menu menu;
-    LoseScreen loseScreen;
-    WinScreen winScreen;
-    int highScore;
-    GameLogic gameLogic;
+    private Menu menu;
+    private LoseScreen loseScreen;
+    private WinScreen winScreen;
+    private int highScore;
+    private GameLogic gameLogic;
 
     private TmxMapLoader mapLoader;
     private TiledMap map;

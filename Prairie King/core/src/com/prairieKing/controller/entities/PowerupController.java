@@ -77,10 +77,10 @@ public class PowerupController extends EntityController {
                 gameLogic.getGun().addPowerup(new WheelPowerup(gameLogic));
                 break;
             case "HERO LIFE":
-                gameLogic.getHero().addPowerup(new HeroExtraLife());
+                gameLogic.getHero().addPowerup(new HeroExtraLife(gameLogic));
                 break;
             case "HERO SPEED":
-                gameLogic.getHero().addPowerup(new HeroSpeed());
+                gameLogic.getHero().addPowerup(new HeroSpeed(gameLogic));
                 break;
         }
 

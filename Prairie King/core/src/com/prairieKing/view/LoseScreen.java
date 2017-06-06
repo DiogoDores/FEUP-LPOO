@@ -14,20 +14,16 @@ import com.prairieKing.PrairieKing;
 
 
 public class LoseScreen extends ScreenAdapter {
-    private OrthographicCamera camera;
 
-    private String name;
     private PrairieKing game;
-    Sprite menu;
-    SpriteBatch batch;
-    FitViewport view;
-
-    BitmapFont font, fontBack;
+    private Sprite menu;
+    private SpriteBatch batch;
+    private FitViewport view;
+    private BitmapFont font, fontBack;
 
     private int highScore;
 
     public LoseScreen(String name, PrairieKing game) {
-        this.name = name;
         this.game = game;
         batch = new SpriteBatch();
         view = new FitViewport(Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
@@ -39,8 +35,7 @@ public class LoseScreen extends ScreenAdapter {
         FreeTypeFontGenerator.FreeTypeFontParameter parameterBack = new FreeTypeFontGenerator.FreeTypeFontParameter();
         parameterFront.size = 37;
         parameterBack.size = 37;
-        Color backColor =  toRGB(85,85,178);
-        parameterBack.color = backColor;
+        parameterBack.color = toRGB(85,85,178);
         font = generator.generateFont(parameterFront);
         fontBack = generator.generateFont(parameterBack);
         generator.dispose();

@@ -21,7 +21,7 @@ import java.util.ArrayList;
 public class AIManager {
 
     private GameLogic gameLogic;
-    private float MAX_ENEMY_NUMBER = 5;
+    private float MAX_ENEMY_NUMBER =6;
     private ArrayList<EnemyController> enemies = new ArrayList<>();
     private ArrayList<EnemyBody> enemiesBodies = new ArrayList<>();
 
@@ -50,8 +50,12 @@ public class AIManager {
         enemyModelsPool = new Pool<EnemyController>() {
             @Override
             protected EnemyController newObject() {
-                int random = MathUtils.random(1);
-                String spawnPlaces = "nsew"; // Possível posição
+                int random;
+                String spawnPlaces = "nsew";
+                if (killCount < 100)
+                    random = MathUtils.random(1);
+                else
+                    random = MathUtils.random(2);
                 int randomSpawn = MathUtils.random(3);
                 while ( spawnPlaces.charAt(randomSpawn) == lastSpawned && spawnPlaces.charAt(randomSpawn) == last2spawned) {
                     randomSpawn = MathUtils.random(3);
@@ -62,13 +66,13 @@ public class AIManager {
 
                 Vector2 position = randomizeSpawn(spawnPlaces.charAt(randomSpawn));
 
-                if (random == 0 && killCount < 100) {
+                if (random == 0 && killCount <= 450) {
                     return new BasicWalker(position.x, position.y,spawnPlaces.charAt(randomSpawn));
                 }
                 else if (random == 1 && killCount < 250) {
                     return new FlyingEnemy(position.x, position.y, spawnPlaces.charAt(randomSpawn));
                 }
-                else if (random == 0 &&  killCount >= 100 && killCount < 400) {
+                else if (random == 2 &&  killCount >= 100 && killCount <= 450) {
                     return new ToughEnemy(position.x, position.y,spawnPlaces.charAt(randomSpawn));
                 }
                 return null;
@@ -120,7 +124,7 @@ public class AIManager {
      */
     public void spawn() {
 
-        if (killCount > 1  ) {
+        if (killCount > 1 ) {
             if (activeNumber == 0 && !hasWon) {
                 gameLogic.win();
                 hasWon = true;
@@ -135,10 +139,12 @@ public class AIManager {
 
             if (activeNumber < MAX_ENEMY_NUMBER && timeToSpawn <= 0.0f) {
                 EnemyController e = enemyModelsPool.obtain();
-                activeNumber++;
-                enemies.add(e);
-                enemiesBodies.add(new EnemyBody(gameLogic.getWorld(), e));
-                timeToSpawn = MathUtils.random(5.0f / MAX_ENEMY_NUMBER, 7.0f / MAX_ENEMY_NUMBER);
+                if (e != null) {
+                    activeNumber++;
+                    enemies.add(e);
+                    enemiesBodies.add(new EnemyBody(gameLogic.getWorld(), e));
+                    timeToSpawn = MathUtils.random(5.0f / MAX_ENEMY_NUMBER, 7.0f / MAX_ENEMY_NUMBER);
+                }
             }
             timeToSpawn -= Gdx.graphics.getDeltaTime();
         }

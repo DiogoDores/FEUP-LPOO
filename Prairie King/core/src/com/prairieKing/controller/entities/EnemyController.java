@@ -32,7 +32,7 @@ public class EnemyController extends EntityController implements Behavior {
      *
      * @param enemyType Sets enemyType.
      */
-    public void setEnemyType(String enemyType) {
+     protected void setEnemyType(String enemyType) {
         this.enemyType = enemyType;
     }
 

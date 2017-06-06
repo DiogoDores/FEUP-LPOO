@@ -16,10 +16,10 @@ public class Constants {
 
     public static final float RATIO = ((float) Gdx.graphics.getHeight())/((float) Gdx.graphics.getWidth());
 
-    public static final float HEART_WIDTH = PrairieKing.PPM/18;
+    public static final float HEART_WIDTH = PrairieKing.PPM/17;
     public static final float HERO_WIDTH = PrairieKing.PPM/17;
     public static final float ENEMY_WIDTH = PrairieKing.PPM/17;
     public static final float PROJECTILE_WIDTH = PrairieKing.PPM/36;
-    public static final float POWERUP_WIDTH = PrairieKing.PPM/15;
+    public static final float POWERUP_WIDTH = PrairieKing.PPM/18;
 
 }

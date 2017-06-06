@@ -20,7 +20,7 @@ public class GameLogicTest extends GameTest{
         EntityController entity = game.getHero();
         entity.kill();
 
-        assertEquals(0, game.getHero().getLives());
+        assertEquals(2, game.getHero().getLives());
     }
 
 

@@ -34,7 +34,7 @@ public class HeroController extends EntityController {
         super(x, y);
         this.speed = 8;
         left = false; right = false; up = false; down = false;
-        this.lives = 1;
+        this.lives = 3;
         this.sound = Gdx.audio.newSound(Gdx.files.internal("Sounds/footstep.mp3"));
         super.setType("HERO");
     }

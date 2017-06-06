@@ -1,5 +1,6 @@
 package com.prairieKing.model.powerups;
 
+import com.badlogic.gdx.Game;
 import com.prairieKing.model.GameLogic;
 
 /** Increases the speed hero walks/runs.
@@ -8,12 +9,12 @@ public class HeroSpeed extends HeroPowerups {
 
     private int newSpeed = 5;
     private int oldSpeed = 8;
-    private GameLogic game;
-
+    private GameLogic gameLogic;
     /** Constructor for a new Hero Speed Powerup.
      */
-    public HeroSpeed() {
-        game.getHero().setSpeed(newSpeed);
+    public HeroSpeed(GameLogic gameLogic) {
+        this.gameLogic = gameLogic;
+        gameLogic.getHero().setSpeed(newSpeed);
         setEffectTime(10);
     }
 
@@ -21,6 +22,6 @@ public class HeroSpeed extends HeroPowerups {
      */
     @Override
     public void removeEffect() {
-        game.getHero().setSpeed(oldSpeed);
+        gameLogic.getHero().setSpeed(oldSpeed);
     }
 }
