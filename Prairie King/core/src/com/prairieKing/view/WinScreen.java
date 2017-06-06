@@ -11,22 +11,20 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.prairieKing.PrairieKing;
 
-
+/** Class responsible for the output of the win scenario.
+ */
 public class WinScreen extends ScreenAdapter {
-    private OrthographicCamera camera;
 
-    private String name;
     private PrairieKing game;
-    Sprite menu;
-    SpriteBatch batch;
-    FitViewport view;
+    private Sprite menu;
+    private SpriteBatch batch;
+    private FitViewport view;
 
     private BitmapFont font;
 
     private int highScore;
 
-    public WinScreen(String name, PrairieKing game) {
-        this.name = name;
+    public WinScreen(PrairieKing game) {
         this.game = game;
         batch = new SpriteBatch();
         view = new FitViewport(Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
@@ -54,7 +52,7 @@ public class WinScreen extends ScreenAdapter {
         menu.draw(batch);
 
 
-        font.draw(batch, ""+ highScore, view.getScreenWidth()/2 , view.getScreenHeight()/7);
+        font.draw(batch, ""+ highScore, view.getScreenWidth()/2 - font.getSpaceWidth()/2 , view.getScreenHeight()/7);
         batch.end();
 
     }
