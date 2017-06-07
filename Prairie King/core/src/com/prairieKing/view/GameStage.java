@@ -46,7 +46,7 @@ public class GameStage extends ScreenAdapter {
     private OrthographicCamera cam;
 
     private Box2DDebugRenderer b2dr;
-    private TextureAtlas atlas;
+    private TextureAtlas atlas, endingHero;
 
     private Texture mainSprite, background;
 
@@ -59,6 +59,7 @@ public class GameStage extends ScreenAdapter {
     private Music music;
     private boolean isHowToActive;
     private float timer;
+
 
     /** Constructor for the main screen.
      *
@@ -84,6 +85,7 @@ public class GameStage extends ScreenAdapter {
         loadAssets();
 
         atlas = new TextureAtlas("Sprites/Entities.pack");
+        endingHero = new TextureAtlas("Sprites/endingHero.pack");
         animateHero = new HeroAnimator(this);
         animateEnemy = new EnemyAnimator(this);
 
@@ -380,6 +382,10 @@ public class GameStage extends ScreenAdapter {
      */
     public boolean getHasWon() {
         return hasWon;
+    }
+
+    public TextureAtlas getEndingHero() {
+        return endingHero;
     }
 
 }
