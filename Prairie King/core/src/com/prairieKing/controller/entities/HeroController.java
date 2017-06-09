@@ -3,6 +3,7 @@ package com.prairieKing.controller.entities;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.prairieKing.PrairieKing;
+import com.prairieKing.model.GameLogic;
 import com.prairieKing.model.powerups.HeroPowerups;
 
 import java.util.ArrayList;
@@ -14,7 +15,10 @@ public class HeroController extends EntityController {
     private boolean left, right, up, down;
     private int speed;
 
+    private GameLogic gameLogic;
     private Sound sound;
+
+    private float resetTime;
 
     private float MIN_WIDTH = 3.76f, MAX_WIDTH = 90;
     private float MIN_HEIGHT = 3.76f, MAX_HEIGHT = 90;
@@ -37,23 +41,27 @@ public class HeroController extends EntityController {
         this.lives = 3;
         this.sound = Gdx.audio.newSound(Gdx.files.internal("sounds/footstep.mp3"));
         super.setType("HERO");
+        resetTime = 0;
     }
 
     /** Move based on current keys pressed.
      */
     public void move() {
         checkPowerups();
-        float x = super.getX(), y = super.getY();
-        if (left && x > MIN_WIDTH)
-            x = (x - (PrairieKing.PPM / speed * Gdx.graphics.getDeltaTime()));
-        if (right && x < MAX_WIDTH)
-            x = (x + (PrairieKing.PPM / speed * Gdx.graphics.getDeltaTime()));
-        if (up && y < MAX_HEIGHT)
-            y = (y + (PrairieKing.PPM / speed * Gdx.graphics.getDeltaTime()));
-        if (down && y > MIN_HEIGHT)
-            y = (y - (PrairieKing.PPM / speed * Gdx.graphics.getDeltaTime()));
+        resetTime -= Gdx.graphics.getDeltaTime();
+        if (resetTime <=  0) {
+            float x = super.getX(), y = super.getY();
+            if (left && x > MIN_WIDTH)
+                x = (x - (PrairieKing.PPM / speed * Gdx.graphics.getDeltaTime()));
+            if (right && x < MAX_WIDTH)
+                x = (x + (PrairieKing.PPM / speed * Gdx.graphics.getDeltaTime()));
+            if (up && y < MAX_HEIGHT)
+                y = (y + (PrairieKing.PPM / speed * Gdx.graphics.getDeltaTime()));
+            if (down && y > MIN_HEIGHT)
+                y = (y - (PrairieKing.PPM / speed * Gdx.graphics.getDeltaTime()));
 
-        setPosition(x, y);
+            setPosition(x, y);
+        }
 
     }
 
@@ -134,6 +142,8 @@ public class HeroController extends EntityController {
      */
     @Override
     public void kill() {
+        gameLogic.getAI().removeEnemies();
+        resetTime = 2.0f;
         --lives;
         if (this.lives == 0)
             super.kill();
@@ -187,5 +197,11 @@ public class HeroController extends EntityController {
      */
     public float getState() {
         return -1;
+    }
+
+    /** Set GameLogic.
+     */
+    public void setGameLogic(GameLogic gameLogic) {
+        this.gameLogic = gameLogic;
     }
 }

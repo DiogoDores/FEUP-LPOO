@@ -16,7 +16,8 @@ import com.prairieKing.view.EnemyAnimator;
 
 import java.util.ArrayList;
 
-/** All the responsabilites for difficulty, spawn,
+/**
+ * All the responsabilites for difficulty, spawn,
  * and active enemies are here.
  */
 public class AIManager {
@@ -35,28 +36,32 @@ public class AIManager {
 
     private int activeNumber;
 
-    /** Constructor for AIManager.
+    /**
+     * Constructor for AIManager.
      *
      * @param gameLogic GameLogic is necessary to access hero's position.
      */
     public AIManager(GameLogic gameLogic) {
         this.gameLogic = gameLogic;
-        killCount =0;
+        killCount = 0;
         hasIncreased = false;
         hasWon = false;
         activeNumber = 0;
         timeToSpawn = .2f;
     }
 
-    /** Increases difficulty.
+    /**
+     * Increases difficulty.
      */
     private void increaseDifficulty() {
-        MAX_ENEMY_NUMBER = MAX_ENEMY_NUMBER + 1; if(killCount == 160) {
+        MAX_ENEMY_NUMBER = MAX_ENEMY_NUMBER + 1;
+        if (killCount % 100 == 0) {
             MAX_ENEMY_NUMBER -= 4;
         }
     }
 
-    /**Returns a vector with random values holding the position
+    /**
+     * Returns a vector with random values holding the position
      * to spawn.
      *
      * @param direction Initial direction the enemy will follow.
@@ -64,26 +69,23 @@ public class AIManager {
      */
     private Vector2 randomizeSpawn(char direction) {
         float x, y;
-        float placeRandom = MathUtils.random(-3.0f,3.0f);
+        float placeRandom = MathUtils.random(-3.0f, 3.0f);
 
         if (direction == 'n') {
-            x = (int) (PrairieKing.PPM / 2 +placeRandom);
+            x = (int) (PrairieKing.PPM / 2 + placeRandom);
             y = (int) PrairieKing.PPM + 10;
-        }
-        else if (direction == 's') {
-            x = (int) (PrairieKing.PPM / 2 +placeRandom);
+        } else if (direction == 's') {
+            x = (int) (PrairieKing.PPM / 2 + placeRandom);
             y = -10;
-        }
-        else if (direction == 'e') {
+        } else if (direction == 'e') {
             x = (int) PrairieKing.PPM + 10;
-            y = (int) (PrairieKing.PPM / 2 +placeRandom);
-        }
-        else {
+            y = (int) (PrairieKing.PPM / 2 + placeRandom);
+        } else {
             x = -10;
-            y = (int) (PrairieKing.PPM / 2 +placeRandom);
+            y = (int) (PrairieKing.PPM / 2 + placeRandom);
         }
 
-        return new Vector2(x,y);
+        return new Vector2(x, y);
 
     }
 
@@ -92,13 +94,12 @@ public class AIManager {
      */
     public void spawn() {
 
-        if (killCount > 1 ) {
+        if (killCount > 400) {
             if (activeNumber == 0 && !hasWon) {
                 gameLogic.win();
                 hasWon = true;
             }
-        }
-        else {
+        } else {
             if (killCount % 20 == 0 && killCount != 0 && !hasIncreased) {
                 hasIncreased = true;
                 increaseDifficulty();
@@ -118,7 +119,8 @@ public class AIManager {
         }
     }
 
-    /** Summons an Enemy.
+    /**
+     * Summons an Enemy.
      *
      * @return new Enemy to be spawned.
      */
@@ -130,28 +132,27 @@ public class AIManager {
         else
             random = MathUtils.random(2);
         int randomSpawn = MathUtils.random(3);
-        while ( spawnPlaces.charAt(randomSpawn) == lastSpawned && spawnPlaces.charAt(randomSpawn) == last2spawned) {
+        while (spawnPlaces.charAt(randomSpawn) == lastSpawned && spawnPlaces.charAt(randomSpawn) == last2spawned) {
             randomSpawn = MathUtils.random(3);
         }
 
         last2spawned = lastSpawned;
-        lastSpawned =  spawnPlaces.charAt(randomSpawn);
+        lastSpawned = spawnPlaces.charAt(randomSpawn);
 
         Vector2 position = randomizeSpawn(spawnPlaces.charAt(randomSpawn));
 
         if (random == 0 && killCount <= 450) {
-            return new BasicWalker(position.x, position.y,spawnPlaces.charAt(randomSpawn));
-        }
-        else if (random == 1 && killCount < 250) {
+            return new BasicWalker(position.x, position.y, spawnPlaces.charAt(randomSpawn));
+        } else if (random == 1 && killCount < 250) {
             return new FlyingEnemy(position.x, position.y, spawnPlaces.charAt(randomSpawn));
-        }
-        else if (random == 2 &&  killCount >= 100 && killCount <= 450) {
-            return new ToughEnemy(position.x, position.y,spawnPlaces.charAt(randomSpawn));
+        } else if (random == 2 && killCount >= 100 && killCount <= 450) {
+            return new ToughEnemy(position.x, position.y, spawnPlaces.charAt(randomSpawn));
         }
         return null;
     }
 
-    /**Returns the active Enemy list for the GameStage.
+    /**
+     * Returns the active Enemy list for the GameStage.
      *
      * @return Active Enemy list.
      */
@@ -167,9 +168,9 @@ public class AIManager {
         if (enemies != null)
             for (EnemyController e : enemies) {
                 int index = enemies.indexOf(e);
-                e.move(e,hero);
-                enemyBodies.get(index).setTransform(e.getX(),e.getY());
-        }
+                e.move(e, hero);
+                enemyBodies.get(index).setTransform(e.getX(), e.getY());
+            }
     }
 
     /**
@@ -189,13 +190,13 @@ public class AIManager {
                         hasIncreased = false;
                     }
                 }
-                enemies.get(i).resurrect();
                 enemies.remove(enemies.get(i));
-             }
+            }
         }
     }
 
-    /** Gets player kill count.
+    /**
+     * Gets player kill count.
      *
      * @return killCount, or the number of enemies the player has killed.
      */
@@ -203,12 +204,19 @@ public class AIManager {
         return killCount;
     }
 
-    /** Gets all the bodies.
+    /**
+     * Gets all the bodies.
      *
      * @return Active Enemy Bodies.
      */
     public ArrayList<EnemyBody> getEnemiesBodies() {
         return enemyBodies;
+    }
+
+    public void removeEnemies() {
+        for (int i = 0; i < enemies.size(); i++) {
+            enemies.get(i).kill();
+        }
     }
 
 }

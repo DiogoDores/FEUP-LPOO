@@ -51,6 +51,7 @@ public class GameLogic {
         AI = new AIManager(this);
         prairieKing = game;
         hero = new HeroController(PrairieKing.PPM / 2, PrairieKing.PPM / 2);
+        hero.setGameLogic(this);
 
         highScore = 0;
         timeSinceBeginning = 0;
@@ -80,6 +81,7 @@ public class GameLogic {
         world = new World(new Vector2(0, 0), true);
         AI = new AIManager(this);
         hero = new HeroController(PrairieKing.PPM / 2, PrairieKing.PPM / 2);
+        hero.setGameLogic(this);
 
         highScore = 0;
         timeSinceBeginning = 0;
