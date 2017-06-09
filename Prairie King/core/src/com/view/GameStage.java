@@ -51,7 +51,7 @@ public class GameStage extends ScreenAdapter {
     private Texture mainSprite, background;
 
     private HeroAnimator animateHero;
-    private EnemyAnimator animateEnemy;
+    private EntityAnimator animateEntity;
 
     private int i = 0;
 
@@ -86,9 +86,8 @@ public class GameStage extends ScreenAdapter {
         loadAssets();
 
         atlas = new TextureAtlas("sprites/entities.pack");
-        endingHero = new TextureAtlas("sprites/endingHero.pack");
         animateHero = new HeroAnimator(this);
-        animateEnemy = new EnemyAnimator(this);
+        animateEntity = new EntityAnimator(this);
 
 
         b2dr = new Box2DDebugRenderer();
@@ -238,8 +237,8 @@ public class GameStage extends ScreenAdapter {
         music.play();
         music.setVolume(0.5f);
         ending.draw(batch);
-        animateEnemy.updateWife(false);
-        animateEnemy.draw(batch);
+        animateEntity.updateWife(false);
+        animateEntity.draw(batch);
 
         animateHero.update();
         animateHero.draw(batch);
@@ -258,8 +257,8 @@ public class GameStage extends ScreenAdapter {
      */
     private void waitsForKiss() {
         ending.draw(batch);
-        animateEnemy.updateWife(true);
-        animateEnemy.draw(batch);
+        animateEntity.updateWife(true);
+        animateEntity.draw(batch);
 
         holding.setX(gameLogic.getHero().getX());
         holding.setY(gameLogic.getHero().getY());
@@ -350,8 +349,8 @@ public class GameStage extends ScreenAdapter {
      */
     private void drawEnemies() {
         for (EnemyController e : enemies) {
-            animateEnemy.update(i, e);
-            animateEnemy.draw(batch);
+            animateEntity.update(i, e);
+            animateEntity.draw(batch);
 
             i++;
         }
@@ -417,4 +416,7 @@ public class GameStage extends ScreenAdapter {
     }
 
 
+    public EntityAnimator getEntityAnimator() {
+        return animateEntity;
+    }
 }

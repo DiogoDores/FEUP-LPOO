@@ -78,6 +78,7 @@ public class GameLogic {
      *  necessary.
      */
     public void resetEverything() {
+        prairieKing.getMusic().play();
         world = new World(new Vector2(0, 0), true);
         AI = new AIManager(this);
         hero = new HeroController(PrairieKing.PPM / 2, PrairieKing.PPM / 2);

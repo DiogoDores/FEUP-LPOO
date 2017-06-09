@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 /** Class responsible for all of the enemy's animations.
  */
-public class EnemyAnimator extends Sprite{
+public class EntityAnimator extends Sprite{
 
     private Animation<TextureRegion> basic, flying, tough, death;
     private Animation<TextureRegion> wife;
@@ -27,7 +27,7 @@ public class EnemyAnimator extends Sprite{
      *
      * @param gameStage GameStage instance.
      */
-    public EnemyAnimator(GameStage gameStage) {
+    public EntityAnimator(GameStage gameStage) {
         this.gameStage = gameStage;
         this.bodyList = gameStage.getGameLogic().getAI().getEnemiesBodies();
 
@@ -66,7 +66,7 @@ public class EnemyAnimator extends Sprite{
         for (int i = 0; i < 4; i++)
             frames.add(new TextureRegion(gameStage.getAtlas().findRegion("enemyDeath"), i * 16, 0, 16, 16));
 
-        death = new Animation<>(0.9f, frames);
+        death = new Animation<>(0.2f, frames);
         frames.clear();
 
         for (int i = 0; i < 5; i++)
