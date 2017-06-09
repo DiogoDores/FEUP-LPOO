@@ -11,13 +11,15 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.prairieKing.model.GameLogic;
 import com.prairieKing.view.LoseScreen;
-import com.prairieKing.view.Menu;
+import com.prairieKing.view.MainMenu;
 
+/** Main Game Class.
+ */
 public class PrairieKing extends Game {
     public static int currentState;
     private Music music;
     private Sound sound;
-    private Menu menu;
+    private MainMenu menu;
     private LoseScreen loseScreen;
     private WinScreen winScreen;
     private int highScore;
@@ -31,22 +33,28 @@ public class PrairieKing extends Game {
 
     private AssetManager assetManager;
 
+    /** Constructor for Prairie King, starts the state and highScore at 0.
+     */
     public PrairieKing() {
         currentState = 0;
         highScore = 0;
     }
 
+    /** Override the Create function, instantiates all classes.
+     */
     @Override
     public void create() {
         assetManager = new AssetManager();
         loadAssets();
-        menu = new Menu(this);
+        menu = new MainMenu(this);
         loseScreen = new LoseScreen( this);
         winScreen = new WinScreen(this);
         gameLogic = new GameLogic(this, false);
         setScreen(menu);
     }
 
+    /** Loads all assets onto AssetManager.
+     */
     public void loadAssets() {
         mapLoader = new TmxMapLoader();
         map = mapLoader.load("Mapas/Map.tmx");
@@ -69,6 +77,8 @@ public class PrairieKing extends Game {
     }
 
 
+    /** Responsible for the correct render, depending on the current gameState.
+     */
     @Override
     public void render() {
         if(gameLogic.getGameStage().getHasWon()) {
@@ -114,6 +124,12 @@ public class PrairieKing extends Game {
 
     }
 
+    /** Gradually decrease volume.
+     *
+     * @param music Music to be muted.
+     * @param rate Rate at whiich volume decreases.
+     * @return New Volume.
+     */
     public float decreaseVolume(Music music, float rate) {
         if (music.isPlaying()) {
             volume -= rate;
@@ -125,24 +141,42 @@ public class PrairieKing extends Game {
         return volume;
     }
 
+    /** Returns the created AssetManager.
+     *
+     * @return AssetManager.
+     */
     public AssetManager getAssetManager() {
         return assetManager;
     }
 
-    public int getMaxHighScore() {
+    /** Returns the highScore of the last game.
+     *
+     * @return HighScore.
+     */
+    public int getHighScore() {
         return highScore;
     }
 
+    /** Sets the new HighScore after finishing a game.
+     *
+     * @param HighScore New HighScore.
+     */
     public void setHighScore(int HighScore) {
         this.highScore = HighScore;
         loseScreen.updateHighScore(HighScore);
         winScreen.updateHighScore(HighScore);
     }
 
+    /** Returns the Map.
+     *
+     * @return Map.
+     */
     public TiledMap getMap() {
         return map;
     }
 
+    /** Called when finished.
+     */
     public void dispose(){
         music.dispose();
         sound.dispose();

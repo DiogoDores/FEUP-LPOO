@@ -108,13 +108,13 @@ public class GameStage extends ScreenAdapter {
     private void loadEndAssets() {
         ending = new Sprite(game.getAssetManager().get("Mapas/MapaFinal.png", Texture.class));
         ending.setSize(PrairieKing.PPM / Constants.RATIO, PrairieKing.PPM);
-        ending.setX(-42);
+        ending.setX(-39);
         kissing = new Sprite(game.getAssetManager().get("Sprites/MainSpriteSheet.png", Texture.class), 422, 155, 22, 21);
         kissing.setSize(1.7f * Constants.HERO_WIDTH, 1.6f * Constants.HERO_WIDTH);
 
         transition = new Sprite(game.getAssetManager().get("Sprites/TransitionToWin.png", Texture.class));
         transition.setSize(PrairieKing.PPM / Constants.RATIO, PrairieKing.PPM * 5);
-        transition.setX(-42);
+        transition.setX(-39);
     }
 
     /** Render every frame.

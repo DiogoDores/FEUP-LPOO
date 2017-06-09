@@ -9,26 +9,27 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.prairieKing.PrairieKing;
 
-public class Menu extends ScreenAdapter {
+/** Main Menu class.
+ */
+public class MainMenu extends ScreenAdapter {
     private PrairieKing game;
     Sprite menu;
     SpriteBatch batch;
     FitViewport view;
 
-    public Menu(PrairieKing game) {
+    public MainMenu(PrairieKing game) {
         this.game = game;
         batch = new SpriteBatch();
 
         view = new FitViewport(Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
 
-        loadAssets();
-    }
-
-    private void loadAssets() {
         menu = new Sprite (game.getAssetManager().get("Menus/Menu1.png", Texture.class));
-      //  menu = new Sprite (new Texture("Menus/Menu1.png"));
     }
 
+    /** Override render.
+     *
+     * @param delta Value passed.
+     */
     @Override
     public void render(float delta) {
 
@@ -42,11 +43,8 @@ public class Menu extends ScreenAdapter {
 
     }
 
-    @Override
-    public void resize(int width, int height) {
-        view.update(width,height);
-    }
-
+    /** Dispose when finished.
+     */
     @Override
     public void dispose() {
         batch.dispose();

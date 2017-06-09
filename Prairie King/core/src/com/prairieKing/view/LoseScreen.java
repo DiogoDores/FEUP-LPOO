@@ -24,14 +24,17 @@ public class LoseScreen extends ScreenAdapter {
 
     private int highScore;
 
-
+    /** Lose Screen constructor, instantiates font and loads appropriate image.
+     *
+     * @param game Needs PrairieKing instance to access AssetManager and HighScore.
+     */
     public LoseScreen(PrairieKing game) {
         this.game = game;
         batch = new SpriteBatch();
         view = new FitViewport(Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
-        highScore = game.getMaxHighScore();
+        highScore = game.getHighScore();
 
-        loadAssets();
+        menu = new Sprite (game.getAssetManager().get("Menus/LoseScreen.png", Texture.class));
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("Pixeled.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter parameterFront = new FreeTypeFontGenerator.FreeTypeFontParameter();
         FreeTypeFontGenerator.FreeTypeFontParameter parameterBack = new FreeTypeFontGenerator.FreeTypeFontParameter();
@@ -41,12 +44,13 @@ public class LoseScreen extends ScreenAdapter {
         font = generator.generateFont(parameterFront);
         fontBack = generator.generateFont(parameterBack);
         generator.dispose();
+
     }
 
-    private void loadAssets() {
-        menu = new Sprite (game.getAssetManager().get("Menus/LoseScreen.png", Texture.class));
-    }
-
+    /** Override render.
+     *
+     * @param delta Value passed.
+     */
     @Override
     public void render(float delta) {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -62,21 +66,29 @@ public class LoseScreen extends ScreenAdapter {
 
     }
 
+    /** After a new game, needs to update HighScore.
+     *
+     * @param x New HighScore.
+     */
     public void updateHighScore(int x) {
         highScore = x;
     }
 
-    @Override
-    public void resize(int width, int height) {
-        view.update(width,height);
-    }
-
+    /** Dispose when finished.
+     */
     @Override
     public void dispose() {
         batch.dispose();
         game.dispose();
     }
 
+    /** Converts three floats to a Color.
+     *
+     * @param r Red Value.
+     * @param g Green Value.
+     * @param b Blue Value.
+     * @return Color with the three values.
+     */
     public Color toRGB(int r, int g, int b) {
         float RED = r / 255.0f;
         float GREEN = g / 255.0f;

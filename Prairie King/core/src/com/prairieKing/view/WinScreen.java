@@ -24,24 +24,27 @@ public class WinScreen extends ScreenAdapter {
 
     private int highScore;
 
+    /** Instantiates WinScreen and loads all necessary assets.
+     *
+     * @param game Needs this to access highScore and AssetManager
+     */
     public WinScreen(PrairieKing game) {
         this.game = game;
         batch = new SpriteBatch();
         view = new FitViewport(Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
-        highScore = game.getMaxHighScore();
+        highScore = game.getHighScore();
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("Pixeled.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
         parameter.size = 37;
         font = generator.generateFont(parameter);
         generator.dispose();
-        loadAssets();
-    }
-
-    private void loadAssets() {
         menu = new Sprite (game.getAssetManager().get("Menus/WinScreen.png", Texture.class));
-        //menu = new Sprite (new Texture("Menus/LoseScreen.png"));
     }
 
+    /** Override render.
+     *
+     * @param delta Value passed.
+     */
     @Override
     public void render(float delta) {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -51,21 +54,21 @@ public class WinScreen extends ScreenAdapter {
         menu.setSize(view.getWorldWidth(),view.getWorldHeight());
         menu.draw(batch);
 
-
         font.draw(batch, ""+ highScore, view.getScreenWidth()/2 - font.getSpaceWidth()/2 , view.getScreenHeight()/7);
         batch.end();
 
     }
 
+    /** After a new game, needs to update HighScore.
+     *
+     * @param x New HighScore.
+     */
     public void updateHighScore(int x) {
         highScore = x;
     }
 
-    @Override
-    public void resize(int width, int height) {
-        view.update(width,height);
-    }
-
+    /** Dispose when finished.
+     */
     @Override
     public void dispose() {
         batch.dispose();

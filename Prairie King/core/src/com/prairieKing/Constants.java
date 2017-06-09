@@ -3,6 +3,8 @@ package com.prairieKing;
 
 import com.badlogic.gdx.Gdx;
 
+/** Class housing all static constants to be accessed by most of the other classes.
+ */
 public class Constants {
     public final static short CATEGORY_PLAYER = 0x0001;  // 0000000000000001 in binary
     public final static short CATEGORY_ENEMY = 0x0002; // 0000000000000010 in binary
