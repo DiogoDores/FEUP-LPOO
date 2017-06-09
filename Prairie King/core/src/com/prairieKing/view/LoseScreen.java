@@ -24,14 +24,16 @@ public class LoseScreen extends ScreenAdapter {
 
     private int highScore;
 
-
+    /** Constructor for the Lose Screen.
+     *
+     * @param game Current active gameLogic.
+     */
     public LoseScreen(PrairieKing game) {
         this.game = game;
         batch = new SpriteBatch();
         view = new FitViewport(Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
         highScore = game.getMaxHighScore();
 
-        loadAssets();
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("Pixeled.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter parameterFront = new FreeTypeFontGenerator.FreeTypeFontParameter();
         FreeTypeFontGenerator.FreeTypeFontParameter parameterBack = new FreeTypeFontGenerator.FreeTypeFontParameter();
@@ -41,9 +43,6 @@ public class LoseScreen extends ScreenAdapter {
         font = generator.generateFont(parameterFront);
         fontBack = generator.generateFont(parameterBack);
         generator.dispose();
-    }
-
-    private void loadAssets() {
         menu = new Sprite (game.getAssetManager().get("Menus/LoseScreen.png", Texture.class));
     }
 

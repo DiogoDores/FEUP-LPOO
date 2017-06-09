@@ -34,14 +34,13 @@ public class WinScreen extends ScreenAdapter {
         parameter.size = 37;
         font = generator.generateFont(parameter);
         generator.dispose();
-        loadAssets();
-    }
-
-    private void loadAssets() {
         menu = new Sprite (game.getAssetManager().get("Menus/WinScreen.png", Texture.class));
-        //menu = new Sprite (new Texture("Menus/LoseScreen.png"));
     }
 
+    /**
+     *
+     * @param delta
+     */
     @Override
     public void render(float delta) {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);

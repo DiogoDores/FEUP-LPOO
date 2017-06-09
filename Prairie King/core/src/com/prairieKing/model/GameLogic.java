@@ -133,7 +133,6 @@ public class GameLogic {
         AI.checkEnemies();
         powerupSpawner.checkPowerups();
 
-
         moveEntities();
 
         stepBodiesAndPhysics();
