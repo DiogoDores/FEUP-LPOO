@@ -143,7 +143,7 @@ public class HeroController extends EntityController {
     @Override
     public void kill() {
         gameLogic.getAI().removeEnemies();
-        resetTime = 2.0f;
+        resetTime = 1.0f;
         --lives;
         if (this.lives == 0)
             super.kill();
