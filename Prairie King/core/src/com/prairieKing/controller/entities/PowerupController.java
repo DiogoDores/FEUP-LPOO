@@ -32,7 +32,7 @@ public class PowerupController extends EntityController {
         super.setType("POWERUP");
         this.gameLogic = gameLogic;
         time = MathUtils.random(13.0f, 16.0f);
-        powerUp = Gdx.audio.newSound(Gdx.files.internal("Sounds/start.mp3"));
+        powerUp = Gdx.audio.newSound(Gdx.files.internal("sounds/start.mp3"));
     }
 
     /** Updates the time, so when a limit is reached, the powerup is destroyed.

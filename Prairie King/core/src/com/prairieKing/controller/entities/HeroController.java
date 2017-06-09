@@ -35,14 +35,13 @@ public class HeroController extends EntityController {
         this.speed = 8;
         left = false; right = false; up = false; down = false;
         this.lives = 3;
-        this.sound = Gdx.audio.newSound(Gdx.files.internal("Sounds/footstep.mp3"));
+        this.sound = Gdx.audio.newSound(Gdx.files.internal("sounds/footstep.mp3"));
         super.setType("HERO");
     }
 
     /** Move based on current keys pressed.
      */
     public void move() {
-
         checkPowerups();
         float x = super.getX(), y = super.getY();
         if (left && x > MIN_WIDTH)

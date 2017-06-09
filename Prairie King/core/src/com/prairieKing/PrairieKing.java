@@ -57,21 +57,22 @@ public class PrairieKing extends Game {
      */
     public void loadAssets() {
         mapLoader = new TmxMapLoader();
-        map = mapLoader.load("Mapas/Map.tmx");
+        map = mapLoader.load("mapas/map.tmx");
 
-        music = Gdx.audio.newMusic(Gdx.files.internal("Sounds/mainTheme.mp3"));
-        sound = Gdx.audio.newSound(Gdx.files.internal("Sounds/start.mp3"));
+        music = Gdx.audio.newMusic(Gdx.files.internal("sounds/maintheme.mp3"));
+        sound = Gdx.audio.newSound(Gdx.files.internal("sounds/start.mp3"));
         music.setVolume(0.5f);
         music.setLooping(true);
 
-        assetManager.load("Menus/LoseScreen.png", Texture.class);
-        assetManager.load("Menus/WinScreen.png", Texture.class);
-        assetManager.load("Mapas/MapaFinal.png", Texture.class);
-        assetManager.load("Sprites/MainSpriteSheet.png", Texture.class);
-        assetManager.load("Sprites/TransitionToWin.png", Texture.class);
-        assetManager.load("Sprites/BlockBackground.png", Texture.class);
-        assetManager.load("Mapas/Map.png", Texture.class);
-        assetManager.load("Menus/Menu1.png", Texture.class);
+        assetManager.load("menus/losescreen.png", Texture.class);
+        assetManager.load("menus/winscreen.png", Texture.class);
+        assetManager.load("mapas/mapafinal.png", Texture.class);
+        assetManager.load("sprites/mainspritesheet.png", Texture.class);
+        assetManager.load("sprites/transitiontowin.png", Texture.class);
+        assetManager.load("sprites/blockbackground.png", Texture.class);
+        assetManager.load("mapas/map.png", Texture.class);
+        assetManager.load("menus/menu.png", Texture.class);
+
         assetManager.finishLoading();
         assetManager.update();
     }

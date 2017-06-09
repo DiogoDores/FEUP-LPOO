@@ -23,7 +23,7 @@ public class MainMenu extends ScreenAdapter {
 
         view = new FitViewport(Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
 
-        menu = new Sprite (game.getAssetManager().get("Menus/Menu1.png", Texture.class));
+        menu = new Sprite (game.getAssetManager().get("menus/menu.png", Texture.class));
     }
 
     /** Override render.

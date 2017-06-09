@@ -33,12 +33,12 @@ public class WinScreen extends ScreenAdapter {
         batch = new SpriteBatch();
         view = new FitViewport(Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
         highScore = game.getHighScore();
-        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("Pixeled.ttf"));
+        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("pixeled.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
         parameter.size = 37;
         font = generator.generateFont(parameter);
         generator.dispose();
-        menu = new Sprite (game.getAssetManager().get("Menus/WinScreen.png", Texture.class));
+        menu = new Sprite (game.getAssetManager().get("menus/winscreen.png", Texture.class));
     }
 
     /** Override render.

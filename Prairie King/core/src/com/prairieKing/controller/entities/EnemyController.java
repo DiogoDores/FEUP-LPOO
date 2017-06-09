@@ -25,7 +25,7 @@ public class EnemyController extends EntityController implements Behavior {
         super(x,y);
         health = 1;
         super.setType("ENEMY");
-        sound = Gdx.audio.newSound(Gdx.files.internal("Sounds/enemyDeath.mp3"));
+        sound = Gdx.audio.newSound(Gdx.files.internal("sounds/enemydeath.mp3"));
     }
 
     /** Sets an Enemy Type as values in string. Necessary to View.

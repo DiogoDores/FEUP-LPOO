@@ -34,8 +34,8 @@ public class LoseScreen extends ScreenAdapter {
         view = new FitViewport(Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
         highScore = game.getHighScore();
 
-        menu = new Sprite (game.getAssetManager().get("Menus/LoseScreen.png", Texture.class));
-        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("Pixeled.ttf"));
+        menu = new Sprite (game.getAssetManager().get("menus/losescreen.png", Texture.class));
+        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("pixeled.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter parameterFront = new FreeTypeFontGenerator.FreeTypeFontParameter();
         FreeTypeFontGenerator.FreeTypeFontParameter parameterBack = new FreeTypeFontGenerator.FreeTypeFontParameter();
         parameterFront.size = 50;

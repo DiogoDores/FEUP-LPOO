@@ -52,7 +52,7 @@ public class Gun {
         this.world = gameLogic.getWorld();
         this.hero = gameLogic.getHero();
         SPEED = 1;
-        sound = Gdx.audio.newSound(Gdx.files.internal("Sounds/pop.mp3"));
+        sound = Gdx.audio.newSound(Gdx.files.internal("sounds/pop.mp3"));
         pool = new Pool<ProjectileController>() {
             @Override
             protected ProjectileController newObject() {

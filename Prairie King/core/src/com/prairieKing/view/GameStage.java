@@ -82,12 +82,14 @@ public class GameStage extends ScreenAdapter {
         cam.setToOrtho(false, PrairieKing.PPM, PrairieKing.PPM);
         view = new FitViewport(PrairieKing.PPM / Constants.RATIO, PrairieKing.PPM, cam);
         renderer = new OrthogonalTiledMapRenderer(map, .2234f);
+
         loadAssets();
 
-        atlas = new TextureAtlas("Sprites/Entities.pack");
-        endingHero = new TextureAtlas("Sprites/endingHero.pack");
+        atlas = new TextureAtlas("sprites/entities.pack");
+        endingHero = new TextureAtlas("sprites/endingHero.pack");
         animateHero = new HeroAnimator(this);
         animateEnemy = new EnemyAnimator(this);
+
 
         b2dr = new Box2DDebugRenderer();
 
@@ -96,9 +98,9 @@ public class GameStage extends ScreenAdapter {
     /** Loads all necessary game assets.
      */
     private void loadAssets() {
-        music = Gdx.audio.newMusic(Gdx.files.internal("Sounds/finalSong.mp3"));
-        mainSprite = game.getAssetManager().get("Sprites/MainSpriteSheet.png", Texture.class);
-        background = game.getAssetManager().get("Sprites/BlockBackground.png", Texture.class);
+        music = Gdx.audio.newMusic(Gdx.files.internal("sounds/finalsong.mp3"));
+        mainSprite = game.getAssetManager().get("sprites/mainspritesheet.png", Texture.class);
+        background = game.getAssetManager().get("sprites/blockbackground.png", Texture.class);
 
         loadEndAssets();
     }
@@ -106,17 +108,17 @@ public class GameStage extends ScreenAdapter {
     /** Loads all necessary ending assets.
      */
     private void loadEndAssets() {
-        ending = new Sprite(game.getAssetManager().get("Mapas/MapaFinal.png", Texture.class));
+        ending = new Sprite(game.getAssetManager().get("mapas/mapafinal.png", Texture.class));
         ending.setSize(PrairieKing.PPM / Constants.RATIO, PrairieKing.PPM);
-        ending.setX(-39);
-        kissing = new Sprite(game.getAssetManager().get("Sprites/MainSpriteSheet.png", Texture.class), 422, 155, 22, 21);
+        ending.setX(-42);
+        kissing = new Sprite(game.getAssetManager().get("sprites/mainspritesheet.png", Texture.class), 422, 155, 22, 21);
         kissing.setSize(1.7f * Constants.HERO_WIDTH, 1.6f * Constants.HERO_WIDTH);
 
-        holding = new Sprite(game.getAssetManager().get("Sprites/MainSpriteSheet.png", Texture.class), 186, 5, 16, 29);
+        holding = new Sprite(game.getAssetManager().get("sprites/mainspritesheet.png", Texture.class), 186, 5, 16, 29);
         holding.setSize(Constants.HERO_WIDTH * 1.1f, 2.2f * Constants.HERO_WIDTH);
-        transition = new Sprite(game.getAssetManager().get("Sprites/TransitionToWin.png", Texture.class));
+        transition = new Sprite(game.getAssetManager().get("sprites/transitiontowin.png", Texture.class));
         transition.setSize(PrairieKing.PPM / Constants.RATIO, PrairieKing.PPM * 5);
-        transition.setX(-39);
+       transition.setX(-42);
     }
 
     /** Render every frame.
@@ -258,7 +260,7 @@ public class GameStage extends ScreenAdapter {
     /** Displays a How To Play pop up.
      */
     private void drawHowToPlay() {
-        instructionDraw = new Sprite(game.getAssetManager().get("Sprites/MainSpriteSheet.png", Texture.class), 224, 0, 80, 47);
+        instructionDraw = new Sprite(game.getAssetManager().get("sprites/mainspritesheet.png", Texture.class), 224, 0, 80, 47);
         instructionDraw.setSize(40, 23.5f);
         instructionDraw.setX((PrairieKing.PPM / 2) - 16);
         instructionDraw.setY((PrairieKing.PPM / 2) - 10f);
@@ -268,7 +270,7 @@ public class GameStage extends ScreenAdapter {
     /** Draws all the elements of the hud, including lives and active powerup.
      */
     private void drawHud() {
-        Sprite gunHolder = new Sprite(game.getAssetManager().get("Sprites/MainSpriteSheet.png", Texture.class), 166, 134, 22, 22);
+        Sprite gunHolder = new Sprite(game.getAssetManager().get("sprites/mainspritesheet.png", Texture.class), 166, 134, 22, 22);
         gunHolder.setSize(17, 17);
         gunHolder.setX(-30);
         gunHolder.setY(80);
@@ -277,11 +279,11 @@ public class GameStage extends ScreenAdapter {
         Sprite currentPowerUp;
         if (gun.getTypeGun() != "NORMAL") {
             if (gun.getTypeGun() == "SHOTGUN")
-                currentPowerUp = new Sprite(game.getAssetManager().get("Sprites/MainSpriteSheet.png", Texture.class), 256, 160, 16, 16);
+                currentPowerUp = new Sprite(game.getAssetManager().get("sprites/mainspritesheet.png", Texture.class), 256, 160, 16, 16);
             else if (gun.getTypeGun() == "WHEEL")
-                currentPowerUp = new Sprite(game.getAssetManager().get("Sprites/MainSpriteSheet.png", Texture.class), 176, 160, 16, 16);
+                currentPowerUp = new Sprite(game.getAssetManager().get("sprites/mainspritesheet.png", Texture.class), 176, 160, 16, 16);
             else
-                currentPowerUp = new Sprite(game.getAssetManager().get("Sprites/MainSpriteSheet.png", Texture.class), 192, 160, 16, 16);
+                currentPowerUp = new Sprite(game.getAssetManager().get("sprites/mainspritesheet.png", Texture.class), 192, 160, 16, 16);
 
             currentPowerUp.setSize(9, 9);
             currentPowerUp.setX(-26);
@@ -290,7 +292,7 @@ public class GameStage extends ScreenAdapter {
             currentPowerUp.draw(batch);
         }
 
-        Sprite heartToDraw = new Sprite(game.getAssetManager().get("Sprites/MainSpriteSheet.png", Texture.class), 97, 162, 16, 16);
+        Sprite heartToDraw = new Sprite(game.getAssetManager().get("sprites/mainspritesheet.png", Texture.class), 97, 162, 16, 16);
         for (int i = 0; i < gameLogic.getHero().getLives() - 1; i++) {
             float x = i % 3;
             heartToDraw.setSize(Constants.HEART_WIDTH, Constants.HEART_WIDTH);
@@ -305,7 +307,7 @@ public class GameStage extends ScreenAdapter {
      */
     private void drawBullets() {
         for (ProjectileController projectile : gun.getProjectiles()) {
-            projectileToDraw = new Sprite(game.getAssetManager().get("Sprites/MainSpriteSheet.png", Texture.class), 384, 112, 5, 5);
+            projectileToDraw = new Sprite(game.getAssetManager().get("sprites/mainspritesheet.png", Texture.class), 384, 112, 5, 5);
             projectileToDraw.setSize(Constants.PROJECTILE_WIDTH, Constants.PROJECTILE_WIDTH);
             projectileToDraw.setX(projectile.getX());
             projectileToDraw.setY(projectile.getY());
@@ -319,15 +321,15 @@ public class GameStage extends ScreenAdapter {
         ArrayList<PowerupController> powerups = gameLogic.getPowerupSpawner().getPowerupModels();
         for (int i = 0; i < powerups.size(); i++) {
             if (powerups.get(i).getPowerupType().equals("GUN SPEED"))
-                powerupToDraw = new Sprite(game.getAssetManager().get("Sprites/MainSpriteSheet.png", Texture.class), 192, 160, 16, 16);
+                powerupToDraw = new Sprite(game.getAssetManager().get("sprites/mainspritesheet.png", Texture.class), 192, 160, 16, 16);
             else if (powerups.get(i).getPowerupType().equals("GUN SHOTGUN"))
-                powerupToDraw = new Sprite(game.getAssetManager().get("Sprites/MainSpriteSheet.png", Texture.class), 256, 160, 16, 16);
+                powerupToDraw = new Sprite(game.getAssetManager().get("sprites/mainspritesheet.png", Texture.class), 256, 160, 16, 16);
             else if (powerups.get(i).getPowerupType().equals("GUN WHEEL"))
-                powerupToDraw = new Sprite(game.getAssetManager().get("Sprites/MainSpriteSheet.png", Texture.class), 176, 160, 16, 16);
+                powerupToDraw = new Sprite(game.getAssetManager().get("sprites/mainspritesheet.png", Texture.class), 176, 160, 16, 16);
             else if (powerups.get(i).getPowerupType().equals("HERO LIFE") )
-                powerupToDraw = new Sprite(game.getAssetManager().get("Sprites/MainSpriteSheet.png", Texture.class), 272, 160, 16, 16);
+                powerupToDraw = new Sprite(game.getAssetManager().get("sprites/mainspritesheet.png", Texture.class), 272, 160, 16, 16);
             else if (powerups.get(i).getPowerupType().equals("HERO SPEED"))
-                powerupToDraw = new Sprite(game.getAssetManager().get("Sprites/MainSpriteSheet.png", Texture.class), 240, 160, 15, 15);
+                powerupToDraw = new Sprite(game.getAssetManager().get("sprites/mainspritesheet.png", Texture.class), 240, 160, 15, 15);
             powerupToDraw.setSize(Constants.POWERUP_WIDTH, Constants.POWERUP_WIDTH);
             powerupToDraw.setX(powerups.get(i).getX());
             powerupToDraw.setY(powerups.get(i).getY());
@@ -354,9 +356,12 @@ public class GameStage extends ScreenAdapter {
      */
     @Override
     public void resize(int width, int height) {
-        cam.viewportWidth = PrairieKing.PPM;
-        cam.viewportHeight = PrairieKing.PPM * Constants.RATIO;
-        view.update(width, height);
+        cam.viewportWidth = PrairieKing.PPM/Constants.RATIO;
+        cam.viewportHeight = PrairieKing.PPM;
+
+        view.update( width, height );
+        //cam.setToOrtho(false, view.getWorldWidth(), view.getWorldHeight());
+        cam.position.set(PrairieKing.PPM/2,PrairieKing.PPM/2,0);
         cam.update();
     }
 
