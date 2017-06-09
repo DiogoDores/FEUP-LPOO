@@ -1,13 +1,12 @@
 package com.prairieKing.test;
 
 import com.badlogic.gdx.Gdx;
-import com.prairieKing.PrairieKing;
-import com.prairieKing.controller.AI.AIManager;
-import com.prairieKing.controller.entities.EntityController;
-import com.prairieKing.controller.entities.HeroController;
-import com.prairieKing.model.GameLogic;
-import com.prairieKing.model.Gun;
-import com.prairieKing.model.powerups.PowerupSpawner;
+import com.PrairieKing;
+import com.controller.AI.AIManager;
+import com.controller.entities.HeroController;
+import com.model.GameLogic;
+import com.model.Gun;
+import com.model.powerups.PowerupSpawner;
 
 import org.junit.Test;
 
