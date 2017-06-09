@@ -32,7 +32,8 @@ public class ToughEnemy extends EnemyController {
     @Override
     public void move(EnemyController e, HeroController h) {
         super.move(e,h);
-        behaviour.move(this, h);
+        if (super.getAnimationDeath() == 1)
+            behaviour.move(this, h);
     }
 
     /** Only can be killed when it has lost all lives.
