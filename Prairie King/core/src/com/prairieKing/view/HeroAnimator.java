@@ -1,8 +1,6 @@
 package com.prairieKing.view;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -10,19 +8,26 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.utils.Array;
 import com.prairieKing.PrairieKing;
 
+/** Class responsible for all of the hero's animations.
+ */
 public class HeroAnimator extends Sprite{
 
     private GameStage gameStage;
 
-    public enum State { STANDING, WALKING_UP, WALKING_DOWN, WALKING_RIGHT, WALKING_LEFT }
-    public State currentState;
-    private Animation<TextureRegion> walkUp, walkDown, walkRight, walkLeft;
+    private enum State { STANDING, WALKING_UP, WALKING_DOWN, WALKING_RIGHT, WALKING_LEFT, WALKING_FINAL}
+    private State currentState;
+    private Animation<TextureRegion> walkUp, walkDown, walkRight, walkLeft, walkFinal;
     private float stateTimer;
     private boolean loop;
 
     private Body body;
     private TextureRegion defPosition;
 
+    /**
+     * Constructor of the Hero Animator. It needs a GameStage instance for accessing the hero's body.
+     *
+     * @param gameStage GameStage instance.
+     */
     public HeroAnimator(GameStage gameStage) {
         super(gameStage.getAtlas().findRegion("heroMovement"));
         this.body = gameStage.getGameLogic().getHeroBody().getBody();
@@ -31,43 +36,71 @@ public class HeroAnimator extends Sprite{
         stateTimer = 0;
         this.loop = true;
 
-        Array<TextureRegion> frames = new Array<TextureRegion>();
+        this.gameStage = gameStage;
+
+        loadAnimations();
+
+        defPosition = new TextureRegion(getTexture(), 1, 1, 16, 16);
+        setBounds(0, 0, 16 / (PrairieKing.PPM /40), 16 / (PrairieKing.PPM /40));
+
+        setRegion(defPosition);
+    }
+
+    /**
+     * Loads every frame into an array list
+     */
+    public void loadAnimations(){
+        Array<TextureRegion> frames = new Array<>();
 
         for (int i = 1; i < 4; i++)
             frames.add(new TextureRegion(getTexture(), i * 16 + 1, 1, 16, 16));
 
-        walkDown = new Animation<TextureRegion>(0.2f, frames);
+        walkDown = new Animation<>(0.2f, frames);
         frames.clear();
 
         for (int i = 5; i < 9; i++)
             frames.add(new TextureRegion(getTexture(), i * 16 + 1, 1, 16, 16));
 
-        walkRight = new Animation<TextureRegion>(0.2f, frames);
+        walkRight = new Animation<>(0.2f, frames);
         frames.clear();
 
         for (int i = 9; i < 13; i++)
             frames.add(new TextureRegion(getTexture(), i * 16 + 1, 1, 16, 16));
 
-        walkLeft = new Animation<TextureRegion>(0.2f, frames);
+        walkLeft = new Animation<>(0.2f, frames);
         frames.clear();
 
         for (int i = 13; i < 17; i++)
             frames.add(new TextureRegion(getTexture(), i * 16 + 1, 1, 16, 16));
 
-        walkUp = new Animation<TextureRegion>(0.2f, frames);
+        walkUp = new Animation<>(0.2f, frames);
+        frames.clear();
 
-        defPosition = new TextureRegion(getTexture(), 1, 1, 16, 16);
-        setBounds(0, 0, 16 / (PrairieKing.PPM /40), 16 / (PrairieKing.PPM /40));
-        setRegion(defPosition);
+        for (int i = 13; i < 17; i++)
+            frames.add(new TextureRegion(getTexture(), i * 16 + 1, 1, 16, 16));
 
-        this.gameStage = gameStage;
+        walkUp = new Animation<>(0.2f, frames);
+        frames.clear();
+
+        gameStage.getEndingHero().findRegion("Hero");
+
+        for (int i = 0; i < 3; i++)
+            frames.add(new TextureRegion(gameStage.getEndingHero().findRegion("Hero"), i * 16, 0, 16, 28));
+
+        walkFinal = new Animation<>(0.15f, frames);
     }
 
+    /** Updates the hero's body position and the sprite to use.
+     */
     public void update(){
         setPosition(body.getPosition().x, body.getPosition().y);
         setRegion(getFrame());
     }
 
+    /** Gets the correct sprite to use
+     *
+     * @return The sprite do use at a certain occasion
+     */
     public TextureRegion getFrame(){
 
         currentState = getState();
@@ -87,6 +120,10 @@ public class HeroAnimator extends Sprite{
             case WALKING_RIGHT:
                 region = walkRight.getKeyFrame(stateTimer, this.loop);
                 break;
+            case WALKING_FINAL:
+                setBounds(gameStage.getGameLogic().getHero().getX(), gameStage.getGameLogic().getHero().getY(), 16 / (PrairieKing.PPM / 40), 28 / (PrairieKing.PPM / 40));
+                region = walkFinal.getKeyFrame(stateTimer, this.loop);
+                break;
             default:
                 region = defPosition;
         }
@@ -95,9 +132,17 @@ public class HeroAnimator extends Sprite{
         return region;
     }
 
+    /** Gets the hero's current state
+     *
+     * @return The hero's current state
+     */
     public State getState(){
 
         State tempState;
+
+        if(gameStage.getHasWon()) {
+            return State.WALKING_FINAL;
+        }
 
         if(gameStage.getGameLogic().getHero().getDown())
             tempState = State.WALKING_DOWN;

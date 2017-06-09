@@ -12,6 +12,7 @@ import com.prairieKing.controller.entities.FlyingEnemy;
 import com.prairieKing.model.GameLogic;
 import com.prairieKing.controller.entities.HeroController;
 import com.prairieKing.controller.entities.ToughEnemy;
+import com.prairieKing.view.EnemyAnimator;
 
 import java.util.ArrayList;
 
@@ -21,7 +22,7 @@ import java.util.ArrayList;
 public class AIManager {
 
     private GameLogic gameLogic;
-    private float MAX_ENEMY_NUMBER =6;
+    private float MAX_ENEMY_NUMBER = 6;
     private ArrayList<EnemyController> enemies = new ArrayList<>();
     private ArrayList<EnemyBody> enemiesBodies = new ArrayList<>();
 
@@ -190,7 +191,7 @@ public class AIManager {
                 }
 
                 enemies.remove(enemies.get(i));
-                // enemyModelsPool.free(enemies.get(i)); TODO PRECISO DE ARRANJAR ISTO, SENAO POOL NAO ESTA IMPLEMENTADO!!!
+                //enemyModelsPool.free(enemies.get(i)); TODO PRECISO DE ARRANJAR ISTO, SENAO POOL NAO ESTA IMPLEMENTADO!!!
              }
         }
     }

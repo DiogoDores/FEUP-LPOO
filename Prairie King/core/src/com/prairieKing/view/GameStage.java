@@ -30,8 +30,8 @@ import java.util.ArrayList;
 public class GameStage extends ScreenAdapter {
     private Stage stage;
     private PrairieKing game;
-    private Sprite powerupToDraw, projectileToDraw;
-    private Sprite woman, ending, kissing, transition;
+    private Sprite powerupToDraw, projectileToDraw, instructionDraw;
+    private Sprite ending, kissing, transition;
     private SpriteBatch batch;
     private FitViewport view;
     private GameLogic gameLogic;
@@ -46,7 +46,7 @@ public class GameStage extends ScreenAdapter {
     private OrthographicCamera cam;
 
     private Box2DDebugRenderer b2dr;
-    private TextureAtlas atlas;
+    private TextureAtlas atlas, endingHero;
 
     private Texture mainSprite, background;
 
@@ -57,6 +57,9 @@ public class GameStage extends ScreenAdapter {
 
     private float animation;
     private Music music;
+    private boolean isHowToActive;
+    private float timer;
+
 
     /** Constructor for the main screen.
      *
@@ -73,6 +76,8 @@ public class GameStage extends ScreenAdapter {
         cam = new OrthographicCamera(PrairieKing.PPM, PrairieKing.PPM);
         map = gameLogic.getPrairieKing().getMap();
         hasWon = false;
+        isHowToActive = true;
+        timer = 1.5f;
         cam.position.set(cam.viewportWidth / 2, cam.viewportHeight / 2, 0);
         cam.setToOrtho(false, PrairieKing.PPM, PrairieKing.PPM);
         view = new FitViewport(PrairieKing.PPM / Constants.RATIO, PrairieKing.PPM, cam);
@@ -80,6 +85,7 @@ public class GameStage extends ScreenAdapter {
         loadAssets();
 
         atlas = new TextureAtlas("Sprites/Entities.pack");
+        endingHero = new TextureAtlas("Sprites/endingHero.pack");
         animateHero = new HeroAnimator(this);
         animateEnemy = new EnemyAnimator(this);
 
@@ -100,10 +106,6 @@ public class GameStage extends ScreenAdapter {
     /** Loads all necessary ending assets.
      */
     private void loadEndAssets() {
-        woman = new Sprite(game.getAssetManager().get("Sprites/MainSpriteSheet.png", Texture.class), 304, 96, 16, 16);
-        woman.setSize(Constants.HERO_WIDTH * 1.2f, Constants.HERO_WIDTH * 1.2f);
-        woman.setX(PrairieKing.PPM / 2);
-        woman.setY(PrairieKing.PPM / 2 - 10);
         ending = new Sprite(game.getAssetManager().get("Mapas/MapaFinal.png", Texture.class));
         ending.setSize(PrairieKing.PPM / Constants.RATIO, PrairieKing.PPM);
         ending.setX(-42);
@@ -169,6 +171,7 @@ public class GameStage extends ScreenAdapter {
         } else {
             animateHero.update();
             animateHero.draw(batch);
+
             drawEnemies();
             drawBullets();
             drawPowerups();
@@ -185,6 +188,15 @@ public class GameStage extends ScreenAdapter {
 
             drawHud();
 
+            if(isHowToActive) {
+
+                drawHowToPlay();
+                timer -= Gdx.graphics.getDeltaTime();
+
+                if(timer < 0)
+                    isHowToActive = false;
+            }
+
         }
         batch.end();
     }
@@ -195,7 +207,8 @@ public class GameStage extends ScreenAdapter {
         music.play();
         music.setVolume(0.5f);
         ending.draw(batch);
-        woman.draw(batch);
+        animateEnemy.updateWife(false);
+        animateEnemy.draw(batch);
 
         animateHero.update();
         animateHero.draw(batch);
@@ -214,13 +227,24 @@ public class GameStage extends ScreenAdapter {
      */
     private void waitsForKiss() {
         ending.draw(batch);
-        woman.draw(batch);
+        animateEnemy.updateWife(true);
+        animateEnemy.draw(batch);
 
         Sprite h = new Sprite(game.getAssetManager().get("Sprites/MainSpriteSheet.png", Texture.class), 352, 128, 16, 16);
         h.setSize(Constants.HERO_WIDTH * 1.1f, Constants.HERO_WIDTH * 1.1f);
         h.setX(gameLogic.getHero().getX());
         h.setY(gameLogic.getHero().getY());
         h.draw(batch);
+    }
+
+    /** Displays a How To Play pop up.
+     */
+    private void drawHowToPlay() {
+        instructionDraw = new Sprite(game.getAssetManager().get("Sprites/MainSpriteSheet.png", Texture.class), 224, 0, 80, 47);
+        instructionDraw.setSize(40, 23.5f);
+        instructionDraw.setX((PrairieKing.PPM / 2) - 16);
+        instructionDraw.setY((PrairieKing.PPM / 2) - 10f);
+        instructionDraw.draw(batch);
     }
 
     /** Draws all the elements of the hud, including lives and active powerup.
@@ -263,7 +287,7 @@ public class GameStage extends ScreenAdapter {
      */
     private void drawBullets() {
         for (ProjectileController projectile : gun.getProjectiles()) {
-            projectileToDraw = new Sprite(game.getAssetManager().get("Sprites/MainSpriteSheet.png", Texture.class), 261, 160, 6, 6);
+            projectileToDraw = new Sprite(game.getAssetManager().get("Sprites/MainSpriteSheet.png", Texture.class), 384, 112, 5, 5);
             projectileToDraw.setSize(Constants.PROJECTILE_WIDTH, Constants.PROJECTILE_WIDTH);
             projectileToDraw.setX(projectile.getX());
             projectileToDraw.setY(projectile.getY());
@@ -360,5 +384,8 @@ public class GameStage extends ScreenAdapter {
         return hasWon;
     }
 
+    public TextureAtlas getEndingHero() {
+        return endingHero;
+    }
 
 }
