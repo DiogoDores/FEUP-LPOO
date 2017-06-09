@@ -24,11 +24,15 @@ public class WinScreen extends ScreenAdapter {
 
     private int highScore;
 
+    /** Instantiates WinScreen and loads all necessary assets.
+     *
+     * @param game Needs this to access highScore and AssetManager
+     */
     public WinScreen(PrairieKing game) {
         this.game = game;
         batch = new SpriteBatch();
         view = new FitViewport(Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
-        highScore = game.getMaxHighScore();
+        highScore = game.getHighScore();
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("Pixeled.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
         parameter.size = 37;
@@ -37,9 +41,9 @@ public class WinScreen extends ScreenAdapter {
         menu = new Sprite (game.getAssetManager().get("Menus/WinScreen.png", Texture.class));
     }
 
-    /**
+    /** Override render.
      *
-     * @param delta
+     * @param delta Value passed.
      */
     @Override
     public void render(float delta) {
@@ -47,24 +51,23 @@ public class WinScreen extends ScreenAdapter {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         batch.begin();
 
-        menu.setSize(view.getWorldWidth(),view.getWorldHeight());
+        menu.setSize(Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
         menu.draw(batch);
-
-
-        font.draw(batch, ""+ highScore, view.getScreenWidth()/2 - font.getSpaceWidth()/2 , view.getScreenHeight()/7);
+        font.draw(batch, ""+ highScore, Gdx.graphics.getWidth()/2.2f - font.getSpaceWidth()/2 , Gdx.graphics.getHeight()/7);
         batch.end();
 
     }
 
+    /** After a new game, needs to update HighScore.
+     *
+     * @param x New HighScore.
+     */
     public void updateHighScore(int x) {
         highScore = x;
     }
 
-    @Override
-    public void resize(int width, int height) {
-        view.update(width,height);
-    }
-
+    /** Dispose when finished.
+     */
     @Override
     public void dispose() {
         batch.dispose();

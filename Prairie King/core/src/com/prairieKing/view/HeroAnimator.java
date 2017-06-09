@@ -14,9 +14,9 @@ public class HeroAnimator extends Sprite{
 
     private GameStage gameStage;
 
-    private enum State { STANDING, WALKING_UP, WALKING_DOWN, WALKING_RIGHT, WALKING_LEFT, WALKING_FINAL}
+    private enum State { STANDING, WALKING_UP, WALKING_DOWN, WALKING_RIGHT, WALKING_LEFT }
     private State currentState;
-    private Animation<TextureRegion> walkUp, walkDown, walkRight, walkLeft, walkFinal;
+    private Animation<TextureRegion> walkUp, walkDown, walkRight, walkLeft;
     private float stateTimer;
     private boolean loop;
 
@@ -36,14 +36,13 @@ public class HeroAnimator extends Sprite{
         stateTimer = 0;
         this.loop = true;
 
-        this.gameStage = gameStage;
-
         loadAnimations();
 
         defPosition = new TextureRegion(getTexture(), 1, 1, 16, 16);
         setBounds(0, 0, 16 / (PrairieKing.PPM /40), 16 / (PrairieKing.PPM /40));
-
         setRegion(defPosition);
+
+        this.gameStage = gameStage;
     }
 
     /**
@@ -74,20 +73,6 @@ public class HeroAnimator extends Sprite{
             frames.add(new TextureRegion(getTexture(), i * 16 + 1, 1, 16, 16));
 
         walkUp = new Animation<>(0.2f, frames);
-        frames.clear();
-
-        for (int i = 13; i < 17; i++)
-            frames.add(new TextureRegion(getTexture(), i * 16 + 1, 1, 16, 16));
-
-        walkUp = new Animation<>(0.2f, frames);
-        frames.clear();
-
-        gameStage.getEndingHero().findRegion("Hero");
-
-        for (int i = 0; i < 3; i++)
-            frames.add(new TextureRegion(gameStage.getEndingHero().findRegion("Hero"), i * 16, 0, 16, 28));
-
-        walkFinal = new Animation<>(0.15f, frames);
     }
 
     /** Updates the hero's body position and the sprite to use.
@@ -120,10 +105,6 @@ public class HeroAnimator extends Sprite{
             case WALKING_RIGHT:
                 region = walkRight.getKeyFrame(stateTimer, this.loop);
                 break;
-            case WALKING_FINAL:
-                setBounds(gameStage.getGameLogic().getHero().getX(), gameStage.getGameLogic().getHero().getY(), 16 / (PrairieKing.PPM / 40), 28 / (PrairieKing.PPM / 40));
-                region = walkFinal.getKeyFrame(stateTimer, this.loop);
-                break;
             default:
                 region = defPosition;
         }
@@ -139,10 +120,6 @@ public class HeroAnimator extends Sprite{
     public State getState(){
 
         State tempState;
-
-        if(gameStage.getHasWon()) {
-            return State.WALKING_FINAL;
-        }
 
         if(gameStage.getGameLogic().getHero().getDown())
             tempState = State.WALKING_DOWN;
