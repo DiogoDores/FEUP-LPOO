@@ -24,12 +24,11 @@ public class AIManager {
     private GameLogic gameLogic;
     private float MAX_ENEMY_NUMBER = 6;
     private ArrayList<EnemyController> enemies = new ArrayList<>();
-    private ArrayList<EnemyBody> enemiesBodies = new ArrayList<>();
+    private ArrayList<EnemyBody> enemyBodies = new ArrayList<>();
 
     private int killCount;
     private boolean hasIncreased;
     private float timeToSpawn;
-    private Pool<EnemyController> enemyModelsPool;
     private char lastSpawned = 'n', last2spawned = 's';
 
     private boolean hasWon;
@@ -47,38 +46,6 @@ public class AIManager {
         hasWon = false;
         activeNumber = 0;
         timeToSpawn = .2f;
-
-        enemyModelsPool = new Pool<EnemyController>() {
-            @Override
-            protected EnemyController newObject() {
-                int random;
-                String spawnPlaces = "nsew";
-                if (killCount < 100)
-                    random = MathUtils.random(1);
-                else
-                    random = MathUtils.random(2);
-                int randomSpawn = MathUtils.random(3);
-                while ( spawnPlaces.charAt(randomSpawn) == lastSpawned && spawnPlaces.charAt(randomSpawn) == last2spawned) {
-                    randomSpawn = MathUtils.random(3);
-                }
-
-                last2spawned = lastSpawned;
-                lastSpawned =  spawnPlaces.charAt(randomSpawn);
-
-                Vector2 position = randomizeSpawn(spawnPlaces.charAt(randomSpawn));
-
-                if (random == 0 && killCount <= 450) {
-                    return new BasicWalker(position.x, position.y,spawnPlaces.charAt(randomSpawn));
-                }
-                else if (random == 1 && killCount < 250) {
-                    return new FlyingEnemy(position.x, position.y, spawnPlaces.charAt(randomSpawn));
-                }
-                else if (random == 2 &&  killCount >= 100 && killCount <= 450) {
-                    return new ToughEnemy(position.x, position.y,spawnPlaces.charAt(randomSpawn));
-                }
-                return null;
-            }
-        };
     }
 
     /** Increases difficulty.
@@ -133,22 +100,55 @@ public class AIManager {
         }
         else {
             if (killCount % 20 == 0 && killCount != 0 && !hasIncreased) {
-               // System.out.println("Aumentei com " + killCount + " e " + killCount % 10);
                 hasIncreased = true;
                 increaseDifficulty();
             }
 
             if (activeNumber < MAX_ENEMY_NUMBER && timeToSpawn <= 0.0f) {
-                EnemyController e = enemyModelsPool.obtain();
+                EnemyController e = summonEnemy();
                 if (e != null) {
                     activeNumber++;
                     enemies.add(e);
-                    enemiesBodies.add(new EnemyBody(gameLogic.getWorld(), e));
+                    enemyBodies.add(new EnemyBody(gameLogic.getWorld(), e));
                     timeToSpawn = MathUtils.random(5.0f / MAX_ENEMY_NUMBER, 7.0f / MAX_ENEMY_NUMBER);
+
                 }
             }
             timeToSpawn -= Gdx.graphics.getDeltaTime();
         }
+    }
+
+    /** Summons an Enemy.
+     *
+     * @return new Enemy to be spawned.
+     */
+    private EnemyController summonEnemy() {
+        int random;
+        String spawnPlaces = "nsew";
+        if (killCount < 100)
+            random = MathUtils.random(1);
+        else
+            random = MathUtils.random(2);
+        int randomSpawn = MathUtils.random(3);
+        while ( spawnPlaces.charAt(randomSpawn) == lastSpawned && spawnPlaces.charAt(randomSpawn) == last2spawned) {
+            randomSpawn = MathUtils.random(3);
+        }
+
+        last2spawned = lastSpawned;
+        lastSpawned =  spawnPlaces.charAt(randomSpawn);
+
+        Vector2 position = randomizeSpawn(spawnPlaces.charAt(randomSpawn));
+
+        if (random == 0 && killCount <= 450) {
+            return new BasicWalker(position.x, position.y,spawnPlaces.charAt(randomSpawn));
+        }
+        else if (random == 1 && killCount < 250) {
+            return new FlyingEnemy(position.x, position.y, spawnPlaces.charAt(randomSpawn));
+        }
+        else if (random == 2 &&  killCount >= 100 && killCount <= 450) {
+            return new ToughEnemy(position.x, position.y,spawnPlaces.charAt(randomSpawn));
+        }
+        return null;
     }
 
     /**Returns the active Enemy list for the GameStage.
@@ -168,7 +168,7 @@ public class AIManager {
             for (EnemyController e : enemies) {
                 int index = enemies.indexOf(e);
                 e.move(e,hero);
-                enemiesBodies.get(index).setTransform(e.getX(),e.getY());
+                enemyBodies.get(index).setTransform(e.getX(),e.getY());
         }
     }
 
@@ -180,18 +180,17 @@ public class AIManager {
     public void checkEnemies() {
         for (int i = 0; i < enemies.size(); i++) {
             if (enemies.get(i).isFlaggedForDelete()) {
-                for (int j = 0; j < enemiesBodies.size(); j++) {
-                    if (enemiesBodies.get(j).getUserData() == enemies.get(i)) {
-                        enemiesBodies.get(j).destroy();
-                        enemiesBodies.remove(enemiesBodies.get(j));
+                for (int j = 0; j < enemyBodies.size(); j++) {
+                    if (enemyBodies.get(j).getUserData() == enemies.get(i)) {
+                        enemyBodies.get(j).destroy();
+                        enemyBodies.remove(enemyBodies.get(j));
                         activeNumber--;
                         killCount++;
                         hasIncreased = false;
                     }
                 }
-
+                enemies.get(i).resurrect();
                 enemies.remove(enemies.get(i));
-                //enemyModelsPool.free(enemies.get(i)); TODO PRECISO DE ARRANJAR ISTO, SENAO POOL NAO ESTA IMPLEMENTADO!!!
              }
         }
     }
@@ -209,7 +208,7 @@ public class AIManager {
      * @return Active Enemy Bodies.
      */
     public ArrayList<EnemyBody> getEnemiesBodies() {
-        return enemiesBodies;
+        return enemyBodies;
     }
 
 }

@@ -112,13 +112,17 @@ public class Gun {
         for (int i = 0; i < projectiles.size(); i++) {
             if (projectiles.get(i) != null) {
                 if (projectiles.get(i).isFlaggedForDelete()) {
+                    projectiles.get(i).resurrect();
+
                     for (int j = 0; j < projectilesBodies.size(); j++) {
                         if (projectilesBodies.get(j).getUserData() == projectiles.get(i)) {
                             projectilesBodies.get(j).destroy();
                             projectilesBodies.remove(j);
                         }
                     }
+                    ProjectileController p = projectiles.get(i);
                     projectiles.remove(i);
+                    pool.free(p);
                 }
             }
         }

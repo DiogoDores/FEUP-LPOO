@@ -58,18 +58,18 @@ public class HeroWin extends HeroController {
     private void grabsHeart() {
         float newX = super.getX(), newY = super.getY();
         float x = newX, y = newY;
-        if (x - PrairieKing.PPM / 2 > 1) {
+        if (x - PrairieKing.PPM / 2 > 0.3f) {
             newX = (x - (PrairieKing.PPM / speed * Gdx.graphics.getDeltaTime()));
             activeChar = 'a';
-        } else if (x - PrairieKing.PPM / 2 < -1) {
+        } else if (x - PrairieKing.PPM / 2 < -0.3f) {
             newX = (x + (PrairieKing.PPM / speed * Gdx.graphics.getDeltaTime()));
             activeChar = 'd';
         } else {
-            if (y - PrairieKing.PPM / 2 > 1) {
+            if (y - PrairieKing.PPM / 2 > 0.3f) {
                 newY = (y - (PrairieKing.PPM / speed * Gdx.graphics.getDeltaTime()));
                 activeChar = 's';
 
-            } else if (y - PrairieKing.PPM / 2 < -1){
+            } else if (y - PrairieKing.PPM / 2 < -0.3f){
                 newY = (y + (PrairieKing.PPM / speed * Gdx.graphics.getDeltaTime()));
                 activeChar = 'w';
             }

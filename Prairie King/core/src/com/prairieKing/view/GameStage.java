@@ -128,7 +128,7 @@ public class GameStage extends ScreenAdapter {
     @Override
     public void render(float delta) {
         renderer.setView(cam);
-
+        b2dr.render(gameLogic.getWorld(),cam.combined);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         Gdx.gl.glClearColor(0, 0, 0, 1);
 
@@ -139,31 +139,40 @@ public class GameStage extends ScreenAdapter {
         cam.update();
         batch.setProjectionMatrix(cam.combined);
 
+        float currState = gameLogic.getHero().getState();
         if (hasWon) {
 
-            if (gameLogic.getHero().getState() == 0 || gameLogic.getHero().getState() == 0.75f) {
+            if (currState == 0 || currState == 0.75f) {
+                if (currState == 0) {
+                    Sprite heartnew = new Sprite(game.getAssetManager().get("sprites/mainspritesheet.png", Texture.class), 98, 163, 13, 12);
+                    heartnew.setX(PrairieKing.PPM/2);
+                    heartnew.setY(PrairieKing.PPM/2);
+                    heartnew.setSize(Constants.HEART_WIDTH/2.0f, Constants.HEART_WIDTH/2.0f);
+                    heartnew.draw(batch);
+                }
+
                 animateHero.update();
                 animateHero.draw(batch);
             }
-            else if ( gameLogic.getHero().getState() == 0.5f) {
+            else if ( currState == 0.5f) {
               isHoldingHeart();
             }
             else {
 
-                if (gameLogic.getHero().getState() == 1 || gameLogic.getHero().getState() == 1.5f) {
+                if (currState == 1 || currState == 1.5f) {
                     isGoingToWife();
-                } else if (gameLogic.getHero().getState() == 2) {
+                } else if (currState == 2) {
                     waitsForKiss();
-                } else if (gameLogic.getHero().getState() == 3 || gameLogic.getHero().getState() == 4) {
+                } else if (currState == 3 || currState == 4) {
                     isKissing();
-                    if (gameLogic.getHero().getState() == 4) {
+                    if (currState == 4) {
                         animation -= 50.0f * Gdx.graphics.getDeltaTime();
                         if (animation <= -400)
                             animation = -400;
                         transition.setY(animation);
                         transition.draw(batch);
                     }
-                } else if (gameLogic.getHero().getState() == 5) {
+                } else if (currState == 5) {
                     transition.draw(batch);
                     PrairieKing.currentState = 3;
                     float volume = gameLogic.getPrairieKing().decreaseVolume(music, 0.000001f);
@@ -292,13 +301,13 @@ public class GameStage extends ScreenAdapter {
             currentPowerUp.draw(batch);
         }
 
-        Sprite heartToDraw = new Sprite(game.getAssetManager().get("sprites/mainspritesheet.png", Texture.class), 97, 162, 16, 16);
+        Sprite lifeToDraw  = new Sprite(game.getAssetManager().get("sprites/mainspritesheet.png", Texture.class), 272, 160, 16, 16);
         for (int i = 0; i < gameLogic.getHero().getLives() - 1; i++) {
             float x = i % 3;
-            heartToDraw.setSize(Constants.HEART_WIDTH, Constants.HEART_WIDTH);
-            heartToDraw.setX( 110 + x * Constants.HEART_WIDTH);
-            heartToDraw.setY(10 + (i / 3 * Constants.HEART_WIDTH));
-            heartToDraw.draw(batch);
+            lifeToDraw.setSize(Constants.HEART_WIDTH, Constants.HEART_WIDTH);
+            lifeToDraw.setX( 110 + x * Constants.HEART_WIDTH);
+            lifeToDraw.setY(10 + (i / 3 * Constants.HEART_WIDTH));
+            lifeToDraw.draw(batch);
         }
 
     }

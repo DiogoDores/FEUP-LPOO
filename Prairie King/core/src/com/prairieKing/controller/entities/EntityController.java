@@ -72,6 +72,12 @@ public class EntityController {
         flaggedForDelete = true;
     }
 
+    /** Set flaggedForDeleteTrue.
+     */
+    public void resurrect() {
+        flaggedForDelete = false;
+    }
+
     /** Returns whether this model and its associated body is flagged
      * for deletion.
      * @return flaggedForDelete
