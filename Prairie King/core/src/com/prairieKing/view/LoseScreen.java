@@ -38,8 +38,8 @@ public class LoseScreen extends ScreenAdapter {
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("Pixeled.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter parameterFront = new FreeTypeFontGenerator.FreeTypeFontParameter();
         FreeTypeFontGenerator.FreeTypeFontParameter parameterBack = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameterFront.size = 37;
-        parameterBack.size = 37;
+        parameterFront.size = 50;
+        parameterBack.size = 50;
         parameterBack.color = toRGB(85,85,178);
         font = generator.generateFont(parameterFront);
         fontBack = generator.generateFont(parameterBack);
@@ -60,8 +60,8 @@ public class LoseScreen extends ScreenAdapter {
         menu.setSize(view.getWorldWidth(),view.getWorldHeight());
         menu.draw(batch);
 
-        fontBack.draw(batch, ""+ highScore, view.getScreenWidth()/2 + view.getScreenWidth()/10.5F, view.getScreenHeight()/2f - view.getScreenHeight()/700f);
-        font.draw(batch, ""+ highScore, view.getScreenWidth()/2 + view.getScreenWidth()/10, view.getScreenHeight()/2);
+        fontBack.draw(batch, ""+ highScore, view.getWorldWidth()/2.22f - font.getSpaceWidth()/2 , view.getWorldHeight()/2.11f + view.getWorldHeight()/20.01f);
+        font.draw(batch, ""+ highScore,   view.getWorldWidth()/2.2f - font.getSpaceWidth()/2 , view.getWorldHeight()/2.1f + view.getWorldHeight()/20.01f);
         batch.end();
 
     }

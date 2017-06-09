@@ -51,10 +51,9 @@ public class WinScreen extends ScreenAdapter {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         batch.begin();
 
-        menu.setSize(view.getWorldWidth(),view.getWorldHeight());
+        menu.setSize(Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
         menu.draw(batch);
-
-        font.draw(batch, ""+ highScore, view.getScreenWidth()/2 - font.getSpaceWidth()/2 , view.getScreenHeight()/7);
+        font.draw(batch, ""+ highScore, Gdx.graphics.getWidth()/2.2f - font.getSpaceWidth()/2 , Gdx.graphics.getHeight()/7);
         batch.end();
 
     }

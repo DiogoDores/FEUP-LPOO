@@ -3,7 +3,8 @@ package com.prairieKing.controller.entities;
 import com.badlogic.gdx.Gdx;
 import com.prairieKing.PrairieKing;
 
-/** Custom hero, created only when the player wins.
+/**
+ * Custom hero, created only when the player wins.
  */
 public class HeroWin extends HeroController {
     private float speed = 8;
@@ -11,7 +12,8 @@ public class HeroWin extends HeroController {
     private float animationTime;
     private char activeChar;
 
-    /** Hero that has a set Behavior when won.
+    /**
+     * Hero that has a set Behavior when won.
      *
      * @param x HeroController's X.
      * @param y HeroController's Y.
@@ -23,95 +25,129 @@ public class HeroWin extends HeroController {
         state = 0;
     }
 
-    /** Specific animation, regardless of where player wins.
+    /**
+     * Specific animation, regardless of where player wins.
      */
     public void move() {
-       if (state == 0)
-           isLeavingTheZone();
+        if (state == 0)
+            grabsHeart();
+        else if(state == 0.5f)
+            waitsForHeart();
 
-       else if (state == 1)
-           headsToBridge();
+        else if (state == 0.75f)
+            isLeavingTheZone();
 
-       else if (state == 1.5f)
-           goesToWife();
+        else if (state == 1)
+            headsToBridge();
 
-       else if (state == 2)
-           waitsForKiss();
+        else if (state == 1.5f)
+            goesToWife();
 
-       else if (state == 3)
-          kisses();
+        else if (state == 2)
+            waitsForKiss();
 
-       else if (state == 4)
-          ends();
+        else if (state == 3)
+            kisses();
 
-       updateState();
+        else if (state == 4)
+            ends();
+
+        updateState();
     }
 
-    /** Starts heading down the map.
+    private void grabsHeart() {
+        float newX = super.getX(), newY = super.getY();
+        float x = newX, y = newY;
+        if (x - PrairieKing.PPM / 2 > 1) {
+            newX = (x - (PrairieKing.PPM / speed * Gdx.graphics.getDeltaTime()));
+            activeChar = 'a';
+        } else if (x - PrairieKing.PPM / 2 < -1) {
+            newX = (x + (PrairieKing.PPM / speed * Gdx.graphics.getDeltaTime()));
+            activeChar = 'd';
+        } else {
+            if (y - PrairieKing.PPM / 2 > 1) {
+                newY = (y - (PrairieKing.PPM / speed * Gdx.graphics.getDeltaTime()));
+                activeChar = 's';
+
+            } else if (y - PrairieKing.PPM / 2 < -1){
+                newY = (y + (PrairieKing.PPM / speed * Gdx.graphics.getDeltaTime()));
+                activeChar = 'w';
+            }
+            else {
+                state = 0.5f;
+                animationTime = 1.5f;
+            }
+        }
+        super.setPosition(newX, newY);
+    }
+
+    /** Is waiting for heart.
+     */
+    private void waitsForHeart() {
+        animationTime -= Gdx.graphics.getDeltaTime();
+        if (animationTime <= 0) {
+            state = 0.75f;
+        }
+    }
+
+    /**
+     * Starts heading down the map.
      */
     private void isLeavingTheZone() {
         float newX = super.getX(), newY = super.getY();
-        float x = newX, y = newY;
-        if (x - PrairieKing.PPM/2  > 1) {
-            newX = (x - (PrairieKing.PPM / speed * Gdx.graphics.getDeltaTime()));
-            activeChar = 'a';
+        float y = newY;
+
+        if (y < -10) {
+            state = 1;
+            newY = PrairieKing.PPM;
+        } else {
+            newY = (y - (PrairieKing.PPM / speed * Gdx.graphics.getDeltaTime()));
+            activeChar = 's';
         }
-        else if (x - PrairieKing.PPM/2  < -1) {
-            newX = (x + (PrairieKing.PPM / speed * Gdx.graphics.getDeltaTime()));
-            activeChar = 'd';
-        }
-        else {
-            if (y < -10) {
-                state =1;
-                newY = PrairieKing.PPM;
-            }
-            else {
-                newY = (y - (PrairieKing.PPM / speed * Gdx.graphics.getDeltaTime()));
-                activeChar = 's';
-            }
-        }
-        super.setPosition(newX,newY);
+
+        super.setPosition(newX, newY);
     }
 
-    /** Heads to bridge of the new zone.
+    /**
+     * Heads to bridge of the new zone.
      */
     private void headsToBridge() {
         float newX = super.getX(), newY = super.getY();
         float x = newX, y = newY;
-        if (y > PrairieKing.PPM/1.25f) {
+        if (y > PrairieKing.PPM / 1.25f) {
             newY = (y - (PrairieKing.PPM / speed * Gdx.graphics.getDeltaTime()));
             activeChar = 's';
-        }
-        else if (x > (PrairieKing.PPM / 11 - 15)) {
+        } else if (x > (PrairieKing.PPM / 11 - 15)) {
             newX = (x - (PrairieKing.PPM / speed * Gdx.graphics.getDeltaTime()));
             activeChar = 'a';
-        }
-        else if (y > PrairieKing.PPM/2 -10) {
+        } else if (y > PrairieKing.PPM / 2 - 10) {
             newY = (y - (PrairieKing.PPM / speed * Gdx.graphics.getDeltaTime()));
             activeChar = 's';
-        }
-        else
+        } else
             state = 1.5f;
-        super.setPosition(newX,newY);
+
+
+        super.setPosition(newX, newY);
     }
 
-    /** Path to see his wife.
+    /**
+     * Path to see his wife.
      */
     private void goesToWife() {
         float newX = super.getX(), newY = super.getY();
         float x = newX, y = newY;
-        if (x < PrairieKing.PPM/2 -5) {
+        if (x < PrairieKing.PPM / 2 - 5) {
             newX = (x + (PrairieKing.PPM / speed * Gdx.graphics.getDeltaTime()));
             activeChar = 'd';
-        }
-        else {
+        } else {
             state = 2;
             animationTime = 1;
         }
-        super.setPosition(newX,newY);
+        super.setPosition(newX, newY);
     }
 
-    /** Waits a bit for a kiss.
+    /**
+     * Waits a bit for a kiss.
      */
     private void waitsForKiss() {
         animationTime -= Gdx.graphics.getDeltaTime();
@@ -121,8 +157,9 @@ public class HeroWin extends HeroController {
         }
     }
 
-    /** Smooch, cute kiss!
-     *  In the GameStage transition to the end state.
+    /**
+     * Smooch, cute kiss!
+     * In the GameStage transition to the end state.
      */
     private void kisses() {
         animationTime -= Gdx.graphics.getDeltaTime();
@@ -132,7 +169,8 @@ public class HeroWin extends HeroController {
         }
     }
 
-    /** Reached the end of the animation.
+    /**
+     * Reached the end of the animation.
      */
     private void ends() {
         animationTime -= Gdx.graphics.getDeltaTime();
@@ -141,7 +179,8 @@ public class HeroWin extends HeroController {
         }
     }
 
-    /**Determines the current facing direction for the HeroAnimator.
+    /**
+     * Determines the current facing direction for the HeroAnimator.
      */
     public void updateState() {
         setDown(false);
@@ -159,7 +198,8 @@ public class HeroWin extends HeroController {
 
     }
 
-    /** Returns the state of the animation.
+    /**
+     * Returns the state of the animation.
      *
      * @return state of the animation.
      */

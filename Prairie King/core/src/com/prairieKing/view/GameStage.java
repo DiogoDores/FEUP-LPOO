@@ -31,7 +31,7 @@ public class GameStage extends ScreenAdapter {
     private Stage stage;
     private PrairieKing game;
     private Sprite powerupToDraw, projectileToDraw, instructionDraw;
-    private Sprite ending, kissing, transition;
+    private Sprite holding, ending, kissing, transition;
     private SpriteBatch batch;
     private FitViewport view;
     private GameLogic gameLogic;
@@ -95,7 +95,7 @@ public class GameStage extends ScreenAdapter {
 
     /** Loads all necessary game assets.
      */
-    public void loadAssets() {
+    private void loadAssets() {
         music = Gdx.audio.newMusic(Gdx.files.internal("Sounds/finalSong.mp3"));
         mainSprite = game.getAssetManager().get("Sprites/MainSpriteSheet.png", Texture.class);
         background = game.getAssetManager().get("Sprites/BlockBackground.png", Texture.class);
@@ -112,6 +112,8 @@ public class GameStage extends ScreenAdapter {
         kissing = new Sprite(game.getAssetManager().get("Sprites/MainSpriteSheet.png", Texture.class), 422, 155, 22, 21);
         kissing.setSize(1.7f * Constants.HERO_WIDTH, 1.6f * Constants.HERO_WIDTH);
 
+        holding = new Sprite(game.getAssetManager().get("Sprites/MainSpriteSheet.png", Texture.class), 186, 5, 16, 29);
+        holding.setSize(Constants.HERO_WIDTH * 1.1f, 2.2f * Constants.HERO_WIDTH);
         transition = new Sprite(game.getAssetManager().get("Sprites/TransitionToWin.png", Texture.class));
         transition.setSize(PrairieKing.PPM / Constants.RATIO, PrairieKing.PPM * 5);
         transition.setX(-39);
@@ -137,10 +139,14 @@ public class GameStage extends ScreenAdapter {
 
         if (hasWon) {
 
-            if (gameLogic.getHero().getState() == 0) {
+            if (gameLogic.getHero().getState() == 0 || gameLogic.getHero().getState() == 0.75f) {
                 animateHero.update();
                 animateHero.draw(batch);
-            } else {
+            }
+            else if ( gameLogic.getHero().getState() == 0.5f) {
+              isHoldingHeart();
+            }
+            else {
 
                 if (gameLogic.getHero().getState() == 1 || gameLogic.getHero().getState() == 1.5f) {
                     isGoingToWife();
@@ -169,36 +175,50 @@ public class GameStage extends ScreenAdapter {
 
             }
         } else {
-            animateHero.update();
-            animateHero.draw(batch);
-
-            drawEnemies();
-            drawBullets();
-            drawPowerups();
-
-            Sprite black = new Sprite(background);
-            black.setSize(90, 40);
-            black.setX(-90);
-            black.setY(30);
-            black.draw(batch);
-            black.setX(100);
-            black.setY(0);
-            black.setSize(900, 200);
-            black.draw(batch);
-
-            drawHud();
-
-            if(isHowToActive) {
-
-                drawHowToPlay();
-                timer -= Gdx.graphics.getDeltaTime();
-
-                if(timer < 0)
-                    isHowToActive = false;
-            }
+            drawGame();
 
         }
         batch.end();
+    }
+
+    /** Draws all the game features.
+     */
+    private void drawGame() {
+        animateHero.update();
+        animateHero.draw(batch);
+
+        drawEnemies();
+        drawBullets();
+        drawPowerups();
+
+        Sprite black = new Sprite(background);
+        black.setSize(90, 40);
+        black.setX(-90);
+        black.setY(30);
+        black.draw(batch);
+        black.setX(100);
+        black.setY(0);
+        black.setSize(900, 200);
+        black.draw(batch);
+
+        drawHud();
+
+        if(isHowToActive) {
+
+            drawHowToPlay();
+            timer -= Gdx.graphics.getDeltaTime();
+
+            if(timer < 0)
+                isHowToActive = false;
+        }
+    }
+
+    /** Part of the ending where he is holding a heart.
+     */
+    private void isHoldingHeart() {
+        holding.setX(gameLogic.getHero().getX());
+        holding.setY(gameLogic.getHero().getY());
+        holding.draw(batch);
     }
 
     /** Assets to draw when hero is going to wife (ENDING).
@@ -230,11 +250,9 @@ public class GameStage extends ScreenAdapter {
         animateEnemy.updateWife(true);
         animateEnemy.draw(batch);
 
-        Sprite h = new Sprite(game.getAssetManager().get("Sprites/MainSpriteSheet.png", Texture.class), 352, 128, 16, 16);
-        h.setSize(Constants.HERO_WIDTH * 1.1f, Constants.HERO_WIDTH * 1.1f);
-        h.setX(gameLogic.getHero().getX());
-        h.setY(gameLogic.getHero().getY());
-        h.draw(batch);
+        holding.setX(gameLogic.getHero().getX());
+        holding.setY(gameLogic.getHero().getY());
+        holding.draw(batch);
     }
 
     /** Displays a How To Play pop up.
@@ -384,8 +402,5 @@ public class GameStage extends ScreenAdapter {
         return hasWon;
     }
 
-    public TextureAtlas getEndingHero() {
-        return endingHero;
-    }
 
 }
