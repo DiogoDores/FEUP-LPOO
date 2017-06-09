@@ -178,7 +178,7 @@ public class AIManager {
      */
     public void checkEnemies() {
         for (int i = 0; i < enemies.size(); i++) {
-            if (enemies.get(i).isFlaggedForDelete()) {
+            if (enemies.get(i).isFlaggedForDelete() && enemies.get(i).getAnimationDeath() <= 0) {
                 for (int j = 0; j < enemyBodies.size(); j++) {
                     if (enemyBodies.get(j).getUserData() == enemies.get(i)) {
                         enemyBodies.get(j).destroy();
@@ -213,7 +213,7 @@ public class AIManager {
 
     public void removeEnemies() {
         for (int i = 0; i < enemies.size(); i++) {
-            enemies.get(i).kill();
+            enemies.get(i).permadeath();
         }
     }
 

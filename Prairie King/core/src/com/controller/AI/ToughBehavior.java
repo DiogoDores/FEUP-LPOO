@@ -9,7 +9,7 @@ import com.controller.entities.HeroController;
  */
 public class ToughBehavior implements Behavior {
 
-    private float ENEMY_SPEED = 400;
+    private float ENEMY_SPEED = 350;
     private float initialTime;
     private char initialDirection;
     private float timeToStop, totalStopTime, updateTime = 2;

@@ -31,6 +31,7 @@ public class ToughEnemy extends EnemyController {
      */
     @Override
     public void move(EnemyController e, HeroController h) {
+        super.move(e,h);
         behaviour.move(this, h);
     }
 
@@ -50,5 +51,13 @@ public class ToughEnemy extends EnemyController {
     @Override
     public Behavior getBehaviour() {
         return behaviour;
+    }
+
+    /** Needs to be killed, regardless of lives.
+     */
+    @Override
+    public void permadeath() {
+        lives = 0;
+        kill();
     }
 }

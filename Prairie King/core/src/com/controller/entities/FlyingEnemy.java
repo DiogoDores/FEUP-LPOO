@@ -30,6 +30,7 @@ public class FlyingEnemy extends EnemyController {
      */
     @Override
     public void move(EnemyController e, HeroController h) {
+        super.move(e,h);
         behaviour.move(this, h);
     }
 
