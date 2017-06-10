@@ -51,8 +51,12 @@ public class HeroController extends EntityController {
      */
     public void move() {
         checkPowerups();
-        resetTime -= Gdx.graphics.getDeltaTime();
+        if (resetTime > 0)
+            resetTime -= Gdx.graphics.getDeltaTime();
+        else
+            resetTime = 0;
         if (resetTime <=  0) {
+
             float x = super.getX(), y = super.getY();
             if (left && x > MIN_WIDTH)
                 x = (x - (PrairieKing.PPM / speed * Gdx.graphics.getDeltaTime()));
@@ -219,27 +223,35 @@ public class HeroController extends EntityController {
         return -1;
     }
 
-    /** Set GameLogic
+    /** Set GameLogic.
      *
-     * @param gameLogic Instance of the GameLogic class
+     * @param gameLogic Instance of the GameLogic class.
      */
     public void setGameLogic(GameLogic gameLogic) {
         this.gameLogic = gameLogic;
     }
 
-    /** Gets a boolean for handling the hero's death animation
+    /** Gets a boolean for handling the hero's death animation.
      *
-     * @return deathAnimation
+     * @return deathAnimation.
      */
     public boolean isDeathAnimation() {
         return deathAnimation;
     }
 
-    /** Sets deathAnimation
+    /** Sets deathAnimation.
      *
-     * @param deathAnimation For better handling of the hero's death animation
+     * @param deathAnimation For better handling of the hero's death animation.
      */
     public void setDeathAnimation(boolean deathAnimation) {
         this.deathAnimation = deathAnimation;
+    }
+
+    /** Returns time in case of death.
+     *
+     * @return resetTime.
+     */
+    public float getResetTime() {
+        return resetTime;
     }
 }
