@@ -153,6 +153,11 @@ public class HeroController extends EntityController {
 
         Music death = gameLogic.getPrairieKing().getDeathHeroSound();
 
+        setRight(false);
+        setDown(false);
+        setUp(false);
+        setLeft(false);
+
         --lives;
 
         if(!gameLogic.isForTest()) {

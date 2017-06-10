@@ -74,6 +74,7 @@ public class InputHandler implements InputProcessor {
                 else if (keycode == (Input.Keys.D))
                     hero.setRight(value);
 
+
                 if (keycode == (Input.Keys.DOWN))
                     gun.setDownB(value);
                 else if (keycode == (Input.Keys.UP))
