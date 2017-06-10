@@ -187,8 +187,6 @@ public class GameStage extends ScreenAdapter {
     /** Draws all the game features.
      */
     private void drawGame() {
-        animateHero.update();
-        animateHero.draw(batch);
 
         drawEnemies();
         drawBullets();
@@ -205,6 +203,8 @@ public class GameStage extends ScreenAdapter {
         black.draw(batch);
 
         drawHud();
+        animateHero.update();
+        animateHero.draw(batch);
 
         if(isHowToActive) {
 
@@ -214,6 +214,7 @@ public class GameStage extends ScreenAdapter {
             if(timerHowToPlay < 0)
                 isHowToActive = false;
         }
+
     }
 
     /** Part of the ending where he is holding a heart.
