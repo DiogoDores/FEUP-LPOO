@@ -10,30 +10,30 @@ heroMovement
   orig: 272, 16
   offset: 0, 0
   index: -1
-enemyMovement
+enemyDeath
   rotate: false
   xy: 275, 1
+  size: 144, 16
+  orig: 144, 16
+  offset: 0, 0
+  index: -1
+enemyMovement
+  rotate: false
+  xy: 421, 1
   size: 96, 16
   orig: 96, 16
   offset: 0, 0
   index: -1
 wife
   rotate: false
-  xy: 373, 1
+  xy: 519, 1
   size: 96, 16
   orig: 96, 16
   offset: 0, 0
   index: -1
-enemyDeath
-  rotate: false
-  xy: 471, 1
-  size: 80, 16
-  orig: 80, 16
-  offset: 0, 0
-  index: -1
 heroDeath
   rotate: false
-  xy: 553, 1
+  xy: 617, 1
   size: 64, 16
   orig: 64, 16
   offset: 0, 0

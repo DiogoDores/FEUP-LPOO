@@ -20,7 +20,7 @@ public class PrairieKing extends Game {
 
     private Music mainTheme;
     private Sound spaceBar;
-    private Music footsteps, deathHero;
+    private Music deathHero;
     private MainMenu menu;
     private LoseScreen loseScreen;
     private WinScreen winScreen;
@@ -61,7 +61,6 @@ public class PrairieKing extends Game {
         mainTheme.setVolume(0.5f);
         mainTheme.setLooping(true);
         spaceBar = Gdx.audio.newSound(Gdx.files.internal("sounds/start.mp3"));
-        footsteps = Gdx.audio.newMusic(Gdx.files.internal("sounds/footstep.mp3"));
         deathHero = Gdx.audio.newMusic(Gdx.files.internal("sounds/heroDeath.mp3"));
     }
 
@@ -193,14 +192,6 @@ public class PrairieKing extends Game {
         return mainTheme;
     }
 
-    /** Gets the hero's footsteps sound
-     *
-     * @return Music footsteps
-     */
-    public Music getFootstepsSound() {
-        return footsteps;
-    }
-
     /** Gets the hero's death sound
      *
      * @return Music deathHero
@@ -215,7 +206,6 @@ public class PrairieKing extends Game {
         mainTheme.dispose();
         spaceBar.dispose();
         deathHero.dispose();
-        footsteps.dispose();
         map.dispose();
         assetManager.dispose();
     }

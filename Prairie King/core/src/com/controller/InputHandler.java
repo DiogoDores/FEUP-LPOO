@@ -13,6 +13,7 @@ public class InputHandler implements InputProcessor {
 
     private HeroController hero;
     private Gun gun;
+    private GameLogic game;
 
     /**
      * Constructor for the InputHandler, which handles all the input the player
@@ -21,6 +22,7 @@ public class InputHandler implements InputProcessor {
      *                  as well as to invoke some of their methods when certain keys are pressed.
      */
     public InputHandler(GameLogic gameLogic) {
+        this.game = gameLogic;
         this.hero = gameLogic.getHero();
         this.gun = gameLogic.getGun();
     }
@@ -56,23 +58,26 @@ public class InputHandler implements InputProcessor {
      *              classes.
      */
     private void handleInput(int keycode, boolean value) {
-        if (keycode == (Input.Keys.S))
-            hero.setDown(value);
-        else if (keycode == (Input.Keys.W))
-            hero.setUp(value);
-        if (keycode == (Input.Keys.A))
-            hero.setLeft(value);
-        else if (keycode == (Input.Keys.D))
-            hero.setRight(value);
 
-        if (keycode == (Input.Keys.DOWN))
-            gun.setDownB(value);
-        else if (keycode == (Input.Keys.UP))
-            gun.setUpB(value);
-        if (keycode == (Input.Keys.LEFT))
-            gun.setLeftB(value);
-        else if (keycode == (Input.Keys.RIGHT))
-            gun.setRightB(value);
+        if(!game.getGameStage().getHasWon()) {
+            if (keycode == (Input.Keys.S))
+                hero.setDown(value);
+            else if (keycode == (Input.Keys.W))
+                hero.setUp(value);
+            if (keycode == (Input.Keys.A))
+                hero.setLeft(value);
+            else if (keycode == (Input.Keys.D))
+                hero.setRight(value);
+
+            if (keycode == (Input.Keys.DOWN))
+                gun.setDownB(value);
+            else if (keycode == (Input.Keys.UP))
+                gun.setUpB(value);
+            if (keycode == (Input.Keys.LEFT))
+                gun.setLeftB(value);
+            else if (keycode == (Input.Keys.RIGHT))
+                gun.setRightB(value);
+        }
     }
 
     /**Is triggered when a key is typed, but is not needed.

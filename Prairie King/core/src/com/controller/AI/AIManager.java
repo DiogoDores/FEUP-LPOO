@@ -12,12 +12,11 @@ import com.controller.entities.BasicWalker;
 import com.model.GameLogic;
 import com.controller.entities.HeroController;
 import com.controller.entities.ToughEnemy;
-import com.sun.corba.se.impl.orbutil.closure.Constant;
 
 import java.util.ArrayList;
 
 /**
- * All the responsabilites for difficulty, spawn,
+ * All the responsibilities for difficulty, spawn,
  * and active enemies are here.
  */
 public class AIManager {
@@ -26,7 +25,6 @@ public class AIManager {
     private float MAX_ENEMY_NUMBER = 6;
     private ArrayList<EnemyController> enemies = new ArrayList<>();
     private ArrayList<EnemyBody> enemyBodies = new ArrayList<>();
-    private ArrayList<Vector2> debris = new ArrayList<>();
 
     private int killCount;
     private boolean hasIncreased;
@@ -187,11 +185,11 @@ public class AIManager {
             if (enemies.get(i).isFlaggedForDelete()) {
                 enemies.get(i).deathTime();
                 for (int j = 0; j < enemyBodies.size(); j++) {
-                    if (enemyBodies.get(j).getUserData() == enemies.get(i)) {
-                        if (!enemyBodies.get(j).isKilled())
+                   if (enemyBodies.get(j).getUserData() == enemies.get(i)) {
+                       if (!enemyBodies.get(j).isKilled())
                             enemyBodies.get(j).destroy();
 
-                        if (enemies.get(i).getAnimationDeath() <= 0) {
+                       if (enemies.get(i).getAnimationDeath() <= 0 || gameLogic.isForTest()) {
                             enemyBodies.remove(enemyBodies.get(j));
                             enemies.remove(enemies.get(i));
 
@@ -200,8 +198,6 @@ public class AIManager {
                             hasIncreased = false;
                         }
                     }
-
-
                 }
             }
         }
@@ -214,15 +210,6 @@ public class AIManager {
      */
     public float getKillCount() {
         return killCount;
-    }
-
-    /**
-     * Gets all the bodies.
-     *
-     * @return Active Enemy Bodies.
-     */
-    public ArrayList<EnemyBody> getEnemiesBodies() {
-        return enemyBodies;
     }
 
     public void removeEnemies() {

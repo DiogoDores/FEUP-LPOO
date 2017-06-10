@@ -15,11 +15,11 @@ public class EnemyController extends EntityController implements Behavior {
     private String enemyType;
     private int health;
     private float animationDeath = Constants.DELAY_TIME_ON_COLLISION_WITH_HERO;
-    private boolean wasKilled = false;
 
     private char currentDirection = 'n';
 
     private Sound sound;
+    public boolean isDeathAnimationDone = false;
 
     /**
      * Creates a default Enemy Controller.
@@ -72,7 +72,6 @@ public class EnemyController extends EntityController implements Behavior {
         --health;
         if (health <= 0) {
 
-            wasKilled = true;
             sound.play();
             super.kill();
         }

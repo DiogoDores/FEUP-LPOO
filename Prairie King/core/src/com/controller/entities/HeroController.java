@@ -7,7 +7,6 @@ import com.badlogic.gdx.audio.Sound;
 import com.PrairieKing;
 import com.model.GameLogic;
 import com.model.powerups.HeroPowerups;
-import com.sun.corba.se.impl.orbutil.closure.Constant;
 
 import java.util.ArrayList;
 
@@ -28,6 +27,7 @@ public class HeroController extends EntityController {
     private int timeToPlay = 15;
 
     private ArrayList<HeroPowerups> powerups = new ArrayList<>();
+    private Sound footsteps;
 
     private boolean deathAnimation = false;
 
@@ -44,6 +44,7 @@ public class HeroController extends EntityController {
         this.lives = 3;
         super.setType("HERO");
         resetTime = 0;
+        footsteps = Gdx.audio.newSound(Gdx.files.internal("sounds/footstep.mp3"));
     }
 
     /** Move based on current keys pressed.
@@ -69,11 +70,8 @@ public class HeroController extends EntityController {
 
     public void playSound() {
 
-        Music footsteps = gameLogic.getPrairieKing().getFootstepsSound();
-
         if(timeToPlay <= 0){
-            footsteps.setVolume(0.02f);
-            footsteps.play();
+            footsteps.setVolume(footsteps.play(), 0.02f);
             timeToPlay = 15;
         } else
             timeToPlay -= Gdx.graphics.getDeltaTime();
@@ -152,11 +150,15 @@ public class HeroController extends EntityController {
         Music death = gameLogic.getPrairieKing().getDeathHeroSound();
 
         --lives;
-        gameLogic.getPrairieKing().getMusic().pause();
 
-        if (lives != 0) {
-            death.setVolume(0.5f);
-            death.play();
+        if(!gameLogic.isForTest()) {
+
+            gameLogic.getPrairieKing().getMusic().pause();
+
+            if (lives != 0) {
+                death.setVolume(0.5f);
+                death.play();
+            }
         }
 
         deathAnimation = true;

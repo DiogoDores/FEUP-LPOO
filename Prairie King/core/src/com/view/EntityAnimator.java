@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
 import com.PrairieKing;
-import com.model.bodies.EnemyBody;
 import com.controller.entities.EnemyController;
 
 import java.util.ArrayList;
@@ -63,7 +62,7 @@ public class EntityAnimator extends Sprite{
         tough = new Animation<>(2f, frames);
         frames.clear();
 
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < 6; i++)
             frames.add(new TextureRegion(gameStage.getAtlas().findRegion("enemyDeath"), i * 16, 0, 16, 16));
 
         death = new Animation<>(0.2f, frames);
@@ -79,11 +78,11 @@ public class EntityAnimator extends Sprite{
      */
     public void update(int i, EnemyController enemy){
 
-        stateTimer += Gdx.graphics.getDeltaTime();
-
         setPosition(enemyControllers.get(i).getX() - 0.5f, enemyControllers.get(i).getY());
 
-        if(!enemy.isFlaggedForDelete()) {
+        stateTimer += Gdx.graphics.getDeltaTime();
+
+        if(!enemy.isFlaggedForDelete() ) {
             if (enemy.getEnemyType().equals("BASIC"))
                 setRegion(basic.getKeyFrame(stateTimer, true));
             else if (enemy.getEnemyType().equals("FLYING"))

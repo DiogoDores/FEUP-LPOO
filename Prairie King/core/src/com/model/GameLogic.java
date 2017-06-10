@@ -25,6 +25,7 @@ import com.view.GameStage;
 /** The main game class. Here the main methods of almost all other functions are called.
  */
 public class GameLogic {
+
     private boolean isForTest;
 
     private InputHandler input;
@@ -261,5 +262,9 @@ public class GameLogic {
      */
     public AIManager getAI() {
         return AI;
+    }
+
+    public boolean isForTest() {
+        return isForTest;
     }
 }

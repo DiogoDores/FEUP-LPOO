@@ -76,7 +76,7 @@ public class HeroAnimator extends Sprite{
         walkUp = new Animation<>(0.2f, frames);
         frames.clear();
 
-        for (int i = 34; i < 38; i++)
+        for (int i = 38; i < 42; i++)
             frames.add(new TextureRegion(getTexture(), i * 16 + 8, 0, 16, 16));
 
         death = new Animation<>(0.25f, frames);
