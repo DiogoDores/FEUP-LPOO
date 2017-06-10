@@ -146,12 +146,14 @@ public class HeroController extends EntityController {
      */
     @Override
     public void kill() {
+        --lives;
         gameLogic.getPrairieKing().getMusic().stop();
-        this.death.setVolume(this.death.play(), 0.5f);
+        if (lives != 0)
+            this.death.setVolume(this.death.play(), 0.5f);
         deathAnimation = true;
         gameLogic.getAI().removeEnemies();
         resetTime = Constants.DELAY_TIME_ON_COLLISION_WITH_HERO;
-        --lives;
+
         if (this.lives == 0)
             super.kill();
     }

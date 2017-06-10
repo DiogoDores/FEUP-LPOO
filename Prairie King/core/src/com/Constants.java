@@ -17,7 +17,7 @@ public class Constants {
     public final static short MASK_POWERUP = CATEGORY_PLAYER;
 
     public static final float RATIO = ((float) Gdx.graphics.getHeight())/((float) Gdx.graphics.getWidth());
-    public static final float DELAY_TIME_ON_COLLISION_WITH_HERO = 1f;
+    public static final float DELAY_TIME_ON_COLLISION_WITH_HERO = 3f;
 
     public static final float HEART_WIDTH = PrairieKing.PPM/13;
     public static final float HERO_WIDTH = PrairieKing.PPM/17;
