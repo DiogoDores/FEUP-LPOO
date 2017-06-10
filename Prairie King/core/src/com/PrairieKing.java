@@ -61,7 +61,7 @@ public class PrairieKing extends Game {
         mainTheme.setVolume(0.5f);
         mainTheme.setLooping(true);
         spaceBar = Gdx.audio.newSound(Gdx.files.internal("sounds/start.mp3"));
-        deathHero = Gdx.audio.newMusic(Gdx.files.internal("sounds/heroDeath.mp3"));
+        deathHero = Gdx.audio.newMusic(Gdx.files.internal("sounds/herodeath.mp3"));
     }
 
     /** Loads all assets onto AssetManager.
