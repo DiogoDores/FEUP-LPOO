@@ -52,7 +52,7 @@ public class WinScreen extends ScreenAdapter {
 
         menu.setSize(Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
         menu.draw(batch);
-        font.draw(batch, ""+ highScore, Gdx.graphics.getWidth()/2.2f - font.getSpaceWidth()/2 , Gdx.graphics.getHeight()/7);
+        font.draw(batch, ""+ highScore, Gdx.graphics.getWidth()/2.2f - font.getSpaceWidth()/2 , Gdx.graphics.getHeight()/6);
         batch.end();
 
     }

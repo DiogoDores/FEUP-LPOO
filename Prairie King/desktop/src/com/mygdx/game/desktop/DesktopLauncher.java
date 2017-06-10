@@ -13,7 +13,7 @@ public class DesktopLauncher {
 		config.vSyncEnabled = true;
 		config.height = 768;
 		config.width = 1366;
-		//config.fullscreen = true;
+		config.fullscreen = true;
 		new LwjglApplication(new PrairieKing(), config);
 	}
 }

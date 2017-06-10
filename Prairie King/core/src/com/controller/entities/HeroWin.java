@@ -141,7 +141,7 @@ public class HeroWin extends HeroController {
             activeChar = 'd';
         } else {
             state = 2;
-            animationTime = 1;
+            animationTime = 2f;
         }
         super.setPosition(newX, newY);
     }
