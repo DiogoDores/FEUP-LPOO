@@ -1,7 +1,9 @@
 package com.controller.entities;
 
+import com.Constants;
 import com.controller.AI.ChasingBehavior;
 import com.controller.AI.Behavior;
+import com.sun.corba.se.impl.orbutil.closure.Constant;
 
 /** Simple enemy, has a Chasing Behavior.
  */
@@ -30,7 +32,7 @@ public class BasicWalker extends EnemyController {
     @Override
     public void move(EnemyController e, HeroController h) {
         super.move(e,h);
-        if (super.getAnimationDeath() == 1)
+        if (super.getAnimationDeath() == Constants.DELAY_TIME_ON_COLLISION_WITH_HERO)
             behaviour.move(this, h);
     }
 

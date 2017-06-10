@@ -12,6 +12,7 @@ import com.controller.entities.BasicWalker;
 import com.model.GameLogic;
 import com.controller.entities.HeroController;
 import com.controller.entities.ToughEnemy;
+import com.sun.corba.se.impl.orbutil.closure.Constant;
 
 import java.util.ArrayList;
 
@@ -25,6 +26,7 @@ public class AIManager {
     private float MAX_ENEMY_NUMBER = 6;
     private ArrayList<EnemyController> enemies = new ArrayList<>();
     private ArrayList<EnemyBody> enemyBodies = new ArrayList<>();
+    private ArrayList<Vector2> debris = new ArrayList<>();
 
     private int killCount;
     private boolean hasIncreased;
@@ -168,8 +170,10 @@ public class AIManager {
         if (enemies != null)
             for (EnemyController e : enemies) {
                 int index = enemies.indexOf(e);
-                e.move(e, hero);
-                enemyBodies.get(index).setTransform(e.getX(), e.getY());
+                if (!e.isFlaggedForDelete()) {
+                    e.move(e, hero);
+                    enemyBodies.get(index).setTransform(e.getX(), e.getY());
+                }
             }
     }
 
@@ -180,17 +184,25 @@ public class AIManager {
      */
     public void checkEnemies() {
         for (int i = 0; i < enemies.size(); i++) {
-            if (enemies.get(i).isFlaggedForDelete() && enemies.get(i).getAnimationDeath() <= 0) {
+            if (enemies.get(i).isFlaggedForDelete()) {
+                enemies.get(i).deathTime();
                 for (int j = 0; j < enemyBodies.size(); j++) {
                     if (enemyBodies.get(j).getUserData() == enemies.get(i)) {
-                        enemyBodies.get(j).destroy();
-                        enemyBodies.remove(enemyBodies.get(j));
-                        activeNumber--;
-                        killCount++;
-                        hasIncreased = false;
+                        if (!enemyBodies.get(j).isKilled())
+                            enemyBodies.get(j).destroy();
+
+                        if (enemies.get(i).getAnimationDeath() <= 0) {
+                            enemyBodies.remove(enemyBodies.get(j));
+                            enemies.remove(enemies.get(i));
+
+                            activeNumber--;
+                            killCount++;
+                            hasIncreased = false;
+                        }
                     }
+
+
                 }
-                enemies.remove(enemies.get(i));
             }
         }
     }

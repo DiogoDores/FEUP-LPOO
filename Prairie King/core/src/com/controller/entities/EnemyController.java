@@ -1,8 +1,10 @@
 package com.controller.entities;
 
+import com.Constants;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.controller.AI.Behavior;
+import com.sun.corba.se.impl.orbutil.closure.Constant;
 
 /**
  * Creates a default Enemy, to be fully implemented by
@@ -12,7 +14,7 @@ public class EnemyController extends EntityController implements Behavior {
 
     private String enemyType;
     private int health;
-    private float animationDeath = 1;
+    private float animationDeath = Constants.DELAY_TIME_ON_COLLISION_WITH_HERO;
     private boolean wasKilled = false;
 
     private char currentDirection = 'n';
@@ -58,8 +60,7 @@ public class EnemyController extends EntityController implements Behavior {
      */
     @Override
     public void move(EnemyController e, HeroController h) {
-        if (wasKilled)
-            animationDeath -= Gdx.graphics.getDeltaTime();
+
     }
 
     /**
@@ -70,6 +71,7 @@ public class EnemyController extends EntityController implements Behavior {
     public void kill() {
         --health;
         if (health <= 0) {
+
             wasKilled = true;
             sound.play();
             super.kill();
@@ -122,6 +124,12 @@ public class EnemyController extends EntityController implements Behavior {
     public void permadeath() {
         health = 0;
         kill();
+    }
+
+    /** Decreases animationDeath
+     */
+    public void deathTime() {
+        animationDeath -= Gdx.graphics.getDeltaTime();
     }
 
     /** Returns whether it has finished death animation.

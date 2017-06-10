@@ -20,7 +20,7 @@ public class EntityAnimator extends Sprite{
     private float stateTimer;
     private GameStage gameStage;
 
-    private ArrayList<EnemyBody> bodyList;
+    private ArrayList<EnemyController> enemyControllers;
 
     /**
      * Constructor of the Enemy Animator. It needs a GameStage instance for accessing the enemy's body.
@@ -29,7 +29,7 @@ public class EntityAnimator extends Sprite{
      */
     public EntityAnimator(GameStage gameStage) {
         this.gameStage = gameStage;
-        this.bodyList = gameStage.getGameLogic().getAI().getEnemiesBodies();
+        this.enemyControllers = gameStage.getGameLogic().getAI().getEnemies();
 
         stateTimer = 0;
 
@@ -81,7 +81,7 @@ public class EntityAnimator extends Sprite{
 
         stateTimer += Gdx.graphics.getDeltaTime();
 
-        setPosition(bodyList.get(i).getBody().getPosition().x - 0.5f, bodyList.get(i).getBody().getPosition().y);
+        setPosition(enemyControllers.get(i).getX() - 0.5f, enemyControllers.get(i).getY());
 
         if(!enemy.isFlaggedForDelete()) {
             if (enemy.getEnemyType().equals("BASIC"))
