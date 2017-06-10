@@ -8,6 +8,7 @@ public class HeroExtraLife extends HeroPowerups {
 
     /** Creates powerup and addsLife to Hero.
      *
+     * @param gameLogic Current active instance of GameLogic.
      */
     public HeroExtraLife(GameLogic gameLogic) {
         gameLogic.getHero().addLife();

@@ -42,6 +42,8 @@ public class EnemyBody extends EntityBody {
     }
 
     /** Important for debris.
+     *
+     * @return True if killed, false otherwise.
      */
     public boolean isKilled() {
         return killed;

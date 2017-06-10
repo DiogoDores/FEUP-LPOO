@@ -110,8 +110,9 @@ public class EnemyController extends EntityController implements Behavior {
         return 0;
     }
 
-    /**
-     * Necessary for animation.
+    /**  Necessary for animation.
+     *
+     * @return Behaviour associated with this enemy.
      */
     public Behavior getBehaviour() {
         return null;

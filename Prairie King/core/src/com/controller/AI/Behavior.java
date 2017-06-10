@@ -16,11 +16,15 @@ public interface Behavior {
 
     /** Sets the initial movement in direction of the middle of the screen.
      *
-     * @param direction Direction in which the enemy moves.
+      * @param e Enemy to be moved.
+     * @param direction Direction to the center of the screen.
      */
+
     void initialBehaviour(EnemyController e, char direction);
 
     /** Important for animation.
+     *
+     * @return Animation Time.
      */
     float getTimeToStop();
 }

@@ -75,6 +75,9 @@ public class EntityAnimator extends Sprite{
     }
 
     /** Updates the enemy's body position and the sprite to use.
+     *
+     * @param i Index of enemy.
+     * @param enemy Enemy to be updated.
      */
     public void update(int i, EnemyController enemy){
 
