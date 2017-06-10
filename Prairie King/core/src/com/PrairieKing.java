@@ -18,8 +18,9 @@ import com.view.WinScreen;
 public class PrairieKing extends Game {
     public static int currentState;
 
-    private Music music;
-    private Sound sound;
+    private Music mainTheme;
+    private Sound spaceBar;
+    private Music footsteps, deathHero;
     private MainMenu menu;
     private LoseScreen loseScreen;
     private WinScreen winScreen;
@@ -47,6 +48,7 @@ public class PrairieKing extends Game {
     public void create() {
         assetManager = new AssetManager();
         loadAssets();
+        loadSounds();
         menu = new MainMenu(this);
         loseScreen = new LoseScreen( this);
         winScreen = new WinScreen(this);
@@ -54,16 +56,20 @@ public class PrairieKing extends Game {
         setScreen(menu);
     }
 
+    private void loadSounds() {
+        mainTheme = Gdx.audio.newMusic(Gdx.files.internal("sounds/maintheme.mp3"));
+        mainTheme.setVolume(0.5f);
+        mainTheme.setLooping(true);
+        spaceBar = Gdx.audio.newSound(Gdx.files.internal("sounds/start.mp3"));
+        footsteps = Gdx.audio.newMusic(Gdx.files.internal("sounds/footstep.mp3"));
+        deathHero = Gdx.audio.newMusic(Gdx.files.internal("sounds/heroDeath.mp3"));
+    }
+
     /** Loads all assets onto AssetManager.
      */
     public void loadAssets() {
         mapLoader = new TmxMapLoader();
         map = mapLoader.load("mapas/map.tmx");
-
-        music = Gdx.audio.newMusic(Gdx.files.internal("sounds/maintheme.mp3"));
-        sound = Gdx.audio.newSound(Gdx.files.internal("sounds/start.mp3"));
-        music.setVolume(0.5f);
-        music.setLooping(true);
 
         assetManager.load("menus/losescreen.png", Texture.class);
         assetManager.load("menus/winscreen.png", Texture.class);
@@ -84,25 +90,27 @@ public class PrairieKing extends Game {
     @Override
     public void render() {
         if(gameLogic.getGameStage().getHasWon()) {
-            decreaseVolume(music, 0.005f);
+            decreaseVolume(mainTheme, 0.005f);
         }
 
         if (currentState == 0) {
            setScreen(menu);
            if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
-                sound.play();
+                spaceBar.play();
                 currentState = 1;
             }
         }
         else if (currentState == 1) {
             setScreen(gameLogic.getGameStage());
             gameLogic.act();
-            music.play();
+            if(!deathHero.isPlaying()) {
+                mainTheme.play();
+            }
 
         }
         else if (currentState == 2){
             setScreen(loseScreen);
-            music.pause();
+            mainTheme.pause();
 
             if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
                 currentState = 0;
@@ -112,7 +120,7 @@ public class PrairieKing extends Game {
             }
         }
         else {
-            music.pause();
+            mainTheme.pause();
             setScreen(winScreen);
 
             if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
@@ -182,14 +190,34 @@ public class PrairieKing extends Game {
      * @return music
      */
     public Music getMusic() {
-        return music;
+        return mainTheme;
+    }
+
+    /** Gets the hero's footsteps sound
+     *
+     * @return Music footsteps
+     */
+    public Music getFootstepsSound() {
+        return footsteps;
+    }
+
+    /** Gets the hero's death sound
+     *
+     * @return Music deathHero
+     */
+    public Music getDeathHeroSound() {
+        return deathHero;
     }
 
     /** Called when finished.
      */
     public void dispose(){
-        music.dispose();
-        sound.dispose();
+        mainTheme.dispose();
+        spaceBar.dispose();
+        deathHero.dispose();
+        footsteps.dispose();
+        map.dispose();
+        assetManager.dispose();
     }
 
 

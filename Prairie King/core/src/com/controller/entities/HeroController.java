@@ -2,6 +2,7 @@ package com.controller.entities;
 
 import com.Constants;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.PrairieKing;
 import com.model.GameLogic;
@@ -18,7 +19,6 @@ public class HeroController extends EntityController {
     private int speed;
 
     private GameLogic gameLogic;
-    private Sound footsteps, death;
 
     private float resetTime;
 
@@ -42,8 +42,6 @@ public class HeroController extends EntityController {
         this.speed = 8;
         left = false; right = false; up = false; down = false;
         this.lives = 3;
-        this.footsteps = Gdx.audio.newSound(Gdx.files.internal("sounds/footstep.mp3"));
-        this.death = Gdx.audio.newSound(Gdx.files.internal("sounds/heroDeath.mp3"));
         super.setType("HERO");
         resetTime = 0;
     }
@@ -70,8 +68,12 @@ public class HeroController extends EntityController {
     }
 
     public void playSound() {
+
+        Music footsteps = gameLogic.getPrairieKing().getFootstepsSound();
+
         if(timeToPlay <= 0){
-            this.footsteps.setVolume(footsteps.play(), 0.02f);
+            footsteps.setVolume(0.02f);
+            footsteps.play();
             timeToPlay = 15;
         } else
             timeToPlay -= Gdx.graphics.getDeltaTime();
@@ -146,10 +148,17 @@ public class HeroController extends EntityController {
      */
     @Override
     public void kill() {
+
+        Music death = gameLogic.getPrairieKing().getDeathHeroSound();
+
         --lives;
-        gameLogic.getPrairieKing().getMusic().stop();
-        if (lives != 0)
-            this.death.setVolume(this.death.play(), 0.5f);
+        gameLogic.getPrairieKing().getMusic().pause();
+
+        if (lives != 0) {
+            death.setVolume(0.5f);
+            death.play();
+        }
+
         deathAnimation = true;
         gameLogic.getAI().removeEnemies();
         resetTime = Constants.DELAY_TIME_ON_COLLISION_WITH_HERO;

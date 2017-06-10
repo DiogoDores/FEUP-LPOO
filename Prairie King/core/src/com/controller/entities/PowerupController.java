@@ -3,6 +3,7 @@ package com.controller.entities;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.utils.Array;
 import com.model.GameLogic;
 import com.model.powerups.HeroExtraLife;
 import com.model.powerups.FireRateGunPowerup;

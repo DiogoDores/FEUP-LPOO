@@ -262,7 +262,4 @@ public class GameLogic {
     public AIManager getAI() {
         return AI;
     }
-
-
-
 }

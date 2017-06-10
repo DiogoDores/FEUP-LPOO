@@ -88,11 +88,12 @@ public class EntityAnimator extends Sprite{
                 setRegion(basic.getKeyFrame(stateTimer, true));
             else if (enemy.getEnemyType().equals("FLYING"))
                 setRegion(flying.getKeyFrame(stateTimer, true));
-            else if (enemy.getEnemyType().equals("TOUGH"))
-                if(enemy.getBehaviour().getTimeToStop() > 0)
+            else if (enemy.getEnemyType().equals("TOUGH")) {
+                if (enemy.getBehaviour().getTimeToStop() > 0)
                     setRegion(tough.getKeyFrame(stateTimer, true));
                 else
                     setRegion(tough.getKeyFrame(stateTimer));
+            }
         } else {
             setRegion(death.getKeyFrame(stateTimer));
         }

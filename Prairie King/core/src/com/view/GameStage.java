@@ -45,10 +45,9 @@ public class GameStage extends ScreenAdapter {
     private OrthogonalTiledMapRenderer renderer;
     private OrthographicCamera cam;
 
-    private Box2DDebugRenderer b2dr;
-    private TextureAtlas atlas, endingHero;
+    private TextureAtlas atlas;
 
-    private Texture mainSprite, background;
+    private Texture background;
 
     private HeroAnimator animateHero;
     private EntityAnimator animateEntity;
@@ -58,7 +57,7 @@ public class GameStage extends ScreenAdapter {
     private float animation;
     private Music music;
     private boolean isHowToActive;
-    private float timer;
+    private float timerHowToPlay;
 
 
     /** Constructor for the main screen.
@@ -77,7 +76,7 @@ public class GameStage extends ScreenAdapter {
         map = gameLogic.getPrairieKing().getMap();
         hasWon = false;
         isHowToActive = true;
-        timer = 1.5f;
+        timerHowToPlay = 2;
         cam.position.set(cam.viewportWidth / 2, cam.viewportHeight / 2, 0);
         cam.setToOrtho(false, PrairieKing.PPM, PrairieKing.PPM);
         view = new FitViewport(PrairieKing.PPM / Constants.RATIO, PrairieKing.PPM, cam);
@@ -88,17 +87,12 @@ public class GameStage extends ScreenAdapter {
         atlas = new TextureAtlas("sprites/entities.pack");
         animateHero = new HeroAnimator(this);
         animateEntity = new EntityAnimator(this);
-
-
-        b2dr = new Box2DDebugRenderer();
-
     }
 
     /** Loads all necessary game assets.
      */
     private void loadAssets() {
         music = Gdx.audio.newMusic(Gdx.files.internal("sounds/finalsong.mp3"));
-        mainSprite = game.getAssetManager().get("sprites/mainspritesheet.png", Texture.class);
         background = game.getAssetManager().get("sprites/blockbackground.png", Texture.class);
 
         loadEndAssets();
@@ -127,7 +121,6 @@ public class GameStage extends ScreenAdapter {
     @Override
     public void render(float delta) {
         renderer.setView(cam);
-        b2dr.render(gameLogic.getWorld(),cam.combined);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         Gdx.gl.glClearColor(0, 0, 0, 1);
 
@@ -216,9 +209,9 @@ public class GameStage extends ScreenAdapter {
         if(isHowToActive) {
 
             drawHowToPlay();
-            timer -= Gdx.graphics.getDeltaTime();
+            timerHowToPlay -= Gdx.graphics.getDeltaTime();
 
-            if(timer < 0)
+            if(timerHowToPlay < 0)
                 isHowToActive = false;
         }
     }
@@ -271,7 +264,7 @@ public class GameStage extends ScreenAdapter {
         instructionDraw = new Sprite(game.getAssetManager().get("sprites/mainspritesheet.png", Texture.class), 224, 0, 80, 47);
         instructionDraw.setSize(40, 23.5f);
         instructionDraw.setX((PrairieKing.PPM / 2) - 16);
-        instructionDraw.setY((PrairieKing.PPM / 2) - 10f);
+        instructionDraw.setY((PrairieKing.PPM / 2) - 15);
         instructionDraw.draw(batch);
     }
 
@@ -373,16 +366,6 @@ public class GameStage extends ScreenAdapter {
         cam.update();
     }
 
-    /** On program exit.
-     */
-    @Override
-    public void dispose() {
-        map.dispose();
-        renderer.dispose();
-        batch.dispose();
-        stage.dispose();
-    }
-
     /** Returns TextureAtlas.
      *
      * @return atlas.
@@ -415,8 +398,17 @@ public class GameStage extends ScreenAdapter {
         return hasWon;
     }
 
-
-    public EntityAnimator getEntityAnimator() {
-        return animateEntity;
+    /** On program exit.
+     */
+    @Override
+    public void dispose() {
+        stage.dispose();
+        map.dispose();
+        renderer.dispose();
+        batch.dispose();
+        stage.dispose();
+        atlas.dispose();
+        background.dispose();
+        music.dispose();
     }
 }
