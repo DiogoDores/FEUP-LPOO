@@ -1,5 +1,6 @@
 package com.controller.AI;
 
+import com.Constants;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
@@ -31,6 +32,7 @@ public class AIManager {
     private char lastSpawned = 'n', last2spawned = 's';
 
     private boolean hasWon;
+    private float resetTime;
 
     private int activeNumber;
 
@@ -91,7 +93,7 @@ public class AIManager {
      * Spawns an enemy when it is necessary, and checks the Win condition.
      */
     public void spawn() {
-
+        resetTime -= Gdx.graphics.getDeltaTime();
         if (killCount > 400) {
             if (activeNumber == 0 && !hasWon) {
                 gameLogic.win();
@@ -103,7 +105,7 @@ public class AIManager {
                 increaseDifficulty();
             }
 
-            if (activeNumber < MAX_ENEMY_NUMBER && timeToSpawn <= 0.0f) {
+            if (activeNumber < MAX_ENEMY_NUMBER && timeToSpawn <= 0.0f && resetTime <= 0) {
                 EnemyController e = summonEnemy();
                 if (e != null) {
                     activeNumber++;
@@ -215,6 +217,7 @@ public class AIManager {
         for (int i = 0; i < enemies.size(); i++) {
             enemies.get(i).permadeath();
         }
+        resetTime = Constants.DELAY_TIME_ON_COLLISION_WITH_HERO;
     }
 
 }

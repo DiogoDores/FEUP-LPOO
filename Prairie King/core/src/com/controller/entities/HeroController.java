@@ -1,10 +1,12 @@
 package com.controller.entities;
 
+import com.Constants;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.PrairieKing;
 import com.model.GameLogic;
 import com.model.powerups.HeroPowerups;
+import com.sun.corba.se.impl.orbutil.closure.Constant;
 
 import java.util.ArrayList;
 
@@ -143,7 +145,7 @@ public class HeroController extends EntityController {
     @Override
     public void kill() {
         gameLogic.getAI().removeEnemies();
-        resetTime = 1.0f;
+        resetTime = Constants.DELAY_TIME_ON_COLLISION_WITH_HERO;
         --lives;
         if (this.lives == 0)
             super.kill();
