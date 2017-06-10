@@ -17,6 +17,7 @@ import com.view.WinScreen;
  */
 public class PrairieKing extends Game {
     public static int currentState;
+
     private Music music;
     private Sound sound;
     private MainMenu menu;
@@ -174,6 +175,14 @@ public class PrairieKing extends Game {
      */
     public TiledMap getMap() {
         return map;
+    }
+
+    /** Gets the main theme song
+     *
+     * @return music
+     */
+    public Music getMusic() {
+        return music;
     }
 
     /** Called when finished.

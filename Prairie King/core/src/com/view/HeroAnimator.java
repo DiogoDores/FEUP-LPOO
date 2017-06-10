@@ -14,9 +14,9 @@ public class HeroAnimator extends Sprite{
 
     private GameStage gameStage;
 
-    private enum State { STANDING, WALKING_UP, WALKING_DOWN, WALKING_RIGHT, WALKING_LEFT }
-    private State currentState;
-    private Animation<TextureRegion> walkUp, walkDown, walkRight, walkLeft;
+    private enum State { STANDING, WALKING_UP, WALKING_DOWN, WALKING_RIGHT, WALKING_LEFT, DEATH }
+    private State currentState, previousState;
+    private Animation<TextureRegion> walkUp, walkDown, walkRight, walkLeft, death;
     private float stateTimer;
     private boolean loop;
 
@@ -33,6 +33,7 @@ public class HeroAnimator extends Sprite{
         this.body = gameStage.getGameLogic().getHeroBody().getBody();
 
         currentState = State.STANDING;
+        previousState = State.STANDING;
         stateTimer = 0;
         this.loop = true;
 
@@ -73,6 +74,12 @@ public class HeroAnimator extends Sprite{
             frames.add(new TextureRegion(getTexture(), i * 16 + 1, 1, 16, 16));
 
         walkUp = new Animation<>(0.2f, frames);
+        frames.clear();
+
+        for (int i = 34; i < 38; i++)
+            frames.add(new TextureRegion(getTexture(), i * 16 + 8, 0, 16, 16));
+
+        death = new Animation<>(0.25f, frames);
     }
 
     /** Updates the hero's body position and the sprite to use.
@@ -105,11 +112,21 @@ public class HeroAnimator extends Sprite{
             case WALKING_RIGHT:
                 region = walkRight.getKeyFrame(stateTimer, this.loop);
                 break;
+            case DEATH:
+                region = death.getKeyFrame(stateTimer);
+                break;
             default:
                 region = defPosition;
         }
 
+        if(death.isAnimationFinished(stateTimer))
+            gameStage.getGameLogic().getHero().setDeathAnimation(false);
+
         this.loop = true;
+
+        if(this.currentState != this.previousState)
+            stateTimer = 0;
+        this.previousState = currentState;
         return region;
     }
 
@@ -120,6 +137,10 @@ public class HeroAnimator extends Sprite{
     public State getState(){
 
         State tempState;
+
+        if(gameStage.getGameLogic().getHero().isDeathAnimation()){
+            return State.DEATH;
+        }
 
         if(gameStage.getGameLogic().getHero().getDown())
             tempState = State.WALKING_DOWN;
