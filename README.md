@@ -11,7 +11,9 @@ In order to install the game, all you have to do is enter the folder _**Prairie 
 This game was developed using Android Studio, so the installing procedure will be relative to this IDE.
 
 # **Class Diagram**
-Here we display the class diagram of our project just for a better understanding of how it's organized. If you wish to see it in more detail, just enter the folder _**Prairie King**_ and download the _**GameUML.xmi**_ file to your computer and open it with Umbrello or other UML editor compatible with .xmi files.![GameUML]({{site.baseurl}}/http://imgur.com/a/eVNK9)
+Here we display the class diagram of our project just for a better understanding of how it's organized. If you wish to see it in more detail, just enter the folder _**Prairie King**_ and download the _**GameUML.xmi**_ file to your computer and open it with Umbrello or other UML editor compatible with .xmi files.
+
+![class diagram](https://user-images.githubusercontent.com/19364267/27011881-b4530c74-4ebd-11e7-8f0a-11049cdcb5dd.png)
 
 # **Design Patterns**
 
@@ -76,10 +78,13 @@ As for the work distribution between us, Pedro Reis did the overall logic (Artif
 
 # **User Manual**
 
-After installing the game you'll be presented with the game's Main Menu. ![Main Menu]({{site.baseurl}}/https://github.com/DiogoDores/LPOO1617_T2G5/blob/finalRelease/Prairie%20King/Screenshots%20LPOO/MainMenu.png)
+After installing the game you'll be presented with the game's Main Menu. ![mainmenu](https://user-images.githubusercontent.com/19364267/27011900-33e72dda-4ebe-11e7-8edd-23cec75801fe.png)
 
-From there, you can press Spacebar to begin the game. Immediately after, there will be a small How To Play pop up in the center of your screen. ![How To Play]({{site.baseurl}}/https://github.com/DiogoDores/LPOO1617_T2G5/blob/finalRelease/Prairie%20King/Screenshots%20LPOO/HowToPlay.png)
 
-If you lose all your lives you'll be directed to a lose screen displaying you highscore. From there you can either press Esc to exit the game or Spacebar to play it again.![Lose Screen]({{site.baseurl}}/https://github.com/DiogoDores/LPOO1617_T2G5/blob/finalRelease/Prairie%20King/Screenshots%20LPOO/LoseScreen.png)
+From there, you can press Spacebar to begin the game. Immediately after, there will be a small How To Play pop up in the center of your screen. ![howtoplay](https://user-images.githubusercontent.com/19364267/27011930-71d5b828-4ebe-11e7-94f6-d436263af93c.png)
+
+
+If you lose all your lives you'll be directed to a lose screen displaying you highscore. From there you can either press Esc to exit the game or Spacebar to play it again.![losescreen](https://user-images.githubusercontent.com/19364267/27011916-5ecfb4e0-4ebe-11e7-8e0f-5c925c02ff1d.png)
+
 
 
