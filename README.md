@@ -8,7 +8,7 @@ In order to install the game, all you have to do is enter the folder _**Prairie 
 
 ### Installing the development environment
 
-This game was developed using Android Studio, so the installing procedure will be relative to this IDE.
+This game was developed using Android Studio, so importing this project as a Gradle project should set up everything without any error.
 
 # **Class Diagram**
 Here we display the class diagram of our project just for a better understanding of how it's organized. If you wish to see it in more detail, just enter the folder _**Prairie King**_ and download the _**GameUML.xmi**_ file to your computer and open it with Umbrello or other UML editor compatible with .xmi files.
