@@ -11,7 +11,7 @@ In order to install the game, all you have to do is enter the folder _**Prairie 
 This game was developed using Android Studio, so the installing procedure will be relative to this IDE.
 
 # **Class Diagram**
-Here we display the class diagram of our project just for a better understanding of how it's organized. If you wish to see it in more detail, just enter the folder _**Prairie King**_ and download the _**GameUML.xmi**_ file to your computer and open it with Umbrello or other UML editor compatible with .xmi files.![Game UML]({{site.baseurl}}/https://github.com/DiogoDores/LPOO1617_T2G5/blob/finalRelease/Prairie%20King/Screenshots%20LPOO/class%20diagram.png)
+Here we display the class diagram of our project just for a better understanding of how it's organized. If you wish to see it in more detail, just enter the folder _**Prairie King**_ and download the _**GameUML.xmi**_ file to your computer and open it with Umbrello or other UML editor compatible with .xmi files.![Game UML]({{site.baseurl}}LPOO1617_T2G5/Prairie King/Screenshots LPOO/class diagram.png)
 
 # **Design Patterns**
 
